@@ -3078,6 +3078,7 @@ function renderPrioritySuspectsRoster(){
 }
 
 function renderInvestigationFeed(){
+  const suspiciousEdges = DATA.edges.filter(e=>e.suspicious);
   const topPersonEdge = suspiciousEdges.find(e=>{
     const s = DATA.nodes.find(n=>n.id===(e.source.id||e.source));
     return s && s.type==="phone";
