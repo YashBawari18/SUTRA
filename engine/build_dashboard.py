@@ -628,11 +628,36 @@ HTML = """<!DOCTYPE html>
   .ep-card .aliases{ font-size:10.5px; color:var(--ink-faint); margin-bottom:8px; }
 
   /* ---- Report page ---- */
-  pre.report{ font-family:var(--font-mono); font-size:11.5px; line-height:1.75; color:var(--ink-dim); background:var(--panel);
-    border:1px solid var(--border); border-radius:6px; padding:22px; max-width:900px; white-space:pre-wrap; }
-  .tag-fact{ color:var(--cyan); font-weight:700; }
-  .tag-inference{ color:var(--amber); font-weight:700; }
-  .tag-lead{ color:var(--red); font-weight:700; }
+  .report-exec-card{ background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:20px 24px; margin-bottom:20px; }
+  .rec-top{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:16px; }
+  .rec-org{ font-family:var(--font-mono); font-size:9.5px; color:var(--ink-faint); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:4px; font-weight:700; }
+  .rec-title{ font-family:var(--font-serif); font-size:22px; color:var(--ink); font-weight:700; }
+  .rec-meta{ display:flex; gap:12px; font-size:11.5px; color:var(--ink-dim); margin-top:6px; flex-wrap:wrap; }
+  .rec-status-badge{ font-family:var(--font-mono); font-size:9px; background:rgba(220,38,38,0.12); color:var(--red); border:1px solid var(--red); padding:4px 10px; border-radius:4px; font-weight:700; letter-spacing:0.06em; }
+  .rec-stats-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; padding-top:16px; border-top:1px solid var(--border); }
+  .rec-stat-box{ background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:10px 14px; text-align:left; }
+  .rec-stat-box .k{ font-family:var(--font-mono); font-size:9px; color:var(--ink-faint); text-transform:uppercase; }
+  .rec-stat-box .v{ font-family:var(--font-serif); font-size:20px; font-weight:700; color:var(--ink); margin-top:2px; }
+
+  .report-filter-group{ display:flex; gap:6px; background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:3px; }
+  .rf-btn{ background:none; border:none; color:var(--ink-dim); font-family:var(--font-mono); font-size:10px; padding:6px 12px; border-radius:4px; cursor:pointer; font-weight:600; }
+  .rf-btn.active{ background:var(--panel-2); color:var(--blue); font-weight:700; }
+  .rf-btn.fact.active{ background:rgba(14,165,164,0.15); color:var(--cyan); }
+  .rf-btn.inference.active{ background:rgba(224,138,0,0.15); color:var(--amber); }
+  .rf-btn.lead.active{ background:rgba(220,38,38,0.15); color:var(--red); }
+
+  .report-section-card{ background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:20px 24px; margin-bottom:18px; }
+  .report-section-head{ font-family:var(--font-serif); font-size:16px; font-weight:700; color:var(--ink); border-bottom:1px solid var(--border); padding-bottom:10px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; }
+  .statement-card{ padding:12px 14px; border-radius:6px; background:var(--bg); border-left:4px solid var(--border); margin-bottom:10px; font-size:12.5px; line-height:1.6; color:var(--ink); display:flex; gap:12px; align-items:flex-start; transition:all 0.15s; }
+  .statement-card:hover{ border-color:var(--ink-faint); transform:translateX(2px); }
+  .statement-card.FACT{ border-left-color:var(--cyan); background:rgba(14,165,164,0.03); }
+  .statement-card.AI_INFERENCE{ border-left-color:var(--amber); background:rgba(224,138,0,0.03); }
+  .statement-card.LEAD{ border-left-color:var(--red); background:rgba(220,38,38,0.03); }
+  .stmt-tag{ font-family:var(--font-mono); font-size:9px; font-weight:700; padding:2px 7px; border-radius:3px; text-transform:uppercase; white-space:nowrap; flex-shrink:0; letter-spacing:0.04em; }
+  .stmt-tag.FACT{ background:rgba(14,165,164,0.12); color:var(--cyan); border:1px solid var(--cyan); }
+  .stmt-tag.AI_INFERENCE{ background:rgba(224,138,0,0.15); color:var(--amber); border:1px solid var(--amber); }
+  .stmt-tag.LEAD{ background:rgba(220,38,38,0.15); color:var(--red); border:1px solid var(--red); }
+  .stmt-text{ flex:1; }
 
   /* ================= RESPONSIVE ================= */
   @media (max-width: 1150px){
@@ -929,10 +954,43 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
     <!-- ---- ANALYTICS REPORT ---- -->
     <div class="page" data-page="report">
       <div class="topbar">
-        <div class="topbar-left"><h2>Analytics Report</h2><span class="badge-secure">FACT / INFERENCE / LEAD TAGGED</span></div>
-        <div><button class="btn-export-dossier" onclick="window.print()">\U0001f5a8\ufe0f Export Full Briefing (PDF)</button></div>
+        <div class="topbar-left">
+          <h2>Analytics Report</h2>
+          <span class="badge-secure">FACT / INFERENCE / LEAD TAGGED</span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <div class="report-filter-group" id="report-filter-group">
+            <button class="rf-btn active" data-filter="ALL">All Statements</button>
+            <button class="rf-btn fact" data-filter="FACT">\U0001f535 FACT</button>
+            <button class="rf-btn inference" data-filter="AI_INFERENCE">\U0001f7e1 INFERENCE</button>
+            <button class="rf-btn lead" data-filter="LEAD">\U0001f534 LEAD</button>
+          </div>
+          <button class="btn-export-dossier" onclick="window.print()">\U0001f5a8\ufe0f Export Full Briefing (PDF)</button>
+        </div>
       </div>
-      <div class="page-pad"><pre class="report" id="report-content"></pre></div>
+      <div class="page-pad" style="max-width:1100px; margin:0 auto; width:100%;">
+        <!-- Executive Metadata Card -->
+        <div class="report-exec-card">
+          <div class="rec-top">
+            <div>
+              <div class="rec-org">STATE CRIMINAL INVESTIGATION DEPARTMENT // SPECIAL INTELLIGENCE UNIT</div>
+              <h1 class="rec-title">EVIDENTIARY CASE INTELLIGENCE BRIEFING</h1>
+              <div class="rec-meta">
+                <span><b>Case Ref:</b> Operation Case MH/CID/2026/0417</span>
+                <span>\u2022</span>
+                <span><b>Jurisdiction:</b> Mumbai Metropolitan Area</span>
+                <span>\u2022</span>
+                <span><b>Evidentiary Standard:</b> Multi-Source Corroborated</span>
+              </div>
+            </div>
+            <div class="rec-status-badge">CONFIDENTIAL // LAW ENFORCEMENT ONLY</div>
+          </div>
+          <div class="rec-stats-row" id="report-stat-summary"></div>
+        </div>
+
+        <!-- Section Statement Cards -->
+        <div id="report-sections-container"></div>
+      </div>
     </div>
   </div>
 </div>

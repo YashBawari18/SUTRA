@@ -1278,25 +1278,83 @@ function renderConflicts(threshold){
 }
 
 /* ---------------- REPORT ---------------- */
+let CURRENT_REPORT_FILTER = "ALL";
+
 function renderReportPage(){
-  document.querySelector('[data-page="report"] h2').textContent = t('tb_report');
-  document.querySelector('[data-page="report"] .badge-secure').textContent = t('badge_tagged');
+  const reportH2 = document.querySelector('[data-page="report"] h2');
+  if(reportH2) reportH2.textContent = t('tb_report');
+  const badgeSec = document.querySelector('[data-page="report"] .badge-secure');
+  if(badgeSec) badgeSec.textContent = t('badge_tagged');
+
   const blocks = DATA.report_i18n[CURRENT_LANG] || DATA.report_i18n.en;
-  const tagClass = {FACT:"tag-fact", AI_INFERENCE:"tag-inference", LEAD:"tag-lead"};
-  let html = "";
-  let currentSection = null;
   const sectionTitles = DATA.report_section_titles[CURRENT_LANG] || DATA.report_section_titles.en;
+
+  // 1. Calculate statement counts
+  const factCount = blocks.filter(b=>b.tag_key==="FACT").length;
+  const infCount = blocks.filter(b=>b.tag_key==="AI_INFERENCE").length;
+  const leadCount = blocks.filter(b=>b.tag_key==="LEAD").length;
+
+  const statSummaryEl = document.getElementById("report-stat-summary");
+  if(statSummaryEl){
+    statSummaryEl.innerHTML = `
+      <div class="rec-stat-box"><div class="k">Verified Facts</div><div class="v" style="color:var(--cyan);">${factCount}</div></div>
+      <div class="rec-stat-box"><div class="k">AI Inferences</div><div class="v" style="color:var(--amber);">${infCount}</div></div>
+      <div class="rec-stat-box"><div class="k">Investigative Leads</div><div class="v" style="color:var(--red);">${leadCount}</div></div>
+      <div class="rec-stat-box"><div class="k">Evidentiary Standard</div><div class="v" style="font-size:16px; margin-top:5px; color:var(--blue);">Court-Support</div></div>
+    `;
+  }
+
+  // 2. Group statements by section
+  const sectionsMap = {};
   blocks.forEach(b=>{
-    if(b.section !== currentSection){
-      currentSection = b.section;
-      if(html) html += "\n";
-      html += sectionTitles["s"+currentSection] + "\n" + "-".repeat(40) + "\n";
-    }
-    const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-    html += `<span class="${tagClass[b.tag_key]||''}">[${esc(b.tag_label)}]</span> ${esc(b.text)}\n`;
+    if(!sectionsMap[b.section]) sectionsMap[b.section] = [];
+    sectionsMap[b.section].push(b);
   });
-  document.getElementById("report-content").innerHTML = html;
+
+  const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  let sectionsHtml = "";
+
+  Object.keys(sectionsMap).sort().forEach(secKey=>{
+    const stmts = sectionsMap[secKey];
+    const filteredStmts = (CURRENT_REPORT_FILTER === "ALL") 
+      ? stmts 
+      : stmts.filter(s => s.tag_key === CURRENT_REPORT_FILTER);
+
+    if(!filteredStmts.length && CURRENT_REPORT_FILTER !== "ALL") return;
+
+    sectionsHtml += `
+      <div class="report-section-card">
+        <div class="report-section-head">
+          <span>${sectionTitles["s"+secKey] || "Section " + secKey}</span>
+          <span style="font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); font-weight:normal;">${filteredStmts.length} statement(s)</span>
+        </div>
+        <div class="report-statement-list">
+          ${filteredStmts.map(s=>`
+            <div class="statement-card ${s.tag_key}">
+              <span class="stmt-tag ${s.tag_key}">[${esc(s.tag_label)}]</span>
+              <div class="stmt-text">${esc(s.text)}</div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
+  });
+
+  const container = document.getElementById("report-sections-container");
+  if(container){
+    container.innerHTML = sectionsHtml || `<div style="padding:40px; text-align:center; color:var(--ink-faint); font-family:var(--font-mono);">No statements match the selected filter.</div>`;
+  }
 }
+
+// Wire filter buttons
+document.querySelectorAll(".rf-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".rf-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    CURRENT_REPORT_FILTER = btn.dataset.filter;
+    renderReportPage();
+  });
+});
 
 /* ---------------- INITIAL RENDER (page load) ---------------- */
 applyStaticI18n();
