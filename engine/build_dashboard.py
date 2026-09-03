@@ -426,12 +426,44 @@ HTML = """<!DOCTYPE html>
   .legend-row2.off{ opacity:0.35; }
 
   /* Print Stylesheet */
+  .print-only{ display:none; }
   @media print{
-    #landing, .sidebar, .topbar-search, .topbar-icons, .path-finder-bar, .timeline-player-bar, #graph-toolbar-left, .legend-sidebar, #graph-hint, .btn-export-dossier, .breadcrumb{ display:none !important; }
-    #app{ display:block !important; height:auto !important; }
-    .page{ display:block !important; }
-    body{ background:#fff !important; color:#000 !important; overflow:visible !important; }
-    .topbar{ border-bottom:2px solid #000 !important; }
+    @page { margin: 15mm 15mm 15mm 15mm; size: A4 portrait; }
+    #landing, .sidebar, .mobile-topbar, .topbar, .topbar-search, .topbar-icons, 
+    .path-finder-bar, .timeline-player-bar, #graph-toolbar-left, .legend-sidebar, 
+    #graph-hint, .btn-export-dossier, .breadcrumb, .report-filter-group, 
+    .asst-input-row, .asst-suggestions, .dl-input-toggle, .dl-run-btn{ display:none !important; }
+    
+    #app{ display:block !important; height:auto !important; overflow:visible !important; }
+    .page{ display:none !important; }
+    .page.active{ display:block !important; padding:0 !important; width:100% !important; }
+    
+    body{ background:#fff !important; color:#111 !important; overflow:visible !important; font-size:10.5pt !important; }
+    
+    .print-only{ display:block !important; }
+    .print-official-header{ text-align:center; margin-bottom:20px; border-bottom:2px solid #000; padding-bottom:12px; }
+    .print-official-header .gov-title{ font-size:13pt; font-weight:800; text-transform:uppercase; letter-spacing:0.04em; }
+    .print-official-header .sub-dept{ font-size:9.5pt; color:#444; margin-top:2px; text-transform:uppercase; }
+    .print-official-header .doc-title{ font-size:12pt; font-weight:700; margin-top:6px; letter-spacing:0.02em; }
+    
+    .report-exec-card, .report-section-card, .pd-card{ 
+      background:#fff !important; color:#000 !important; border:1px solid #ccc !important; 
+      box-shadow:none !important; page-break-inside:avoid; margin-bottom:14px !important; padding:14px !important;
+    }
+    .rec-stat-box{ background:#f8f9fa !important; border:1px solid #ddd !important; }
+    .rec-stat-box .v{ color:#000 !important; }
+    .statement-card{ 
+      background:#fdfdfd !important; color:#111 !important; border:1px solid #e0e0e0 !important; 
+      page-break-inside:avoid; margin-bottom:8px !important; padding:8px 12px !important;
+    }
+    .statement-card.FACT{ border-left:4px solid #0e9aa7 !important; }
+    .statement-card.AI_INFERENCE{ border-left:4px solid #e08a00 !important; }
+    .statement-card.LEAD{ border-left:4px solid #dc2626 !important; }
+    
+    .print-sig-block{ display:flex !important; justify-content:space-between; margin-top:35px; padding-top:15px; border-top:1px dashed #888; page-break-inside:avoid; }
+    .print-sig-col{ width:45%; }
+    .print-sig-line{ margin-top:25px; border-bottom:1px solid #333; }
+    .print-sig-title{ font-size:8.5pt; color:#555; margin-top:4px; }
   }
 
   /* ---- Profile panel (right side, Network Explorer) ---- */
@@ -969,6 +1001,14 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
         </div>
       </div>
       <div class="page-pad" style="max-width:1100px; margin:0 auto; width:100%;">
+        <!-- Print-Only Official Seal & Header -->
+        <div class="print-only print-official-header">
+          <div class="gov-title">Government of Maharashtra \u2022 Police Department</div>
+          <div class="sub-dept">State Criminal Investigation Department (CID) \u2022 Crime Intelligence Wing</div>
+          <div class="doc-title">OFFICIAL CASE INTELLIGENCE &amp; EVIDENTIARY REPORT</div>
+          <div style="font-size:8.5pt; color:#666; margin-top:3px;">STRICTLY CONFIDENTIAL \u2014 SUBMITTED UNDER SECTION 91/161 CrPC DECISION SUPPORT</div>
+        </div>
+
         <!-- Executive Metadata Card -->
         <div class="report-exec-card">
           <div class="rec-top">
@@ -990,6 +1030,20 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
 
         <!-- Section Statement Cards -->
         <div id="report-sections-container"></div>
+
+        <!-- Print-Only Signature Block -->
+        <div class="print-only print-sig-block">
+          <div class="print-sig-col">
+            <div><b>Prepared &amp; Verified By:</b></div>
+            <div class="print-sig-line"></div>
+            <div class="print-sig-title">Investigating Officer (IO), Cyber &amp; Crime Branch</div>
+          </div>
+          <div class="print-sig-col">
+            <div><b>Reviewed &amp; Countersigned By:</b></div>
+            <div class="print-sig-line"></div>
+            <div class="print-sig-title">Superintendent of Police (SP) / Dy. Commissioner of Police</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
