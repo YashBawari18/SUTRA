@@ -18,7 +18,7 @@ than reimplementing it.
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import cases, upload, entities, graph, anomalies, timeline, assistant, reports, audit, process
+from routers import cases, upload, entities, graph, anomalies, timeline, assistant, reports, audit, process, evidence
 from auth import router as auth_router
 
 app = FastAPI(
@@ -46,6 +46,7 @@ app.include_router(timeline.router, prefix="/api/timeline", tags=["timeline"])
 app.include_router(assistant.router, prefix="/api/assistant", tags=["assistant"])
 app.include_router(reports.router, prefix="/api/report", tags=["reports"])
 app.include_router(audit.router, prefix="/api/audit-logs", tags=["audit"])
+app.include_router(evidence.router, prefix="/api/evidence", tags=["evidence"])
 
 
 @app.get("/api/health")
