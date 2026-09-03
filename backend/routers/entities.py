@@ -1,23 +1,41 @@
 """SUTRA Backend — routers/entities.py : extracted entity listing + resolution."""
 from fastapi import APIRouter, Depends
 from auth import require_role, TokenData
+from database import get_neo4j
 
 router = APIRouter()
 
 
 @router.get("")
 def list_entities(case_id: str, entity_type: str | None = None,
-                   user: TokenData = Depends(require_role("analyst"))):
+                   user: TokenData = Depends(require_role("analyst")), neo4j_session = Depends(get_neo4j)):
     """
-    Production implementation queries Neo4j:
-        MATCH (n) WHERE n.case_id = $case_id
-        AND ($entity_type IS NULL OR $entity_type IN labels(n))
+    Queries Neo4j for entities in a specific case.
+    """
+    if entity_type:
+        # Note: Cypher parameters cannot be used for labels, so we format carefully
+        query = f"""
+        MATCH (n:`{entity_type}` {{case_id: $case_id}})
         RETURN n
-    The extraction + resolution logic itself is already implemented and
-    tested in /engine/entity_extraction.py and /engine/entity_resolution.py
-    — this endpoint exposes their output over HTTP.
-    """
-    return {"case_id": case_id, "entity_type": entity_type, "entities": "see /engine output for a worked example"}
+        """
+    else:
+        query = """
+        MATCH (n {case_id: $case_id})
+        RETURN n
+        """
+    
+    result = neo4j_session.run(query, case_id=case_id)
+    entities = []
+    for record in result:
+        node = record["n"]
+        if node:
+            entities.append({
+                "id": node.id,
+                "labels": list(node.labels),
+                "properties": dict(node.items())
+            })
+            
+    return {"case_id": case_id, "entity_type": entity_type, "entities": entities}
 
 
 @router.get("/resolution-candidates")
