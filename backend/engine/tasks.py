@@ -4,6 +4,7 @@ from engine.entity_extraction import extract_entities_from_text
 from engine.entity_resolution import resolve_entities
 from database import SessionLocal, neo4j_conn
 from models import Evidence, AuditLog
+import datetime
 
 def process_evidence_task(evidence_id: str):
     """
@@ -27,23 +28,28 @@ def process_evidence_task(evidence_id: str):
         # 3. Resolve & Normalize Entities
         resolved_entities = resolve_entities(raw_entities)
         
-        # 4. Save to Neo4j
+        timestamp_now = datetime.datetime.utcnow().isoformat()
+        
+        # 4. Save to Neo4j (No silent merging - mark as pending_review)
         for ent in resolved_entities:
             query = f"""
             MERGE (n:`{ent['label']}` {{id: $id}})
-            ON CREATE SET n.name = $name, n.case_id = $case_id, n.source = $source
+            ON CREATE SET n.name = $name, n.case_id = $case_id, n.source = $source, 
+                          n.verification_status = 'pending_review', n.evidence_id = $evidence_id
             ON MATCH SET n.name = $name
             """
-            neo4j_session.run(query, id=ent['id'], name=ent['normalized_value'], case_id=evidence.case_id, source=ent['source'])
+            neo4j_session.run(query, id=ent['id'], name=ent['normalized_value'], case_id=evidence.case_id, source=ent['source'], evidence_id=evidence_id)
             
         for rel in relationships:
-            # We must map raw source/target to resolved IDs. For simplicity in demo, we match by name.
             rel_query = """
             MATCH (a {name: $source}), (b {name: $target})
             MERGE (a)-[r:RELATED_TO {type: $rel_type}]->(b)
+            ON CREATE SET r.evidence_id = $evidence_id, r.confidence = $confidence, 
+                          r.extraction_method = 'NLP Proximity', r.verification_status = 'pending_review',
+                          r.timestamp = $timestamp
             """
-            # Note: A real system uses resolved IDs here.
-            neo4j_session.run(rel_query, source=rel['source'].upper(), target=rel['target'].upper(), rel_type=rel['type'])
+            neo4j_session.run(rel_query, source=rel['source'].upper(), target=rel['target'].upper(), 
+                              rel_type=rel['type'], evidence_id=evidence_id, confidence=rel.get('confidence', 0.5), timestamp=timestamp_now)
 
         # 5. Update Status
         evidence.provenance_status = "extracted"

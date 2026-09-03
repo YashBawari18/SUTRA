@@ -12,7 +12,8 @@ except Exception:
 REGEX_PATTERNS = {
     "phone": r"\b(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b",
     "email": r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b",
-    "account_number": r"\b(?:ACCT|AC|account)[\s:-]*([0-9]{8,12})\b"
+    "account_number": r"\b(?:ACCT|AC|account)[\s:-]*([0-9]{8,12})\b",
+    "vehicle": r"\b[A-Z]{2}[ -]?[0-9]{1,2}[ -]?[A-Z]{1,2}[ -]?[0-9]{4}\b" # e.g. MH 12 AB 1234
 }
 
 def extract_entities_from_text(text: str):
@@ -56,20 +57,22 @@ def extract_entities_from_text(text: str):
             unique_entities.append(e)
 
     # 3. Basic Relationship Extraction (Proximity based)
-    # If a person and a phone/email are in the same sentence, assume OWNERSHIP
+    # If a person and another entity are in the same sentence, assume relationship
     relationships = []
     if nlp:
         for sent in doc.sents:
             sent_text = sent.text
             persons_in_sent = [e for e in unique_entities if e["label"] == "PERSON" and e["value"] in sent_text]
             phones_in_sent = [e for e in unique_entities if e["label"] == "PHONE" and e["value"] in sent_text]
+            vehicles_in_sent = [e for e in unique_entities if e["label"] == "VEHICLE" and e["value"] in sent_text]
+            locations_in_sent = [e for e in unique_entities if e["label"] == "GPE" and e["value"] in sent_text]
             
             for p in persons_in_sent:
                 for ph in phones_in_sent:
-                    relationships.append({
-                        "source": p["value"],
-                        "target": ph["value"],
-                        "type": "OWNS_PHONE"
-                    })
+                    relationships.append({"source": p["value"], "target": ph["value"], "type": "OWNS_PHONE", "confidence": 0.7})
+                for v in vehicles_in_sent:
+                    relationships.append({"source": p["value"], "target": v["value"], "type": "USED_VEHICLE", "confidence": 0.7})
+                for loc in locations_in_sent:
+                    relationships.append({"source": p["value"], "target": loc["value"], "type": "LOCATED_AT", "confidence": 0.6})
 
     return unique_entities, relationships
