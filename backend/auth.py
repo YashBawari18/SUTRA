@@ -14,6 +14,8 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
+from database import SessionLocal
+from models import User
 
 SECRET_KEY = os.environ.get("SUTRA_JWT_SECRET", "change-me-in-production")
 ALGORITHM = "HS256"
@@ -26,24 +28,14 @@ router = APIRouter()
 # Role hierarchy — used by require_role() to check "at least this level"
 ROLE_LEVELS = {"viewer": 0, "analyst": 1, "investigator": 2, "senior_investigator": 3, "admin": 4}
 
-
 class TokenData(BaseModel):
     username: str
     role: str
-
-
-# NOTE: replace with a real users table lookup (SQLAlchemy) in production.
-FAKE_USERS_DB = {
-    "demo_investigator": {"username": "demo_investigator", "hashed_password": pwd_context.hash("demo-password"), "role": "investigator"},
-    "demo_admin": {"username": "demo_admin", "hashed_password": pwd_context.hash("demo-password"), "role": "admin"},
-}
-
 
 def create_access_token(data: dict) -> str:
     to_encode = data.copy()
     to_encode["exp"] = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-
 
 async def get_current_user(token: str = Depends(oauth2_scheme)) -> TokenData:
     credentials_exception = HTTPException(
@@ -56,10 +48,19 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> TokenData:
         role: str = payload.get("role")
         if username is None or role is None:
             raise credentials_exception
+            
+        # Verify user exists in live DB
+        db = SessionLocal()
+        try:
+            db_user = db.query(User).filter(User.username == username).first()
+            if not db_user or db_user.account_status != "active":
+                raise credentials_exception
+        finally:
+            db.close()
+            
         return TokenData(username=username, role=role)
     except JWTError:
         raise credentials_exception
-
 
 def require_role(min_role: str):
     """Dependency factory: require_role('investigator') blocks viewers/analysts."""
@@ -69,11 +70,20 @@ def require_role(min_role: str):
         return user
     return checker
 
-
 @router.post("/login")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = FAKE_USERS_DB.get(form_data.username)
-    if not user or not pwd_context.verify(form_data.password, user["hashed_password"]):
-        raise HTTPException(status_code=401, detail="Incorrect username or password")
-    token = create_access_token({"sub": user["username"], "role": user["role"]})
-    return {"access_token": token, "token_type": "bearer", "role": user["role"]}
+    db = SessionLocal()
+    try:
+        user = db.query(User).filter(User.username == form_data.username).first()
+        if not user or not pwd_context.verify(form_data.password, user.password_hash):
+            raise HTTPException(status_code=401, detail="Incorrect username or password")
+        
+        # Update last login
+        user.last_login = datetime.utcnow()
+        db.commit()
+        
+        token = create_access_token({"sub": user.username, "role": user.role.value})
+        return {"access_token": token, "token_type": "bearer", "role": user.role.value}
+    finally:
+        db.close()
+

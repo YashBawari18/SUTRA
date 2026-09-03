@@ -79,3 +79,39 @@ def generate_report(case_id: str, language: str = "English", user: TokenData = D
         db.close()
         neo4j_session.close()
 
+from fastapi.responses import PlainTextResponse
+from models import AuditLog, User
+
+@router.get("/export/{case_id}", response_class=PlainTextResponse)
+def export_report(case_id: str, user: TokenData = Depends(require_role("senior_investigator"))):
+    """
+    Secure export controls. Requires senior_investigator role.
+    Writes an AuditLog entry when the report is downloaded.
+    """
+    db = SessionLocal()
+    try:
+        # Re-generate or fetch the latest report (For simplicity, we call generate)
+        report_data = generate_report(case_id=case_id, language="English", user=user)
+        report_content = report_data["report"]
+        
+        # Write to Audit Log
+        actor = db.query(User).filter(User.username == user.username).first()
+        actor_id = actor.id if actor else None
+        
+        audit = AuditLog(
+            actor_id=actor_id,
+            role=user.role,
+            action="EXPORTED",
+            case_id=case_id,
+            object_type="Report",
+            object_id=case_id,
+            reason="Senior Investigator generated and exported case report for official proceedings."
+        )
+        db.add(audit)
+        db.commit()
+        
+        return f"--- SUTRA OFFICIAL CASE REPORT [{case_id}] ---\nEXPORTED BY: {user.username} (SENIOR INVESTIGATOR)\n\n{report_content}"
+    finally:
+        db.close()
+
+
