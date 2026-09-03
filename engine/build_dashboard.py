@@ -111,6 +111,8 @@ EMBEDDED = {
     "edges": graph["edges"],
     "priority_ranking": graph["priority_ranking"],
     "communities": graph.get("communities", []),
+    "timeline_events": graph.get("timeline_events", []),
+    "all_paths": graph.get("all_paths", {}),
     "id_to_label": id_to_label,
     "resolution": resolution,
     "risk": risk,
@@ -377,10 +379,60 @@ HTML = """<!DOCTYPE html>
   #graph-error{ position:absolute; inset:0; display:none; align-items:center; justify-content:center; flex-direction:column;
     gap:10px; text-align:center; padding:30px; font-family:var(--font-mono); color:var(--red); font-size:12px; z-index:5; background:var(--bg); }
 
-  .legend-sidebar{ position:absolute; bottom:12px; right:14px; z-index:4; background:var(--panel); border:1px solid var(--border);
+  /* Path Finder Bar */
+  .path-finder-bar{ display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--border);
+    border-radius:6px; padding:6px 12px; }
+  .pf-label{ font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.05em; font-weight:700; }
+  .pf-select{ background:var(--bg); border:1px solid var(--border); color:var(--ink); font-family:var(--font-mono); font-size:11px; padding:4px 8px; border-radius:4px; outline:none; }
+  .pf-arrow{ font-family:var(--font-mono); color:var(--gold); font-weight:700; font-size:12px; }
+  .btn-pf-run{ background:var(--gold); color:#fff; border:none; padding:5px 12px; border-radius:4px; font-family:var(--font-mono); font-size:11px; font-weight:700; cursor:pointer; }
+  .btn-pf-clear{ background:none; border:1px solid var(--border); color:var(--ink-dim); padding:5px 10px; border-radius:4px; font-family:var(--font-mono); font-size:11px; cursor:pointer; }
+  .path-info-badge{ position:absolute; top:58px; left:14px; z-index:4; background:var(--panel); border:1px solid var(--gold); border-radius:6px; padding:8px 12px; font-family:var(--font-mono); font-size:11px; color:var(--ink); display:none; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+
+  /* Timeline Player Bar */
+  .timeline-player-bar{ position:absolute; bottom:14px; left:14px; right:14px; z-index:4; background:var(--panel);
+    border:1px solid var(--border); border-radius:8px; padding:10px 16px; display:flex; align-items:center; gap:16px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08); }
+  .tp-controls{ display:flex; align-items:center; gap:6px; }
+  .tp-btn{ width:30px; height:30px; border-radius:5px; background:var(--bg); border:1px solid var(--border); color:var(--ink); font-size:12px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  .tp-btn.primary{ background:var(--blue); border-color:var(--blue); color:#fff; }
+  .tp-btn:hover{ opacity:0.85; }
+  .tp-scrub-wrap{ flex:1; display:flex; flex-direction:column; gap:4px; min-width:0; }
+  .tp-event-meta{ display:flex; align-items:center; gap:8px; font-size:11px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .tp-event-date{ font-family:var(--font-mono); font-weight:700; color:var(--ink); font-size:10.5px; }
+  .tp-event-badge{ font-family:var(--font-mono); font-size:9px; padding:2px 6px; border-radius:3px; font-weight:700; text-transform:uppercase; background:rgba(37,84,232,0.12); color:var(--blue); }
+  .tp-event-badge.SURVEILLANCE{ background:rgba(224,138,0,0.15); color:var(--amber); }
+  .tp-event-badge.FINANCIAL{ background:rgba(220,38,38,0.12); color:var(--red); }
+  .tp-event-badge.COMMUNICATION{ background:rgba(14,165,164,0.12); color:var(--cyan); }
+  .tp-event-title{ color:var(--ink-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; }
+  .tp-slider{ width:100%; accent-color:var(--blue); cursor:pointer; }
+  .tp-ticker{ font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); white-space:nowrap; }
+
+  /* Role Badges */
+  .role-badge{ display:inline-flex; align-items:center; gap:4px; font-family:var(--font-mono); font-size:9px; letter-spacing:0.05em; font-weight:700; padding:3px 8px; border-radius:4px; border:1px solid var(--border); }
+  .role-badge.role-orchestrator{ background:rgba(242,162,12,0.12); color:var(--gold); border-color:var(--gold); }
+  .role-badge.role-broker{ background:rgba(14,165,164,0.12); color:var(--cyan); border-color:var(--cyan); }
+  .role-badge.role-mule{ background:rgba(220,38,38,0.12); color:var(--red); border-color:var(--red); }
+  .role-badge.role-communicator{ background:rgba(37,84,232,0.12); color:var(--blue); border-color:var(--blue); }
+  .role-badge.role-associate{ background:var(--panel-2); color:var(--ink-dim); }
+
+  /* Export Button */
+  .btn-export-dossier{ background:var(--panel); border:1px solid var(--border); color:var(--ink); font-family:var(--font-mono); font-size:11px; padding:7px 14px; border-radius:5px; display:inline-flex; align-items:center; gap:6px; font-weight:600; cursor:pointer; }
+  .btn-export-dossier:hover{ border-color:var(--ink); }
+
+  .legend-sidebar{ position:absolute; bottom:70px; right:14px; z-index:4; background:var(--panel); border:1px solid var(--border);
     border-radius:6px; padding:10px 12px; display:flex; flex-direction:column; gap:6px; }
   .legend-row2{ display:flex; align-items:center; gap:8px; font-size:10.5px; color:var(--ink-dim); cursor:pointer; user-select:none; }
   .legend-row2.off{ opacity:0.35; }
+
+  /* Print Stylesheet */
+  @media print{
+    #landing, .sidebar, .topbar-search, .topbar-icons, .path-finder-bar, .timeline-player-bar, #graph-toolbar-left, .legend-sidebar, #graph-hint, .btn-export-dossier, .breadcrumb{ display:none !important; }
+    #app{ display:block !important; height:auto !important; }
+    .page{ display:block !important; }
+    body{ background:#fff !important; color:#000 !important; overflow:visible !important; }
+    .topbar{ border-bottom:2px solid #000 !important; }
+  }
 
   /* ---- Profile panel (right side, Network Explorer) ---- */
   .profile-panel{ width:320px; border-left:1px solid var(--border); background:var(--bg-2); overflow-y:auto; flex-shrink:0; }
@@ -747,17 +799,45 @@ SYNTHETIC DATA ONLY</div>
       <div class="topbar">
         <div class="topbar-left"><h2 data-i18n="tb_graph">Network Explorer</h2><span class="badge-secure" data-i18n="badge_secure_short">SECURE</span>
           <span class="active-graph-label" data-i18n="active_graph" style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);">Active Graph: Operation Case MH/CID/2026/0417</span></div>
+        <div class="path-finder-bar" id="path-finder-bar">
+          <span class="pf-label">🔗 Trace:</span>
+          <select id="pf-source" class="pf-select"></select>
+          <span class="pf-arrow">\u2192</span>
+          <select id="pf-target" class="pf-select"></select>
+          <button id="btn-find-path" class="btn-pf-run">Trace Path</button>
+          <button id="btn-clear-path" class="btn-pf-clear">Reset</button>
+        </div>
         <div class="topbar-search"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input id="search-input" data-i18n="search_placeholder" data-i18n-attr="placeholder" placeholder="Query entity, phone, location\u2026"></div>
       </div>
       <div style="display:flex; flex:1; min-height:0;">
         <div id="graph-wrap">
           <div class="graph-dotgrid"></div>
-          <div id="graph-toolbar-left"><div class="tool-icon" id="btn-reset">\u2922</div></div>
+          <div id="graph-toolbar-left"><div class="tool-icon" id="btn-reset" title="Reset Camera">\u2922</div></div>
+          <div class="path-info-badge" id="path-info-badge"></div>
           <svg id="graph"></svg>
           <div id="graph-error"><div data-i18n="graph_error_title">\u26a0 Graph rendering failed to initialize.</div><div data-i18n="graph_error_sub" style="color:var(--ink-faint); font-size:11px;">Other pages are unaffected.</div></div>
-          <div id="graph-hint" data-i18n="graph_hint">Drag to reposition \u00b7 Scroll to zoom \u00b7 Click a node to inspect</div>
+          <div id="graph-hint" data-i18n="graph_hint" style="bottom:75px;">Drag to reposition \u00b7 Scroll to zoom \u00b7 Click a node to inspect</div>
           <div class="legend-sidebar" id="legend-list"></div>
+
+          <!-- Timeline Sequence Player -->
+          <div class="timeline-player-bar" id="timeline-player-bar">
+            <div class="tp-controls">
+              <button id="btn-tp-prev" class="tp-btn" title="Previous Event">\u23ee</button>
+              <button id="btn-tp-play" class="tp-btn primary" title="Play / Pause">\u25b6</button>
+              <button id="btn-tp-next" class="tp-btn" title="Next Event">\u23ed</button>
+              <button id="btn-tp-reset" class="tp-btn" title="Reset">\u21ba</button>
+            </div>
+            <div class="tp-scrub-wrap">
+              <div class="tp-event-meta">
+                <span class="tp-event-date" id="tp-event-date">--/--/----</span>
+                <span class="tp-event-badge" id="tp-event-badge">TIMELINE</span>
+                <span class="tp-event-title" id="tp-event-title">Click Play or Drag slider to replay event sequence</span>
+              </div>
+              <input type="range" id="tp-slider" min="0" max="10" value="0" class="tp-slider">
+            </div>
+            <div class="tp-ticker" id="tp-ticker">Step 0 of 0</div>
+          </div>
         </div>
         <div class="profile-panel" id="profile-panel">
           <div class="profile-empty" data-i18n="empty_select_node" style="white-space:pre-line;">SELECT A NODE ON THE GRAPH
@@ -792,6 +872,9 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
       <div class="topbar">
         <div class="topbar-left">
           <span class="breadcrumb"><a href="#" id="pd-back-link">Entity Profiles</a> &nbsp;\u203a&nbsp; <span id="pd-breadcrumb-name">Profile View</span></span>
+        </div>
+        <div>
+          <button class="btn-export-dossier" onclick="window.print()">\U0001f5a8\ufe0f Print / Export Dossier</button>
         </div>
       </div>
       <div class="page-pad" id="profile-detail-content" style="max-width:1100px;"></div>
@@ -845,7 +928,10 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
 
     <!-- ---- ANALYTICS REPORT ---- -->
     <div class="page" data-page="report">
-      <div class="topbar"><div class="topbar-left"><h2>Analytics Report</h2><span class="badge-secure">FACT / INFERENCE / LEAD TAGGED</span></div></div>
+      <div class="topbar">
+        <div class="topbar-left"><h2>Analytics Report</h2><span class="badge-secure">FACT / INFERENCE / LEAD TAGGED</span></div>
+        <div><button class="btn-export-dossier" onclick="window.print()">\U0001f5a8\ufe0f Export Full Briefing (PDF)</button></div>
+      </div>
       <div class="page-pad"><pre class="report" id="report-content"></pre></div>
     </div>
   </div>

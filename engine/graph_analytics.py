@@ -123,6 +123,147 @@ except nx.NetworkXNoPath:
     print("\nNo path found between P06 and P03.")
 
 # ------------------------------------------------------------------
+# ROLE CLASSIFICATION & HIERARCHY
+# ------------------------------------------------------------------
+def classify_role(nid, attrs):
+    ntype = attrs.get("type")
+    if ntype != "person":
+        return ntype.capitalize()
+    
+    bw = betweenness_c.get(nid, 0)
+    pr = pagerank.get(nid, 0)
+    deg = degree_c.get(nid, 0)
+    
+    # Financial involvement
+    has_large_txn = False
+    for t in data["transactions"]:
+        if t.get("amount", 0) >= LARGE_TXN_THRESHOLD:
+            # check account holder
+            for a in data["accounts"]:
+                if a.get("holder_person_id") == nid and (a["account_id"] in (t["sender_account_id"], t["receiver_account_id"])):
+                    has_large_txn = True
+                    break
+
+    if bw >= 0.20:
+        return "Strategic Broker"
+    elif pr >= 0.025 and bw < 0.20:
+        return "Network Orchestrator"
+    elif has_large_txn:
+        return "Financial Conduit"
+    elif deg >= 0.10:
+        return "Key Communicator"
+    else:
+        return "Network Associate"
+
+# ------------------------------------------------------------------
+# CHRONOLOGICAL EVENT TIMELINE COMPILATION
+# ------------------------------------------------------------------
+timeline_events = []
+evt_id = 1
+
+# 1. FIR events
+for fir in data.get("fir_records", []):
+    timeline_events.append({
+        "id": f"evt_{evt_id}",
+        "timestamp": f"{fir.get('date', '2026-02-14')} 09:00:00",
+        "date": fir.get("date", "2026-02-14"),
+        "time": "09:00",
+        "type": "FIR_RECORD",
+        "badge": "FIR FILED",
+        "title": f"FIR Registered — {fir.get('case_id')} ({fir.get('station', 'Police Station')})",
+        "description": fir.get("description", "")[:140] + "...",
+        "nodes": [p["person_id"] for p in data["people"] if p["name"].split()[0].lower() in fir.get("description", "").lower()],
+        "severity": "critical" if fir.get("source_reliability") == "High" else "warning"
+    })
+    evt_id += 1
+
+# 2. Surveillance Visits
+loc_map = {l["location_id"]: l["name"] for l in data.get("locations", [])}
+person_map = {p["person_id"]: p["name"] for p in data.get("people", [])}
+for v in data.get("visits", []):
+    pid = v.get("person_id")
+    pname = person_map.get(pid, "Identified Suspect")
+    lname = loc_map.get(v.get("location_id"), "Observed Site")
+    timeline_events.append({
+        "id": f"evt_{evt_id}",
+        "timestamp": v.get("timestamp", "2026-02-14 20:00:00"),
+        "date": v.get("timestamp", "2026-02-14").split()[0],
+        "time": v.get("timestamp", "2026-02-14 20:00").split()[1] if " " in v.get("timestamp", "") else "20:00",
+        "type": "SURVEILLANCE",
+        "badge": "SITE VISIT",
+        "title": f"Surveillance Sighting — {pname}",
+        "description": f"{pname} recorded at {lname}. Notes: {v.get('notes', 'Physical observation logged.')}",
+        "nodes": [pid, v.get("location_id")] if pid else [v.get("location_id")],
+        "severity": "warning" if "unusual" in v.get("notes", "").lower() or "late" in v.get("notes", "").lower() else "info"
+    })
+    evt_id += 1
+
+# 3. High-Value Financial Transactions
+account_holder_map = {a["account_id"]: a.get("holder_person_id") or a.get("holder_org_id") for a in data.get("accounts", [])}
+for t in data.get("transactions", []):
+    src_holder = account_holder_map.get(t["sender_account_id"], t["sender_account_id"])
+    tgt_holder = account_holder_map.get(t["receiver_account_id"], t["receiver_account_id"])
+    src_name = person_map.get(src_holder, src_holder)
+    tgt_name = person_map.get(tgt_holder, tgt_holder)
+    is_susp = t["amount"] >= LARGE_TXN_THRESHOLD
+    timeline_events.append({
+        "id": f"evt_{evt_id}",
+        "timestamp": t.get("timestamp", "2026-02-15 14:00:00"),
+        "date": t.get("timestamp", "2026-02-15").split()[0],
+        "time": t.get("timestamp", "2026-02-15 14:00").split()[1] if " " in t.get("timestamp", "") else "14:00",
+        "type": "FINANCIAL",
+        "badge": "WIRE TRANSFER",
+        "title": f"Financial Transfer: ₹{t['amount']:,}",
+        "description": f"Transfer of ₹{t['amount']:,} from {src_name} ({t['sender_account_id']}) to {tgt_name} ({t['receiver_account_id']}).",
+        "nodes": [t["sender_account_id"], t["receiver_account_id"], src_holder, tgt_holder],
+        "severity": "critical" if is_susp else "info"
+    })
+    evt_id += 1
+
+# 4. Clustered CDR Burst Calls
+phone_owner = {ph["phone_id"]: ph.get("owner_person_id") for ph in data.get("phones", [])}
+phone_number_map = {ph["phone_id"]: ph.get("number", "Unknown") for ph in data.get("phones", [])}
+for (p1, p2), n in call_counts.items():
+    if n >= SUSPICIOUS_CALL_THRESHOLD:
+        pid1 = phone_owner.get(p1)
+        pid2 = phone_owner.get(p2)
+        n1 = person_map.get(pid1, phone_number_map.get(p1, p1))
+        n2 = person_map.get(pid2, phone_number_map.get(p2, p2))
+        timeline_events.append({
+            "id": f"evt_{evt_id}",
+            "timestamp": "2026-02-14 18:00:00",
+            "date": "2026-02-14",
+            "time": "18:00",
+            "type": "COMMUNICATION",
+            "badge": "CDR BURST",
+            "title": f"High-Frequency CDR Surge ({n} calls)",
+            "description": f"Concentrated exchange between {n1} ({phone_number_map.get(p1, p1)}) and {n2} ({phone_number_map.get(p2, p2)}) across 48h.",
+            "nodes": [p1, p2, pid1, pid2],
+            "severity": "critical"
+        })
+        evt_id += 1
+
+timeline_events.sort(key=lambda x: x["timestamp"])
+
+# ------------------------------------------------------------------
+# ALL-PAIRS SHORTEST PATHS FOR INSTANT TRACE
+# ------------------------------------------------------------------
+all_paths = {}
+for p_src in data["people"]:
+    for p_tgt in data["people"]:
+        if p_src["person_id"] != p_tgt["person_id"]:
+            k = f"{p_src['person_id']}_{p_tgt['person_id']}"
+            try:
+                sp = nx.shortest_path(G, source=p_src["person_id"], target=p_tgt["person_id"])
+                all_paths[k] = {
+                    "path": sp,
+                    "labels": [G.nodes[n]["label"] for n in sp],
+                    "hops": len(sp) - 1
+                }
+            except nx.NetworkXNoPath:
+                all_paths[k] = None
+
+# ------------------------------------------------------------------
 # EXPORT for the dashboard (nodes + edges + computed metrics)
 # ------------------------------------------------------------------
 export_nodes = []
@@ -131,6 +272,7 @@ for n, attrs in G.nodes(data=True):
         "id": n, "label": attrs["label"], "type": attrs["type"],
         "degree": round(degree_c[n], 4), "betweenness": round(betweenness_c[n], 4),
         "pagerank": round(pagerank[n], 4),
+        "role": classify_role(n, attrs),
         "priority_rank": priority_ranking.index(n) + 1 if n in priority_ranking else None
     })
 
@@ -145,9 +287,11 @@ export = {
     "edges": export_edges,
     "communities": [[n for n in com] for com in communities],
     "priority_ranking": priority_ranking,
+    "timeline_events": timeline_events,
+    "all_paths": all_paths,
     "shortest_path_example": path if 'path' in dir() else None,
 }
 out_path = os.path.join(DATA_DIR, "graph_analytics_results.json")
 with open(out_path, "w", encoding="utf-8") as f:
     json.dump(export, f, indent=2)
-print(f"\nSaved graph + analytics -> {out_path}")
+print(f"\nSaved graph + analytics + timeline events -> {out_path}")

@@ -7,6 +7,7 @@
       "degree": 0.1034,
       "betweenness": 0.1437,
       "pagerank": 0.0135,
+      "role": "Key Communicator",
       "priority_rank": 3
     },
     {
@@ -16,6 +17,7 @@
       "degree": 0.069,
       "betweenness": 0.0296,
       "pagerank": 0.0136,
+      "role": "Network Associate",
       "priority_rank": 7
     },
     {
@@ -25,6 +27,7 @@
       "degree": 0.1034,
       "betweenness": 0.1449,
       "pagerank": 0.0152,
+      "role": "Financial Conduit",
       "priority_rank": 2
     },
     {
@@ -34,6 +37,7 @@
       "degree": 0.069,
       "betweenness": 0.0308,
       "pagerank": 0.0288,
+      "role": "Network Orchestrator",
       "priority_rank": 5
     },
     {
@@ -43,6 +47,7 @@
       "degree": 0.0345,
       "betweenness": 0.0,
       "pagerank": 0.0174,
+      "role": "Network Associate",
       "priority_rank": 10
     },
     {
@@ -52,6 +57,7 @@
       "degree": 0.1034,
       "betweenness": 0.33,
       "pagerank": 0.0298,
+      "role": "Strategic Broker",
       "priority_rank": 1
     },
     {
@@ -61,6 +67,7 @@
       "degree": 0.069,
       "betweenness": 0.0238,
       "pagerank": 0.0198,
+      "role": "Network Associate",
       "priority_rank": 8
     },
     {
@@ -70,6 +77,7 @@
       "degree": 0.0345,
       "betweenness": 0.0,
       "pagerank": 0.0069,
+      "role": "Network Associate",
       "priority_rank": 11
     },
     {
@@ -79,6 +87,7 @@
       "degree": 0.1034,
       "betweenness": 0.124,
       "pagerank": 0.0159,
+      "role": "Key Communicator",
       "priority_rank": 4
     },
     {
@@ -88,6 +97,7 @@
       "degree": 0.0,
       "betweenness": 0.0,
       "pagerank": 0.0053,
+      "role": "Network Associate",
       "priority_rank": 12
     },
     {
@@ -97,6 +107,7 @@
       "degree": 0.1379,
       "betweenness": 0.2089,
       "pagerank": 0.0892,
+      "role": "Phone",
       "priority_rank": null
     },
     {
@@ -106,6 +117,7 @@
       "degree": 0.1034,
       "betweenness": 0.092,
       "pagerank": 0.0601,
+      "role": "Phone",
       "priority_rank": null
     },
     {
@@ -115,6 +127,7 @@
       "degree": 0.1034,
       "betweenness": 0.1441,
       "pagerank": 0.0322,
+      "role": "Phone",
       "priority_rank": null
     },
     {
@@ -124,6 +137,7 @@
       "degree": 0.1379,
       "betweenness": 0.392,
       "pagerank": 0.0942,
+      "role": "Phone",
       "priority_rank": null
     },
     {
@@ -133,6 +147,7 @@
       "degree": 0.1034,
       "betweenness": 0.149,
       "pagerank": 0.0656,
+      "role": "Phone",
       "priority_rank": null
     },
     {
@@ -142,6 +157,7 @@
       "degree": 0.1034,
       "betweenness": 0.1466,
       "pagerank": 0.021,
+      "role": "Phone",
       "priority_rank": null
     },
     {
@@ -151,6 +167,7 @@
       "degree": 0.069,
       "betweenness": 0.0308,
       "pagerank": 0.0288,
+      "role": "Vehicle",
       "priority_rank": null
     },
     {
@@ -160,6 +177,7 @@
       "degree": 0.069,
       "betweenness": 0.0501,
       "pagerank": 0.0204,
+      "role": "Vehicle",
       "priority_rank": null
     },
     {
@@ -169,6 +187,7 @@
       "degree": 0.0345,
       "betweenness": 0.0,
       "pagerank": 0.0098,
+      "role": "Vehicle",
       "priority_rank": null
     },
     {
@@ -178,6 +197,7 @@
       "degree": 0.069,
       "betweenness": 0.064,
       "pagerank": 0.0286,
+      "role": "Location",
       "priority_rank": null
     },
     {
@@ -187,6 +207,7 @@
       "degree": 0.1034,
       "betweenness": 0.1002,
       "pagerank": 0.0235,
+      "role": "Location",
       "priority_rank": null
     },
     {
@@ -196,6 +217,7 @@
       "degree": 0.0345,
       "betweenness": 0.0,
       "pagerank": 0.0096,
+      "role": "Location",
       "priority_rank": null
     },
     {
@@ -205,6 +227,7 @@
       "degree": 0.1034,
       "betweenness": 0.1786,
       "pagerank": 0.0382,
+      "role": "Location",
       "priority_rank": null
     },
     {
@@ -214,6 +237,7 @@
       "degree": 0.0,
       "betweenness": 0.0,
       "pagerank": 0.0053,
+      "role": "Location",
       "priority_rank": null
     },
     {
@@ -223,6 +247,7 @@
       "degree": 0.069,
       "betweenness": 0.0357,
       "pagerank": 0.0137,
+      "role": "Organization",
       "priority_rank": 6
     },
     {
@@ -232,6 +257,7 @@
       "degree": 0.069,
       "betweenness": 0.0012,
       "pagerank": 0.0298,
+      "role": "Organization",
       "priority_rank": 9
     },
     {
@@ -241,6 +267,7 @@
       "degree": 0.1034,
       "betweenness": 0.1186,
       "pagerank": 0.1159,
+      "role": "Account",
       "priority_rank": null
     },
     {
@@ -250,6 +277,7 @@
       "degree": 0.1034,
       "betweenness": 0.1174,
       "pagerank": 0.0438,
+      "role": "Account",
       "priority_rank": null
     },
     {
@@ -259,6 +287,7 @@
       "degree": 0.069,
       "betweenness": 0.0287,
       "pagerank": 0.0885,
+      "role": "Account",
       "priority_rank": null
     },
     {
@@ -268,6 +297,7 @@
       "degree": 0.069,
       "betweenness": 0.0616,
       "pagerank": 0.016,
+      "role": "Account",
       "priority_rank": null
     }
   ],
@@ -504,42 +534,42 @@
   ],
   "communities": [
     [
-      "A02",
-      "V03",
-      "P07",
-      "O01",
-      "V02",
       "P09",
-      "A04"
+      "O01",
+      "A04",
+      "P07",
+      "V02",
+      "A02",
+      "V03"
     ],
     [
-      "PH04",
-      "PH05",
       "L01",
-      "P05",
+      "PH05",
+      "P06",
+      "PH04",
       "P08",
-      "P06"
+      "P05"
     ],
     [
-      "PH01",
-      "L02",
-      "PH02",
       "PH06",
       "P01",
-      "P02"
+      "PH02",
+      "P02",
+      "PH01",
+      "L02"
     ],
     [
+      "A03",
       "A01",
-      "P03",
       "L03",
-      "PH03",
-      "A03"
+      "P03",
+      "PH03"
     ],
     [
-      "L04",
-      "O02",
       "V01",
-      "P04"
+      "P04",
+      "O02",
+      "L04"
     ],
     [
       "P10"
@@ -562,6 +592,1568 @@
     "P08",
     "P10"
   ],
+  "timeline_events": [
+    {
+      "id": "evt_5",
+      "timestamp": "2026-01-15T10:00:00",
+      "date": "2026-01-15T10:00:00",
+      "time": "20:00",
+      "type": "SURVEILLANCE",
+      "badge": "SITE VISIT",
+      "title": "Surveillance Sighting \u2014 Anita Rao",
+      "description": "Anita Rao recorded at Office, Nariman Point. Notes: Registered workplace",
+      "nodes": [
+        "P03",
+        "L03"
+      ],
+      "severity": "info"
+    },
+    {
+      "id": "evt_13",
+      "timestamp": "2026-01-18T11:05:00",
+      "date": "2026-01-18T11:05:00",
+      "time": "14:00",
+      "type": "FINANCIAL",
+      "badge": "WIRE TRANSFER",
+      "title": "Financial Transfer: \u20b9250,000",
+      "description": "Transfer of \u20b9250,000 from Rajeev Malhotra (A03) to Anita Rao (A01).",
+      "nodes": [
+        "A03",
+        "A01",
+        "P01",
+        "P03"
+      ],
+      "severity": "info"
+    },
+    {
+      "id": "evt_6",
+      "timestamp": "2026-01-20T14:00:00",
+      "date": "2026-01-20T14:00:00",
+      "time": "20:00",
+      "type": "SURVEILLANCE",
+      "badge": "SITE VISIT",
+      "title": "Surveillance Sighting \u2014 Deepak Nair",
+      "description": "Deepak Nair recorded at Warehouse, Andheri East. Notes: Registered workplace",
+      "nodes": [
+        "P05",
+        "L01"
+      ],
+      "severity": "info"
+    },
+    {
+      "id": "evt_14",
+      "timestamp": "2026-01-22T09:40:00",
+      "date": "2026-01-22T09:40:00",
+      "time": "14:00",
+      "type": "FINANCIAL",
+      "badge": "WIRE TRANSFER",
+      "title": "Financial Transfer: \u20b912,000",
+      "description": "Transfer of \u20b912,000 from Kavita Joshi (A04) to O01 (A02).",
+      "nodes": [
+        "A04",
+        "A02",
+        "P09",
+        "O01"
+      ],
+      "severity": "info"
+    },
+    {
+      "id": "evt_7",
+      "timestamp": "2026-01-25T13:00:00",
+      "date": "2026-01-25T13:00:00",
+      "time": "20:00",
+      "type": "SURVEILLANCE",
+      "badge": "SITE VISIT",
+      "title": "Surveillance Sighting \u2014 Sanjay Verma",
+      "description": "Sanjay Verma recorded at Godown, Bhiwandi. Notes: Lease signed - cash payment",
+      "nodes": [
+        "P04",
+        "L04"
+      ],
+      "severity": "info"
+    },
+    {
+      "id": "evt_2",
+      "timestamp": "2026-01-26 09:00:00",
+      "date": "2026-01-26",
+      "time": "09:00",
+      "type": "FIR_RECORD",
+      "badge": "FIR FILED",
+      "title": "FIR Registered \u2014 FIR-014 (PS Bhiwandi)",
+      "description": "Local intelligence report (unverified) suggests SANJAY VERMA leased a godown in BHIWANDI approximately three months prior under a cash arran...",
+      "nodes": [
+        "P04"
+      ],
+      "severity": "warning"
+    },
+    {
+      "id": "evt_15",
+      "timestamp": "2026-02-01T17:10:00",
+      "date": "2026-02-01T17:10:00",
+      "time": "14:00",
+      "type": "FINANCIAL",
+      "badge": "WIRE TRANSFER",
+      "title": "Financial Transfer: \u20b960,000",
+      "description": "Transfer of \u20b960,000 from O01 (A02) to Anita Rao (A01).",
+      "nodes": [
+        "A02",
+        "A01",
+        "O01",
+        "P03"
+      ],
+      "severity": "info"
+    },
+    {
+      "id": "evt_8",
+      "timestamp": "2026-02-02T18:00:00",
+      "date": "2026-02-02T18:00:00",
+      "time": "20:00",
+      "type": "SURVEILLANCE",
+      "badge": "SITE VISIT",
+      "title": "Surveillance Sighting \u2014 Vikram Solanki",
+      "description": "Vikram Solanki recorded at Warehouse, Andheri East. Notes: ",
+      "nodes": [
+        "P06",
+        "L01"
+      ],
+      "severity": "info"
+    },
+    {
+      "id": "evt_11",
+      "timestamp": "2026-02-05T20:55:00",
+      "date": "2026-02-05T20:55:00",
+      "time": "20:00",
+      "type": "SURVEILLANCE",
+      "badge": "SITE VISIT",
+      "title": "Surveillance Sighting \u2014 Identified Suspect",
+      "description": "Identified Suspect recorded at Farmhouse, Alibaug. Notes: ",
+      "nodes": [
+        "L02"
+      ],
+      "severity": "info"
+    },
+    {
+      "id": "evt_3",
+      "timestamp": "2026-02-05T21:00:00",
+      "date": "2026-02-05T21:00:00",
+      "time": "20:00",
+      "type": "SURVEILLANCE",
+      "badge": "SITE VISIT",
+      "title": "Surveillance Sighting \u2014 Rajeev Malhotra",
+      "description": "Rajeev Malhotra recorded at Farmhouse, Alibaug. Notes: GPS-tagged surveillance",
+      "nodes": [
+        "P01",
+        "L02"
+      ],
+      "severity": "info"
+    },
+    {
+      "id": "evt_4",
+      "timestamp": "2026-02-05T21:10:00",
+      "date": "2026-02-05T21:10:00",
+      "time": "20:00",
+      "type": "SURVEILLANCE",
+      "badge": "SITE VISIT",
+      "title": "Surveillance Sighting \u2014 Feroz Sheikh",
+      "description": "Feroz Sheikh recorded at Farmhouse, Alibaug. Notes: GPS-tagged surveillance",
+      "nodes": [
+        "P02",
+        "L02"
+      ],
+      "severity": "info"
+    },
+    {
+      "id": "evt_9",
+      "timestamp": "2026-02-06T23:15:00",
+      "date": "2026-02-06T23:15:00",
+      "time": "20:00",
+      "type": "SURVEILLANCE",
+      "badge": "SITE VISIT",
+      "title": "Surveillance Sighting \u2014 Vikram Solanki",
+      "description": "Vikram Solanki recorded at Godown, Bhiwandi. Notes: Bridges two otherwise separate sites",
+      "nodes": [
+        "P06",
+        "L04"
+      ],
+      "severity": "info"
+    },
+    {
+      "id": "evt_10",
+      "timestamp": "2026-02-07T23:40:00",
+      "date": "2026-02-07T23:40:00",
+      "time": "20:00",
+      "type": "SURVEILLANCE",
+      "badge": "SITE VISIT",
+      "title": "Surveillance Sighting \u2014 Identified Suspect",
+      "description": "Identified Suspect recorded at Godown, Bhiwandi. Notes: 6 trips recorded at odd hours",
+      "nodes": [
+        "L04"
+      ],
+      "severity": "info"
+    },
+    {
+      "id": "evt_12",
+      "timestamp": "2026-02-12T15:20:00",
+      "date": "2026-02-12T15:20:00",
+      "time": "14:00",
+      "type": "FINANCIAL",
+      "badge": "WIRE TRANSFER",
+      "title": "Financial Transfer: \u20b91,840,000",
+      "description": "Transfer of \u20b91,840,000 from Anita Rao (A01) to O01 (A02).",
+      "nodes": [
+        "A01",
+        "A02",
+        "P03",
+        "O01"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "evt_1",
+      "timestamp": "2026-02-14 09:00:00",
+      "date": "2026-02-14",
+      "time": "09:00",
+      "type": "FIR_RECORD",
+      "badge": "FIR FILED",
+      "title": "FIR Registered \u2014 FIR-031 (PS Andheri)",
+      "description": "On 14/02/2026, surveillance team reported that RAJEEV MALHOTRA (M/42) was observed meeting FEROZ SHEIKH near the warehouse at ANDHERI EAST a...",
+      "nodes": [
+        "P01",
+        "P02"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "evt_16",
+      "timestamp": "2026-02-14 18:00:00",
+      "date": "2026-02-14",
+      "time": "18:00",
+      "type": "COMMUNICATION",
+      "badge": "CDR BURST",
+      "title": "High-Frequency CDR Surge (27 calls)",
+      "description": "Concentrated exchange between Rajeev Malhotra (+91 98\u2022\u2022\u20221142) and Feroz Sheikh (+91 77\u2022\u2022\u20228834) across 48h.",
+      "nodes": [
+        "PH01",
+        "PH02",
+        "P01",
+        "P02"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "evt_17",
+      "timestamp": "2026-02-14 18:00:00",
+      "date": "2026-02-14",
+      "time": "18:00",
+      "type": "COMMUNICATION",
+      "badge": "CDR BURST",
+      "title": "High-Frequency CDR Surge (31 calls)",
+      "description": "Concentrated exchange between Vikram Solanki (+91 88\u2022\u2022\u20225561) and Arjun Kapoor (+91 90\u2022\u2022\u20223390) across 48h.",
+      "nodes": [
+        "PH04",
+        "PH05",
+        "P06",
+        "P08"
+      ],
+      "severity": "critical"
+    }
+  ],
+  "all_paths": {
+    "P01_P02": {
+      "path": [
+        "P01",
+        "L02",
+        "P02"
+      ],
+      "labels": [
+        "Rajeev Malhotra",
+        "Farmhouse, Alibaug",
+        "Feroz Sheikh"
+      ],
+      "hops": 2
+    },
+    "P01_P03": {
+      "path": [
+        "P01",
+        "PH01",
+        "PH03",
+        "P03"
+      ],
+      "labels": [
+        "Rajeev Malhotra",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 99\u2022\u2022\u20222207",
+        "Anita Rao"
+      ],
+      "hops": 3
+    },
+    "P01_P04": {
+      "path": [
+        "P01",
+        "PH01",
+        "PH04",
+        "P06",
+        "L04",
+        "P04"
+      ],
+      "labels": [
+        "Rajeev Malhotra",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki",
+        "Godown, Bhiwandi",
+        "Sanjay Verma"
+      ],
+      "hops": 5
+    },
+    "P01_P05": {
+      "path": [
+        "P01",
+        "PH01",
+        "PH04",
+        "P06",
+        "L01",
+        "P05"
+      ],
+      "labels": [
+        "Rajeev Malhotra",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki",
+        "Warehouse, Andheri East",
+        "Deepak Nair"
+      ],
+      "hops": 5
+    },
+    "P01_P06": {
+      "path": [
+        "P01",
+        "PH01",
+        "PH04",
+        "P06"
+      ],
+      "labels": [
+        "Rajeev Malhotra",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki"
+      ],
+      "hops": 3
+    },
+    "P01_P07": {
+      "path": [
+        "P01",
+        "L02",
+        "V02",
+        "P07"
+      ],
+      "labels": [
+        "Rajeev Malhotra",
+        "Farmhouse, Alibaug",
+        "MH-02 CJ 4410",
+        "Meena Iyer"
+      ],
+      "hops": 3
+    },
+    "P01_P08": {
+      "path": [
+        "P01",
+        "PH01",
+        "PH04",
+        "PH05",
+        "P08"
+      ],
+      "labels": [
+        "Rajeev Malhotra",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 90\u2022\u2022\u20223390",
+        "Arjun Kapoor"
+      ],
+      "hops": 4
+    },
+    "P01_P09": {
+      "path": [
+        "P01",
+        "PH01",
+        "PH02",
+        "PH06",
+        "P09"
+      ],
+      "labels": [
+        "Rajeev Malhotra",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 77\u2022\u2022\u20228834",
+        "+91 82\u2022\u2022\u20227743",
+        "Kavita Joshi"
+      ],
+      "hops": 4
+    },
+    "P01_P10": null,
+    "P02_P01": {
+      "path": [
+        "P02",
+        "L02",
+        "P01"
+      ],
+      "labels": [
+        "Feroz Sheikh",
+        "Farmhouse, Alibaug",
+        "Rajeev Malhotra"
+      ],
+      "hops": 2
+    },
+    "P02_P03": {
+      "path": [
+        "P02",
+        "PH02",
+        "PH01",
+        "PH03",
+        "P03"
+      ],
+      "labels": [
+        "Feroz Sheikh",
+        "+91 77\u2022\u2022\u20228834",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 99\u2022\u2022\u20222207",
+        "Anita Rao"
+      ],
+      "hops": 4
+    },
+    "P02_P04": {
+      "path": [
+        "P02",
+        "PH02",
+        "PH01",
+        "PH04",
+        "P06",
+        "L04",
+        "P04"
+      ],
+      "labels": [
+        "Feroz Sheikh",
+        "+91 77\u2022\u2022\u20228834",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki",
+        "Godown, Bhiwandi",
+        "Sanjay Verma"
+      ],
+      "hops": 6
+    },
+    "P02_P05": {
+      "path": [
+        "P02",
+        "PH02",
+        "PH01",
+        "PH04",
+        "P06",
+        "L01",
+        "P05"
+      ],
+      "labels": [
+        "Feroz Sheikh",
+        "+91 77\u2022\u2022\u20228834",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki",
+        "Warehouse, Andheri East",
+        "Deepak Nair"
+      ],
+      "hops": 6
+    },
+    "P02_P06": {
+      "path": [
+        "P02",
+        "PH02",
+        "PH01",
+        "PH04",
+        "P06"
+      ],
+      "labels": [
+        "Feroz Sheikh",
+        "+91 77\u2022\u2022\u20228834",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki"
+      ],
+      "hops": 4
+    },
+    "P02_P07": {
+      "path": [
+        "P02",
+        "L02",
+        "V02",
+        "P07"
+      ],
+      "labels": [
+        "Feroz Sheikh",
+        "Farmhouse, Alibaug",
+        "MH-02 CJ 4410",
+        "Meena Iyer"
+      ],
+      "hops": 3
+    },
+    "P02_P08": {
+      "path": [
+        "P02",
+        "PH02",
+        "PH06",
+        "PH05",
+        "P08"
+      ],
+      "labels": [
+        "Feroz Sheikh",
+        "+91 77\u2022\u2022\u20228834",
+        "+91 82\u2022\u2022\u20227743",
+        "+91 90\u2022\u2022\u20223390",
+        "Arjun Kapoor"
+      ],
+      "hops": 4
+    },
+    "P02_P09": {
+      "path": [
+        "P02",
+        "PH02",
+        "PH06",
+        "P09"
+      ],
+      "labels": [
+        "Feroz Sheikh",
+        "+91 77\u2022\u2022\u20228834",
+        "+91 82\u2022\u2022\u20227743",
+        "Kavita Joshi"
+      ],
+      "hops": 3
+    },
+    "P02_P10": null,
+    "P03_P01": {
+      "path": [
+        "P03",
+        "PH03",
+        "PH01",
+        "P01"
+      ],
+      "labels": [
+        "Anita Rao",
+        "+91 99\u2022\u2022\u20222207",
+        "+91 98\u2022\u2022\u20221142",
+        "Rajeev Malhotra"
+      ],
+      "hops": 3
+    },
+    "P03_P02": {
+      "path": [
+        "P03",
+        "PH03",
+        "PH01",
+        "PH02",
+        "P02"
+      ],
+      "labels": [
+        "Anita Rao",
+        "+91 99\u2022\u2022\u20222207",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 77\u2022\u2022\u20228834",
+        "Feroz Sheikh"
+      ],
+      "hops": 4
+    },
+    "P03_P04": {
+      "path": [
+        "P03",
+        "PH03",
+        "PH04",
+        "P06",
+        "L04",
+        "P04"
+      ],
+      "labels": [
+        "Anita Rao",
+        "+91 99\u2022\u2022\u20222207",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki",
+        "Godown, Bhiwandi",
+        "Sanjay Verma"
+      ],
+      "hops": 5
+    },
+    "P03_P05": {
+      "path": [
+        "P03",
+        "PH03",
+        "PH04",
+        "P06",
+        "L01",
+        "P05"
+      ],
+      "labels": [
+        "Anita Rao",
+        "+91 99\u2022\u2022\u20222207",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki",
+        "Warehouse, Andheri East",
+        "Deepak Nair"
+      ],
+      "hops": 5
+    },
+    "P03_P06": {
+      "path": [
+        "P03",
+        "PH03",
+        "PH04",
+        "P06"
+      ],
+      "labels": [
+        "Anita Rao",
+        "+91 99\u2022\u2022\u20222207",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki"
+      ],
+      "hops": 3
+    },
+    "P03_P07": {
+      "path": [
+        "P03",
+        "A01",
+        "A02",
+        "O01",
+        "P07"
+      ],
+      "labels": [
+        "Anita Rao",
+        "A/C A01 (HDFC)",
+        "A/C A02 (ICICI)",
+        "Shree Trading Co.",
+        "Meena Iyer"
+      ],
+      "hops": 4
+    },
+    "P03_P08": {
+      "path": [
+        "P03",
+        "PH03",
+        "PH04",
+        "PH05",
+        "P08"
+      ],
+      "labels": [
+        "Anita Rao",
+        "+91 99\u2022\u2022\u20222207",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 90\u2022\u2022\u20223390",
+        "Arjun Kapoor"
+      ],
+      "hops": 4
+    },
+    "P03_P09": {
+      "path": [
+        "P03",
+        "A01",
+        "A02",
+        "A04",
+        "P09"
+      ],
+      "labels": [
+        "Anita Rao",
+        "A/C A01 (HDFC)",
+        "A/C A02 (ICICI)",
+        "A/C A04 (Axis)",
+        "Kavita Joshi"
+      ],
+      "hops": 4
+    },
+    "P03_P10": null,
+    "P04_P01": {
+      "path": [
+        "P04",
+        "L04",
+        "P06",
+        "PH04",
+        "PH01",
+        "P01"
+      ],
+      "labels": [
+        "Sanjay Verma",
+        "Godown, Bhiwandi",
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 98\u2022\u2022\u20221142",
+        "Rajeev Malhotra"
+      ],
+      "hops": 5
+    },
+    "P04_P02": {
+      "path": [
+        "P04",
+        "L04",
+        "P06",
+        "PH04",
+        "PH01",
+        "PH02",
+        "P02"
+      ],
+      "labels": [
+        "Sanjay Verma",
+        "Godown, Bhiwandi",
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 77\u2022\u2022\u20228834",
+        "Feroz Sheikh"
+      ],
+      "hops": 6
+    },
+    "P04_P03": {
+      "path": [
+        "P04",
+        "L04",
+        "P06",
+        "PH04",
+        "PH03",
+        "P03"
+      ],
+      "labels": [
+        "Sanjay Verma",
+        "Godown, Bhiwandi",
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 99\u2022\u2022\u20222207",
+        "Anita Rao"
+      ],
+      "hops": 5
+    },
+    "P04_P05": {
+      "path": [
+        "P04",
+        "L04",
+        "P06",
+        "L01",
+        "P05"
+      ],
+      "labels": [
+        "Sanjay Verma",
+        "Godown, Bhiwandi",
+        "Vikram Solanki",
+        "Warehouse, Andheri East",
+        "Deepak Nair"
+      ],
+      "hops": 4
+    },
+    "P04_P06": {
+      "path": [
+        "P04",
+        "L04",
+        "P06"
+      ],
+      "labels": [
+        "Sanjay Verma",
+        "Godown, Bhiwandi",
+        "Vikram Solanki"
+      ],
+      "hops": 2
+    },
+    "P04_P07": {
+      "path": [
+        "P04",
+        "L04",
+        "P06",
+        "PH04",
+        "PH01",
+        "P01",
+        "L02",
+        "V02",
+        "P07"
+      ],
+      "labels": [
+        "Sanjay Verma",
+        "Godown, Bhiwandi",
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 98\u2022\u2022\u20221142",
+        "Rajeev Malhotra",
+        "Farmhouse, Alibaug",
+        "MH-02 CJ 4410",
+        "Meena Iyer"
+      ],
+      "hops": 8
+    },
+    "P04_P08": {
+      "path": [
+        "P04",
+        "L04",
+        "P06",
+        "PH04",
+        "PH05",
+        "P08"
+      ],
+      "labels": [
+        "Sanjay Verma",
+        "Godown, Bhiwandi",
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 90\u2022\u2022\u20223390",
+        "Arjun Kapoor"
+      ],
+      "hops": 5
+    },
+    "P04_P09": {
+      "path": [
+        "P04",
+        "L04",
+        "P06",
+        "PH04",
+        "PH05",
+        "PH06",
+        "P09"
+      ],
+      "labels": [
+        "Sanjay Verma",
+        "Godown, Bhiwandi",
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 90\u2022\u2022\u20223390",
+        "+91 82\u2022\u2022\u20227743",
+        "Kavita Joshi"
+      ],
+      "hops": 6
+    },
+    "P04_P10": null,
+    "P05_P01": {
+      "path": [
+        "P05",
+        "L01",
+        "P06",
+        "PH04",
+        "PH01",
+        "P01"
+      ],
+      "labels": [
+        "Deepak Nair",
+        "Warehouse, Andheri East",
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 98\u2022\u2022\u20221142",
+        "Rajeev Malhotra"
+      ],
+      "hops": 5
+    },
+    "P05_P02": {
+      "path": [
+        "P05",
+        "L01",
+        "P06",
+        "PH04",
+        "PH01",
+        "PH02",
+        "P02"
+      ],
+      "labels": [
+        "Deepak Nair",
+        "Warehouse, Andheri East",
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 77\u2022\u2022\u20228834",
+        "Feroz Sheikh"
+      ],
+      "hops": 6
+    },
+    "P05_P03": {
+      "path": [
+        "P05",
+        "L01",
+        "P06",
+        "PH04",
+        "PH03",
+        "P03"
+      ],
+      "labels": [
+        "Deepak Nair",
+        "Warehouse, Andheri East",
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 99\u2022\u2022\u20222207",
+        "Anita Rao"
+      ],
+      "hops": 5
+    },
+    "P05_P04": {
+      "path": [
+        "P05",
+        "L01",
+        "P06",
+        "L04",
+        "P04"
+      ],
+      "labels": [
+        "Deepak Nair",
+        "Warehouse, Andheri East",
+        "Vikram Solanki",
+        "Godown, Bhiwandi",
+        "Sanjay Verma"
+      ],
+      "hops": 4
+    },
+    "P05_P06": {
+      "path": [
+        "P05",
+        "L01",
+        "P06"
+      ],
+      "labels": [
+        "Deepak Nair",
+        "Warehouse, Andheri East",
+        "Vikram Solanki"
+      ],
+      "hops": 2
+    },
+    "P05_P07": {
+      "path": [
+        "P05",
+        "L01",
+        "P06",
+        "PH04",
+        "PH01",
+        "P01",
+        "L02",
+        "V02",
+        "P07"
+      ],
+      "labels": [
+        "Deepak Nair",
+        "Warehouse, Andheri East",
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 98\u2022\u2022\u20221142",
+        "Rajeev Malhotra",
+        "Farmhouse, Alibaug",
+        "MH-02 CJ 4410",
+        "Meena Iyer"
+      ],
+      "hops": 8
+    },
+    "P05_P08": {
+      "path": [
+        "P05",
+        "L01",
+        "P06",
+        "PH04",
+        "PH05",
+        "P08"
+      ],
+      "labels": [
+        "Deepak Nair",
+        "Warehouse, Andheri East",
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 90\u2022\u2022\u20223390",
+        "Arjun Kapoor"
+      ],
+      "hops": 5
+    },
+    "P05_P09": {
+      "path": [
+        "P05",
+        "L01",
+        "P06",
+        "PH04",
+        "PH05",
+        "PH06",
+        "P09"
+      ],
+      "labels": [
+        "Deepak Nair",
+        "Warehouse, Andheri East",
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 90\u2022\u2022\u20223390",
+        "+91 82\u2022\u2022\u20227743",
+        "Kavita Joshi"
+      ],
+      "hops": 6
+    },
+    "P05_P10": null,
+    "P06_P01": {
+      "path": [
+        "P06",
+        "PH04",
+        "PH01",
+        "P01"
+      ],
+      "labels": [
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 98\u2022\u2022\u20221142",
+        "Rajeev Malhotra"
+      ],
+      "hops": 3
+    },
+    "P06_P02": {
+      "path": [
+        "P06",
+        "PH04",
+        "PH01",
+        "PH02",
+        "P02"
+      ],
+      "labels": [
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 77\u2022\u2022\u20228834",
+        "Feroz Sheikh"
+      ],
+      "hops": 4
+    },
+    "P06_P03": {
+      "path": [
+        "P06",
+        "PH04",
+        "PH03",
+        "P03"
+      ],
+      "labels": [
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 99\u2022\u2022\u20222207",
+        "Anita Rao"
+      ],
+      "hops": 3
+    },
+    "P06_P04": {
+      "path": [
+        "P06",
+        "L04",
+        "P04"
+      ],
+      "labels": [
+        "Vikram Solanki",
+        "Godown, Bhiwandi",
+        "Sanjay Verma"
+      ],
+      "hops": 2
+    },
+    "P06_P05": {
+      "path": [
+        "P06",
+        "L01",
+        "P05"
+      ],
+      "labels": [
+        "Vikram Solanki",
+        "Warehouse, Andheri East",
+        "Deepak Nair"
+      ],
+      "hops": 2
+    },
+    "P06_P07": {
+      "path": [
+        "P06",
+        "PH04",
+        "PH01",
+        "P01",
+        "L02",
+        "V02",
+        "P07"
+      ],
+      "labels": [
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 98\u2022\u2022\u20221142",
+        "Rajeev Malhotra",
+        "Farmhouse, Alibaug",
+        "MH-02 CJ 4410",
+        "Meena Iyer"
+      ],
+      "hops": 6
+    },
+    "P06_P08": {
+      "path": [
+        "P06",
+        "PH04",
+        "PH05",
+        "P08"
+      ],
+      "labels": [
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 90\u2022\u2022\u20223390",
+        "Arjun Kapoor"
+      ],
+      "hops": 3
+    },
+    "P06_P09": {
+      "path": [
+        "P06",
+        "PH04",
+        "PH05",
+        "PH06",
+        "P09"
+      ],
+      "labels": [
+        "Vikram Solanki",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 90\u2022\u2022\u20223390",
+        "+91 82\u2022\u2022\u20227743",
+        "Kavita Joshi"
+      ],
+      "hops": 4
+    },
+    "P06_P10": null,
+    "P07_P01": {
+      "path": [
+        "P07",
+        "V02",
+        "L02",
+        "P01"
+      ],
+      "labels": [
+        "Meena Iyer",
+        "MH-02 CJ 4410",
+        "Farmhouse, Alibaug",
+        "Rajeev Malhotra"
+      ],
+      "hops": 3
+    },
+    "P07_P02": {
+      "path": [
+        "P07",
+        "V02",
+        "L02",
+        "P02"
+      ],
+      "labels": [
+        "Meena Iyer",
+        "MH-02 CJ 4410",
+        "Farmhouse, Alibaug",
+        "Feroz Sheikh"
+      ],
+      "hops": 3
+    },
+    "P07_P03": {
+      "path": [
+        "P07",
+        "O01",
+        "A02",
+        "A01",
+        "P03"
+      ],
+      "labels": [
+        "Meena Iyer",
+        "Shree Trading Co.",
+        "A/C A02 (ICICI)",
+        "A/C A01 (HDFC)",
+        "Anita Rao"
+      ],
+      "hops": 4
+    },
+    "P07_P04": {
+      "path": [
+        "P07",
+        "V02",
+        "L02",
+        "P01",
+        "PH01",
+        "PH04",
+        "P06",
+        "L04",
+        "P04"
+      ],
+      "labels": [
+        "Meena Iyer",
+        "MH-02 CJ 4410",
+        "Farmhouse, Alibaug",
+        "Rajeev Malhotra",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki",
+        "Godown, Bhiwandi",
+        "Sanjay Verma"
+      ],
+      "hops": 8
+    },
+    "P07_P05": {
+      "path": [
+        "P07",
+        "V02",
+        "L02",
+        "P01",
+        "PH01",
+        "PH04",
+        "P06",
+        "L01",
+        "P05"
+      ],
+      "labels": [
+        "Meena Iyer",
+        "MH-02 CJ 4410",
+        "Farmhouse, Alibaug",
+        "Rajeev Malhotra",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki",
+        "Warehouse, Andheri East",
+        "Deepak Nair"
+      ],
+      "hops": 8
+    },
+    "P07_P06": {
+      "path": [
+        "P07",
+        "V02",
+        "L02",
+        "P01",
+        "PH01",
+        "PH04",
+        "P06"
+      ],
+      "labels": [
+        "Meena Iyer",
+        "MH-02 CJ 4410",
+        "Farmhouse, Alibaug",
+        "Rajeev Malhotra",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki"
+      ],
+      "hops": 6
+    },
+    "P07_P08": {
+      "path": [
+        "P07",
+        "V02",
+        "L02",
+        "P01",
+        "PH01",
+        "PH04",
+        "PH05",
+        "P08"
+      ],
+      "labels": [
+        "Meena Iyer",
+        "MH-02 CJ 4410",
+        "Farmhouse, Alibaug",
+        "Rajeev Malhotra",
+        "+91 98\u2022\u2022\u20221142",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 90\u2022\u2022\u20223390",
+        "Arjun Kapoor"
+      ],
+      "hops": 7
+    },
+    "P07_P09": {
+      "path": [
+        "P07",
+        "O01",
+        "A02",
+        "A04",
+        "P09"
+      ],
+      "labels": [
+        "Meena Iyer",
+        "Shree Trading Co.",
+        "A/C A02 (ICICI)",
+        "A/C A04 (Axis)",
+        "Kavita Joshi"
+      ],
+      "hops": 4
+    },
+    "P07_P10": null,
+    "P08_P01": {
+      "path": [
+        "P08",
+        "PH05",
+        "PH04",
+        "PH01",
+        "P01"
+      ],
+      "labels": [
+        "Arjun Kapoor",
+        "+91 90\u2022\u2022\u20223390",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 98\u2022\u2022\u20221142",
+        "Rajeev Malhotra"
+      ],
+      "hops": 4
+    },
+    "P08_P02": {
+      "path": [
+        "P08",
+        "PH05",
+        "PH06",
+        "PH02",
+        "P02"
+      ],
+      "labels": [
+        "Arjun Kapoor",
+        "+91 90\u2022\u2022\u20223390",
+        "+91 82\u2022\u2022\u20227743",
+        "+91 77\u2022\u2022\u20228834",
+        "Feroz Sheikh"
+      ],
+      "hops": 4
+    },
+    "P08_P03": {
+      "path": [
+        "P08",
+        "PH05",
+        "PH04",
+        "PH03",
+        "P03"
+      ],
+      "labels": [
+        "Arjun Kapoor",
+        "+91 90\u2022\u2022\u20223390",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 99\u2022\u2022\u20222207",
+        "Anita Rao"
+      ],
+      "hops": 4
+    },
+    "P08_P04": {
+      "path": [
+        "P08",
+        "PH05",
+        "PH04",
+        "P06",
+        "L04",
+        "P04"
+      ],
+      "labels": [
+        "Arjun Kapoor",
+        "+91 90\u2022\u2022\u20223390",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki",
+        "Godown, Bhiwandi",
+        "Sanjay Verma"
+      ],
+      "hops": 5
+    },
+    "P08_P05": {
+      "path": [
+        "P08",
+        "PH05",
+        "PH04",
+        "P06",
+        "L01",
+        "P05"
+      ],
+      "labels": [
+        "Arjun Kapoor",
+        "+91 90\u2022\u2022\u20223390",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki",
+        "Warehouse, Andheri East",
+        "Deepak Nair"
+      ],
+      "hops": 5
+    },
+    "P08_P06": {
+      "path": [
+        "P08",
+        "PH05",
+        "PH04",
+        "P06"
+      ],
+      "labels": [
+        "Arjun Kapoor",
+        "+91 90\u2022\u2022\u20223390",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki"
+      ],
+      "hops": 3
+    },
+    "P08_P07": {
+      "path": [
+        "P08",
+        "PH05",
+        "PH04",
+        "PH01",
+        "P01",
+        "L02",
+        "V02",
+        "P07"
+      ],
+      "labels": [
+        "Arjun Kapoor",
+        "+91 90\u2022\u2022\u20223390",
+        "+91 88\u2022\u2022\u20225561",
+        "+91 98\u2022\u2022\u20221142",
+        "Rajeev Malhotra",
+        "Farmhouse, Alibaug",
+        "MH-02 CJ 4410",
+        "Meena Iyer"
+      ],
+      "hops": 7
+    },
+    "P08_P09": {
+      "path": [
+        "P08",
+        "PH05",
+        "PH06",
+        "P09"
+      ],
+      "labels": [
+        "Arjun Kapoor",
+        "+91 90\u2022\u2022\u20223390",
+        "+91 82\u2022\u2022\u20227743",
+        "Kavita Joshi"
+      ],
+      "hops": 3
+    },
+    "P08_P10": null,
+    "P09_P01": {
+      "path": [
+        "P09",
+        "PH06",
+        "PH02",
+        "PH01",
+        "P01"
+      ],
+      "labels": [
+        "Kavita Joshi",
+        "+91 82\u2022\u2022\u20227743",
+        "+91 77\u2022\u2022\u20228834",
+        "+91 98\u2022\u2022\u20221142",
+        "Rajeev Malhotra"
+      ],
+      "hops": 4
+    },
+    "P09_P02": {
+      "path": [
+        "P09",
+        "PH06",
+        "PH02",
+        "P02"
+      ],
+      "labels": [
+        "Kavita Joshi",
+        "+91 82\u2022\u2022\u20227743",
+        "+91 77\u2022\u2022\u20228834",
+        "Feroz Sheikh"
+      ],
+      "hops": 3
+    },
+    "P09_P03": {
+      "path": [
+        "P09",
+        "A04",
+        "A02",
+        "A01",
+        "P03"
+      ],
+      "labels": [
+        "Kavita Joshi",
+        "A/C A04 (Axis)",
+        "A/C A02 (ICICI)",
+        "A/C A01 (HDFC)",
+        "Anita Rao"
+      ],
+      "hops": 4
+    },
+    "P09_P04": {
+      "path": [
+        "P09",
+        "PH06",
+        "PH05",
+        "PH04",
+        "P06",
+        "L04",
+        "P04"
+      ],
+      "labels": [
+        "Kavita Joshi",
+        "+91 82\u2022\u2022\u20227743",
+        "+91 90\u2022\u2022\u20223390",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki",
+        "Godown, Bhiwandi",
+        "Sanjay Verma"
+      ],
+      "hops": 6
+    },
+    "P09_P05": {
+      "path": [
+        "P09",
+        "PH06",
+        "PH05",
+        "PH04",
+        "P06",
+        "L01",
+        "P05"
+      ],
+      "labels": [
+        "Kavita Joshi",
+        "+91 82\u2022\u2022\u20227743",
+        "+91 90\u2022\u2022\u20223390",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki",
+        "Warehouse, Andheri East",
+        "Deepak Nair"
+      ],
+      "hops": 6
+    },
+    "P09_P06": {
+      "path": [
+        "P09",
+        "PH06",
+        "PH05",
+        "PH04",
+        "P06"
+      ],
+      "labels": [
+        "Kavita Joshi",
+        "+91 82\u2022\u2022\u20227743",
+        "+91 90\u2022\u2022\u20223390",
+        "+91 88\u2022\u2022\u20225561",
+        "Vikram Solanki"
+      ],
+      "hops": 4
+    },
+    "P09_P07": {
+      "path": [
+        "P09",
+        "A04",
+        "A02",
+        "O01",
+        "P07"
+      ],
+      "labels": [
+        "Kavita Joshi",
+        "A/C A04 (Axis)",
+        "A/C A02 (ICICI)",
+        "Shree Trading Co.",
+        "Meena Iyer"
+      ],
+      "hops": 4
+    },
+    "P09_P08": {
+      "path": [
+        "P09",
+        "PH06",
+        "PH05",
+        "P08"
+      ],
+      "labels": [
+        "Kavita Joshi",
+        "+91 82\u2022\u2022\u20227743",
+        "+91 90\u2022\u2022\u20223390",
+        "Arjun Kapoor"
+      ],
+      "hops": 3
+    },
+    "P09_P10": null,
+    "P10_P01": null,
+    "P10_P02": null,
+    "P10_P03": null,
+    "P10_P04": null,
+    "P10_P05": null,
+    "P10_P06": null,
+    "P10_P07": null,
+    "P10_P08": null,
+    "P10_P09": null
+  },
   "shortest_path_example": [
     "P06",
     "PH04",

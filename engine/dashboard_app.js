@@ -594,6 +594,17 @@ function renderCommandCenter(){
   document.getElementById("communities-title-el").textContent = t('communities_title');
 }
 
+/* ---------------- ROLE CLASSIFICATION BADGES ---------------- */
+function getRoleBadge(role){
+  if(!role) return "";
+  const r = role.toLowerCase();
+  if(r.includes("orchestrator")) return `<span class="role-badge role-orchestrator">\ud83d\udc51 ${role}</span>`;
+  if(r.includes("broker") || r.includes("intermediary")) return `<span class="role-badge role-broker">\ud83c\udf09 ${role}</span>`;
+  if(r.includes("mule") || r.includes("financial")) return `<span class="role-badge role-mule">\ud83d\udcbc ${role}</span>`;
+  if(r.includes("communicator") || r.includes("caller")) return `<span class="role-badge role-communicator">\ud83d\udcde ${role}</span>`;
+  return `<span class="role-badge role-associate">\ud83d\udccd ${role}</span>`;
+}
+
 /* ---------------- ENTITY PROFILES GRID ---------------- */
 function riskLevelLabel(level){
   return {HIGH:t('risk_high'), MEDIUM:t('risk_medium'), LOW:t('risk_low')}[level] || t('risk_unrated');
@@ -605,6 +616,7 @@ function renderEpGrid(){
     const aliasStr = (n.aliases && n.aliases.length) ? `${t('aliases_prefix')} ${n.aliases.join(", ")}` : t('no_aliases');
     return `<div class="ep-card" data-id="${n.id}">
       <div class="ep-top"><div class="ep-avatar">${ICONS.person}</div><div><div class="name">${n.label}</div><div class="id">${n.id}</div></div></div>
+      <div style="margin-bottom:8px;">${getRoleBadge(n.role)}</div>
       <div class="aliases">${aliasStr}</div>
       <div class="risk-pill ${n.risk_level||'UNRATED'}">${riskLevelLabel(n.risk_level)}</div>
     </div>`;
@@ -756,7 +768,10 @@ let CURRENT_SELECTED_NODE = null;
         <div class="profile-head">
           <h2>${d.label}</h2>
           <div class="type">${t(meta.labelKey)} \u00b7 ${d.id}</div>
-          ${d.type==="person" ? `<div class="risk-pill ${d.risk_level||'UNRATED'}">${riskLevelLabel(d.risk_level)}</div>` : ""}
+          <div style="margin-top:6px; display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+            ${d.type==="person" ? `<div class="risk-pill ${d.risk_level||'UNRATED'}">${riskLevelLabel(d.risk_level)}</div>` : ""}
+            ${d.type==="person" ? getRoleBadge(d.role) : ""}
+          </div>
         </div>
         <div class="profile-section">
           <div class="st">${t('network_centrality')}</div>
@@ -783,11 +798,130 @@ let CURRENT_SELECTED_NODE = null;
       if(!q){ nodeG.classed("dim", d=>!activeTypes.has(d.type)); return; }
       nodeG.classed("dim", d=> !d.label.toLowerCase().includes(q));
     });
+
+    initPathFinder();
+    initTimelinePlayer();
   } catch (err) {
     console.error("Graph init failed:", err);
     document.getElementById("graph-error").style.display = "flex";
   }
 })();
+
+/* ---------------- PATH FINDER INTERACTION ---------------- */
+function initPathFinder(){
+  const srcSelect = document.getElementById("pf-source");
+  const tgtSelect = document.getElementById("pf-target");
+  if(!srcSelect || !tgtSelect) return;
+
+  const personNodes = DATA.nodes.filter(n=>n.type==="person");
+  const opts = personNodes.map(p=>`<option value="${p.id}">${p.label}</option>`).join("");
+  srcSelect.innerHTML = opts;
+  tgtSelect.innerHTML = opts;
+  if(personNodes.length > 1) tgtSelect.selectedIndex = 1;
+
+  document.getElementById("btn-find-path").addEventListener("click", ()=>{
+    const sId = srcSelect.value;
+    const tId = tgtSelect.value;
+    if(sId === tId){
+      alert("Please select two different entities to trace a connection.");
+      return;
+    }
+    const pathKey = `${sId}_${tId}`;
+    const pathKeyRev = `${tId}_${sId}`;
+    const pathData = (DATA.all_paths && (DATA.all_paths[pathKey] || DATA.all_paths[pathKeyRev]));
+
+    const badge = document.getElementById("path-info-badge");
+    if(pathData && pathData.path){
+      const pathNodeIds = new Set(pathData.path);
+      d3.selectAll("g.node").classed("dim", d => !pathNodeIds.has(d.id));
+      d3.selectAll("path.link").classed("dim", l => !(pathNodeIds.has(l.source.id||l.source) && pathNodeIds.has(l.target.id||l.target)));
+      
+      badge.style.display = "block";
+      badge.innerHTML = `<b>🔗 Traced Path (${pathData.hops} hops):</b> ${pathData.labels.join(" ➔ ")}`;
+    } else {
+      badge.style.display = "block";
+      badge.innerHTML = `<b>No Direct Path:</b> No recorded link between ${DATA.id_to_label[sId]} and ${DATA.id_to_label[tId]} in current graph.`;
+    }
+  });
+
+  document.getElementById("btn-clear-path").addEventListener("click", ()=>{
+    d3.selectAll("g.node").classed("dim", false);
+    d3.selectAll("path.link").classed("dim", false);
+    document.getElementById("path-info-badge").style.display = "none";
+  });
+}
+
+/* ---------------- TIMELINE SEQUENCE PLAYER ---------------- */
+function initTimelinePlayer(){
+  const events = DATA.timeline_events || [];
+  if(!events.length) return;
+
+  const slider = document.getElementById("tp-slider");
+  const dateEl = document.getElementById("tp-event-date");
+  const badgeEl = document.getElementById("tp-event-badge");
+  const titleEl = document.getElementById("tp-event-title");
+  const tickerEl = document.getElementById("tp-ticker");
+  const playBtn = document.getElementById("btn-tp-play");
+
+  slider.max = events.length - 1;
+  let curStep = 0;
+  let isPlaying = false;
+  let playTimer = null;
+
+  function applyStep(idx){
+    curStep = idx;
+    slider.value = idx;
+    const evt = events[idx];
+    if(!evt) return;
+
+    dateEl.textContent = evt.date + " " + evt.time;
+    badgeEl.textContent = evt.badge || evt.type;
+    badgeEl.className = "tp-event-badge " + (evt.type || "");
+    titleEl.textContent = evt.title + ": " + evt.description;
+    tickerEl.textContent = `Step ${idx + 1} of ${events.length}`;
+
+    const activeNodeIds = new Set(evt.nodes || []);
+    d3.selectAll("g.node").classed("selected", d => activeNodeIds.has(d.id));
+    d3.selectAll("path.link").classed("suspicious", l => activeNodeIds.has(l.source.id||l.source) && activeNodeIds.has(l.target.id||l.target));
+  }
+
+  slider.addEventListener("input", (e)=> applyStep(parseInt(e.target.value, 10)));
+  document.getElementById("btn-tp-prev").addEventListener("click", ()=> {
+    if(curStep > 0) applyStep(curStep - 1);
+  });
+  document.getElementById("btn-tp-next").addEventListener("click", ()=> {
+    if(curStep < events.length - 1) applyStep(curStep + 1);
+  });
+  document.getElementById("btn-tp-reset").addEventListener("click", ()=> {
+    pause();
+    applyStep(0);
+    d3.selectAll("g.node").classed("selected", false);
+  });
+
+  function play(){
+    isPlaying = true;
+    playBtn.textContent = "⏸";
+    playTimer = setInterval(()=>{
+      if(curStep < events.length - 1){
+        applyStep(curStep + 1);
+      } else {
+        pause();
+      }
+    }, 1800);
+  }
+
+  function pause(){
+    isPlaying = false;
+    playBtn.textContent = "▶";
+    if(playTimer) clearInterval(playTimer);
+  }
+
+  playBtn.addEventListener("click", ()=> {
+    if(isPlaying) pause(); else play();
+  });
+
+  applyStep(0);
+}
 
 /* ---------------- ENTITY PROFILE DETAIL (full page) ---------------- */
 let CURRENT_PROFILE_ID = null;
@@ -891,7 +1025,10 @@ function openProfileDetail(personId){
           <span>\u00b7</span>
           <span>${t('pd_last_known_label')} ${d.last_known ? d.last_known.location : t('unrecorded')}</span>
         </div>
-        <div class="risk-pill ${riskLevel}" style="background:rgba(255,255,255,0.2); border-color:rgba(255,255,255,0.5); color:#fff;">${riskLevelLabel(riskLevel)}</div>
+        <div style="display:flex; gap:8px; align-items:center; margin-top:8px; flex-wrap:wrap;">
+          <div class="risk-pill ${riskLevel}" style="background:rgba(255,255,255,0.2); border-color:rgba(255,255,255,0.5); color:#fff;">${riskLevelLabel(riskLevel)}</div>
+          ${getRoleBadge(d.role)}
+        </div>
       </div>
       <button class="btn-track" id="pd-flag-btn">${t('pd_flag_btn')}</button>
     </div>
