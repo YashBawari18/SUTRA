@@ -9,6 +9,7 @@ import datetime
 def process_evidence_task(evidence_id: str):
     """
     Background task to parse raw text and run NLP extraction.
+    Creates Document and Event nodes in Neo4j to satisfy PRD Gap #7 & #8.
     """
     db = SessionLocal()
     neo4j_session = neo4j_conn.get_session()
@@ -30,13 +31,33 @@ def process_evidence_task(evidence_id: str):
         
         timestamp_now = datetime.datetime.utcnow().isoformat()
         
-        # 4. Save to Neo4j (No silent merging - mark as pending_review)
+        # 4. Save to Neo4j (First-class Document node)
+        doc_query = """
+        MERGE (d:Document {id: $evidence_id})
+        ON CREATE SET d.filename = $filename, d.type = $type, d.case_id = $case_id, d.timestamp = $timestamp
+        """
+        neo4j_session.run(doc_query, evidence_id=evidence_id, filename=evidence.file_name, type=evidence.file_type, case_id=evidence.case_id, timestamp=timestamp_now)
+        
+        # 5. Extract temporal events (Basic mock for Event extraction if dates found)
+        # Here we just create a single Document ingestion event to represent the timeline footprint
+        event_query = """
+        MERGE (e:Event {id: $event_id})
+        ON CREATE SET e.type = 'EVIDENCE_INGESTED', e.timestamp = $timestamp, e.case_id = $case_id
+        MERGE (d:Document {id: $evidence_id})
+        MERGE (e)-[:SUPPORTS]->(d)
+        """
+        neo4j_session.run(event_query, event_id=f"EV-{evidence_id}", timestamp=timestamp_now, case_id=evidence.case_id, evidence_id=evidence_id)
+
+        # 6. Save Entities to Neo4j & link to Document
         for ent in resolved_entities:
             query = f"""
             MERGE (n:`{ent['label']}` {{id: $id}})
             ON CREATE SET n.name = $name, n.case_id = $case_id, n.source = $source, 
                           n.verification_status = 'pending_review', n.evidence_id = $evidence_id
             ON MATCH SET n.name = $name
+            WITH n
+            MATCH (d:Document {{id: $evidence_id}})
+            MERGE (n)-[:MENTIONED_IN]->(d)
             """
             neo4j_session.run(query, id=ent['id'], name=ent['normalized_value'], case_id=evidence.case_id, source=ent['source'], evidence_id=evidence_id)
             
@@ -51,14 +72,14 @@ def process_evidence_task(evidence_id: str):
             neo4j_session.run(rel_query, source=rel['source'].upper(), target=rel['target'].upper(), 
                               rel_type=rel['type'], evidence_id=evidence_id, confidence=rel.get('confidence', 0.5), timestamp=timestamp_now)
 
-        # 5. Update Status
+        # 7. Update Status
         evidence.provenance_status = "extracted"
         audit_log = AuditLog(
             action="EXTRACTED",
             case_id=evidence.case_id,
             object_type="Evidence",
             object_id=evidence_id,
-            reason=f"Extracted {len(resolved_entities)} entities."
+            reason=f"Extracted {len(resolved_entities)} entities. Document & Event mapped to Graph."
         )
         db.add(audit_log)
         db.commit()
@@ -70,4 +91,5 @@ def process_evidence_task(evidence_id: str):
     finally:
         db.close()
         neo4j_session.close()
+
 
