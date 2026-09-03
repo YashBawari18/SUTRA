@@ -303,9 +303,9 @@ HTML = """<!DOCTYPE html>
   .sb-footer .sb-item{ font-size:11.5px; }
   .sb-gov{ padding:10px 20px; font-family:var(--font-mono); font-size:8.5px; color:var(--ink-faint); border-top:1px solid var(--border); line-height:1.6; }
 
-  .main-col{ display:flex; flex-direction:column; min-width:0; }
+  .main-col{ display:flex; flex-direction:column; min-width:0; height:100vh; max-height:100vh; overflow:hidden; }
   .topbar{ display:flex; align-items:center; justify-content:space-between; padding:14px 24px;
-    border-bottom:1px solid var(--border); background:var(--bg-2); gap:14px; flex-wrap:wrap; }
+    border-bottom:1px solid var(--border); background:var(--bg-2); gap:14px; flex-wrap:wrap; flex-shrink:0; }
   .topbar-left{ display:flex; align-items:center; gap:14px; flex:1; min-width:0; }
   .topbar h2{ font-family:var(--font-serif); font-size:17px; white-space:nowrap; }
   .badge-secure{ font-family:var(--font-mono); font-size:9px; letter-spacing:0.08em; background:rgba(14,165,164,0.12);
@@ -319,8 +319,9 @@ HTML = """<!DOCTYPE html>
     display:flex; align-items:center; justify-content:center; color:var(--ink-dim); }
   .icon-btn:hover{ color:var(--ink); border-color:var(--ink-faint); }
 
-  .page{ display:none; flex:1; min-height:0; overflow-y:auto; }
+  .page{ display:none; flex:1; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; }
   .page.active{ display:flex; flex-direction:column; }
+  .page[data-page="report"]{ overflow-y:auto !important; }
   .page-pad{ padding:22px 26px; }
 
   .mobile-topbar{ display:none; }
