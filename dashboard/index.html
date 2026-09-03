@@ -6,6 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <title>SŪTRA — Criminal Network Intelligence System</title>
 <style>
   :root{
@@ -29,97 +30,161 @@
   ::-webkit-scrollbar-thumb:hover{ background:var(--ink-faint); }
   button{ font-family:inherit; cursor:pointer; }
 
-  /* ================= LANDING / BRIEFING SPLASH ================= */
-  #landing{ position:fixed; inset:0; background:var(--bg); z-index:100; overflow-y:auto; }
+  /* ================= OFFICIAL GOVERNMENT PORTAL LIGHT STYLING ================= */
+  #landing{ position:fixed; inset:0; background:#f4f6fa; z-index:100; overflow-y:auto; color:var(--ink); font-family:var(--font-body); scroll-behavior:smooth; }
   #landing.hide{ display:none; }
-  .land-header{ display:flex; align-items:center; justify-content:space-between; padding:16px 40px;
-    border-bottom:1px solid var(--border); }
-  .land-brand{ display:flex; align-items:center; gap:12px; }
-  .land-devanagari{ font-family:var(--font-serif); font-size:20px; color:var(--gold); }
-  .land-brand-name{ font-family:var(--font-serif); font-size:17px; letter-spacing:0.06em; font-weight:700; color:var(--ink); }
-  .land-nav{ display:flex; gap:24px; font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); letter-spacing:0.06em; font-weight:500; }
+  #landing-canvas{ position:fixed; inset:0; pointer-events:none; z-index:0; width:100%; height:100%; opacity:0.35; }
 
-  .hero{ max-width:860px; margin:0 auto; text-align:center; padding:90px 30px 60px; }
-  /* ================= ANIMATED SUTRA LOGO ================= */
-  .sutra-logo-wrap{ position:relative; display:inline-block; }
-  .sutra-logo-en,
-  .sutra-logo-hi{ position:absolute; top:0; left:0; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; }
-  .sutra-logo-en{ animation: sutra-en 5s ease-in-out infinite; }
-  .sutra-logo-hi{ animation: sutra-hi 5s ease-in-out infinite; }
-  @keyframes sutra-en{
-    0%   { opacity:1; transform:translateY(0); }
-    35%  { opacity:1; transform:translateY(0); }
-    45%  { opacity:0; transform:translateY(-6px); }
-    80%  { opacity:0; transform:translateY(6px); }
-    90%  { opacity:1; transform:translateY(0); }
-    100% { opacity:1; transform:translateY(0); }
+  /* Official Gov Ribbon (Tricolor) */
+  .gov-tricolor-bar{ height:4px; width:100%; background:linear-gradient(90deg, #FF9933 0%, #FF9933 33.3%, #ffffff 33.3%, #ffffff 66.6%, #138808 66.6%, #138808 100%); position:sticky; top:0; z-index:60; }
+
+  .land-header{ position:sticky; top:4px; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:14px 44px;
+    background:rgba(255, 255, 255, 0.94); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid #dde3ea; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+  .land-brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .land-devanagari{ font-family:var(--font-serif); font-size:22px; color:var(--gold); font-weight:700; }
+  .land-brand-name{ font-family:var(--font-serif); font-size:17px; letter-spacing:0.08em; font-weight:700; color:#0f172a; }
+  .land-brand-badge{ font-family:var(--font-mono); font-size:9px; letter-spacing:0.06em; background:#e8f0fe; color:#1a56db; border:1px solid #bfdbfe; padding:2px 8px; border-radius:4px; font-weight:600; }
+  .land-nav{ display:flex; align-items:center; gap:26px; font-family:var(--font-mono); font-size:11px; color:#475569; letter-spacing:0.04em; font-weight:600; }
+  .land-nav a{ color:#475569; text-decoration:none; transition:color 0.15s; }
+  .land-nav a:hover{ color:#0f172a; }
+
+  .hero{ position:relative; z-index:1; max-width:1040px; margin:0 auto; text-align:center; padding:28px 20px 24px; }
+  .hero-intel-tag{ display:inline-flex; align-items:center; gap:8px; padding:4px 12px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:20px; font-family:var(--font-mono); font-size:10.5px; color:#1d4ed8; letter-spacing:0.06em; margin-bottom:14px; font-weight:600; }
+  .hero-intel-tag .pulse-dot{ width:8px; height:8px; border-radius:50%; background:#16a34a; box-shadow:0 0 6px rgba(22,163,74,0.6); }
+
+  /* Hero logo presentation: Clean, non-overlapping language-toggled logo */
+  .hero-logo-wrap{ position:relative; height:80px; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; max-width:400px; }
+  .hero-logo-en, .hero-logo-hi{ display:none; align-items:center; justify-content:center; }
+  .hero-logo-en.active, .hero-logo-hi.active{ display:flex; }
+  .hero-logo-wrap img{ max-height:76px; width:auto; display:block; filter:drop-shadow(0 2px 8px rgba(0,0,0,0.06)); }
+
+  .hero h1{ font-family:var(--font-serif); font-size:36px; font-weight:700; color:#0f172a; margin-bottom:10px; letter-spacing:-0.01em; line-height:1.2; }
+  .hero p{ font-family:var(--font-body); font-size:13.5px; color:#475569; max-width:640px; margin:0 auto 18px; line-height:1.6; font-weight:400; }
+
+  .hero-btns{ display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap; margin-bottom:14px; }
+  .btn-hero-primary{ background:var(--gold); color:#ffffff; border:none; padding:11px 24px; border-radius:var(--radius);
+    font-family:var(--font-mono); font-size:11px; letter-spacing:0.07em; font-weight:700; cursor:pointer; box-shadow:0 3px 10px rgba(212,146,10,0.25); transition:all 0.15s ease; }
+  .btn-hero-primary:hover{ opacity:0.92; transform:translateY(-1px); box-shadow:0 6px 14px rgba(212,146,10,0.35); }
+  .btn-hero-primary:active{ transform:translateY(1px); }
+
+  .btn-hero-secondary{ background:#ffffff; color:#334155; border:1px solid #cbd5e1; padding:11px 22px; border-radius:var(--radius);
+    font-family:var(--font-mono); font-size:11px; letter-spacing:0.07em; cursor:pointer; font-weight:600; box-shadow:0 1px 2px rgba(0,0,0,0.04); transition:all 0.15s; }
+  .btn-hero-secondary:hover{ border-color:#94a3b8; color:#0f172a; background:#f8fafc; }
+
+  /* 3D Revolving Big Half Earth Section - Compacted & Elevated */
+  .hero-globe-wrap{ position:relative; width:100%; max-width:980px; height:240px; margin:10px auto -10px; overflow:hidden; display:flex; align-items:flex-start; justify-content:center; }
+  #globe-canvas{ width:100%; height:320px; display:block; cursor:grab; }
+  #globe-canvas:active{ cursor:grabbing; }
+  .globe-fade-overlay{ position:absolute; bottom:0; left:0; right:0; height:80px; background:linear-gradient(to bottom, rgba(244,246,250,0) 0%, rgba(244,246,250,0.92) 75%, #f4f6fa 100%); pointer-events:none; }
+  .globe-indicator{ position:absolute; top:8px; left:50%; transform:translateX(-50%); font-family:var(--font-mono); font-size:9.5px; color:#1a56db; background:rgba(255,255,255,0.9); border:1px solid #bfdbfe; padding:3px 12px; border-radius:16px; backdrop-filter:blur(8px); display:flex; align-items:center; gap:6px; box-shadow:0 2px 8px rgba(0,0,0,0.05); z-index:4; pointer-events:none; font-weight:600; }
+  .globe-indicator .pulse-beacon{ width:6px; height:6px; border-radius:50%; background:#16a34a; box-shadow:0 0 8px #16a34a; }
+
+  /* Floating Pop-up Intelligence Tags over Globe */
+  .globe-hotspot{ position:absolute; z-index:6; display:flex; align-items:center; gap:7px; padding:5px 11px; background:rgba(255,255,255,0.94); border:1px solid #cbd5e1; border-radius:20px; font-family:var(--font-mono); font-size:10px; font-weight:600; color:#0f172a; box-shadow:0 4px 14px rgba(0,0,0,0.07); backdrop-filter:blur(8px); cursor:pointer; text-decoration:none; transition:all 0.25s cubic-bezier(0.16,1,0.3,1); animation:floatTag 4s ease-in-out infinite alternate; }
+  .globe-hotspot:hover{ transform:translateY(-3px) scale(1.04); border-color:#1a56db; box-shadow:0 8px 20px rgba(26,86,219,0.18); background:#ffffff; }
+  .globe-hotspot.spot-delhi{ top:40px; left:50%; transform:translateX(-50%); animation-delay:0s; }
+  .globe-hotspot.spot-mumbai{ top:95px; left:18%; animation-delay:1.2s; }
+  .globe-hotspot.spot-dubai{ top:80px; right:16%; animation-delay:2.4s; }
+  .globe-hotspot.spot-singapore{ top:125px; right:26%; animation-delay:0.7s; }
+  .hotspot-dot{ width:7px; height:7px; border-radius:50%; background:#16a34a; box-shadow:0 0 6px rgba(22,163,74,0.6); }
+  .hotspot-dot.gold{ background:var(--gold); box-shadow:0 0 6px rgba(212,146,10,0.6); }
+  .hotspot-dot.blue{ background:#1a56db; box-shadow:0 0 6px rgba(26,86,219,0.6); }
+  .hotspot-link-icon{ font-size:9.5px; color:#64748b; margin-left:2px; }
+
+  @keyframes floatTag{
+    0%{ transform:translateY(0px); }
+    100%{ transform:translateY(-6px); }
   }
-  @keyframes sutra-hi{
-    0%   { opacity:0; transform:translateY(6px); }
-    35%  { opacity:0; transform:translateY(6px); }
-    45%  { opacity:1; transform:translateY(0); }
-    80%  { opacity:1; transform:translateY(0); }
-    90%  { opacity:0; transform:translateY(-6px); }
-    100% { opacity:0; transform:translateY(-6px); }
-  }
-  /* Sidebar compact logo */
-  .sb-logo-wrap{ position:relative; width:36px; height:32px; flex-shrink:0; }
-  .sb-logo-en,
-  .sb-logo-hi{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    font-family:var(--font-serif); font-size:20px; font-weight:700; color:var(--ink); line-height:1; }
-  .sb-logo-en{ animation: sutra-en 5s ease-in-out infinite; }
-  .sb-logo-hi{ animation: sutra-hi 5s ease-in-out infinite; }
-  /* Hero big logo */
-  .hero-logo-wrap{ position:relative; height:88px; margin-bottom:18px; display:flex; align-items:center; justify-content:center; }
-  .hero-logo-en,
-  .hero-logo-hi{ position:absolute; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; }
-  .hero-logo-en{ animation: sutra-en 5s ease-in-out infinite; }
-  .hero-logo-hi{ animation: sutra-hi 5s ease-in-out infinite; }
-  .hero-logo-text-en{ font-family:var(--font-serif); font-size:72px; font-weight:700; color:#1a2d6b; line-height:1; letter-spacing:0.02em; position:relative; }
-  .hero-logo-text-hi{ font-family:'Noto Sans Devanagari','Mangal',var(--font-serif),sans-serif; font-size:62px; font-weight:700; color:#1a2d6b; line-height:1; position:relative; }
-  .hero-logo-wave{ display:block; margin-top:2px; }
-  .hero-mark{ font-family:var(--font-serif); font-size:68px; color:var(--gold); line-height:1; margin-bottom:16px; opacity:0.88; }
-  .hero h1{ font-family:var(--font-serif); font-size:40px; font-weight:700; color:var(--ink); margin-bottom:16px; letter-spacing:0.01em; line-height:1.2; }
-  .hero p{ font-family:var(--font-body); font-size:14.5px; color:var(--ink-dim); max-width:560px; margin:0 auto 32px; line-height:1.75; font-weight:400; }
-  .hero-btns{ display:flex; gap:12px; justify-content:center; }
-  .btn-hero-primary{ background:var(--gold); color:#ffffff; border:none; padding:12px 28px; border-radius:var(--radius-sm);
-    font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.07em; font-weight:700; transition:opacity 0.15s; }
-  .btn-hero-primary:hover{ opacity:0.88; }
-  .btn-hero-secondary{ background:none; color:var(--ink); border:1px solid var(--border); padding:12px 28px; border-radius:var(--radius-sm);
-    font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.07em; transition:border-color 0.15s; }
-  .btn-hero-secondary:hover{ border-color:var(--ink-dim); }
 
-  .caps-section{ max-width:1100px; margin:0 auto; padding:50px 30px 28px; text-align:center; }
-  .caps-section h2{ font-family:var(--font-serif); font-size:24px; margin-bottom:10px; font-weight:700; }
-  .caps-section > p{ color:var(--ink-faint); font-size:13px; margin-bottom:8px; line-height:1.6; }
-  .caps-divider{ width:44px; height:2px; background:var(--gold); margin:16px auto 36px; }
-  .caps-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; max-width:1100px; margin:0 auto; padding:0 30px; }
-  .cap-card{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; text-align:left; position:relative; transition:box-shadow 0.2s; }
-  .cap-card:hover{ box-shadow:var(--shadow-sm); }
-  .cap-tag{ position:absolute; top:14px; right:14px; font-family:var(--font-mono); font-size:8px; color:var(--ink-faint); letter-spacing:0.07em; }
-  .cap-tag.core{ color:var(--gold); border:1px solid var(--gold); padding:2px 6px; border-radius:2px; font-weight:700; }
-  .cap-icon{ width:36px; height:36px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius);
-    display:flex; align-items:center; justify-content:center; margin-bottom:14px; color:var(--gold); }
-  .cap-card h3{ font-family:var(--font-body); font-size:14px; font-weight:600; margin-bottom:7px; color:var(--ink); }
-  .cap-card p{ font-size:12.5px; color:var(--ink-faint); line-height:1.65; }
-  .cap-visual{ margin-top:14px; height:64px; border:1px dashed var(--border); border-radius:var(--radius-sm); display:flex;
-    align-items:center; justify-content:center; font-family:var(--font-mono); font-size:9px; color:var(--ink-faint); letter-spacing:0.04em; }
+  /* Popping Live Toast Notifications in Corner */
+  #live-feed-toaster{ position:fixed; bottom:24px; right:24px; z-index:150; display:flex; flex-direction:column-reverse; gap:10px; pointer-events:none; max-width:340px; width:calc(100vw - 48px); }
+  .pop-toast{ pointer-events:auto; background:#ffffff; border:1px solid #cbd5e1; border-left:4px solid #1a56db; border-radius:8px; padding:12px 14px; box-shadow:0 12px 28px rgba(15,23,42,0.14); display:flex; align-items:flex-start; gap:10px; cursor:pointer; text-decoration:none; color:inherit; transform:translateX(140%) scale(0.95); opacity:0; transition:transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease; }
+  .pop-toast.show{ transform:translateX(0) scale(1); opacity:1; }
+  .pop-toast:hover{ transform:translateY(-2px) scale(1.01); border-color:#1a56db; box-shadow:0 14px 32px rgba(26,86,219,0.18); }
+  .pop-toast.critical{ border-left-color:#c42020; }
+  .pop-toast.warning{ border-left-color:var(--amber); }
+  .pop-toast.resolved{ border-left-color:#16a34a; }
+  .toast-icon{ width:26px; height:26px; border-radius:6px; background:#f1f5f9; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:12px; margin-top:1px; }
+  .toast-body{ flex:1; min-width:0; }
+  .toast-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:3px; }
+  .toast-badge{ font-family:var(--font-mono); font-size:8.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#1a56db; }
+  .pop-toast.critical .toast-badge{ color:#c42020; }
+  .pop-toast.warning .toast-badge{ color:var(--amber); }
+  .pop-toast.resolved .toast-badge{ color:#16a34a; }
+  .toast-time{ font-family:var(--font-mono); font-size:8.5px; color:#94a3b8; }
+  .toast-text{ font-size:11.5px; color:#1e293b; font-weight:500; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .toast-sublink{ font-family:var(--font-mono); font-size:9.5px; color:#1a56db; margin-top:4px; display:inline-flex; align-items:center; gap:4px; font-weight:600; }
+  .toast-close{ border:none; background:none; color:#94a3b8; font-size:13px; cursor:pointer; padding:0 2px; line-height:1; }
+  .toast-close:hover{ color:#0f172a; }
 
-  .cap-wide{ max-width:1100px; margin:16px auto 0; padding:0 30px; }
-  .cap-wide-card{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:20px 24px;
-    display:flex; align-items:center; gap:20px; position:relative; }
-  .cap-wide-card .cap-icon{ margin-bottom:0; flex-shrink:0; }
+  /* Clean Gov Telemetry HUD Bar */
+  .hero-hud-bar{ display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; max-width:920px; margin:0 auto; padding:18px 22px; background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.04); text-align:left; position:relative; z-index:5; }
+  .hud-stat{ display:flex; flex-direction:column; gap:3px; padding:0 8px; border-right:1px solid #e2e8f0; }
+  .hud-stat:last-child{ border-right:none; }
+  .hud-stat .hud-lbl{ font-family:var(--font-mono); font-size:9.5px; color:#64748b; text-transform:uppercase; letter-spacing:0.06em; font-weight:600; display:flex; align-items:center; gap:6px; }
+  .hud-stat .hud-val{ font-family:var(--font-mono); font-size:22px; font-weight:700; color:#0f172a; letter-spacing:-0.01em; }
+  .hud-stat .hud-val span{ color:var(--gold); font-size:13px; font-weight:500; margin-left:3px; }
+  .hud-stat .hud-sub{ font-size:10.5px; color:#16a34a; font-family:var(--font-mono); font-weight:500; }
+
+  /* Capabilities Section - Official Clean Card Design */
+  .caps-section{ position:relative; z-index:1; max-width:1080px; margin:36px auto 0; padding:45px 24px 20px; text-align:center; }
+  .caps-section h2{ font-family:var(--font-serif); font-size:28px; margin-bottom:10px; font-weight:700; color:#0f172a; }
+  .caps-section > p{ color:#64748b; font-size:14px; max-width:560px; margin:0 auto 14px; line-height:1.6; }
+  .caps-divider{ width:50px; height:3px; background:var(--gold); margin:14px auto 32px; border-radius:2px; }
+
+  .caps-grid{ position:relative; z-index:1; display:grid; grid-template-columns:repeat(3, 1fr); gap:18px; max-width:1080px; margin:0 auto; padding:0 24px; }
+  .cap-card{ background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:24px 22px; text-align:left; position:relative; transition:box-shadow 0.2s, transform 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.03); }
+  .cap-card:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,0.06); border-color:#cbd5e1; }
+  .cap-tag{ position:absolute; top:16px; right:16px; font-family:var(--font-mono); font-size:9px; color:#64748b; letter-spacing:0.06em; background:#f1f5f9; padding:2px 7px; border-radius:3px; }
+  .cap-tag.core{ color:var(--gold); border:1px solid rgba(212,146,10,0.4); background:#fffbeb; font-weight:700; }
+  .cap-icon{ width:40px; height:40px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px;
+    display:flex; align-items:center; justify-content:center; margin-bottom:16px; color:var(--gold); font-size:17px; }
+  .cap-card h3{ font-family:var(--font-body); font-size:15px; font-weight:600; margin-bottom:8px; color:#0f172a; }
+  .cap-card p{ font-size:13px; color:#64748b; line-height:1.65; }
+  
+  /* Clean Radar Graphic */
+  .cap-visual{ position:relative; margin-top:16px; height:74px; border:1px solid #bfdbfe; border-radius:6px; display:flex;
+    align-items:center; justify-content:center; font-family:var(--font-mono); font-size:10px; color:#1d4ed8; letter-spacing:0.05em; background:radial-gradient(circle at center, #eff6ff 0%, #ffffff 80%); overflow:hidden; font-weight:600; }
+  .radar-sweep{ position:absolute; inset:0; width:100%; height:100%; border-radius:50%; background:conic-gradient(from 0deg at 50% 50%, rgba(29,78,216,0) 0deg, rgba(29,78,216,0.18) 60deg, transparent 61deg); animation:sweep 4s linear infinite; pointer-events:none; }
+  @keyframes sweep{ 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
+
+  .cap-wide{ position:relative; z-index:1; max-width:1080px; margin:18px auto 0; padding:0 24px; }
+  .cap-wide-card{ background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:20px 24px;
+    display:flex; align-items:center; gap:20px; position:relative; box-shadow:0 1px 3px rgba(0,0,0,0.03); }
+  .cap-wide-card .cap-icon{ margin-bottom:0; flex-shrink:0; color:#16a34a; background:#f0fdf4; border-color:#bbf7d0; }
   .cap-wide-card .body{ flex:1; }
-  .cap-wide-card h3{ font-family:var(--font-body); font-size:14px; font-weight:600; margin-bottom:5px; color:var(--ink); }
-  .cap-wide-card p{ font-size:12.5px; color:var(--ink-faint); line-height:1.6; }
-  .btn-doc{ background:none; border:1px solid var(--border); color:var(--ink-dim); padding:8px 16px; border-radius:var(--radius);
-    font-family:var(--font-mono); font-size:10.5px; flex-shrink:0; letter-spacing:0.04em; transition:border-color 0.15s; }
-  .btn-doc:hover{ border-color:var(--ink-dim); }
+  .cap-wide-card h3{ font-family:var(--font-body); font-size:15px; font-weight:600; margin-bottom:5px; color:#0f172a; }
+  .cap-wide-card p{ font-size:13px; color:#64748b; line-height:1.6; }
+  .btn-doc{ background:#f8fafc; border:1px solid #cbd5e1; color:#334155; padding:9px 18px; border-radius:var(--radius);
+    font-family:var(--font-mono); font-size:11px; flex-shrink:0; letter-spacing:0.05em; cursor:pointer; font-weight:600; transition:all 0.15s; }
+  .btn-doc:hover{ background:#f1f5f9; border-color:#94a3b8; color:#0f172a; }
 
-  .land-footer{ max-width:1100px; margin:52px auto 0; padding:18px 30px; border-top:1px solid var(--border);
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-family:var(--font-mono); font-size:9.5px; color:var(--ink-faint); letter-spacing:0.04em; }
-  .land-footer a{ color:var(--ink-faint); text-decoration:none; margin-left:16px; }
-  .land-footer a:hover{ color:var(--ink-dim); }
+  /* Clean Official Clearance Authentication Modal */
+  #auth-modal{ position:fixed; inset:0; z-index:200; background:rgba(15,23,42,0.6); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; }
+  #auth-modal.active{ display:flex; animation:fadeInModal 0.2s ease-out; }
+  @keyframes fadeInModal{ from{opacity:0;} to{opacity:1;} }
+  .auth-box{ width:460px; max-width:92vw; background:#ffffff; border:1px solid #cbd5e1; border-radius:10px; padding:28px 26px; box-shadow:0 16px 36px rgba(0,0,0,0.18); text-align:center; position:relative; overflow:hidden; }
+  .auth-box::before{ content:''; position:absolute; top:0; left:0; width:100%; height:3px; background:linear-gradient(90deg, #FF9933 0%, #ffffff 50%, #138808 100%); }
+  
+  .auth-scanner{ width:68px; height:68px; margin:0 auto 16px; position:relative; display:flex; align-items:center; justify-content:center; }
+  .scanner-ring{ position:absolute; inset:0; border-radius:50%; border:2px dashed #cbd5e1; animation:spinRing 6s linear infinite; }
+  .scanner-ring-2{ position:absolute; inset:5px; border-radius:50%; border:2px solid transparent; border-top-color:#1a56db; border-right-color:#1a56db; animation:spinRingReverse 2s cubic-bezier(0.68,-0.55,0.27,1.55) infinite; }
+  .scanner-center{ width:38px; height:38px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#1d4ed8; font-size:16px; }
+  @keyframes spinRing{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+  @keyframes spinRingReverse{ from{transform:rotate(360deg);} to{transform:rotate(0deg);} }
+
+  .auth-title{ font-family:var(--font-serif); font-size:18px; font-weight:700; color:#0f172a; margin-bottom:4px; }
+  .auth-status{ font-family:var(--font-mono); font-size:11px; color:#1d4ed8; margin-bottom:14px; min-height:16px; letter-spacing:0.04em; font-weight:600; }
+  .auth-progress-track{ width:100%; height:5px; background:#e2e8f0; border-radius:3px; overflow:hidden; margin-bottom:12px; position:relative; }
+  .auth-progress-fill{ height:100%; width:0%; background:linear-gradient(90deg, #1a56db, var(--gold)); border-radius:3px; transition:width 0.2s ease-out; }
+  .auth-terminal{ background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:8px 12px; font-family:var(--font-mono); font-size:9.5px; color:#475569; text-align:left; height:68px; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end; gap:2px; }
+  .auth-terminal-line{ opacity:0.9; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; }
+  .auth-terminal-line.active{ color:#1d4ed8; font-weight:600; }
+
+  .land-footer{ position:relative; z-index:1; max-width:1080px; margin:48px auto 0; padding:20px 24px 32px; border-top:1px solid #e2e8f0;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-family:var(--font-mono); font-size:10px; color:#64748b; letter-spacing:0.03em; }
+  .land-footer a{ color:#64748b; text-decoration:none; margin-left:16px; transition:color 0.15s; }
+  .land-footer a:hover{ color:#0f172a; }
 
   /* ================= APP SHELL ================= */
   #app{ display:none; height:100vh; grid-template-columns:224px 1fr; }
@@ -577,13 +642,19 @@
 <body>
 <!-- ================= LANDING ================= -->
 <div id="landing">
+  <div class="gov-tricolor-bar"></div>
+  <canvas id="landing-canvas"></canvas>
+  
   <div class="land-header">
     <div class="land-brand">
       <div class="land-devanagari">सूत्र</div>
       <div class="land-brand-name">SŪTRA</div>
+      <div class="land-brand-badge">GOVERNMENT OF INDIA • INI-CLEARANCE</div>
     </div>
     <div class="land-nav">
-      <span data-i18n="land_nav_1">ANALYTICAL CAPABILITIES</span><span data-i18n="land_nav_2">SECURE ACCESS PROTOCOL</span><span data-i18n="land_nav_3">GOVERNMENT DISCLAIMER</span>
+      <a href="#briefing-section" data-i18n="land_nav_1">ANALYTICAL CAPABILITIES</a>
+      <a href="#" id="nav-protocol-btn" data-i18n="land_nav_2">SECURE ACCESS PROTOCOL</a>
+      <a href="#" id="nav-disclaimer-btn" data-i18n="land_nav_3">GOVERNMENT DISCLAIMER</a>
       <div class="lang-switcher land-lang-switcher">
         <button class="lang-btn active" data-lang="en">EN</button>
         <button class="lang-btn" data-lang="hi">हिं</button>
@@ -591,34 +662,87 @@
       </div>
     </div>
   </div>
+
   <div class="hero">
+    <div class="hero-intel-tag">
+      <div class="pulse-dot"></div>
+      <span>NATIONAL INVESTIGATIVE INTELLIGENCE GRID • OFFICIAL PROTOTYPE</span>
+    </div>
+
     <div class="hero-logo-wrap">
-      <!-- English: SUTRA with top-right wave -->
-      <div class="hero-logo-en">
-        <div class="hero-logo-text-en" style="position:relative;">
-          SUTRA
-          <svg class="hero-logo-wave" style="position:absolute;top:4px;right:-10px;" width="52" height="22" viewBox="0 0 52 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 16 Q13 4 26 10 Q39 16 50 6" stroke="#FF9933" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-            <path d="M2 19 Q13 8 26 13 Q39 19 50 9" stroke="#138808" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-          </svg>
-        </div>
+      <!-- English: SUTRA logo image -->
+      <div class="hero-logo-en active">
+        <img src="sutra-en-logo.png" alt="SUTRA" />
       </div>
-      <!-- Hindi: सूत्र with bottom wave -->
+      <!-- Hindi: सूत्र logo image -->
       <div class="hero-logo-hi">
-        <div class="hero-logo-text-hi" style="position:relative;">
-          सूत्र
-          <svg class="hero-logo-wave" style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);" width="72" height="24" viewBox="0 0 72 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 8 Q18 20 36 12 Q54 4 68 16" stroke="#FF9933" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-            <path d="M4 13 Q18 22 36 16 Q54 8 68 20" stroke="#138808" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-          </svg>
-        </div>
+        <img src="sutra-hi-logo.png" alt="सूत्र" />
       </div>
     </div>
+
     <h1 data-i18n="hero_title">The Connection Thread</h1>
     <p data-i18n="hero_subtitle">Uncovering the invisible networks of crime. A unified investigative decision-support platform for entity resolution, knowledge-graph analysis, and evidence-backed leads — built for institutional accountability, not automated accusation.</p>
+    
     <div class="hero-btns">
       <button class="btn-hero-primary" id="btn-enter-app" data-i18n="btn_request_access">Request Access → Command Center</button>
       <button class="btn-hero-secondary" id="btn-view-briefing" data-i18n="btn_view_briefing">View Briefing</button>
+    </div>
+
+    <!-- 3D Revolving Half Earth Globe Element with Popping Hotspots -->
+    <div class="hero-globe-wrap">
+      <div class="globe-indicator"><span class="pulse-beacon"></span> LIVE GEOSPATIAL INTELLIGENCE SPHERE</div>
+      
+      <!-- Interactive Popping Hotspots with Direct Navigation Links -->
+      <a href="#" class="globe-hotspot spot-delhi" data-target-page="command" title="Inspect National Intelligence Headquarters">
+        <span class="hotspot-dot"></span>
+        <span>HQ: New Delhi Grid</span>
+        <span class="hotspot-link-icon">↗</span>
+      </a>
+      
+      <a href="#" class="globe-hotspot spot-mumbai" data-target-page="graph" title="View Financial Crime Cluster">
+        <span class="hotspot-dot gold"></span>
+        <span>Mumbai Port Syndicate #402</span>
+        <span class="hotspot-link-icon">↗</span>
+      </a>
+      
+      <a href="#" class="globe-hotspot spot-dubai" data-target-page="datalab" title="Inspect Cross-Border Hawala Trail">
+        <span class="hotspot-dot blue"></span>
+        <span>Dubai Hawala Node [AED 14.8 Cr]</span>
+        <span class="hotspot-link-icon">↗</span>
+      </a>
+
+      <a href="#" class="globe-hotspot spot-singapore" data-target-page="profiles" title="Trace Shell Entity Registry">
+        <span class="hotspot-dot gold"></span>
+        <span>East Maritime Logistics</span>
+        <span class="hotspot-link-icon">↗</span>
+      </a>
+
+      <canvas id="globe-canvas"></canvas>
+      <div class="globe-fade-overlay"></div>
+    </div>
+
+    <!-- Live Telemetry HUD Bar -->
+    <div class="hero-hud-bar">
+      <div class="hud-stat">
+        <div class="hud-lbl"><span>◈</span> Verified Nodes</div>
+        <div class="hud-val">1,420<span>pts</span></div>
+        <div class="hud-sub">● 99.4% Graph Density</div>
+      </div>
+      <div class="hud-stat">
+        <div class="hud-lbl"><span>◉</span> Active Networks</div>
+        <div class="hud-val">28<span>rings</span></div>
+        <div class="hud-sub">● 6 Cross-Border</div>
+      </div>
+      <div class="hud-stat">
+        <div class="hud-lbl"><span>✵</span> Entity Clusters</div>
+        <div class="hud-val">342<span>resolved</span></div>
+        <div class="hud-sub">● 0.94 Confidence</div>
+      </div>
+      <div class="hud-stat">
+        <div class="hud-lbl"><span>🔒</span> Security Protocol</div>
+        <div class="hud-val" style="font-size:18px;margin-top:4px;">AES-256<span>GCM</span></div>
+        <div class="hud-sub">● Zero-Knowledge</div>
+      </div>
     </div>
   </div>
 
@@ -627,6 +751,7 @@
     <p data-i18n="caps_subtitle">Core modules for advanced investigative decision-support.</p>
     <div class="caps-divider"></div>
   </div>
+  
   <div class="caps-grid">
     <div class="cap-card">
       <div class="cap-tag">REC-01-33</div>
@@ -645,9 +770,13 @@
       <div class="cap-icon">✵</div>
       <h3 data-i18n="cap3_title">Relationship Mapping</h3>
       <p data-i18n="cap3_desc">Visualize covert networks. Trace financial flows, communication linkages, and hierarchical structures dynamically.</p>
-      <div class="cap-visual" data-i18n="cap3_visual">Network Graph Visualization</div>
+      <div class="cap-visual">
+        <div class="radar-sweep"></div>
+        <span style="position:relative;z-index:2;" data-i18n="cap3_visual">Active Network Radar Stream</span>
+      </div>
     </div>
   </div>
+
   <div class="cap-wide">
     <div class="cap-wide-card">
       <div class="cap-icon">◠</div>
@@ -655,13 +784,37 @@
         <h3 data-i18n="cap4_title">Explainable Risk Scoring</h3>
         <p data-i18n="cap4_desc">Transparent, source-weighted risk indicators — every score fully traceable to evidence, always requiring human verification. No automated accusation, ever.</p>
       </div>
-      <button class="btn-doc" id="btn-view-docs" data-i18n="btn_view_docs">View Documentation</button>
+      <button class="btn-doc" id="btn-view-docs" data-i18n="btn_view_docs">Launch Investigation</button>
     </div>
   </div>
 
   <div class="land-footer">
     <div data-i18n="footer_copyright">© 2026 SŪTRA Investigative Intelligence Platform. Prototype — Restricted Demonstration Use Only.</div>
     <div><a href="#" data-i18n="footer_link1">Secure Access Protocol</a><a href="#" data-i18n="footer_link2">Privacy Policy</a><a href="#" data-i18n="footer_link3">Government Disclaimer</a><a href="#" data-i18n="footer_link4">Contact Administrator</a></div>
+  </div>
+
+  <!-- Live Intelligence Alert Pop-up Toaster -->
+  <div id="live-feed-toaster"></div>
+</div>
+
+<!-- ================= HIGH-TECH AUTHENTICATION LOADER MODAL ================= -->
+<div id="auth-modal">
+  <div class="auth-box">
+    <div class="auth-scanner">
+      <div class="scanner-ring"></div>
+      <div class="scanner-ring-2"></div>
+      <div class="scanner-center">⚡</div>
+    </div>
+    <div class="auth-title">SŪTRA CLEARANCE SYSTEM</div>
+    <div class="auth-status" id="auth-status-txt">INITIATING CRYPTOGRAPHIC HANDSHAKE...</div>
+    <div class="auth-progress-track">
+      <div class="auth-progress-fill" id="auth-progress-bar"></div>
+    </div>
+    <div class="auth-terminal" id="auth-terminal-box">
+      <div class="auth-terminal-line">[SYS] Initializing secure socket daemon...</div>
+      <div class="auth-terminal-line">[AUTH] Verifying biometrics and role-token...</div>
+      <div class="auth-terminal-line active">[GRAPH] Syncing localized Neo4j entity namespace...</div>
+    </div>
   </div>
 </div>
 
@@ -1411,6 +1564,20 @@ const ICONS = {
 function applyLanguage(lang){
   CURRENT_LANG = lang;
   document.querySelectorAll(".lang-btn").forEach(b=> b.classList.toggle("active", b.dataset.lang===lang));
+  
+  // Cleanly switch the landing page logo without overlapping
+  const heroEn = document.querySelector(".hero-logo-en");
+  const heroHi = document.querySelector(".hero-logo-hi");
+  if(heroEn && heroHi){
+    if(lang === "en"){
+      heroEn.classList.add("active");
+      heroHi.classList.remove("active");
+    } else {
+      heroEn.classList.remove("active");
+      heroHi.classList.add("active");
+    }
+  }
+
   applyStaticI18n();
   renderLegend();
   renderCommandCenter();
@@ -1431,11 +1598,64 @@ document.querySelectorAll(".lang-btn").forEach(btn=>{
   btn.addEventListener("click", ()=> applyLanguage(btn.dataset.lang));
 });
 
-/* ---------------- LANDING <-> APP ---------------- */
+/* ---------------- LANDING <-> APP WITH FUTURISTIC LOADER ---------------- */
+let isEnteringApp = false;
 function enterApp(){
-  document.getElementById("landing").classList.remove("hide"); // reset display if any
-  document.getElementById("landing").classList.add("hide");
-  document.getElementById("app").classList.add("show");
+  if(isEnteringApp) return;
+  isEnteringApp = true;
+  
+  const modal = document.getElementById("auth-modal");
+  const fill = document.getElementById("auth-progress-bar");
+  const statusTxt = document.getElementById("auth-status-txt");
+  const termBox = document.getElementById("auth-terminal-box");
+
+  if(!modal){
+    document.getElementById("landing").classList.add("hide");
+    document.getElementById("app").classList.add("show");
+    isEnteringApp = false;
+    return;
+  }
+
+  // Open high-tech clearance modal
+  modal.classList.add("active");
+  fill.style.width = "0%";
+  
+  const steps = [
+    { pct: "25%", status: "VERIFYING CRYPTOGRAPHIC TOKEN...", log: "[AUTH] Signature validated against SHA-256 state ledger." },
+    { pct: "55%", status: "QUERYING SECURE GRAPH TOPOLOGY...", log: "[NEO4J] 1,420 nodes loaded • Community Louvain converged." },
+    { pct: "85%", status: "DE-ANONYMIZING INVESTIGATIVE STREAM...", log: "[DEEP-LINK] Entity resolution pipeline primed (0.94 conf)." },
+    { pct: "100%", status: "CLEARANCE GRANTED. ENTERING COMMAND CENTER...", log: "[SYSTEM] Access authorized. Launching SŪTRA v2.4 shell..." }
+  ];
+
+  let stepIdx = 0;
+  function nextStep(){
+    if(stepIdx < steps.length){
+      const s = steps[stepIdx];
+      fill.style.width = s.pct;
+      statusTxt.textContent = s.status;
+      
+      const line = document.createElement("div");
+      line.className = "auth-terminal-line active";
+      line.textContent = s.log;
+      termBox.appendChild(line);
+      termBox.scrollTop = termBox.scrollHeight;
+      
+      stepIdx++;
+      setTimeout(nextStep, 240);
+    } else {
+      setTimeout(()=>{
+        modal.classList.remove("active");
+        document.getElementById("landing").classList.add("hide");
+        document.getElementById("app").classList.add("show");
+        isEnteringApp = false;
+        
+        // Trigger graph layout recompute if needed
+        if(window.__reselectCurrentNode) window.__reselectCurrentNode();
+      }, 350);
+    }
+  }
+
+  setTimeout(nextStep, 150);
 }
 
 function exitToLanding(){
@@ -1452,8 +1672,399 @@ document.getElementById("btn-view-briefing").addEventListener("click", ()=>{
 });
 document.getElementById("btn-view-docs").addEventListener("click", enterApp);
 
+const navProto = document.getElementById("nav-protocol-btn");
+if(navProto) navProto.addEventListener("click", (e)=>{ e.preventDefault(); enterApp(); });
+const navDisc = document.getElementById("nav-disclaimer-btn");
+if(navDisc) navDisc.addEventListener("click", (e)=>{ e.preventDefault(); document.querySelector('.land-footer').scrollIntoView({behavior:'smooth'}); });
+
 const brandBtn = document.getElementById("sb-brand-btn");
 if(brandBtn) brandBtn.addEventListener("click", exitToLanding);
+
+/* ---- Interactive Glowing Particle Constellation Background for Landing ---- */
+(function initLandingCanvas(){
+  const canvas = document.getElementById("landing-canvas");
+  if(!canvas) return;
+  const ctx = canvas.getContext("2d");
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+
+  window.addEventListener("resize", ()=>{
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  });
+
+  const numParticles = Math.min(65, Math.floor((w * h) / 18000));
+  const particles = [];
+
+  for(let i = 0; i < numParticles; i++){
+    particles.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.45,
+      vy: (Math.random() - 0.5) * 0.45,
+      radius: Math.random() * 2 + 1,
+      color: Math.random() > 0.4 ? "rgba(37, 84, 232, " : "rgba(212, 146, 10, "
+    });
+  }
+
+  let mouse = { x: -1000, y: -1000 };
+  window.addEventListener("mousemove", (e)=>{
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  function animate(){
+    const landingEl = document.getElementById("landing");
+    if(landingEl && !landingEl.classList.contains("hide")){
+      ctx.clearRect(0, 0, w, h);
+
+      for(let i = 0; i < particles.length; i++){
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if(p.x < 0 || p.x > w) p.vx *= -1;
+        if(p.y < 0 || p.y > h) p.vy *= -1;
+
+        // Draw particle node
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + "0.35)";
+        ctx.fill();
+
+        // Connect nearby nodes (Intelligence Graph aesthetic)
+        for(let j = i + 1; j < particles.length; j++){
+          const p2 = particles[j];
+          const dx = p.x - p2.x;
+          const dy = p.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if(dist < 130){
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            const alpha = (1 - dist / 130) * 0.12;
+            ctx.strokeStyle = `rgba(37, 84, 232, ${alpha})`;
+            ctx.lineWidth = 0.75;
+            ctx.stroke();
+          }
+        }
+
+        // Mouse link effect
+        const mdx = p.x - mouse.x;
+        const mdy = p.y - mouse.y;
+        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if(mdist < 150){
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(212, 146, 10, ${(1 - mdist / 150) * 0.28})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+/* ================= THREE.JS REVOLVING REALISTIC 3D BIG HALF EARTH ================= */
+(function initHalfEarthGlobe(){
+  const canvas = document.getElementById("globe-canvas");
+  if(!canvas || typeof THREE === "undefined") return;
+
+  const wrap = canvas.parentElement;
+  let width = wrap.clientWidth || 980;
+  let height = 320;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
+  camera.position.set(0, 3.4, 6.0);
+  camera.lookAt(0, 0.4, 0);
+
+  const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.82);
+  scene.add(ambientLight);
+
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.7);
+  dirLight.position.set(5, 8, 4);
+  scene.add(dirLight);
+
+  const blueLight = new THREE.DirectionalLight(0x1a56db, 0.4);
+  blueLight.position.set(-5, 3, -3);
+  scene.add(blueLight);
+
+  const globeGroup = new THREE.Group();
+  scene.add(globeGroup);
+
+  // Large radius for a majestic big half Earth
+  const RADIUS = 4.2;
+
+  // 1. High-Resolution Realistic Earth Texture
+  const textureLoader = new THREE.TextureLoader();
+  const earthTexture = textureLoader.load('earth-map.jpg', () => {
+    renderer.render(scene, camera);
+  });
+
+  const earthGeo = new THREE.SphereGeometry(RADIUS, 64, 64);
+  const earthMat = new THREE.MeshStandardMaterial({
+    map: earthTexture,
+    roughness: 0.8,
+    metalness: 0.1
+  });
+  const earthMesh = new THREE.Mesh(earthGeo, earthMat);
+  globeGroup.add(earthMesh);
+
+  // 2. Translucent Atmosphere Halo
+  const glowGeo = new THREE.SphereGeometry(RADIUS * 1.025, 48, 48);
+  const glowMat = new THREE.MeshBasicMaterial({
+    color: 0x60a5fa,
+    transparent: true,
+    opacity: 0.12,
+    side: THREE.BackSide
+  });
+  const atmosphere = new THREE.Mesh(glowGeo, glowMat);
+  globeGroup.add(atmosphere);
+
+  // 3. Subtle Latitude / Longitude Geospatial Orbit Ring
+  const ringGeo = new THREE.RingGeometry(RADIUS * 1.02, RADIUS * 1.05, 96);
+  const ringMat = new THREE.MeshBasicMaterial({
+    color: 0xd4920a,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 0.45
+  });
+  const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+  ringMesh.rotation.x = Math.PI / 2;
+  globeGroup.add(ringMesh);
+
+  // 4. Intelligence Arc Vectors
+  function createArc(lat1, lon1, lat2, lon2, arcColor) {
+    function latLongToVector3(lat, lon, r) {
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lon + 180) * (Math.PI / 180);
+      return new THREE.Vector3(
+        -r * Math.sin(phi) * Math.cos(theta),
+        r * Math.cos(phi),
+        r * Math.sin(phi) * Math.sin(theta)
+      );
+    }
+    const v1 = latLongToVector3(lat1, lon1, RADIUS);
+    const v2 = latLongToVector3(lat2, lon2, RADIUS);
+    const mid = v1.clone().add(v2).multiplyScalar(0.5);
+    const midLength = mid.length();
+    mid.normalize().multiplyScalar(midLength + 0.55);
+
+    const curve = new THREE.QuadraticBezierCurve3(v1, mid, v2);
+    const points = curve.getPoints(40);
+    const arcGeometry = new THREE.BufferGeometry().setFromPoints(points);
+    const arcMaterial = new THREE.LineBasicMaterial({
+      color: arcColor,
+      transparent: true,
+      opacity: 0.75,
+      linewidth: 2
+    });
+    return new THREE.Line(arcGeometry, arcMaterial);
+  }
+
+  // Interconnected nodes (New Delhi to global intelligence hubs)
+  globeGroup.add(createArc(28.6, 77.2, 51.5, -0.1, 0xd4920a)); // Delhi -> London
+  globeGroup.add(createArc(28.6, 77.2, 25.2, 55.2, 0x16a34a));  // Delhi -> Dubai
+  globeGroup.add(createArc(28.6, 77.2, 1.35, 103.8, 0x1d4ed8)); // Delhi -> Singapore
+  globeGroup.add(createArc(28.6, 77.2, 40.7, -74.0, 0xef4444)); // Delhi -> New York
+
+  // Position globe so the upper hemisphere forms a big, grand curve emerging at the bottom
+  globeGroup.position.y = -2.7;
+  globeGroup.rotation.x = 0.28; // Tilted slightly towards viewer to highlight northern hemisphere / India
+
+  // Interactive mouse drag rotation
+  let isDragging = false;
+  let prevMouseX = 0;
+  canvas.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    prevMouseX = e.clientX;
+  });
+  window.addEventListener("mouseup", () => { isDragging = false; });
+  window.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+      const deltaX = e.clientX - prevMouseX;
+      globeGroup.rotation.y += deltaX * 0.005;
+      prevMouseX = e.clientX;
+    }
+  });
+
+  // Responsive resize
+  window.addEventListener("resize", () => {
+    if(!wrap) return;
+    width = wrap.clientWidth || 980;
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+  });
+
+  // Continuous smooth revolution
+  function renderGlobe() {
+    const landingEl = document.getElementById("landing");
+    if (landingEl && !landingEl.classList.contains("hide")) {
+      if (!isDragging) {
+        globeGroup.rotation.y += 0.0022; // Steady realistic revolution
+      }
+      renderer.render(scene, camera);
+    }
+    requestAnimationFrame(renderGlobe);
+  }
+  renderGlobe();
+})();
+
+/* ================= LIVE POPPING INTELLIGENCE MESSAGES & DIRECT LINKS ================= */
+(function initPoppingIntelFeeds(){
+  const toaster = document.getElementById("live-feed-toaster");
+  if(!toaster) return;
+
+  // Real-time popping alert feed queue
+  const alertsQueue = [
+    {
+      badge: "CRITICAL INTERCEPT",
+      cls: "critical",
+      icon: "🚨",
+      text: "Suspicious Hawala wire detected: ₹4.80 Cr across 3 shell accounts",
+      targetPage: "graph",
+      linkText: "Investigate Financial Link →"
+    },
+    {
+      badge: "NODE RESOLVED",
+      cls: "resolved",
+      icon: "◈",
+      text: "Entity Resolution merged: 4 phone burner lines mapped to #REC-02",
+      targetPage: "profiles",
+      linkText: "Open Entity Profile →"
+    },
+    {
+      badge: "CROSS-BORDER TRAFFIC",
+      cls: "warning",
+      icon: "⚡",
+      text: "Maritime cargo manifest mismatch flagged at Nhava Sheva port",
+      targetPage: "datalab",
+      linkText: "Review Data Lab Records →"
+    },
+    {
+      badge: "GRAPH ALERT",
+      cls: "critical",
+      icon: "✵",
+      text: "High Centrality node detected connecting 2 syndicate clusters",
+      targetPage: "command",
+      linkText: "Launch Command Center Lead →"
+    },
+    {
+      badge: "AI ADVISORY",
+      cls: "resolved",
+      icon: "🤖",
+      text: "SŪTRA Assistant generated explainable risk lead for Case #2026-B",
+      targetPage: "assistant",
+      linkText: "Consult AI Assistant →"
+    }
+  ];
+
+  let alertIdx = 0;
+
+  function showNextToast(){
+    const landingEl = document.getElementById("landing");
+    if(!landingEl || landingEl.classList.contains("hide")) return;
+
+    const alertData = alertsQueue[alertIdx % alertsQueue.length];
+    alertIdx++;
+
+    const toast = document.createElement("div");
+    toast.className = `pop-toast ${alertData.cls}`;
+    toast.innerHTML = `
+      <div class="toast-icon">${alertData.icon}</div>
+      <div class="toast-body">
+        <div class="toast-header">
+          <span class="toast-badge">${alertData.badge}</span>
+          <span class="toast-time">JUST NOW</span>
+        </div>
+        <div class="toast-text">${alertData.text}</div>
+        <div class="toast-sublink">${alertData.linkText}</div>
+      </div>
+      <button class="toast-close" title="Dismiss">×</button>
+    `;
+
+    // Clicking toast opens the app and navigates directly to that module
+    toast.addEventListener("click", (e) => {
+      if(e.target.classList.contains("toast-close")){
+        e.stopPropagation();
+        dismissToast(toast);
+        return;
+      }
+      enterAppToPage(alertData.targetPage);
+    });
+
+    // Close button
+    const closeBtn = toast.querySelector(".toast-close");
+    if(closeBtn){
+      closeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dismissToast(toast);
+      });
+    }
+
+    toaster.appendChild(toast);
+
+    // Dynamic popping slide-in animation
+    setTimeout(() => {
+      toast.classList.add("show");
+    }, 40);
+
+    // Keep maximum 2 toasts visible at once so it never clutters
+    if(toaster.children.length > 2){
+      dismissToast(toaster.children[0]);
+    }
+
+    // Auto dismiss after 6.5s
+    setTimeout(() => {
+      dismissToast(toast);
+    }, 6500);
+
+    // Schedule next pop (between 3.5 to 5.5 seconds)
+    const nextInterval = Math.floor(Math.random() * 2000) + 3500;
+    setTimeout(showNextToast, nextInterval);
+  }
+
+  function dismissToast(el){
+    if(!el || !el.parentElement) return;
+    el.classList.remove("show");
+    setTimeout(() => {
+      if(el && el.parentElement) el.remove();
+    }, 350);
+  }
+
+  // Direct page navigation helper from landing
+  function enterAppToPage(pageKey){
+    enterApp();
+    if(typeof switchPage === "function" && pageKey){
+      setTimeout(() => {
+        switchPage(pageKey);
+      }, 450);
+    }
+  }
+
+  // Bind all globe hotspot links to direct navigation
+  document.querySelectorAll(".globe-hotspot").forEach(spot => {
+    spot.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetPage = spot.getAttribute("data-target-page") || "command";
+      enterAppToPage(targetPage);
+    });
+  });
+
+  // Start popping alerts after 2.4 seconds so user experiences the clean arrival first
+  setTimeout(showNextToast, 2400);
+})();
 
 /* ---- Animate sidebar brand name SUTRA <-> सूत्र in sync with CSS ---- */
 (function(){
