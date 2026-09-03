@@ -70,6 +70,35 @@ def require_role(min_role: str):
         return user
     return checker
 
+from database import SessionLocal
+from models import Case, User
+
+def require_case_access():
+    """Dependency factory: Ensures the user has jurisdiction/access to the specific case_id."""
+    def checker(case_id: str, user: TokenData = Depends(get_current_user)):
+        db = SessionLocal()
+        try:
+            case = db.query(Case).filter(Case.id == case_id).first()
+            if not case:
+                raise HTTPException(status_code=404, detail="Case not found")
+            
+            db_user = db.query(User).filter(User.username == user.username).first()
+            
+            # Admins bypass jurisdiction checks
+            if ROLE_LEVELS.get(user.role, 0) >= ROLE_LEVELS.get("admin", 4):
+                return user
+                
+            # If jurisdiction is set on both, they must match
+            if case.jurisdiction and db_user and db_user.jurisdiction:
+                if case.jurisdiction != db_user.jurisdiction:
+                    raise HTTPException(status_code=403, detail="Access denied: Out of jurisdiction.")
+                    
+            return user
+        finally:
+            db.close()
+    return checker
+
+
 @router.post("/login")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     db = SessionLocal()

@@ -38,6 +38,20 @@ def retrieve_context(case_id: str, question: str) -> list[dict]:
     db = SessionLocal()
     
     try:
+        # 0. Prompt Injection Defense (Gap Check)
+        malicious_patterns = ["ignore previous", "forget instructions", "system prompt", "you are now"]
+        if any(p in q_lower for p in malicious_patterns):
+            return {
+                "finding": "SECURITY ALERT: Suspicious query pattern detected.",
+                "observed_evidence": ["The query contained patterns attempting to override system constraints."],
+                "analytical_basis": "Input validation identified malicious intent.",
+                "inference": "The user may be attempting to bypass the AI Copilot's strict evidence-grounding rules.",
+                "confidence": "100%",
+                "supporting_evidence_ids": [],
+                "suggested_next_checks": ["Review audit logs for user activity", "Escalate to admin"],
+                "human_verification_required": True
+            }
+
         # 1. Graph Retrieval (Nodes and relationships for context)
         graph_query = """
         MATCH (n {case_id: $case_id})-[r]-(m {case_id: $case_id})
