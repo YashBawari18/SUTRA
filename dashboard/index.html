@@ -1010,6 +1010,14 @@
       <div class="scanner-center">⚡</div>
     </div>
     <div class="auth-title">SŪTRA CLEARANCE SYSTEM</div>
+    
+    <div id="auth-form-container" style="display:none; margin: 20px 0; text-align: left;">
+      <input type="text" id="auth-username" placeholder="Officer ID (e.g. demo_investigator)" style="width:100%; padding: 10px; margin-bottom: 12px; background: var(--bg); border: 1px solid var(--border); color: var(--ink); font-family: var(--font-mono); font-size: 12px; outline:none; border-radius: 4px;">
+      <input type="password" id="auth-password" placeholder="Passcode (e.g. demo-password)" style="width:100%; padding: 10px; margin-bottom: 12px; background: var(--bg); border: 1px solid var(--border); color: var(--ink); font-family: var(--font-mono); font-size: 12px; outline:none; border-radius: 4px;">
+      <button id="auth-submit-btn" style="width:100%; padding: 12px; background: var(--cyan); color: var(--panel); border: none; font-weight: 700; cursor: pointer; font-family: var(--font-mono); letter-spacing: 0.05em; border-radius: 4px;">AUTHENTICATE</button>
+      <div id="auth-error-msg" style="color: var(--red); font-size: 11px; margin-top: 8px; text-align: center; display: none; font-family: var(--font-mono);"></div>
+    </div>
+
     <div class="auth-status" id="auth-status-txt">INITIATING CRYPTOGRAPHIC HANDSHAKE...</div>
     <div class="auth-progress-track">
       <div class="auth-progress-fill" id="auth-progress-bar"></div>
@@ -1943,6 +1951,7 @@ function enterApp(){
   const fill = document.getElementById("auth-progress-bar");
   const statusTxt = document.getElementById("auth-status-txt");
   const termBox = document.getElementById("auth-terminal-box");
+  const formContainer = document.getElementById("auth-form-container");
 
   if(!modal){
     document.getElementById("landing").classList.add("hide");
@@ -1954,45 +1963,101 @@ function enterApp(){
   // Open high-tech clearance modal
   modal.classList.add("active");
   fill.style.width = "0%";
+  statusTxt.textContent = "AWAITING OFFICER CREDENTIALS...";
+  termBox.innerHTML = '<div class="auth-terminal-line">[SYS] Secure socket daemon ready.</div>';
+  formContainer.style.display = "block";
   
-  const steps = [
-    { pct: "25%", status: "VERIFYING CRYPTOGRAPHIC TOKEN...", log: "[AUTH] Signature validated against SHA-256 state ledger." },
-    { pct: "55%", status: "QUERYING SECURE GRAPH TOPOLOGY...", log: "[NEO4J] 1,420 nodes loaded • Community Louvain converged." },
-    { pct: "85%", status: "DE-ANONYMIZING INVESTIGATIVE STREAM...", log: "[DEEP-LINK] Entity resolution pipeline primed (0.94 conf)." },
-    { pct: "100%", status: "CLEARANCE GRANTED. ENTERING COMMAND CENTER...", log: "[SYSTEM] Access authorized. Launching SŪTRA v2.4 shell..." }
-  ];
-
-  let stepIdx = 0;
-  function nextStep(){
-    if(stepIdx < steps.length){
-      const s = steps[stepIdx];
-      fill.style.width = s.pct;
-      statusTxt.textContent = s.status;
-      
-      const line = document.createElement("div");
-      line.className = "auth-terminal-line active";
-      line.textContent = s.log;
-      termBox.appendChild(line);
-      termBox.scrollTop = termBox.scrollHeight;
-      
-      stepIdx++;
-      setTimeout(nextStep, 240);
-    } else {
-      setTimeout(()=>{
-        modal.classList.remove("active");
-        document.getElementById("landing").classList.add("hide");
-        document.getElementById("app").classList.add("show");
-        isEnteringApp = false;
-        
-        // Render Command Center charts and graphs
-        if(typeof renderCommandCenter === "function") renderCommandCenter();
-        // Trigger graph layout recompute if needed
-        if(window.__reselectCurrentNode) window.__reselectCurrentNode();
-      }, 350);
+  const submitBtn = document.getElementById("auth-submit-btn");
+  const errorMsg = document.getElementById("auth-error-msg");
+  
+  // Clone button to remove previous event listeners
+  const newSubmitBtn = submitBtn.cloneNode(true);
+  submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
+  
+  newSubmitBtn.addEventListener("click", async () => {
+    const username = document.getElementById("auth-username").value;
+    const password = document.getElementById("auth-password").value;
+    
+    if(!username || !password) {
+        errorMsg.textContent = "Officer ID and Passcode required.";
+        errorMsg.style.display = "block";
+        return;
     }
-  }
+    
+    errorMsg.style.display = "none";
+    newSubmitBtn.textContent = "AUTHENTICATING...";
+    newSubmitBtn.disabled = true;
+    
+    try {
+        const formData = new URLSearchParams();
+        formData.append("username", username);
+        formData.append("password", password);
+        
+        const response = await fetch("http://localhost:8000/token", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: formData.toString()
+        });
+        
+        if (!response.ok) {
+            throw new Error("Invalid credentials");
+        }
+        
+        const data = await response.json();
+        // Save token globally or in localStorage
+        window.SUTRA_TOKEN = data.access_token;
+        localStorage.setItem("sutra_token", data.access_token);
+        
+        // Hide form and start the clearance sequence
+        formContainer.style.display = "none";
+        statusTxt.textContent = "CREDENTIALS VERIFIED. INITIATING HANDSHAKE...";
+        
+        const steps = [
+          { pct: "25%", status: "VERIFYING CRYPTOGRAPHIC TOKEN...", log: "[AUTH] Signature validated against SHA-256 state ledger." },
+          { pct: "55%", status: "QUERYING SECURE GRAPH TOPOLOGY...", log: "[NEO4J] " + (typeof DATA !== 'undefined' ? DATA.nodes.length : 1420) + " nodes loaded • Community Louvain converged." },
+          { pct: "85%", status: "DE-ANONYMIZING INVESTIGATIVE STREAM...", log: "[DEEP-LINK] Entity resolution pipeline primed (0.94 conf)." },
+          { pct: "100%", status: "CLEARANCE GRANTED. ENTERING COMMAND CENTER...", log: "[SYSTEM] Access authorized. Launching SŪTRA v2.4 shell..." }
+        ];
 
-  setTimeout(nextStep, 150);
+        let stepIdx = 0;
+        function nextStep(){
+          if(stepIdx < steps.length){
+            const s = steps[stepIdx];
+            fill.style.width = s.pct;
+            statusTxt.textContent = s.status;
+            
+            const line = document.createElement("div");
+            line.className = "auth-terminal-line active";
+            line.textContent = s.log;
+            termBox.appendChild(line);
+            termBox.scrollTop = termBox.scrollHeight;
+            
+            stepIdx++;
+            setTimeout(nextStep, 240);
+          } else {
+            setTimeout(()=>{
+              modal.classList.remove("active");
+              document.getElementById("landing").classList.add("hide");
+              document.getElementById("app").classList.add("show");
+              isEnteringApp = false;
+              
+              // Render Command Center charts and graphs
+              if(typeof renderCommandCenter === "function") renderCommandCenter();
+              // Trigger graph layout recompute if needed
+              if(window.__reselectCurrentNode) window.__reselectCurrentNode();
+            }, 350);
+          }
+        }
+        setTimeout(nextStep, 150);
+    } catch(err) {
+        errorMsg.textContent = err.message === "Failed to fetch" ? "System offline. Ensure backend is running." : "Access Denied: Invalid credentials.";
+        errorMsg.style.display = "block";
+        newSubmitBtn.textContent = "AUTHENTICATE";
+        newSubmitBtn.disabled = false;
+    }
+  });
 }
 
 function exitToLanding(){
@@ -2609,11 +2674,12 @@ function goToPage(name){
 }
 
 /* ---------------- UPGRADED COMMAND CENTER (GRAPHS & CHARTS) ---------------- */
-const personNodes = DATA.nodes.filter(n=>n.type==="person");
-const suspiciousEdges = DATA.edges.filter(e=>e.suspicious);
-const highRiskCount = (DATA.risk||[]).filter(r=>r.risk_indicator_score>=45).length;
 
 function renderCommandCenter(){
+  const personNodes = DATA.nodes.filter(n=>n.type==="person");
+  const suspiciousEdges = DATA.edges.filter(e=>e.suspicious);
+  const highRiskCount = DATA.nodes.filter(n=>n.risk>=45).length;
+
   const sparkline = (data, color) => {
     const W = 80, H = 26;
     const mx = Math.max(...data), mn = Math.min(...data);
@@ -3056,6 +3122,13 @@ function riskLevelLabel(level){
   return {HIGH:t('risk_high'), MEDIUM:t('risk_medium'), LOW:t('risk_low')}[level] || t('risk_unrated');
 }
 function renderEpGrid(){
+  const personNodes = DATA.nodes.filter(n=>n.type==="person");
+  if(personNodes.length === 0) {
+    // If no persons, avoid errors
+    document.getElementById("ep-grid").innerHTML = `<div style="padding:20px;color:var(--ink-muted);">No Person Entities Found</div>`;
+    return;
+  }
+
   document.querySelector('[data-page="profiles"] h2').textContent = t('tb_profiles');
   document.querySelector('[data-page="profiles"] .badge-secure').textContent = personNodes.length + " " + t('persons_of_interest');
   document.getElementById("ep-grid").innerHTML = personNodes.map(n=>{
@@ -3666,24 +3739,53 @@ document.getElementById("btn-mode-upload").addEventListener("click", ()=> switch
 
 const uploadZone = document.getElementById("dl-upload-zone");
 const fileInput = document.getElementById("dl-file-input");
-function handleUploadedFile(file){
+async function handleUploadedFile(file){
   if(!file) return;
   document.getElementById("upload-filename").textContent = t('upload_loaded', file.name, (file.size/1024).toFixed(1));
   if(!file.name.toLowerCase().endsWith(".txt")){
     document.getElementById("upload-output").innerHTML = `<div class="live-chip" style="border-color:var(--red); color:var(--red);">${t('upload_txt_only')}</div>`;
     return;
   }
-  const reader = new FileReader();
-  reader.onload = (e)=>{
-    const text = e.target.result;
-    const entities = runLiveExtraction(text);
-    const html = buildExtractionHtml(text, entities);
-    document.getElementById("upload-output").innerHTML = `
-      <div class="dl-doc-card"><div class="doctitle">${file.name}</div><div class="doc-text">${html}</div></div>
-      <div style="margin-top:12px;">${buildChipHtml(entities)}</div>`;
-  };
-  reader.onerror = ()=>{ document.getElementById("upload-output").innerHTML = `<div class="live-chip" style="border-color:var(--red); color:var(--red);">${t('upload_read_error')}</div>`; };
-  reader.readAsText(file);
+  
+  document.getElementById("upload-output").innerHTML = `<div class="live-chip" style="color:var(--cyan); border-color:var(--cyan);">Uploading & Extracting Intelligence...</div>`;
+  
+  try {
+      const formData = new FormData();
+      formData.append("file", file);
+      
+      const res = await fetch("http://localhost:8000/api/upload", {
+          method: "POST",
+          headers: {
+              "Authorization": "Bearer " + (window.SUTRA_TOKEN || localStorage.getItem("sutra_token") || "")
+          },
+          body: formData
+      });
+      
+      if(!res.ok) throw new Error("API Upload Failed");
+      const data = await res.json();
+      
+      // We read text locally just to display the raw content next to the chips, like the original did
+      const text = await file.text();
+      
+      // Backend returns nodes extracted.
+      const extractedNodes = data.extracted_entities || [];
+      
+      // Fallback to local rendering if backend extraction didn't return much
+      let entities = extractedNodes.map(n => ({match: n.name, type: n.label.toLowerCase()}));
+      if (entities.length === 0) {
+          entities = runLiveExtraction(text); 
+      }
+      
+      const html = buildExtractionHtml(text, entities);
+      document.getElementById("upload-output").innerHTML = `
+        <div class="dl-doc-card"><div class="doctitle">${file.name}</div><div class="doc-text">${html}</div></div>
+        <div style="margin-top:12px;">${buildChipHtml(entities)}</div>
+        <div style="margin-top:10px; font-size:11px; color:var(--green);">✓ Saved to Database (Case: ${data.case_id})</div>
+      `;
+  } catch(e) {
+      console.error(e);
+      document.getElementById("upload-output").innerHTML = `<div class="live-chip" style="border-color:var(--red); color:var(--red);">Upload Failed: Check Backend Connection</div>`;
+  }
 }
 uploadZone.addEventListener("click", ()=> fileInput.click());
 fileInput.addEventListener("change", (e)=> handleUploadedFile(e.target.files[0]));
@@ -4104,11 +4206,54 @@ function asstSubmitDirect(displayText, html){
 }
 
 /* Used by the free-text input box: parses typed text via keyword matching. */
-function asstSubmit(queryText){
+async function asstSubmit(queryText){
   const query = (queryText !== undefined) ? queryText : document.getElementById("asst-input").value;
   if(!query || !query.trim()) return;
   document.getElementById("asst-input").value = "";
-  asstShowTypingThen(query, ()=> asstAnswer(query));
+  
+  // Display user query
+  ASST_HISTORY.push({role:"user", text:query});
+  asstRenderMessages();
+  
+  const container = document.getElementById("asst-messages");
+  const typingId = "asst-typing-" + Date.now();
+  container.insertAdjacentHTML("beforeend", `<div class="asst-msg assistant" id="${typingId}">
+    <div class="asst-msg-avatar">\u2726</div>
+    <div class="asst-bubble"><div class="asst-typing"><span></span><span></span><span></span></div></div>
+  </div>`);
+  container.scrollTop = container.scrollHeight;
+  
+  try {
+      const res = await fetch("http://localhost:8000/api/assistant/query", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + (window.SUTRA_TOKEN || localStorage.getItem("sutra_token") || "")
+          },
+          body: JSON.stringify({
+              query: query,
+              case_id: "C-0992",
+              language: window.CURRENT_LANG || "en"
+          })
+      });
+      
+      const el = document.getElementById(typingId);
+      if(el) el.remove();
+      
+      if(!res.ok) throw new Error("API failed");
+      const data = await res.json();
+      
+      ASST_HISTORY.push({role:"assistant", html: `<div>${data.response}</div>`});
+      asstRenderMessages();
+      
+  } catch(e) {
+      console.error("Assistant API Error, falling back to local:", e);
+      const el = document.getElementById(typingId);
+      if(el) el.remove();
+      // Remove the user query we pushed so asstShowTypingThen can push it cleanly
+      ASST_HISTORY.pop(); 
+      asstShowTypingThen(query, ()=> asstAnswer(query));
+  }
 }
 
 function initAssistant(){

@@ -24,12 +24,32 @@ async function fetchLiveCaseData(caseId) {
             // For now, if the graph is completely empty (no nodes), we preserve the demo data
             // to avoid breaking the demonstration flow before Phase 8 (Data Generation) is done.
             if (graphData.nodes && graphData.nodes.length > 0) {
-                // Ensure global DATA exists before overriding
                 if (typeof DATA !== 'undefined') {
-                    // Update nodes and edges from live Neo4j data
-                    DATA.nodes = graphData.nodes;
-                    DATA.edges = graphData.edges;
-                    console.log("[SUTRA API] Live graph data injected.");
+                    // Map backend Neo4j format to frontend expected format
+                    DATA.nodes = graphData.nodes.map(n => ({
+                        id: n.id,
+                        type: n.labels.length > 0 ? n.labels[0].toLowerCase() : 'unknown',
+                        name: n.properties.name || n.id,
+                        risk: n.properties.risk_score || n.properties.risk || 0,
+                        community: n.properties.community || 1,
+                        affiliation: n.properties.affiliation || '',
+                        aliases: n.properties.aliases ? n.properties.aliases.split(',') : [],
+                        last_known: { location: n.properties.location || 'Unknown' },
+                        // copy all other properties
+                        ...n.properties
+                    }));
+                    
+                    DATA.edges = graphData.edges.map(e => ({
+                        source: e.source,
+                        target: e.target,
+                        type: e.type.toLowerCase(),
+                        weight: e.properties.weight || 1,
+                        suspicious: e.properties.suspicious || e.type === 'FLAGGED' || false,
+                        amount: e.properties.amount || null,
+                        ...e.properties
+                    }));
+                    
+                    console.log("[SUTRA API] Live graph data injected and transformed.");
                 }
             } else {
                 console.warn("[SUTRA API] Live graph is currently empty. Falling back to default demo synthetic data.");
