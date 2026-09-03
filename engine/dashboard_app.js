@@ -522,6 +522,42 @@ document.getElementById("btn-view-docs").addEventListener("click", enterApp);
 const brandBtn = document.getElementById("sb-brand-btn");
 if(brandBtn) brandBtn.addEventListener("click", exitToLanding);
 
+/* ---- Animate sidebar brand name SUTRA <-> सूत्र in sync with CSS ---- */
+(function(){
+  const nameEl = document.getElementById("sb-brand-name");
+  if(!nameEl) return;
+  const EN = "S\u016aTRA";
+  const HI = "\u0938\u0942\u0924\u094d\u0930";
+  let showingEn = true;
+  // Sync with CSS animation: switch text at the 40% point of 5s = 2000ms
+  // EN visible 0-35%, fade 35-45% -> switch text at 40% = 2000ms
+  // HI visible 45-80%, fade 80-90% -> switch at 85% = 4250ms
+  function cycle(){
+    setTimeout(()=>{
+      nameEl.style.transition = "opacity 0.4s";
+      nameEl.style.opacity = "0";
+      setTimeout(()=>{
+        showingEn = !showingEn;
+        nameEl.textContent = showingEn ? EN : HI;
+        if(!showingEn){
+          nameEl.style.fontFamily = "'Noto Sans Devanagari','Mangal',Georgia,serif";
+          nameEl.style.fontSize = "13px";
+        } else {
+          nameEl.style.fontFamily = "";
+          nameEl.style.fontSize = "";
+        }
+        nameEl.style.opacity = "1";
+      }, 400);
+    }, showingEn ? 1750 : 1750);
+  }
+  // Continuous loop
+  (function tick(){
+    cycle();
+    setTimeout(tick, 3500);
+  })();
+})();
+
+
 const backLandingBtn = document.getElementById("btn-back-landing");
 if(backLandingBtn) backLandingBtn.addEventListener("click", exitToLanding);
 

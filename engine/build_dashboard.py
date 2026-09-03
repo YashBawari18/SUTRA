@@ -209,7 +209,7 @@ HTML = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;700;900&display=swap" rel="stylesheet">
 <title>S\u016aTRA \u2014 Criminal Network Intelligence System</title>
 <style>
   :root{
@@ -244,6 +244,44 @@ HTML = """<!DOCTYPE html>
   .land-nav{ display:flex; gap:24px; font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); letter-spacing:0.06em; font-weight:500; }
 
   .hero{ max-width:860px; margin:0 auto; text-align:center; padding:90px 30px 60px; }
+  /* ================= ANIMATED SUTRA LOGO ================= */
+  .sutra-logo-wrap{ position:relative; display:inline-block; }
+  .sutra-logo-en,
+  .sutra-logo-hi{ position:absolute; top:0; left:0; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .sutra-logo-en{ animation: sutra-en 5s ease-in-out infinite; }
+  .sutra-logo-hi{ animation: sutra-hi 5s ease-in-out infinite; }
+  @keyframes sutra-en{
+    0%   { opacity:1; transform:translateY(0); }
+    35%  { opacity:1; transform:translateY(0); }
+    45%  { opacity:0; transform:translateY(-6px); }
+    80%  { opacity:0; transform:translateY(6px); }
+    90%  { opacity:1; transform:translateY(0); }
+    100% { opacity:1; transform:translateY(0); }
+  }
+  @keyframes sutra-hi{
+    0%   { opacity:0; transform:translateY(6px); }
+    35%  { opacity:0; transform:translateY(6px); }
+    45%  { opacity:1; transform:translateY(0); }
+    80%  { opacity:1; transform:translateY(0); }
+    90%  { opacity:0; transform:translateY(-6px); }
+    100% { opacity:0; transform:translateY(-6px); }
+  }
+  /* Sidebar compact logo */
+  .sb-logo-wrap{ position:relative; width:36px; height:32px; flex-shrink:0; }
+  .sb-logo-en,
+  .sb-logo-hi{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-serif); font-size:20px; font-weight:700; color:var(--ink); line-height:1; }
+  .sb-logo-en{ animation: sutra-en 5s ease-in-out infinite; }
+  .sb-logo-hi{ animation: sutra-hi 5s ease-in-out infinite; }
+  /* Hero big logo */
+  .hero-logo-wrap{ position:relative; height:88px; margin-bottom:18px; display:flex; align-items:center; justify-content:center; }
+  .hero-logo-en,
+  .hero-logo-hi{ position:absolute; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; }
+  .hero-logo-en{ animation: sutra-en 5s ease-in-out infinite; }
+  .hero-logo-hi{ animation: sutra-hi 5s ease-in-out infinite; }
+  .hero-logo-text-en{ font-family:var(--font-serif); font-size:72px; font-weight:700; color:#1a2d6b; line-height:1; letter-spacing:0.02em; position:relative; }
+  .hero-logo-text-hi{ font-family:'Noto Sans Devanagari','Mangal',var(--font-serif),sans-serif; font-size:62px; font-weight:700; color:#1a2d6b; line-height:1; position:relative; }
+  .hero-logo-wave{ display:block; margin-top:2px; }
   .hero-mark{ font-family:var(--font-serif); font-size:68px; color:var(--gold); line-height:1; margin-bottom:16px; opacity:0.88; }
   .hero h1{ font-family:var(--font-serif); font-size:40px; font-weight:700; color:var(--ink); margin-bottom:16px; letter-spacing:0.01em; line-height:1.2; }
   .hero p{ font-family:var(--font-body); font-size:14.5px; color:var(--ink-dim); max-width:560px; margin:0 auto 32px; line-height:1.75; font-weight:400; }
@@ -758,7 +796,28 @@ HTML = """<!DOCTYPE html>
     </div>
   </div>
   <div class="hero">
-    <div class="hero-mark">\u0938\u0942\u0924\u094d\u0930</div>
+    <div class="hero-logo-wrap">
+      <!-- English: SUTRA with top-right wave -->
+      <div class="hero-logo-en">
+        <div class="hero-logo-text-en" style="position:relative;">
+          SUTRA
+          <svg class="hero-logo-wave" style="position:absolute;top:4px;right:-10px;" width="52" height="22" viewBox="0 0 52 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 16 Q13 4 26 10 Q39 16 50 6" stroke="#FF9933" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <path d="M2 19 Q13 8 26 13 Q39 19 50 9" stroke="#138808" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <!-- Hindi: \u0938\u0942\u0924\u094d\u0930 with bottom wave -->
+      <div class="hero-logo-hi">
+        <div class="hero-logo-text-hi" style="position:relative;">
+          \u0938\u0942\u0924\u094d\u0930
+          <svg class="hero-logo-wave" style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);" width="72" height="24" viewBox="0 0 72 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 8 Q18 20 36 12 Q54 4 68 16" stroke="#FF9933" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <path d="M4 13 Q18 22 36 16 Q54 8 68 20" stroke="#138808" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
     <h1 data-i18n="hero_title">The Connection Thread</h1>
     <p data-i18n="hero_subtitle">Uncovering the invisible networks of crime. A unified investigative decision-support platform for entity resolution, knowledge-graph analysis, and evidence-backed leads \u2014 built for institutional accountability, not automated accusation.</p>
     <div class="hero-btns">
@@ -813,7 +872,16 @@ HTML = """<!DOCTYPE html>
 <!-- ================= APP SHELL ================= -->
 <div id="app">
   <div class="sidebar" id="sidebar">
-    <div class="sb-brand" id="sb-brand-btn" title="Return to Landing / Briefing Page"><div class="sb-brand-mark">\u0938</div><div class="sb-brand-text"><b>S\u016aTRA</b><span data-i18n="brand_tagline">INTELLIGENCE PLATFORM</span></div></div>
+    <div class="sb-brand" id="sb-brand-btn" title="Return to Landing / Briefing Page">
+      <div class="sb-logo-wrap">
+        <div class="sb-logo-en">S</div>
+        <div class="sb-logo-hi">\u0938</div>
+      </div>
+      <div class="sb-brand-text">
+        <b id="sb-brand-name">S\u016aTRA</b>
+        <span data-i18n="brand_tagline">INTELLIGENCE PLATFORM</span>
+      </div>
+    </div>
     <div class="lang-switcher">
       <button class="lang-btn active" data-lang="en">EN</button>
       <button class="lang-btn" data-lang="hi">\u0939\u093f\u0902</button>
