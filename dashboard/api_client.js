@@ -43,8 +43,8 @@ async function fetchLiveCaseData(caseId) {
 // In the SUTRA architecture, window load happens synchronously
 // We kick off the fetch and if successful, we can re-render specific components.
 document.addEventListener("DOMContentLoaded", () => {
-    // Assuming CASE-0001 or similar is active for demo
-    fetchLiveCaseData("C-0417").then(() => {
+    // Connect to the actual "Operation Phantom" case seeded in PostgreSQL/Neo4j
+    fetchLiveCaseData("C-0992").then(() => {
         // If a render function exists globally, call it here to refresh view
         if (typeof window.renderNetwork === "function" && document.getElementById("app").classList.contains("show")) {
             // Optional: re-trigger render
