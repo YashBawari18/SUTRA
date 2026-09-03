@@ -1,0 +1,5 @@
+account_id,bank,holder_org_id,holder_person_id
+A01,HDFC,,P03
+A02,ICICI,O01,
+A03,SBI,,P01
+A04,Axis,,P09

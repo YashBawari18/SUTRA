@@ -1,0 +1,6 @@
+location_id,name,type
+L01,"Warehouse, Andheri East",Warehouse
+L02,"Farmhouse, Alibaug",Residence
+L03,"Office, Nariman Point",Commercial
+L04,"Godown, Bhiwandi",Storage
+L05,"Cafe, Bandra",Public

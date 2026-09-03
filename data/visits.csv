@@ -1,0 +1,10 @@
+location_id,notes,person_id,timestamp,vehicle_id,vehicle_visit,visit_id
+L02,GPS-tagged surveillance,P01,2026-02-05T21:00:00,,,VS01
+L02,GPS-tagged surveillance,P02,2026-02-05T21:10:00,,,VS02
+L03,Registered workplace,P03,2026-01-15T10:00:00,,,VS03
+L01,Registered workplace,P05,2026-01-20T14:00:00,,,VS04
+L04,Lease signed - cash payment,P04,2026-01-25T13:00:00,,,VS05
+L01,,P06,2026-02-02T18:00:00,,,VS06
+L04,Bridges two otherwise separate sites,P06,2026-02-06T23:15:00,,,VS07
+L04,6 trips recorded at odd hours,,2026-02-07T23:40:00,V01,True,VS08
+L02,,,2026-02-05T20:55:00,V02,True,VS09

@@ -1,0 +1,142 @@
+[
+  {
+    "person_id": "P01",
+    "name": "Rajeev Malhotra",
+    "risk_indicator_score": 63.8,
+    "breakdown": {
+      "communication_anomaly": 0.669,
+      "financial_anomaly": 0.136,
+      "network_centrality": 0.57,
+      "temporal_proximity": 1.0,
+      "location_correlation": 1.0,
+      "source_reliability_multiplier": 1.0
+    },
+    "requires_human_verification": true
+  },
+  {
+    "person_id": "P03",
+    "name": "Anita Rao",
+    "risk_indicator_score": 42.6,
+    "breakdown": {
+      "communication_anomaly": 1.0,
+      "financial_anomaly": 1.0,
+      "network_centrality": 0.573,
+      "temporal_proximity": 0.3,
+      "location_correlation": 0.2,
+      "source_reliability_multiplier": 0.6
+    },
+    "requires_human_verification": true
+  },
+  {
+    "person_id": "P02",
+    "name": "Feroz Sheikh",
+    "risk_indicator_score": 30.7,
+    "breakdown": {
+      "communication_anomaly": 0.147,
+      "financial_anomaly": 0.0,
+      "network_centrality": 0.228,
+      "temporal_proximity": 0.3,
+      "location_correlation": 1.0,
+      "source_reliability_multiplier": 1.0
+    },
+    "requires_human_verification": true
+  },
+  {
+    "person_id": "P06",
+    "name": "Vikram Solanki",
+    "risk_indicator_score": 26.5,
+    "breakdown": {
+      "communication_anomaly": 0.386,
+      "financial_anomaly": 0.0,
+      "network_centrality": 1.0,
+      "temporal_proximity": 0.3,
+      "location_correlation": 0.2,
+      "source_reliability_multiplier": 0.6
+    },
+    "requires_human_verification": true
+  },
+  {
+    "person_id": "P09",
+    "name": "Kavita Joshi",
+    "risk_indicator_score": 22.0,
+    "breakdown": {
+      "communication_anomaly": 0.458,
+      "financial_anomaly": 0.007,
+      "network_centrality": 0.525,
+      "temporal_proximity": 0.3,
+      "location_correlation": 0.2,
+      "source_reliability_multiplier": 0.6
+    },
+    "requires_human_verification": true
+  },
+  {
+    "person_id": "P08",
+    "name": "Arjun Kapoor",
+    "risk_indicator_score": 11.8,
+    "breakdown": {
+      "communication_anomaly": 0.143,
+      "financial_anomaly": 0.0,
+      "network_centrality": 0.08,
+      "temporal_proximity": 0.3,
+      "location_correlation": 0.2,
+      "source_reliability_multiplier": 0.6
+    },
+    "requires_human_verification": true
+  },
+  {
+    "person_id": "P07",
+    "name": "Meena Iyer",
+    "risk_indicator_score": 11.3,
+    "breakdown": {
+      "communication_anomaly": 0.0,
+      "financial_anomaly": 0.0,
+      "network_centrality": 0.214,
+      "temporal_proximity": 0.3,
+      "location_correlation": 0.2,
+      "source_reliability_multiplier": 0.6
+    },
+    "requires_human_verification": true
+  },
+  {
+    "person_id": "P05",
+    "name": "Deepak Nair",
+    "risk_indicator_score": 9.7,
+    "breakdown": {
+      "communication_anomaly": 0.0,
+      "financial_anomaly": 0.0,
+      "network_centrality": 0.08,
+      "temporal_proximity": 0.3,
+      "location_correlation": 0.2,
+      "source_reliability_multiplier": 0.6
+    },
+    "requires_human_verification": true
+  },
+  {
+    "person_id": "P10",
+    "name": "Imran Qureshi",
+    "risk_indicator_score": 8.7,
+    "breakdown": {
+      "communication_anomaly": 0.0,
+      "financial_anomaly": 0.0,
+      "network_centrality": 0.0,
+      "temporal_proximity": 0.3,
+      "location_correlation": 0.2,
+      "source_reliability_multiplier": 0.6
+    },
+    "requires_human_verification": true
+  },
+  {
+    "person_id": "P04",
+    "name": "Sanjay Verma",
+    "risk_indicator_score": 7.6,
+    "breakdown": {
+      "communication_anomaly": 0.0,
+      "financial_anomaly": 0.0,
+      "network_centrality": 0.23,
+      "temporal_proximity": 0.3,
+      "location_correlation": 0.2,
+      "source_reliability_multiplier": 0.4
+    },
+    "requires_human_verification": true
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "mention": "R. Malhotra",
+    "source_doc": "Surveillance-09",
+    "matched_person_id": "P01",
+    "matched_person_name": "Rajeev Malhotra",
+    "confidence": 0.8,
+    "breakdown": {
+      "name_similarity": 0.55,
+      "shared_phone": 0.25,
+      "shared_location": 0.0
+    },
+    "decision": "AUTO-MERGE (flagged for investigator confirmation)"
+  },
+  {
+    "mention": "A. Rao",
+    "source_doc": "FIR-031",
+    "matched_person_id": "P03",
+    "matched_person_name": "Anita Rao",
+    "confidence": 0.7,
+    "breakdown": {
+      "name_similarity": 0.55,
+      "shared_phone": 0.0,
+      "shared_location": 0.15
+    },
+    "decision": "AUTO-MERGE (flagged for investigator confirmation)"
+  },
+  {
+    "mention": "Vikram S.",
+    "source_doc": "CDR-annotation",
+    "matched_person_id": "P06",
+    "matched_person_name": "Vikram Solanki",
+    "confidence": 0.8,
+    "breakdown": {
+      "name_similarity": 0.55,
+      "shared_phone": 0.25,
+      "shared_location": 0.0
+    },
+    "decision": "AUTO-MERGE (flagged for investigator confirmation)"
+  },
+  {
+    "mention": "Ferozz Shiekh",
+    "source_doc": "Informant-tip-22",
+    "matched_person_id": "P02",
+    "matched_person_name": "Feroz Sheikh",
+    "confidence": 0.484,
+    "breakdown": {
+      "name_similarity": 0.484,
+      "shared_phone": 0.0,
+      "shared_location": 0.0
+    },
+    "decision": "SUGGESTED MATCH (requires manual review)"
+  }
+]

@@ -1,0 +1,78 @@
+[
+  {
+    "case_id": "FIR-031",
+    "entities": [
+      {
+        "text": "+91 98\u2022\u2022\u20221142",
+        "type": "PHONE",
+        "match": "pattern"
+      },
+      {
+        "text": "+91 77\u2022\u2022\u20228834",
+        "type": "PHONE",
+        "match": "pattern"
+      },
+      {
+        "text": "MH-04 GK 7729",
+        "type": "VEHICLE",
+        "match": "pattern"
+      },
+      {
+        "text": "14/02/2026",
+        "type": "DATE",
+        "match": "pattern"
+      },
+      {
+        "text": "2130 hrs",
+        "type": "TIME",
+        "match": "pattern"
+      },
+      {
+        "text": "2245 hrs",
+        "type": "TIME",
+        "match": "pattern"
+      },
+      {
+        "text": "RAJEEV MALHOTRA",
+        "type": "PERSON",
+        "matched_entity": "Rajeev Malhotra",
+        "match": "exact"
+      },
+      {
+        "text": "FEROZ SHEIKH",
+        "type": "PERSON",
+        "matched_entity": "Feroz Sheikh",
+        "match": "exact"
+      },
+      {
+        "text": "ANDHERI EAST",
+        "type": "LOCATION",
+        "matched_entity": "Andheri East",
+        "match": "exact"
+      },
+      {
+        "text": "SHREE TRADING CO.",
+        "type": "ORGANIZATION",
+        "matched_entity": "Shree Trading Co.",
+        "match": "exact"
+      }
+    ]
+  },
+  {
+    "case_id": "FIR-014",
+    "entities": [
+      {
+        "text": "SANJAY VERMA",
+        "type": "PERSON",
+        "matched_entity": "Sanjay Verma",
+        "match": "exact"
+      },
+      {
+        "text": "BHIWANDI",
+        "type": "LOCATION",
+        "matched_entity": "Bhiwandi",
+        "match": "exact"
+      }
+    ]
+  }
+]

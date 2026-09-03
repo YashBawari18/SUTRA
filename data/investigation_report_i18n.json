@@ -1,0 +1,422 @@
+{
+  "en": [
+    {
+      "section": 1,
+      "tag_key": "FACT",
+      "tag_label": "FACT",
+      "text": "10 distinct persons identified across source records, prior to entity resolution."
+    },
+    {
+      "section": 1,
+      "tag_key": "FACT",
+      "tag_label": "FACT",
+      "text": "94 call detail records and 4 financial transaction records were ingested."
+    },
+    {
+      "section": 1,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "AI INFERENCE",
+      "text": "Entity resolution reduced apparent duplicate mentions across documents by matching 4 raw name mentions back to known persons."
+    },
+    {
+      "section": 2,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "AI INFERENCE",
+      "text": "Mention 'R. Malhotra' (source: Surveillance-09) resolved to Rajeev Malhotra with 80% confidence."
+    },
+    {
+      "section": 2,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "AI INFERENCE",
+      "text": "Mention 'A. Rao' (source: FIR-031) resolved to Anita Rao with 70% confidence."
+    },
+    {
+      "section": 2,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "AI INFERENCE",
+      "text": "Mention 'Vikram S.' (source: CDR-annotation) resolved to Vikram Solanki with 80% confidence."
+    },
+    {
+      "section": 2,
+      "tag_key": "LEAD",
+      "tag_label": "INVESTIGATIVE LEAD",
+      "text": "Mention 'Ferozz Shiekh' (source: Informant-tip-22) is a possible match to Feroz Sheikh (48% confidence) — recommend manual verification before merging."
+    },
+    {
+      "section": 3,
+      "tag_key": "FACT",
+      "tag_label": "FACT",
+      "text": "The constructed knowledge graph contains 30 entities and 34 relationships."
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "AI INFERENCE",
+      "text": "7 distinct sub-groups (communities) were detected within the network via modularity-based community detection."
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "AI INFERENCE",
+      "text": "Vikram Solanki shows high blended centrality (degree + betweenness + PageRank) — classified as an investigative-priority entity, NOT a confirmed suspect."
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "AI INFERENCE",
+      "text": "Anita Rao shows high blended centrality (degree + betweenness + PageRank) — classified as an investigative-priority entity, NOT a confirmed suspect."
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "AI INFERENCE",
+      "text": "Rajeev Malhotra shows high blended centrality (degree + betweenness + PageRank) — classified as an investigative-priority entity, NOT a confirmed suspect."
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "AI INFERENCE",
+      "text": "Shortest connection path discovered: Vikram Solanki → +91 88•••5561 → +91 99•••2207 → Anita Rao. This link is not stated directly in any single source document — it emerges only from cross-referencing multiple records."
+    },
+    {
+      "section": 3,
+      "tag_key": "LEAD",
+      "tag_label": "INVESTIGATIVE LEAD",
+      "text": "Recommend investigator verify the nature of this indirect connection before drawing conclusions."
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "AI INFERENCE",
+      "text": "Rajeev Malhotra: Risk Indicator Score 63.8/100 (communication anomaly 0.669, financial anomaly 0.136, network centrality 0.57, source reliability multiplier 1.0)."
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "AI INFERENCE",
+      "text": "Anita Rao: Risk Indicator Score 42.6/100 (communication anomaly 1.0, financial anomaly 1.0, network centrality 0.573, source reliability multiplier 0.6)."
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "AI INFERENCE",
+      "text": "Feroz Sheikh: Risk Indicator Score 30.7/100 (communication anomaly 0.147, financial anomaly 0.0, network centrality 0.228, source reliability multiplier 1.0)."
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "AI INFERENCE",
+      "text": "Vikram Solanki: Risk Indicator Score 26.5/100 (communication anomaly 0.386, financial anomaly 0.0, network centrality 1.0, source reliability multiplier 0.6)."
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "AI INFERENCE",
+      "text": "Kavita Joshi: Risk Indicator Score 22.0/100 (communication anomaly 0.458, financial anomaly 0.007, network centrality 0.525, source reliability multiplier 0.6)."
+    },
+    {
+      "section": 4,
+      "tag_key": "LEAD",
+      "tag_label": "INVESTIGATIVE LEAD",
+      "text": "All risk-indicator scores require human verification and additional corroborating evidence before any investigative or legal action."
+    },
+    {
+      "section": 5,
+      "tag_key": "FACT",
+      "tag_label": "FACT",
+      "text": "FIR-031 (PS Andheri, 2026-02-14) — source reliability: High."
+    },
+    {
+      "section": 5,
+      "tag_key": "FACT",
+      "tag_label": "FACT",
+      "text": "FIR-014 (PS Bhiwandi, 2026-01-26) — source reliability: Low."
+    },
+    {
+      "section": 6,
+      "tag_key": "LEAD",
+      "tag_label": "INVESTIGATIVE LEAD",
+      "text": "This report was generated by an AI-assisted decision-support system using entirely synthetic demonstration data. No real police, telecom, or financial database was accessed. All AI INFERENCE and INVESTIGATIVE LEAD items require independent human verification and do not constitute evidence of wrongdoing on their own."
+    }
+  ],
+  "hi": [
+    {
+      "section": 1,
+      "tag_key": "FACT",
+      "tag_label": "तथ्य",
+      "text": "इकाई समाधान से पहले, स्रोत रिकॉर्ड में 10 अलग-अलग व्यक्तियों की पहचान की गई।"
+    },
+    {
+      "section": 1,
+      "tag_key": "FACT",
+      "tag_label": "तथ्य",
+      "text": "94 कॉल विवरण रिकॉर्ड और 4 वित्तीय लेनदेन रिकॉर्ड दर्ज किए गए।"
+    },
+    {
+      "section": 1,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआई अनुमान",
+      "text": "इकाई समाधान ने 4 कच्चे नाम उल्लेखों को ज्ञात व्यक्तियों से मिलाकर दस्तावेज़ों में दिखने वाले डुप्लीकेट उल्लेखों को कम किया।"
+    },
+    {
+      "section": 2,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआई अनुमान",
+      "text": "उल्लेख 'R. Malhotra' (स्रोत: Surveillance-09) को 80% विश्वसनीयता के साथ Rajeev Malhotra के रूप में हल किया गया।"
+    },
+    {
+      "section": 2,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआई अनुमान",
+      "text": "उल्लेख 'A. Rao' (स्रोत: FIR-031) को 70% विश्वसनीयता के साथ Anita Rao के रूप में हल किया गया।"
+    },
+    {
+      "section": 2,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआई अनुमान",
+      "text": "उल्लेख 'Vikram S.' (स्रोत: CDR-annotation) को 80% विश्वसनीयता के साथ Vikram Solanki के रूप में हल किया गया।"
+    },
+    {
+      "section": 2,
+      "tag_key": "LEAD",
+      "tag_label": "जांच सुझाव",
+      "text": "उल्लेख 'Ferozz Shiekh' (स्रोत: Informant-tip-22) संभवत: Feroz Sheikh से मेल खाता है (48% विश्वसनीयता) — विलय से पहले मैनुअल सत्यापन की सिफारिश की जाती है।"
+    },
+    {
+      "section": 3,
+      "tag_key": "FACT",
+      "tag_label": "तथ्य",
+      "text": "निर्मित नॉलेज ग्राफ़ में 30 इकाइयां और 34 संबंध शामिल हैं।"
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआई अनुमान",
+      "text": "मॉड्यूलैरिटी-आधारित सामुदायिक पहचान के माध्यम से नेटवर्क में 7 अलग उप-समूह (समुदाय) पाए गए।"
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआई अनुमान",
+      "text": "Vikram Solanki उच्च मिश्रित केंद्रीयता दिखाता/दिखाती है (डिग्री + बिटवीननेस + पेजरैंक) — इसे जांच-प्राथमिकता इकाई के रूप में वर्गीकृत किया गया है, न कि पुष्ट संदिग्ध के रूप में।"
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआई अनुमान",
+      "text": "Anita Rao उच्च मिश्रित केंद्रीयता दिखाता/दिखाती है (डिग्री + बिटवीननेस + पेजरैंक) — इसे जांच-प्राथमिकता इकाई के रूप में वर्गीकृत किया गया है, न कि पुष्ट संदिग्ध के रूप में।"
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआई अनुमान",
+      "text": "Rajeev Malhotra उच्च मिश्रित केंद्रीयता दिखाता/दिखाती है (डिग्री + बिटवीननेस + पेजरैंक) — इसे जांच-प्राथमिकता इकाई के रूप में वर्गीकृत किया गया है, न कि पुष्ट संदिग्ध के रूप में।"
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआई अनुमान",
+      "text": "सबसे छोटा कनेक्शन पथ खोजा गया: Vikram Solanki → +91 88•••5561 → +91 99•••2207 → Anita Rao। यह संबंध किसी एक स्रोत दस्तावेज़ में सीधे नहीं बताया गया है — यह केवल कई रिकॉर्ड्स को क्रॉस-रेफरेंस करने से सामने आता है।"
+    },
+    {
+      "section": 3,
+      "tag_key": "LEAD",
+      "tag_label": "जांच सुझाव",
+      "text": "निष्कर्ष निकालने से पहले जांचकर्ता को इस अप्रत्यक्ष संबंध की प्रकृति सत्यापित करने की सिफारिश की जाती है।"
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआई अनुमान",
+      "text": "Rajeev Malhotra: जोखिम संकेतक स्कोर 63.8/100 (संचार विसंगति 0.669, वित्तीय विसंगति 0.136, नेटवर्क केंद्रीयता 0.57, स्रोत विश्वसनीयता गुणक 1.0)।"
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआई अनुमान",
+      "text": "Anita Rao: जोखिम संकेतक स्कोर 42.6/100 (संचार विसंगति 1.0, वित्तीय विसंगति 1.0, नेटवर्क केंद्रीयता 0.573, स्रोत विश्वसनीयता गुणक 0.6)।"
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआई अनुमान",
+      "text": "Feroz Sheikh: जोखिम संकेतक स्कोर 30.7/100 (संचार विसंगति 0.147, वित्तीय विसंगति 0.0, नेटवर्क केंद्रीयता 0.228, स्रोत विश्वसनीयता गुणक 1.0)।"
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआई अनुमान",
+      "text": "Vikram Solanki: जोखिम संकेतक स्कोर 26.5/100 (संचार विसंगति 0.386, वित्तीय विसंगति 0.0, नेटवर्क केंद्रीयता 1.0, स्रोत विश्वसनीयता गुणक 0.6)।"
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआई अनुमान",
+      "text": "Kavita Joshi: जोखिम संकेतक स्कोर 22.0/100 (संचार विसंगति 0.458, वित्तीय विसंगति 0.007, नेटवर्क केंद्रीयता 0.525, स्रोत विश्वसनीयता गुणक 0.6)।"
+    },
+    {
+      "section": 4,
+      "tag_key": "LEAD",
+      "tag_label": "जांच सुझाव",
+      "text": "किसी भी जांच या कानूनी कार्रवाई से पहले सभी जोखिम-संकेतक स्कोर के लिए मानव सत्यापन और अतिरिक्त पुष्टिकारक साक्ष्य आवश्यक हैं।"
+    },
+    {
+      "section": 5,
+      "tag_key": "FACT",
+      "tag_label": "तथ्य",
+      "text": "FIR-031 (PS Andheri, 2026-02-14) — स्रोत विश्वसनीयता: उच्च।"
+    },
+    {
+      "section": 5,
+      "tag_key": "FACT",
+      "tag_label": "तथ्य",
+      "text": "FIR-014 (PS Bhiwandi, 2026-01-26) — स्रोत विश्वसनीयता: निम्न।"
+    },
+    {
+      "section": 6,
+      "tag_key": "LEAD",
+      "tag_label": "जांच सुझाव",
+      "text": "यह रिपोर्ट पूर्णत: सिंथेटिक प्रदर्शन डेटा का उपयोग करके एक एआई-सहायता प्राप्त निर्णय-सहायता प्रणाली द्वारा तैयार की गई थी। किसी भी वास्तविक पुलिस, दूरसंचार या वित्तीय डेटाबेस तक पहुंच नहीं बनाई गई। सभी एआई अनुमान और जांच सुझाव मज़दों के लिए स्वतंत्र मानव सत्यापन आवश्यक है और ये स्वयं में गलत काम का साक्ष्य नहीं हैं।"
+    }
+  ],
+  "mr": [
+    {
+      "section": 1,
+      "tag_key": "FACT",
+      "tag_label": "वस्तुस्थिती",
+      "text": "घटक निराकरणापूर्वी, स्रोत नोंदींमध्ये 10 स्वतंत्र व्यक्ती ओळखल्या गेल्या."
+    },
+    {
+      "section": 1,
+      "tag_key": "FACT",
+      "tag_label": "वस्तुस्थिती",
+      "text": "94 कॉल तपशील नोंदी आणि 4 आर्थिक व्यवहार नोंदी समाविष्ट करण्यात आल्या."
+    },
+    {
+      "section": 1,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआय अनुमान",
+      "text": "घटक निराकरणाने 4 कच्च्या नाव उल्लेखांना ज्ञात व्यक्तींशी जुळवून कागदपत्रांमधील दिसणारे डुप्लिकेट उल्लेख कमी केले."
+    },
+    {
+      "section": 2,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआय अनुमान",
+      "text": "'R. Malhotra' (स्रोत: Surveillance-09) हा उल्लेख 80% विश्वासार्हतेसह Rajeev Malhotra शी जुळवला गेला."
+    },
+    {
+      "section": 2,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआय अनुमान",
+      "text": "'A. Rao' (स्रोत: FIR-031) हा उल्लेख 70% विश्वासार्हतेसह Anita Rao शी जुळवला गेला."
+    },
+    {
+      "section": 2,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआय अनुमान",
+      "text": "'Vikram S.' (स्रोत: CDR-annotation) हा उल्लेख 80% विश्वासार्हतेसह Vikram Solanki शी जुळवला गेला."
+    },
+    {
+      "section": 2,
+      "tag_key": "LEAD",
+      "tag_label": "तपास सूचना",
+      "text": "'Ferozz Shiekh' (स्रोत: Informant-tip-22) हा उल्लेख कदाचित Feroz Sheikh शी जुळतो (48% विश्वासार्हता) — विलीनीकरणापूर्वी हाताने पडताळणी करण्याची शिफारस."
+    },
+    {
+      "section": 3,
+      "tag_key": "FACT",
+      "tag_label": "वस्तुस्थिती",
+      "text": "तयार केलेल्या नॉलेज ग्राफमध्ये 30 घटक आणि 34 संबंध आहेत."
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआय अनुमान",
+      "text": "मॉड्युलॅरिटी-आधारित समुदाय शोधाद्वारे नेटवर्कमध्ये 7 स्वतंत्र उप-गट (समुदाय) आढळले."
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआय अनुमान",
+      "text": "Vikram Solanki उच्च मिश्रित केंद्रीयता दर्शवतो/दर्शवते (डिग्री + बिटवीननेस + पेजरँक) — ह्याला तपास-प्राधान्य घटक म्हणून वर्गीकृत केले आहे, निश्चित संशयित म्हणून नव्हे."
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआय अनुमान",
+      "text": "Anita Rao उच्च मिश्रित केंद्रीयता दर्शवतो/दर्शवते (डिग्री + बिटवीननेस + पेजरँक) — ह्याला तपास-प्राधान्य घटक म्हणून वर्गीकृत केले आहे, निश्चित संशयित म्हणून नव्हे."
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआय अनुमान",
+      "text": "Rajeev Malhotra उच्च मिश्रित केंद्रीयता दर्शवतो/दर्शवते (डिग्री + बिटवीननेस + पेजरँक) — ह्याला तपास-प्राधान्य घटक म्हणून वर्गीकृत केले आहे, निश्चित संशयित म्हणून नव्हे."
+    },
+    {
+      "section": 3,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआय अनुमान",
+      "text": "सर्वात लहान जोडणी मार्ग सापडला: Vikram Solanki → +91 88•••5561 → +91 99•••2207 → Anita Rao. हा दुवा कोणत्याही एका स्रोत दस्तएवजात थेट नमूद केलेला नाही — तो फक्त अनेक नोंदींची क्रॉस-रेफरन्सिंग केल्यावरच समोर येतो."
+    },
+    {
+      "section": 3,
+      "tag_key": "LEAD",
+      "tag_label": "तपास सूचना",
+      "text": "निष्कर्ष काढण्यापूर्वी तपास अधिकार्याने या अप्रत्यक्ष संबंधाचे स्वरूप पडताळण्याची शिफारस."
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआय अनुमान",
+      "text": "Rajeev Malhotra: जोखीम निर्देशांक गुण 63.8/100 (संवाद विसंगती 0.669, आर्थिक विसंगती 0.136, नेटवर्क केंद्रीयता 0.57, स्रोत विश्वासार्हता गुणक 1.0)."
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआय अनुमान",
+      "text": "Anita Rao: जोखीम निर्देशांक गुण 42.6/100 (संवाद विसंगती 1.0, आर्थिक विसंगती 1.0, नेटवर्क केंद्रीयता 0.573, स्रोत विश्वासार्हता गुणक 0.6)."
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआय अनुमान",
+      "text": "Feroz Sheikh: जोखीम निर्देशांक गुण 30.7/100 (संवाद विसंगती 0.147, आर्थिक विसंगती 0.0, नेटवर्क केंद्रीयता 0.228, स्रोत विश्वासार्हता गुणक 1.0)."
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआय अनुमान",
+      "text": "Vikram Solanki: जोखीम निर्देशांक गुण 26.5/100 (संवाद विसंगती 0.386, आर्थिक विसंगती 0.0, नेटवर्क केंद्रीयता 1.0, स्रोत विश्वासार्हता गुणक 0.6)."
+    },
+    {
+      "section": 4,
+      "tag_key": "AI_INFERENCE",
+      "tag_label": "एआय अनुमान",
+      "text": "Kavita Joshi: जोखीम निर्देशांक गुण 22.0/100 (संवाद विसंगती 0.458, आर्थिक विसंगती 0.007, नेटवर्क केंद्रीयता 0.525, स्रोत विश्वासार्हता गुणक 0.6)."
+    },
+    {
+      "section": 4,
+      "tag_key": "LEAD",
+      "tag_label": "तपास सूचना",
+      "text": "कोणतीही तपास किंवा कायदेशीर कार्रवाई करण्यापूर्वी सर्व जोखीम-निर्देशांक गुणांसाठी मानवी पडताळणी आणि अतिरिक्त पुष्टीकरण पुरावा आवश्यक आहे."
+    },
+    {
+      "section": 5,
+      "tag_key": "FACT",
+      "tag_label": "वस्तुस्थिती",
+      "text": "FIR-031 (PS Andheri, 2026-02-14) — स्रोत विश्वासार्हता: उच्च."
+    },
+    {
+      "section": 5,
+      "tag_key": "FACT",
+      "tag_label": "वस्तुस्थिती",
+      "text": "FIR-014 (PS Bhiwandi, 2026-01-26) — स्रोत विश्वासार्हता: कमी."
+    },
+    {
+      "section": 6,
+      "tag_key": "LEAD",
+      "tag_label": "तपास सूचना",
+      "text": "हा अहवाल पूर्णपणे कृत्रिम प्रात्यक्षिक डेटा वापरून एआय-सहाय्यित निर्णय-सहाय्य प्रणालीद्वारे तयार करण्यात आला. कोणत्याही खर्या पोलीस, दूरसंचार किंवा आर्थिक डेटाबेसमध्ये प्रवेश केला गेला नाही. सर्व एआय अनुमान आणि तपास सूचना घटकांसाठी स्वतंत्र मानवी पडताळणी आवश्यक आहे आणि ते स्वतः गैरवर्तनाचा पुरावा ठरत नाहीत."
+    }
+  ]
+}

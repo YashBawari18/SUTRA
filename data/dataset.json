@@ -1,0 +1,958 @@
+{
+  "people": [
+    {
+      "person_id": "P01",
+      "name": "Rajeev Malhotra",
+      "alias_seen": "R. Malhotra",
+      "role_notes": "Frequently named across multiple source documents"
+    },
+    {
+      "person_id": "P02",
+      "name": "Feroz Sheikh",
+      "alias_seen": "",
+      "role_notes": "Prior assault case on record (2022)"
+    },
+    {
+      "person_id": "P03",
+      "name": "Anita Rao",
+      "alias_seen": "A. Rao",
+      "role_notes": "Chartered accountant; signatory on multiple accounts"
+    },
+    {
+      "person_id": "P04",
+      "name": "Sanjay Verma",
+      "alias_seen": "",
+      "role_notes": "No prior record"
+    },
+    {
+      "person_id": "P05",
+      "name": "Deepak Nair",
+      "alias_seen": "",
+      "role_notes": "No prior record"
+    },
+    {
+      "person_id": "P06",
+      "name": "Vikram Solanki",
+      "alias_seen": "",
+      "role_notes": "No prior record"
+    },
+    {
+      "person_id": "P07",
+      "name": "Meena Iyer",
+      "alias_seen": "",
+      "role_notes": "Company director on record"
+    },
+    {
+      "person_id": "P08",
+      "name": "Arjun Kapoor",
+      "alias_seen": "",
+      "role_notes": "No prior record"
+    },
+    {
+      "person_id": "P09",
+      "name": "Kavita Joshi",
+      "alias_seen": "",
+      "role_notes": "Unrelated contact - noise entity"
+    },
+    {
+      "person_id": "P10",
+      "name": "Imran Qureshi",
+      "alias_seen": "",
+      "role_notes": "Unrelated contact - noise entity"
+    }
+  ],
+  "phones": [
+    {
+      "phone_id": "PH01",
+      "number": "+91 98\u2022\u2022\u20221142",
+      "owner_person_id": "P01"
+    },
+    {
+      "phone_id": "PH02",
+      "number": "+91 77\u2022\u2022\u20228834",
+      "owner_person_id": "P02"
+    },
+    {
+      "phone_id": "PH03",
+      "number": "+91 99\u2022\u2022\u20222207",
+      "owner_person_id": "P03"
+    },
+    {
+      "phone_id": "PH04",
+      "number": "+91 88\u2022\u2022\u20225561",
+      "owner_person_id": "P06"
+    },
+    {
+      "phone_id": "PH05",
+      "number": "+91 90\u2022\u2022\u20223390",
+      "owner_person_id": "P08"
+    },
+    {
+      "phone_id": "PH06",
+      "number": "+91 82\u2022\u2022\u20227743",
+      "owner_person_id": "P09"
+    }
+  ],
+  "vehicles": [
+    {
+      "vehicle_id": "V01",
+      "plate_number": "MH-04 GK 7729",
+      "type": "Truck",
+      "owner_org_id": "O02"
+    },
+    {
+      "vehicle_id": "V02",
+      "plate_number": "MH-02 CJ 4410",
+      "type": "SUV",
+      "owner_person_id": "P07"
+    },
+    {
+      "vehicle_id": "V03",
+      "plate_number": "MH-01 AX 1183",
+      "type": "Sedan",
+      "owner_person_id": "P09"
+    }
+  ],
+  "locations": [
+    {
+      "location_id": "L01",
+      "name": "Warehouse, Andheri East",
+      "type": "Warehouse"
+    },
+    {
+      "location_id": "L02",
+      "name": "Farmhouse, Alibaug",
+      "type": "Residence"
+    },
+    {
+      "location_id": "L03",
+      "name": "Office, Nariman Point",
+      "type": "Commercial"
+    },
+    {
+      "location_id": "L04",
+      "name": "Godown, Bhiwandi",
+      "type": "Storage"
+    },
+    {
+      "location_id": "L05",
+      "name": "Cafe, Bandra",
+      "type": "Public"
+    }
+  ],
+  "organizations": [
+    {
+      "org_id": "O01",
+      "name": "Shree Trading Co.",
+      "incorporated": "2025-12-01",
+      "director_person_id": "P07",
+      "notes": "Recently incorporated, no operational footprint"
+    },
+    {
+      "org_id": "O02",
+      "name": "Global Freight Logistics",
+      "incorporated": "2019-03-11",
+      "director_person_id": "P04",
+      "notes": "Established transport contractor"
+    }
+  ],
+  "accounts": [
+    {
+      "account_id": "A01",
+      "holder_person_id": "P03",
+      "bank": "HDFC"
+    },
+    {
+      "account_id": "A02",
+      "holder_org_id": "O01",
+      "bank": "ICICI"
+    },
+    {
+      "account_id": "A03",
+      "holder_person_id": "P01",
+      "bank": "SBI"
+    },
+    {
+      "account_id": "A04",
+      "holder_person_id": "P09",
+      "bank": "Axis"
+    }
+  ],
+  "calls": [
+    {
+      "call_id": "C001",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T06:47:00",
+      "duration_sec": 301
+    },
+    {
+      "call_id": "C002",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T13:08:00",
+      "duration_sec": 124
+    },
+    {
+      "call_id": "C003",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T19:02:00",
+      "duration_sec": 50
+    },
+    {
+      "call_id": "C004",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T12:14:00",
+      "duration_sec": 537
+    },
+    {
+      "call_id": "C005",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T23:12:00",
+      "duration_sec": 578
+    },
+    {
+      "call_id": "C006",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-12T13:28:00",
+      "duration_sec": 304
+    },
+    {
+      "call_id": "C007",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T11:44:00",
+      "duration_sec": 452
+    },
+    {
+      "call_id": "C008",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-12T14:09:00",
+      "duration_sec": 240
+    },
+    {
+      "call_id": "C009",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-12T09:05:00",
+      "duration_sec": 409
+    },
+    {
+      "call_id": "C010",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T17:54:00",
+      "duration_sec": 372
+    },
+    {
+      "call_id": "C011",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-12T07:46:00",
+      "duration_sec": 490
+    },
+    {
+      "call_id": "C012",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T18:05:00",
+      "duration_sec": 585
+    },
+    {
+      "call_id": "C013",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-12T17:36:00",
+      "duration_sec": 216
+    },
+    {
+      "call_id": "C014",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T07:42:00",
+      "duration_sec": 253
+    },
+    {
+      "call_id": "C015",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-12T08:54:00",
+      "duration_sec": 258
+    },
+    {
+      "call_id": "C016",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T18:17:00",
+      "duration_sec": 484
+    },
+    {
+      "call_id": "C017",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-12T11:23:00",
+      "duration_sec": 383
+    },
+    {
+      "call_id": "C018",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T14:44:00",
+      "duration_sec": 93
+    },
+    {
+      "call_id": "C019",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T23:46:00",
+      "duration_sec": 270
+    },
+    {
+      "call_id": "C020",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T20:24:00",
+      "duration_sec": 296
+    },
+    {
+      "call_id": "C021",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T16:53:00",
+      "duration_sec": 77
+    },
+    {
+      "call_id": "C022",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T07:51:00",
+      "duration_sec": 343
+    },
+    {
+      "call_id": "C023",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-12T14:04:00",
+      "duration_sec": 236
+    },
+    {
+      "call_id": "C024",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-12T12:41:00",
+      "duration_sec": 531
+    },
+    {
+      "call_id": "C025",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-12T20:09:00",
+      "duration_sec": 291
+    },
+    {
+      "call_id": "C026",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-11T13:47:00",
+      "duration_sec": 594
+    },
+    {
+      "call_id": "C027",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH02",
+      "timestamp": "2026-02-12T19:57:00",
+      "duration_sec": 428
+    },
+    {
+      "call_id": "C028",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH03",
+      "timestamp": "2026-01-21T13:08:00",
+      "duration_sec": 541
+    },
+    {
+      "call_id": "C029",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH03",
+      "timestamp": "2026-01-25T08:48:00",
+      "duration_sec": 68
+    },
+    {
+      "call_id": "C030",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH03",
+      "timestamp": "2026-02-06T09:09:00",
+      "duration_sec": 183
+    },
+    {
+      "call_id": "C031",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH03",
+      "timestamp": "2026-02-04T19:38:00",
+      "duration_sec": 85
+    },
+    {
+      "call_id": "C032",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH03",
+      "timestamp": "2026-01-22T18:38:00",
+      "duration_sec": 499
+    },
+    {
+      "call_id": "C033",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH03",
+      "timestamp": "2026-01-26T14:35:00",
+      "duration_sec": 31
+    },
+    {
+      "call_id": "C034",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH03",
+      "timestamp": "2026-01-31T09:43:00",
+      "duration_sec": 569
+    },
+    {
+      "call_id": "C035",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH03",
+      "timestamp": "2026-02-03T14:49:00",
+      "duration_sec": 368
+    },
+    {
+      "call_id": "C036",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH03",
+      "timestamp": "2026-01-13T15:27:00",
+      "duration_sec": 181
+    },
+    {
+      "call_id": "C037",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-01-24T06:46:00",
+      "duration_sec": 289
+    },
+    {
+      "call_id": "C038",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-01-26T11:32:00",
+      "duration_sec": 128
+    },
+    {
+      "call_id": "C039",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-02-06T15:53:00",
+      "duration_sec": 539
+    },
+    {
+      "call_id": "C040",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-01-29T12:09:00",
+      "duration_sec": 402
+    },
+    {
+      "call_id": "C041",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-02-03T11:34:00",
+      "duration_sec": 563
+    },
+    {
+      "call_id": "C042",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-02-08T06:38:00",
+      "duration_sec": 351
+    },
+    {
+      "call_id": "C043",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-01-25T06:07:00",
+      "duration_sec": 391
+    },
+    {
+      "call_id": "C044",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-02-07T15:15:00",
+      "duration_sec": 79
+    },
+    {
+      "call_id": "C045",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-01-17T08:05:00",
+      "duration_sec": 517
+    },
+    {
+      "call_id": "C046",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-02-05T08:48:00",
+      "duration_sec": 565
+    },
+    {
+      "call_id": "C047",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-02-03T10:08:00",
+      "duration_sec": 506
+    },
+    {
+      "call_id": "C048",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-02-09T23:10:00",
+      "duration_sec": 291
+    },
+    {
+      "call_id": "C049",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-01-26T19:13:00",
+      "duration_sec": 572
+    },
+    {
+      "call_id": "C050",
+      "caller_phone_id": "PH01",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-02-03T12:45:00",
+      "duration_sec": 339
+    },
+    {
+      "call_id": "C051",
+      "caller_phone_id": "PH03",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-01-22T17:28:00",
+      "duration_sec": 549
+    },
+    {
+      "call_id": "C052",
+      "caller_phone_id": "PH03",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-01-24T09:15:00",
+      "duration_sec": 250
+    },
+    {
+      "call_id": "C053",
+      "caller_phone_id": "PH03",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-01-12T16:01:00",
+      "duration_sec": 587
+    },
+    {
+      "call_id": "C054",
+      "caller_phone_id": "PH03",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-01-17T13:00:00",
+      "duration_sec": 92
+    },
+    {
+      "call_id": "C055",
+      "caller_phone_id": "PH03",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-02-01T07:14:00",
+      "duration_sec": 89
+    },
+    {
+      "call_id": "C056",
+      "caller_phone_id": "PH03",
+      "receiver_phone_id": "PH04",
+      "timestamp": "2026-02-07T07:55:00",
+      "duration_sec": 358
+    },
+    {
+      "call_id": "C057",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-12T22:15:00",
+      "duration_sec": 305
+    },
+    {
+      "call_id": "C058",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-31T21:13:00",
+      "duration_sec": 572
+    },
+    {
+      "call_id": "C059",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-14T21:15:00",
+      "duration_sec": 504
+    },
+    {
+      "call_id": "C060",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-02-04T19:12:00",
+      "duration_sec": 116
+    },
+    {
+      "call_id": "C061",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-13T19:22:00",
+      "duration_sec": 453
+    },
+    {
+      "call_id": "C062",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-23T20:55:00",
+      "duration_sec": 75
+    },
+    {
+      "call_id": "C063",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-31T09:03:00",
+      "duration_sec": 432
+    },
+    {
+      "call_id": "C064",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-02-02T16:51:00",
+      "duration_sec": 131
+    },
+    {
+      "call_id": "C065",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-17T12:12:00",
+      "duration_sec": 569
+    },
+    {
+      "call_id": "C066",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-24T10:27:00",
+      "duration_sec": 207
+    },
+    {
+      "call_id": "C067",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-18T20:15:00",
+      "duration_sec": 97
+    },
+    {
+      "call_id": "C068",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-24T23:06:00",
+      "duration_sec": 71
+    },
+    {
+      "call_id": "C069",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-30T23:53:00",
+      "duration_sec": 35
+    },
+    {
+      "call_id": "C070",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-12T13:10:00",
+      "duration_sec": 436
+    },
+    {
+      "call_id": "C071",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-25T21:13:00",
+      "duration_sec": 430
+    },
+    {
+      "call_id": "C072",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-02-07T07:10:00",
+      "duration_sec": 408
+    },
+    {
+      "call_id": "C073",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-10T18:16:00",
+      "duration_sec": 485
+    },
+    {
+      "call_id": "C074",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-19T19:44:00",
+      "duration_sec": 589
+    },
+    {
+      "call_id": "C075",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-31T21:09:00",
+      "duration_sec": 214
+    },
+    {
+      "call_id": "C076",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-19T12:03:00",
+      "duration_sec": 575
+    },
+    {
+      "call_id": "C077",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-11T16:03:00",
+      "duration_sec": 71
+    },
+    {
+      "call_id": "C078",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-28T21:32:00",
+      "duration_sec": 563
+    },
+    {
+      "call_id": "C079",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-15T07:32:00",
+      "duration_sec": 102
+    },
+    {
+      "call_id": "C080",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-02-06T11:04:00",
+      "duration_sec": 89
+    },
+    {
+      "call_id": "C081",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-31T13:25:00",
+      "duration_sec": 142
+    },
+    {
+      "call_id": "C082",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-02-09T13:37:00",
+      "duration_sec": 60
+    },
+    {
+      "call_id": "C083",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-29T08:26:00",
+      "duration_sec": 598
+    },
+    {
+      "call_id": "C084",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-26T16:59:00",
+      "duration_sec": 287
+    },
+    {
+      "call_id": "C085",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-16T16:15:00",
+      "duration_sec": 291
+    },
+    {
+      "call_id": "C086",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-22T10:42:00",
+      "duration_sec": 327
+    },
+    {
+      "call_id": "C087",
+      "caller_phone_id": "PH04",
+      "receiver_phone_id": "PH05",
+      "timestamp": "2026-01-24T16:59:00",
+      "duration_sec": 94
+    },
+    {
+      "call_id": "C088",
+      "caller_phone_id": "PH02",
+      "receiver_phone_id": "PH06",
+      "timestamp": "2026-01-10T20:39:00",
+      "duration_sec": 596
+    },
+    {
+      "call_id": "C089",
+      "caller_phone_id": "PH02",
+      "receiver_phone_id": "PH06",
+      "timestamp": "2026-01-13T08:34:00",
+      "duration_sec": 238
+    },
+    {
+      "call_id": "C090",
+      "caller_phone_id": "PH02",
+      "receiver_phone_id": "PH06",
+      "timestamp": "2026-01-26T14:08:00",
+      "duration_sec": 377
+    },
+    {
+      "call_id": "C091",
+      "caller_phone_id": "PH02",
+      "receiver_phone_id": "PH06",
+      "timestamp": "2026-02-07T08:56:00",
+      "duration_sec": 270
+    },
+    {
+      "call_id": "C092",
+      "caller_phone_id": "PH05",
+      "receiver_phone_id": "PH06",
+      "timestamp": "2026-01-21T15:10:00",
+      "duration_sec": 468
+    },
+    {
+      "call_id": "C093",
+      "caller_phone_id": "PH05",
+      "receiver_phone_id": "PH06",
+      "timestamp": "2026-02-05T23:45:00",
+      "duration_sec": 329
+    },
+    {
+      "call_id": "C094",
+      "caller_phone_id": "PH05",
+      "receiver_phone_id": "PH06",
+      "timestamp": "2026-01-29T22:00:00",
+      "duration_sec": 587
+    }
+  ],
+  "transactions": [
+    {
+      "txn_id": "T001",
+      "sender_account_id": "A01",
+      "receiver_account_id": "A02",
+      "amount": 1840000,
+      "timestamp": "2026-02-12T15:20:00",
+      "mode": "NEFT"
+    },
+    {
+      "txn_id": "T002",
+      "sender_account_id": "A03",
+      "receiver_account_id": "A01",
+      "amount": 250000,
+      "timestamp": "2026-01-18T11:05:00",
+      "mode": "IMPS"
+    },
+    {
+      "txn_id": "T003",
+      "sender_account_id": "A04",
+      "receiver_account_id": "A02",
+      "amount": 12000,
+      "timestamp": "2026-01-22T09:40:00",
+      "mode": "UPI"
+    },
+    {
+      "txn_id": "T004",
+      "sender_account_id": "A02",
+      "receiver_account_id": "A01",
+      "amount": 60000,
+      "timestamp": "2026-02-01T17:10:00",
+      "mode": "NEFT"
+    }
+  ],
+  "visits": [
+    {
+      "visit_id": "VS01",
+      "person_id": "P01",
+      "location_id": "L02",
+      "timestamp": "2026-02-05T21:00:00",
+      "notes": "GPS-tagged surveillance"
+    },
+    {
+      "visit_id": "VS02",
+      "person_id": "P02",
+      "location_id": "L02",
+      "timestamp": "2026-02-05T21:10:00",
+      "notes": "GPS-tagged surveillance"
+    },
+    {
+      "visit_id": "VS03",
+      "person_id": "P03",
+      "location_id": "L03",
+      "timestamp": "2026-01-15T10:00:00",
+      "notes": "Registered workplace"
+    },
+    {
+      "visit_id": "VS04",
+      "person_id": "P05",
+      "location_id": "L01",
+      "timestamp": "2026-01-20T14:00:00",
+      "notes": "Registered workplace"
+    },
+    {
+      "visit_id": "VS05",
+      "person_id": "P04",
+      "location_id": "L04",
+      "timestamp": "2026-01-25T13:00:00",
+      "notes": "Lease signed - cash payment"
+    },
+    {
+      "visit_id": "VS06",
+      "person_id": "P06",
+      "location_id": "L01",
+      "timestamp": "2026-02-02T18:00:00",
+      "notes": ""
+    },
+    {
+      "visit_id": "VS07",
+      "person_id": "P06",
+      "location_id": "L04",
+      "timestamp": "2026-02-06T23:15:00",
+      "notes": "Bridges two otherwise separate sites"
+    },
+    {
+      "vehicle_visit": true,
+      "visit_id": "VS08",
+      "vehicle_id": "V01",
+      "location_id": "L04",
+      "timestamp": "2026-02-07T23:40:00",
+      "notes": "6 trips recorded at odd hours"
+    },
+    {
+      "vehicle_visit": true,
+      "visit_id": "VS09",
+      "vehicle_id": "V02",
+      "location_id": "L02",
+      "timestamp": "2026-02-05T20:55:00",
+      "notes": ""
+    }
+  ],
+  "fir_records": [
+    {
+      "case_id": "FIR-031",
+      "date": "2026-02-14",
+      "station": "PS Andheri",
+      "description": "On 14/02/2026, surveillance team reported that RAJEEV MALHOTRA (M/42) was observed meeting FEROZ SHEIKH near the warehouse at ANDHERI EAST at approx. 2130 hrs. A vehicle bearing registration MH-04 GK 7729 was seen departing the location at 2245 hrs. Phone records indicate the number +91 98\u2022\u2022\u20221142, registered to the same individual, made repeated contact with +91 77\u2022\u2022\u20228834 over the preceding 48 hours. The complainant also named SHREE TRADING CO. as the entity operating the leased premises.",
+      "source_reliability": "High"
+    },
+    {
+      "case_id": "FIR-014",
+      "date": "2026-01-26",
+      "station": "PS Bhiwandi",
+      "description": "Local intelligence report (unverified) suggests SANJAY VERMA leased a godown in BHIWANDI approximately three months prior under a cash arrangement. No formal complaint has been filed. Source: field informant.",
+      "source_reliability": "Low"
+    }
+  ]
+}

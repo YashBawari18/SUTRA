@@ -1,0 +1,571 @@
+{
+  "nodes": [
+    {
+      "id": "P01",
+      "label": "Rajeev Malhotra",
+      "type": "person",
+      "degree": 0.1034,
+      "betweenness": 0.1437,
+      "pagerank": 0.0135,
+      "priority_rank": 3
+    },
+    {
+      "id": "P02",
+      "label": "Feroz Sheikh",
+      "type": "person",
+      "degree": 0.069,
+      "betweenness": 0.0296,
+      "pagerank": 0.0136,
+      "priority_rank": 7
+    },
+    {
+      "id": "P03",
+      "label": "Anita Rao",
+      "type": "person",
+      "degree": 0.1034,
+      "betweenness": 0.1449,
+      "pagerank": 0.0152,
+      "priority_rank": 2
+    },
+    {
+      "id": "P04",
+      "label": "Sanjay Verma",
+      "type": "person",
+      "degree": 0.069,
+      "betweenness": 0.0308,
+      "pagerank": 0.0288,
+      "priority_rank": 5
+    },
+    {
+      "id": "P05",
+      "label": "Deepak Nair",
+      "type": "person",
+      "degree": 0.0345,
+      "betweenness": 0.0,
+      "pagerank": 0.0174,
+      "priority_rank": 10
+    },
+    {
+      "id": "P06",
+      "label": "Vikram Solanki",
+      "type": "person",
+      "degree": 0.1034,
+      "betweenness": 0.33,
+      "pagerank": 0.0298,
+      "priority_rank": 1
+    },
+    {
+      "id": "P07",
+      "label": "Meena Iyer",
+      "type": "person",
+      "degree": 0.069,
+      "betweenness": 0.0238,
+      "pagerank": 0.0198,
+      "priority_rank": 8
+    },
+    {
+      "id": "P08",
+      "label": "Arjun Kapoor",
+      "type": "person",
+      "degree": 0.0345,
+      "betweenness": 0.0,
+      "pagerank": 0.0069,
+      "priority_rank": 11
+    },
+    {
+      "id": "P09",
+      "label": "Kavita Joshi",
+      "type": "person",
+      "degree": 0.1034,
+      "betweenness": 0.124,
+      "pagerank": 0.0159,
+      "priority_rank": 4
+    },
+    {
+      "id": "P10",
+      "label": "Imran Qureshi",
+      "type": "person",
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "pagerank": 0.0053,
+      "priority_rank": 12
+    },
+    {
+      "id": "PH01",
+      "label": "+91 98\u2022\u2022\u20221142",
+      "type": "phone",
+      "degree": 0.1379,
+      "betweenness": 0.2089,
+      "pagerank": 0.0892,
+      "priority_rank": null
+    },
+    {
+      "id": "PH02",
+      "label": "+91 77\u2022\u2022\u20228834",
+      "type": "phone",
+      "degree": 0.1034,
+      "betweenness": 0.092,
+      "pagerank": 0.0601,
+      "priority_rank": null
+    },
+    {
+      "id": "PH03",
+      "label": "+91 99\u2022\u2022\u20222207",
+      "type": "phone",
+      "degree": 0.1034,
+      "betweenness": 0.1441,
+      "pagerank": 0.0322,
+      "priority_rank": null
+    },
+    {
+      "id": "PH04",
+      "label": "+91 88\u2022\u2022\u20225561",
+      "type": "phone",
+      "degree": 0.1379,
+      "betweenness": 0.392,
+      "pagerank": 0.0942,
+      "priority_rank": null
+    },
+    {
+      "id": "PH05",
+      "label": "+91 90\u2022\u2022\u20223390",
+      "type": "phone",
+      "degree": 0.1034,
+      "betweenness": 0.149,
+      "pagerank": 0.0656,
+      "priority_rank": null
+    },
+    {
+      "id": "PH06",
+      "label": "+91 82\u2022\u2022\u20227743",
+      "type": "phone",
+      "degree": 0.1034,
+      "betweenness": 0.1466,
+      "pagerank": 0.021,
+      "priority_rank": null
+    },
+    {
+      "id": "V01",
+      "label": "MH-04 GK 7729",
+      "type": "vehicle",
+      "degree": 0.069,
+      "betweenness": 0.0308,
+      "pagerank": 0.0288,
+      "priority_rank": null
+    },
+    {
+      "id": "V02",
+      "label": "MH-02 CJ 4410",
+      "type": "vehicle",
+      "degree": 0.069,
+      "betweenness": 0.0501,
+      "pagerank": 0.0204,
+      "priority_rank": null
+    },
+    {
+      "id": "V03",
+      "label": "MH-01 AX 1183",
+      "type": "vehicle",
+      "degree": 0.0345,
+      "betweenness": 0.0,
+      "pagerank": 0.0098,
+      "priority_rank": null
+    },
+    {
+      "id": "L01",
+      "label": "Warehouse, Andheri East",
+      "type": "location",
+      "degree": 0.069,
+      "betweenness": 0.064,
+      "pagerank": 0.0286,
+      "priority_rank": null
+    },
+    {
+      "id": "L02",
+      "label": "Farmhouse, Alibaug",
+      "type": "location",
+      "degree": 0.1034,
+      "betweenness": 0.1002,
+      "pagerank": 0.0235,
+      "priority_rank": null
+    },
+    {
+      "id": "L03",
+      "label": "Office, Nariman Point",
+      "type": "location",
+      "degree": 0.0345,
+      "betweenness": 0.0,
+      "pagerank": 0.0096,
+      "priority_rank": null
+    },
+    {
+      "id": "L04",
+      "label": "Godown, Bhiwandi",
+      "type": "location",
+      "degree": 0.1034,
+      "betweenness": 0.1786,
+      "pagerank": 0.0382,
+      "priority_rank": null
+    },
+    {
+      "id": "L05",
+      "label": "Cafe, Bandra",
+      "type": "location",
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "pagerank": 0.0053,
+      "priority_rank": null
+    },
+    {
+      "id": "O01",
+      "label": "Shree Trading Co.",
+      "type": "organization",
+      "degree": 0.069,
+      "betweenness": 0.0357,
+      "pagerank": 0.0137,
+      "priority_rank": 6
+    },
+    {
+      "id": "O02",
+      "label": "Global Freight Logistics",
+      "type": "organization",
+      "degree": 0.069,
+      "betweenness": 0.0012,
+      "pagerank": 0.0298,
+      "priority_rank": 9
+    },
+    {
+      "id": "A01",
+      "label": "A/C A01 (HDFC)",
+      "type": "account",
+      "degree": 0.1034,
+      "betweenness": 0.1186,
+      "pagerank": 0.1159,
+      "priority_rank": null
+    },
+    {
+      "id": "A02",
+      "label": "A/C A02 (ICICI)",
+      "type": "account",
+      "degree": 0.1034,
+      "betweenness": 0.1174,
+      "pagerank": 0.0438,
+      "priority_rank": null
+    },
+    {
+      "id": "A03",
+      "label": "A/C A03 (SBI)",
+      "type": "account",
+      "degree": 0.069,
+      "betweenness": 0.0287,
+      "pagerank": 0.0885,
+      "priority_rank": null
+    },
+    {
+      "id": "A04",
+      "label": "A/C A04 (Axis)",
+      "type": "account",
+      "degree": 0.069,
+      "betweenness": 0.0616,
+      "pagerank": 0.016,
+      "priority_rank": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "P01",
+      "target": "PH01",
+      "type": "OWNS",
+      "weight": 1
+    },
+    {
+      "source": "P01",
+      "target": "A03",
+      "type": "OWNS",
+      "weight": 1
+    },
+    {
+      "source": "P01",
+      "target": "L02",
+      "type": "VISITED",
+      "weight": 1,
+      "notes": "GPS-tagged surveillance"
+    },
+    {
+      "source": "P02",
+      "target": "PH02",
+      "type": "OWNS",
+      "weight": 1
+    },
+    {
+      "source": "P02",
+      "target": "L02",
+      "type": "VISITED",
+      "weight": 1,
+      "notes": "GPS-tagged surveillance"
+    },
+    {
+      "source": "P03",
+      "target": "PH03",
+      "type": "OWNS",
+      "weight": 1
+    },
+    {
+      "source": "P03",
+      "target": "A01",
+      "type": "OWNS",
+      "weight": 1
+    },
+    {
+      "source": "P03",
+      "target": "L03",
+      "type": "VISITED",
+      "weight": 1,
+      "notes": "Registered workplace"
+    },
+    {
+      "source": "P04",
+      "target": "O02",
+      "type": "DIRECTOR_OF",
+      "weight": 1
+    },
+    {
+      "source": "P04",
+      "target": "L04",
+      "type": "VISITED",
+      "weight": 1,
+      "notes": "Lease signed - cash payment"
+    },
+    {
+      "source": "P05",
+      "target": "L01",
+      "type": "VISITED",
+      "weight": 1,
+      "notes": "Registered workplace"
+    },
+    {
+      "source": "P06",
+      "target": "PH04",
+      "type": "OWNS",
+      "weight": 1
+    },
+    {
+      "source": "P06",
+      "target": "L01",
+      "type": "VISITED",
+      "weight": 1,
+      "notes": ""
+    },
+    {
+      "source": "P06",
+      "target": "L04",
+      "type": "VISITED",
+      "weight": 1,
+      "notes": "Bridges two otherwise separate sites"
+    },
+    {
+      "source": "P07",
+      "target": "V02",
+      "type": "OWNS",
+      "weight": 1
+    },
+    {
+      "source": "P07",
+      "target": "O01",
+      "type": "DIRECTOR_OF",
+      "weight": 1
+    },
+    {
+      "source": "P08",
+      "target": "PH05",
+      "type": "OWNS",
+      "weight": 1
+    },
+    {
+      "source": "P09",
+      "target": "PH06",
+      "type": "OWNS",
+      "weight": 1
+    },
+    {
+      "source": "P09",
+      "target": "V03",
+      "type": "OWNS",
+      "weight": 1
+    },
+    {
+      "source": "P09",
+      "target": "A04",
+      "type": "OWNS",
+      "weight": 1
+    },
+    {
+      "source": "PH01",
+      "target": "PH02",
+      "type": "CALLED",
+      "weight": 27,
+      "suspicious": true
+    },
+    {
+      "source": "PH01",
+      "target": "PH03",
+      "type": "CALLED",
+      "weight": 9,
+      "suspicious": false
+    },
+    {
+      "source": "PH01",
+      "target": "PH04",
+      "type": "CALLED",
+      "weight": 14,
+      "suspicious": false
+    },
+    {
+      "source": "PH02",
+      "target": "PH06",
+      "type": "CALLED",
+      "weight": 4,
+      "suspicious": false
+    },
+    {
+      "source": "PH03",
+      "target": "PH04",
+      "type": "CALLED",
+      "weight": 6,
+      "suspicious": false
+    },
+    {
+      "source": "PH04",
+      "target": "PH05",
+      "type": "CALLED",
+      "weight": 31,
+      "suspicious": true
+    },
+    {
+      "source": "PH05",
+      "target": "PH06",
+      "type": "CALLED",
+      "weight": 3,
+      "suspicious": false
+    },
+    {
+      "source": "V01",
+      "target": "O02",
+      "type": "OWNS",
+      "weight": 1
+    },
+    {
+      "source": "V01",
+      "target": "L04",
+      "type": "VISITED",
+      "weight": 1,
+      "notes": "6 trips recorded at odd hours"
+    },
+    {
+      "source": "V02",
+      "target": "L02",
+      "type": "VISITED",
+      "weight": 1,
+      "notes": ""
+    },
+    {
+      "source": "O01",
+      "target": "A02",
+      "type": "OWNS",
+      "weight": 1
+    },
+    {
+      "source": "A01",
+      "target": "A02",
+      "type": "TRANSFERRED_MONEY",
+      "weight": 60000,
+      "suspicious": false,
+      "amount": 60000,
+      "timestamp": "2026-02-01T17:10:00"
+    },
+    {
+      "source": "A01",
+      "target": "A03",
+      "type": "TRANSFERRED_MONEY",
+      "weight": 250000,
+      "suspicious": false,
+      "amount": 250000,
+      "timestamp": "2026-01-18T11:05:00"
+    },
+    {
+      "source": "A02",
+      "target": "A04",
+      "type": "TRANSFERRED_MONEY",
+      "weight": 12000,
+      "suspicious": false,
+      "amount": 12000,
+      "timestamp": "2026-01-22T09:40:00"
+    }
+  ],
+  "communities": [
+    [
+      "A02",
+      "V03",
+      "P07",
+      "O01",
+      "V02",
+      "P09",
+      "A04"
+    ],
+    [
+      "PH04",
+      "PH05",
+      "L01",
+      "P05",
+      "P08",
+      "P06"
+    ],
+    [
+      "PH01",
+      "L02",
+      "PH02",
+      "PH06",
+      "P01",
+      "P02"
+    ],
+    [
+      "A01",
+      "P03",
+      "L03",
+      "PH03",
+      "A03"
+    ],
+    [
+      "L04",
+      "O02",
+      "V01",
+      "P04"
+    ],
+    [
+      "P10"
+    ],
+    [
+      "L05"
+    ]
+  ],
+  "priority_ranking": [
+    "P06",
+    "P03",
+    "P01",
+    "P09",
+    "P04",
+    "O01",
+    "P02",
+    "P07",
+    "O02",
+    "P05",
+    "P08",
+    "P10"
+  ],
+  "shortest_path_example": [
+    "P06",
+    "PH04",
+    "PH03",
+    "P03"
+  ]
+}
