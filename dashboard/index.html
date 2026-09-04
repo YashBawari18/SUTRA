@@ -2153,9 +2153,9 @@ function enterApp(){
         document.getElementById("app").classList.add("show");
         isEnteringApp = false;
         
-        // Render Command Center charts and graphs
+        // Ensure command center page is explicitly marked active and initialized
+        goToPage("command");
         if(typeof renderCommandCenter === "function") renderCommandCenter();
-        // Trigger graph layout recompute if needed
         if(window.__reselectCurrentNode) window.__reselectCurrentNode();
       }, 350);
     }
@@ -2529,11 +2529,11 @@ function goToPage(name){
 }
 
 /* ---------------- UPGRADED COMMAND CENTER (GRAPHS & CHARTS) ---------------- */
-const personNodes = DATA.nodes.filter(n=>n.type==="person");
-const suspiciousEdges = DATA.edges.filter(e=>e.suspicious);
-const highRiskCount = (DATA.risk||[]).filter(r=>r.risk_indicator_score>=45).length;
-
 function renderCommandCenter(){
+  const personNodes = (DATA.nodes||[]).filter(n=>n.type==="person");
+  const suspiciousEdges = (DATA.edges||[]).filter(e=>e.suspicious);
+  const highRiskCount = (DATA.risk||[]).filter(r=>r.risk_indicator_score>=45).length;
+
   const sparkline = (data, color) => {
     const W = 80, H = 26;
     const mx = Math.max(...data), mn = Math.min(...data);
