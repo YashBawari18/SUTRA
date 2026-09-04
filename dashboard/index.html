@@ -6,6 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>SŪTRA — Criminal Network Intelligence System</title>
+<script src="three.min.js"></script>
 <style>
   :root{
     --bg:#f0f2f7; --bg-2:#ffffff; --panel:#ffffff; --panel-2:#edf0fb; --border:#dde2ef;
@@ -46,38 +47,22 @@
   .land-nav a{ color:#475569; text-decoration:none; transition:color 0.15s; }
   .land-nav a:hover{ color:#0f172a; }
 
-  .hero{ max-width:860px; margin:0 auto; text-align:center; padding:70px 30px 40px; position:relative; z-index:1; }
-  /* ================= ANIMATED SUTRA LOGO ================= */
-  .hero-logo-wrap{ position:relative; height:88px; margin-bottom:18px; display:flex; align-items:center; justify-content:center; }
+  .hero{ max-width:1240px; margin:0 auto; text-align:center; padding:45px 24px 20px; position:relative; z-index:1; }
+  /* ================= SUTRA BRAND LOGO (OFFICIAL DESIGN) ================= */
+  .hero-logo-wrap{ position:relative; min-height:86px; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; max-width:440px; }
   .hero-logo-en,
-  .hero-logo-hi{ position:absolute; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; }
-  .hero-logo-en{ animation: sutra-en 5s ease-in-out infinite; }
-  .hero-logo-hi{ animation: sutra-hi 5s ease-in-out infinite; }
-  .hero-logo-text-en{ font-family:var(--font-serif); font-size:72px; font-weight:700; color:#1a2d6b; line-height:1; letter-spacing:0.02em; position:relative; }
-  .hero-logo-text-hi{ font-family:'Noto Sans Devanagari','Mangal',var(--font-serif),sans-serif; font-size:62px; font-weight:700; color:#1a2d6b; line-height:1; position:relative; }
-  .hero-logo-wave{ display:block; margin-top:2px; }
+  .hero-logo-hi{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; transition:opacity 0.25s cubic-bezier(0.16,1,0.3,1), transform 0.25s cubic-bezier(0.16,1,0.3,1); }
+  .hero-logo-en.active{ display:flex; opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+  .hero-logo-en:not(.active){ display:none !important; opacity:0; pointer-events:none; }
+  .hero-logo-hi.active{ display:flex; opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+  .hero-logo-hi:not(.active){ display:none !important; opacity:0; pointer-events:none; }
+  .hero-logo-img{ max-height:82px; width:auto; max-width:100%; object-fit:contain; filter:drop-shadow(0 4px 14px rgba(26,45,107,0.15)); transition:transform 0.25s ease; }
+  .hero-logo-img:hover{ transform:scale(1.03); filter:drop-shadow(0 6px 20px rgba(26,45,107,0.22)); }
 
-  @keyframes sutra-en{
-    0%   { opacity:1; transform:translateY(0); }
-    35%  { opacity:1; transform:translateY(0); }
-    45%  { opacity:0; transform:translateY(-6px); }
-    80%  { opacity:0; transform:translateY(6px); }
-    90%  { opacity:1; transform:translateY(0); }
-    100% { opacity:1; transform:translateY(0); }
-  }
-  @keyframes sutra-hi{
-    0%   { opacity:0; transform:translateY(6px); }
-    35%  { opacity:0; transform:translateY(6px); }
-    45%  { opacity:1; transform:translateY(0); }
-    80%  { opacity:1; transform:translateY(0); }
-    90%  { opacity:0; transform:translateY(-6px); }
-    100% { opacity:0; transform:translateY(-6px); }
-  }
+  .hero h1{ font-family:var(--font-serif); font-size:40px; font-weight:700; color:#0f172a; margin:0 auto 16px; letter-spacing:0.01em; line-height:1.2; max-width:860px; }
+  .hero p{ font-family:var(--font-body); font-size:14.5px; color:#475569; max-width:640px; margin:0 auto 28px; line-height:1.75; font-weight:400; }
 
-  .hero h1{ font-family:var(--font-serif); font-size:40px; font-weight:700; color:#0f172a; margin-bottom:16px; letter-spacing:0.01em; line-height:1.2; }
-  .hero p{ font-family:var(--font-body); font-size:14.5px; color:#475569; max-width:620px; margin:0 auto 32px; line-height:1.75; font-weight:400; }
-
-  .hero-btns{ display:flex; gap:12px; justify-content:center; }
+  .hero-btns{ display:flex; gap:12px; justify-content:center; margin-bottom:12px; }
   .btn-hero-primary{ background:var(--gold); color:#ffffff; border:none; padding:12px 28px; border-radius:var(--radius);
     font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.07em; font-weight:700; cursor:pointer; transition:all 0.15s ease; box-shadow:0 3px 10px rgba(212,146,10,0.25); }
   .btn-hero-primary:hover{ opacity:0.92; transform:translateY(-1px); box-shadow:0 6px 14px rgba(212,146,10,0.35); }
@@ -86,6 +71,66 @@
   .btn-hero-secondary{ background:#ffffff; color:#334155; border:1px solid #cbd5e1; padding:12px 28px; border-radius:var(--radius);
     font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.07em; cursor:pointer; font-weight:600; box-shadow:0 1px 2px rgba(0,0,0,0.04); transition:border-color 0.15s; }
   .btn-hero-secondary:hover{ border-color:#94a3b8; color:#0f172a; }
+
+  /* ================= 3D REVOLVING ULTRA-REALISTIC BIG HALF EARTH ================= */
+  .hero-globe-wrap{ position:relative; width:100%; max-width:1180px; height:530px; margin:16px auto 0; overflow:hidden; display:flex; align-items:flex-start; justify-content:center; flex-shrink:0; background:transparent; border:none; box-shadow:none; border-radius:0; }
+  #globe-canvas{ width:100%; height:530px; display:block; cursor:grab; }
+  #globe-canvas:active{ cursor:grabbing; }
+
+  .globe-indicator{ position:absolute; top:12px; left:50%; transform:translateX(-50%); font-family:var(--font-mono); font-size:10px; color:#0284c7; background:rgba(255,255,255,0.92); border:1px solid #bae6fd; padding:5px 16px; border-radius:20px; backdrop-filter:blur(12px); display:flex; align-items:center; gap:8px; box-shadow:0 4px 16px rgba(14,165,233,0.12); z-index:6; pointer-events:none; font-weight:600; letter-spacing:0.06em; }
+  .globe-indicator .pulse-beacon{ width:7px; height:7px; border-radius:50%; background:#10b981; box-shadow:0 0 10px #10b981; position:relative; }
+  .globe-indicator .pulse-beacon::after{ content:''; position:absolute; inset:-4px; border-radius:50%; border:1.5px solid #10b981; animation:sonarPing 2s infinite; }
+
+  /* Sequential Popping Intelligence Messages - Sleek Crystal Glass HUD */
+  #globe-popping-container{ position:absolute; inset:0; pointer-events:none; z-index:7; }
+  .globe-pop-card{ position:absolute; pointer-events:auto; display:flex; flex-direction:column; gap:5px; padding:13px 17px; background:rgba(255,255,255,0.96); border:1px solid #cbd5e1; border-left:4px solid #0284c7; border-radius:12px; font-family:var(--font-body); box-shadow:0 16px 36px rgba(15,23,42,0.12), 0 2px 6px rgba(0,0,0,0.04); backdrop-filter:blur(16px); cursor:pointer; text-decoration:none; color:inherit; max-width:330px; opacity:0; transform:translateY(14px) scale(0.94); transition:opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.2s, box-shadow 0.2s; }
+  .globe-pop-card.show{ opacity:1; transform:translateY(0) scale(1); }
+  .globe-pop-card:hover{ transform:translateY(-3px) scale(1.02); border-color:#0284c7; box-shadow:0 22px 48px rgba(15,23,42,0.16); }
+  .globe-pop-card.critical{ border-left-color:#ef4444; border-color:rgba(239,68,68,0.35); }
+  .globe-pop-card.warning{ border-left-color:#f59e0b; border-color:rgba(245,158,11,0.35); }
+  .globe-pop-card.success{ border-left-color:#10b981; border-color:rgba(16,185,129,0.35); }
+
+  .pop-card-top{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .pop-card-badge{ font-family:var(--font-mono); font-size:9px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#0284c7; }
+  .globe-pop-card.critical .pop-card-badge{ color:#dc2626; }
+  .globe-pop-card.warning .pop-card-badge{ color:#d97706; }
+  .globe-pop-card.success .pop-card-badge{ color:#059669; }
+  .pop-card-coords{ font-family:var(--font-mono); font-size:9px; color:#64748b; font-weight:600; }
+  .pop-card-title{ font-size:13px; font-weight:600; color:#0f172a; line-height:1.45; }
+  .pop-card-footer{ display:flex; align-items:center; justify-content:space-between; margin-top:2px; font-family:var(--font-mono); font-size:10px; color:#0284c7; font-weight:600; }
+  .globe-pop-card:hover .pop-card-footer{ color:#0369a1; }
+
+  /* Pin radar anchor pointing to earth */
+  .pop-anchor-dot{ position:absolute; width:10px; height:10px; border-radius:50%; background:#0284c7; box-shadow:0 0 14px #0284c7; pointer-events:none; transform:translate(-50%, -50%); z-index:6; }
+  .pop-anchor-dot::after{ content:''; position:absolute; inset:-5px; border-radius:50%; border:2px solid #0284c7; animation:sonarPing 2s infinite; }
+  .pop-anchor-dot.critical{ background:#ef4444; box-shadow:0 0 14px #ef4444; }
+  .pop-anchor-dot.critical::after{ border-color:#ef4444; }
+  .pop-anchor-dot.warning{ background:#f59e0b; box-shadow:0 0 14px #f59e0b; }
+  .pop-anchor-dot.warning::after{ border-color:#f59e0b; }
+  .pop-anchor-dot.success{ background:#10b981; box-shadow:0 0 14px #10b981; }
+  .pop-anchor-dot.success::after{ border-color:#10b981; }
+
+  /* Globe stream control bar */
+  .globe-controls-pill{ position:absolute; bottom:124px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:8px; z-index:8; background:rgba(255,255,255,0.94); border:1px solid #cbd5e1; border-radius:20px; padding:5px 15px; font-family:var(--font-mono); font-size:10px; backdrop-filter:blur(12px); box-shadow:0 4px 16px rgba(15,23,42,0.08); }
+  .stream-dot{ color:#10b981; font-size:9px; animation:blink 1.5s infinite; }
+  .stream-lbl{ color:#475569; font-weight:600; }
+  .stream-sep{ color:#cbd5e1; }
+  .stream-btn{ border:none; background:transparent; font-size:10px; color:#64748b; cursor:pointer; padding:2px 6px; border-radius:10px; font-family:inherit; font-weight:600; }
+  .stream-btn:hover{ color:#0f172a; background:rgba(2,132,199,0.1); }
+
+  /* Live Telemetry HUD Bar - Anchored Directly ON the Earth at the Bottom of Page */
+  .hero-hud-bar{ position:absolute; bottom:16px; left:50%; transform:translateX(-50%); display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; max-width:980px; width:calc(100% - 40px); padding:16px 24px; background:rgba(255,255,255,0.95); border:1px solid #cbd5e1; border-radius:12px; box-shadow:0 12px 36px rgba(15,23,42,0.1), 0 1px 3px rgba(0,0,0,0.04); backdrop-filter:blur(16px); z-index:10; text-align:left; }
+  .hud-stat{ display:flex; flex-direction:column; gap:3px; padding:0 10px; border-right:1px solid #e2e8f0; }
+  .hud-stat:last-child{ border-right:none; }
+  .hud-stat .hud-lbl{ font-family:var(--font-mono); font-size:9.5px; color:#64748b; text-transform:uppercase; letter-spacing:0.06em; font-weight:600; display:flex; align-items:center; gap:6px; }
+  .hud-stat .hud-lbl span{ color:#1a56db; }
+  .hud-stat .hud-val{ font-family:var(--font-serif); font-size:23px; font-weight:700; color:#0f172a; letter-spacing:-0.01em; margin:2px 0; }
+  .hud-stat .hud-val span{ color:var(--gold); font-size:13px; font-weight:600; margin-left:4px; }
+  .hud-stat .hud-sub{ font-size:10.5px; color:#16a34a; font-family:var(--font-mono); font-weight:500; }
+  @media(max-width:768px){
+    .hero-hud-bar{ grid-template-columns:repeat(2, 1fr); bottom:10px; padding:12px 14px; gap:10px; }
+    .globe-controls-pill{ bottom:138px; }
+  }
 
   /* Popping Live Toast Notifications in Corner */
   #live-feed-toaster{ position:fixed; bottom:24px; right:24px; z-index:150; display:flex; flex-direction:column-reverse; gap:10px; pointer-events:none; max-width:340px; width:calc(100vw - 48px); }
@@ -107,15 +152,6 @@
   .toast-sublink{ font-family:var(--font-mono); font-size:9.5px; color:#1a56db; margin-top:4px; display:inline-flex; align-items:center; gap:4px; font-weight:600; }
   .toast-close{ border:none; background:none; color:#94a3b8; font-size:13px; cursor:pointer; padding:0 2px; line-height:1; }
   .toast-close:hover{ color:#0f172a; }
-
-  /* Clean Gov Telemetry HUD Bar - Anchored At Base of Hero Viewport */
-  .hero-hud-bar{ display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; max-width:960px; width:100%; margin:0 auto; padding:16px 22px; background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.04); text-align:left; position:relative; z-index:5; flex-shrink:0; }
-  .hud-stat{ display:flex; flex-direction:column; gap:3px; padding:0 8px; border-right:1px solid #e2e8f0; }
-  .hud-stat:last-child{ border-right:none; }
-  .hud-stat .hud-lbl{ font-family:var(--font-mono); font-size:9.5px; color:#64748b; text-transform:uppercase; letter-spacing:0.06em; font-weight:600; display:flex; align-items:center; gap:6px; }
-  .hud-stat .hud-val{ font-family:var(--font-mono); font-size:22px; font-weight:700; color:#0f172a; letter-spacing:-0.01em; }
-  .hud-stat .hud-val span{ color:var(--gold); font-size:13px; font-weight:500; margin-left:3px; }
-  .hud-stat .hud-sub{ font-size:10.5px; color:#16a34a; font-family:var(--font-mono); font-weight:500; }
 
   /* Capabilities Section - Official Clean Card Design */
   .caps-section{ position:relative; z-index:1; max-width:1080px; margin:36px auto 0; padding:45px 24px 20px; text-align:center; }
@@ -859,25 +895,13 @@
 
   <div class="hero">
     <div class="hero-logo-wrap">
-      <!-- English: SUTRA with top-right wave -->
-      <div class="hero-logo-en">
-        <div class="hero-logo-text-en" style="position:relative;">
-          SUTRA
-          <svg class="hero-logo-wave" style="position:absolute;top:4px;right:-10px;" width="52" height="22" viewBox="0 0 52 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 16 Q13 4 26 10 Q39 16 50 6" stroke="#FF9933" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-            <path d="M2 19 Q13 8 26 13 Q39 19 50 9" stroke="#138808" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-          </svg>
-        </div>
+      <!-- English: Official SŪTRA Logo with Tricolor Ribbon -->
+      <div class="hero-logo-en active" id="hero-logo-en">
+        <img src="sutra-logo-en.png" alt="SŪTRA" class="hero-logo-img">
       </div>
-      <!-- Hindi: सूत्र with bottom wave -->
-      <div class="hero-logo-hi">
-        <div class="hero-logo-text-hi" style="position:relative;">
-          सूत्र
-          <svg class="hero-logo-wave" style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);" width="72" height="24" viewBox="0 0 72 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 8 Q18 20 36 12 Q54 4 68 16" stroke="#FF9933" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-            <path d="M4 13 Q18 22 36 16 Q54 8 68 20" stroke="#138808" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-          </svg>
-        </div>
+      <!-- Hindi/Marathi: Official सूत्र Logo with Tricolor Ribbon -->
+      <div class="hero-logo-hi" id="hero-logo-hi">
+        <img src="sutra-logo-hi.png" alt="सूत्र" class="hero-logo-img">
       </div>
     </div>
     <h1 data-i18n="hero_title">The Connection Thread</h1>
@@ -885,6 +909,54 @@
     <div class="hero-btns">
       <button class="btn-hero-primary" id="btn-enter-app" data-i18n="btn_request_access">Request Access → Command Center</button>
       <button class="btn-hero-secondary" id="btn-view-briefing" data-i18n="btn_view_briefing">View Briefing</button>
+    </div>
+
+    <!-- 3D Revolving Ultra-Realistic Big Half Earth Section with Sequential Popping Messages -->
+    <div class="hero-globe-wrap" id="hero-globe-wrap">
+      <div class="globe-indicator">
+        <span class="pulse-beacon"></span>
+        <span data-i18n="globe_indicator_text">LIVE GLOBAL INTELLIGENCE MESH • ACTIVE INTERCEPT STREAM</span>
+      </div>
+
+      <!-- Messages Popping One By One over Globe -->
+      <div id="globe-popping-container"></div>
+
+      <!-- Globe 3D Canvas -->
+      <canvas id="globe-canvas"></canvas>
+
+      <!-- Globe Stream Control & Status Bar -->
+      <div class="globe-controls-pill">
+        <span class="stream-dot">●</span>
+        <span class="stream-lbl" id="globe-stream-status">STREAM ACTIVE (1 / 6)</span>
+        <span class="stream-sep">|</span>
+        <button class="stream-btn" id="btn-prev-intel" title="Previous Alert">◀</button>
+        <button class="stream-btn" id="btn-pause-intel" title="Pause / Resume Stream">❚❚</button>
+        <button class="stream-btn" id="btn-next-intel" title="Next Alert">▶</button>
+      </div>
+
+      <!-- Live Telemetry HUD Bar - Anchored Directly ON/OVER the Earth at the bottom of the page -->
+      <div class="hero-hud-bar">
+        <div class="hud-stat">
+          <div class="hud-lbl"><span>◈</span> Verified Nodes</div>
+          <div class="hud-val">1,420<span>pts</span></div>
+          <div class="hud-sub">● 99.4% Graph Density</div>
+        </div>
+        <div class="hud-stat">
+          <div class="hud-lbl"><span>◉</span> Active Networks</div>
+          <div class="hud-val">28<span>rings</span></div>
+          <div class="hud-sub">● 6 Cross-Border</div>
+        </div>
+        <div class="hud-stat">
+          <div class="hud-lbl"><span>✵</span> Entity Clusters</div>
+          <div class="hud-val">342<span>resolved</span></div>
+          <div class="hud-sub">● 0.94 Confidence</div>
+        </div>
+        <div class="hud-stat">
+          <div class="hud-lbl"><span>🔒</span> Security Protocol</div>
+          <div class="hud-val" style="font-size:18px;margin-top:4px;">AES-256<span>GCM</span></div>
+          <div class="hud-sub">● Zero-Knowledge</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1599,6 +1671,7 @@ en: {
   gov_strip_synthetic: "SYNTHETIC DEMONSTRATION DATA ONLY",
   gov_strip_verify: "ALL OUTPUTS REQUIRE HUMAN VERIFICATION",
   land_nav_1: "ANALYTICAL CAPABILITIES", land_nav_2: "SECURE ACCESS PROTOCOL", land_nav_3: "GOVERNMENT DISCLAIMER",
+  globe_indicator_text: "LIVE GLOBAL INTELLIGENCE MESH • ACTIVE INTERCEPT STREAM",
   hero_title: "The Connection Thread",
   hero_subtitle: "Uncovering the invisible networks of crime. A unified investigative decision-support platform for entity resolution, knowledge-graph analysis, and evidence-backed leads \u2014 built for institutional accountability, not automated accusation.",
   btn_request_access: "Request Access \u2192 Command Center",
@@ -1740,6 +1813,7 @@ hi: {
   gov_strip_synthetic: "\u0915\u0947\u0935\u0932 \u0938\u093f\u0902\u0925\u0947\u091f\u093f\u0915 \u092a\u094d\u0930\u0926\u0930\u094d\u0936\u0928 \u0921\u0947\u091f\u093e",
   gov_strip_verify: "\u0938\u092d\u0940 \u0906\u0909\u091f\u092a\u0941\u091f \u0915\u0947 \u0932\u093f\u090f \u092e\u093e\u0928\u0935 \u0938\u0924\u094d\u092f\u093e\u092a\u0928 \u0906\u0935\u0936\u094d\u092f\u0915",
   land_nav_1: "\u0935\u093f\u0936\u094d\u0932\u0947\u0937\u0923\u093e\u0924\u094d\u092e\u0915 \u0915\u094d\u0937\u092e\u0924\u093e\u090f\u0902", land_nav_2: "\u0938\u0941\u0930\u0915\u094d\u0937\u093f\u0924 \u092a\u0939\u0941\u0902\u091a \u092a\u094d\u0930\u094b\u091f\u094b\u0915\u0949\u0932", land_nav_3: "\u0938\u0930\u0915\u093e\u0930\u0940 \u0905\u0938\u094d\u0935\u0940\u0915\u0930\u0923",
+  globe_indicator_text: "\u0938\u0915\u094d\u0930\u093f\u092f \u0935\u0948\u0936\u094d\u0935\u093f\u0915 \u0916\u0941\u092b\u093f\u092f\u093e \u091c\u093e\u0932 • \u0928\u093f\u0930\u0902\u0924\u0930 \u0907\u0902\u091f\u0930\u0938\u0947\u092a\u094d\u091f \u0938\u094d\u091f\u094d\u0930\u0940\u092e",
   hero_title: "\u0938\u0902\u092c\u0902\u0927 \u0915\u093e \u0938\u0942\u0924\u094d\u0930",
   hero_subtitle: "\u0905\u092a\u0930\u093e\u0927 \u0915\u0947 \u0905\u0926\u0943\u0936\u094d\u092f \u0928\u0947\u091f\u0935\u0930\u094d\u0915 \u0915\u094b \u0909\u091c\u093e\u0917\u0930 \u0915\u0930\u0928\u093e\u0964 \u0907\u0915\u093e\u0908 \u0938\u092e\u093e\u0927\u093e\u0928, \u0928\u0949\u0932\u0947\u091c \u0917\u094d\u0930\u093e\u092b़ \u0935\u093f\u0936\u094d\u0932\u0947\u0937\u0923 \u0914\u0930 \u0938\u093e\u0915\u094d\u0937\u094d\u092f-\u0938\u092e\u0930\u094d\u0925\u093f\u0924 \u0938\u0941\u0930\u093e\u0917 \u0915\u0947 \u0932\u093f\u090f \u090f\u0915 \u0938\u092e\u0947\u0915\u093f\u0924 \u091c\u093e\u0902\u091a-\u0938\u0939\u093e\u092f\u0924\u093e \u092a\u094d\u0932\u0947\u091f\u092b़\u0949\u0930\u094d\u092e \u2014 \u0938\u0902\u0938\u094d\u0925\u093e\u0917\u0924 \u091c\u0935\u093e\u092c\u0926\u0947\u0939\u0940 \u0915\u0947 \u0932\u093f\u090f \u092c\u0928\u093e\u092f\u093e \u0917\u092f\u093e, \u0938\u094d\u0935\u091a\u093e\u0932\u093f\u0924 \u0906\u0930\u094b\u092a \u0915\u0947 \u0932\u093f\u090f \u0928\u0939\u0940\u0902\u0964",
   btn_request_access: "\u0915\u092e\u093e\u0902\u0921 \u0938\u0947\u0902\u091f\u0930 \u0915\u0947 \u0932\u093f\u090f \u092a\u0939\u0941\u0902\u091a \u0915\u093e \u0905\u0928\u0941\u0930\u094b\u0927 \u0915\u0930\u0947\u0902 \u2192",
@@ -1887,6 +1961,7 @@ mr: {
   gov_strip_synthetic: "\u0915\u0947\u0935\u0933 \u0915\u0943\u0924\u094d\u0930\u093f\u092e \u092a\u094d\u0930\u093e\u0924\u094d\u092f\u0915\u094d\u0937\u093f\u0915 \u0921\u0947\u091f\u093e",
   gov_strip_verify: "\u0938\u0930\u094d\u0935 \u0906\u0909\u091f\u092a\u0941\u091f\u0938\u093e\u0920\u0940 \u092e\u093e\u0928\u0935\u0940 \u092a\u0921\u0924\u093e\u0933\u0923\u0940 \u0906\u0935\u0936\u094d\u092f\u0915",
   land_nav_1: "\u0935\u093f\u0936\u094d\u0932\u0947\u0937\u0923\u093e\u0924\u094d\u092e\u0915 \u0915\u094d\u0937\u092e\u0924\u093e", land_nav_2: "\u0938\u0941\u0930\u0915\u094d\u0937\u093f\u0924 \u092a\u094d\u0930\u0935\u0947\u0936 \u092a\u094d\u0930\u094b\u091f\u094b\u0915\u0949\u0932", land_nav_3: "\u0936\u093e\u0938\u0915\u0940\u092f \u0905\u0938\u094d\u0935\u0940\u0915\u0943\u0924\u0940",
+  globe_indicator_text: "\u0925\u0947\u091f \u091c\u093e\u0917\u0924\u093f\u0915 \u0917\u0941\u092a\u094d\u0924\u091a\u0930 \u0928\u0947\u091f\u0935\u0930\u094d\u0915 • \u0938\u0915\u094d\u0930\u093f\u092f \u0907\u0902\u091f\u0930\u0938\u0947\u092a\u094d\u091f \u092a\u094d\u0930\u0935\u093e\u0939",
   hero_title: "\u0938\u0902\u092c\u0902\u0927\u093e\u091a\u093e \u0927\u093e\u0917\u093e",
   hero_subtitle: "\u0917\u0941\u0928\u094d\u0939\u094d\u092f\u093e\u091a\u094d\u092f\u093e \u0905\u0926\u0943\u0936\u094d\u092f \u0928\u0947\u091f\u0935\u0930\u094d\u0915\u091a\u093e \u0936\u094b\u0927. \u0918\u091f\u0915 \u0928\u093f\u0930\u093e\u0915\u0930\u0923, \u0928\u0949\u0932\u0947\u091c \u0917\u094d\u0930\u093e\u092b \u0935\u093f\u0936\u094d\u0932\u0947\u0937\u0923 \u0906\u0923\u093f \u092a\u0941\u0930\u093e\u0935\u094d\u092f\u093e\u0927\u093e\u0930\u093f\u0924 \u0924\u092a\u093e\u0938 \u0938\u0942\u0924\u094d\u0930\u093e\u0902\u0938\u093e\u0920\u0940 \u090f\u0915\u0924\u094d\u0930\u093f\u0924 \u0924\u092a\u093e\u0938 \u0928\u093f\u0930\u094d\u0923\u092f-\u0938\u0939\u093e\u092f\u094d\u092f \u092a\u094d\u0932\u0945\u091f\u092b\u0949\u0930\u094d\u092e \u2014 \u0938\u0902\u0938\u094d\u0925\u093e\u0924\u094d\u092e\u0915 \u091c\u092c\u093e\u092c\u0926\u0947\u0939\u0940\u0938\u093e\u0920\u0940 \u092c\u0928\u0935\u0932\u0947\u0932\u0947, \u0938\u094d\u0935\u092f\u0902\u091a\u0932\u093f\u0924 \u0906\u0930\u094b\u092a\u093e\u0938\u093e\u0920\u0940 \u0928\u0935\u094d\u0939\u0947.",
   btn_request_access: "\u0915\u092e\u093e\u0902\u0921 \u0938\u0947\u0902\u091f\u0930\u0938\u093e\u0920\u0940 \u0935\u093f\u0928\u0902\u0924\u0940 \u0915\u0930\u093e \u2192",
@@ -2081,25 +2156,44 @@ function applyLanguage(lang){
       heroHi.classList.add("active");
     }
   }
+  window.__userPickedLanguage = true;
+  if(typeof window.updateGlobePoppingLanguage === "function"){
+    window.updateGlobePoppingLanguage(lang);
+  }
 
   applyStaticI18n();
-  renderLegend();
-  renderCommandCenter();
-  renderEpGrid();
-  renderChips();
-  renderSampleDocs();
-  renderConflicts(parseInt(document.getElementById("thresh-slider").value,10)/100);
-  renderReportPage();
+  if(typeof renderLegend === "function") renderLegend();
+  if(typeof renderCommandCenter === "function") renderCommandCenter();
+  if(typeof renderEpGrid === "function") renderEpGrid();
+  if(typeof renderChips === "function") renderChips();
+  if(typeof renderSampleDocs === "function") renderSampleDocs();
+  if(typeof renderConflicts === "function"){
+    const sl = document.getElementById("thresh-slider");
+    renderConflicts(sl ? parseInt(sl.value,10)/100 : 0.6);
+  }
+  if(typeof renderReportPage === "function") renderReportPage();
   if(window.__reselectCurrentNode) window.__reselectCurrentNode();
-  if(CURRENT_PROFILE_ID) openProfileDetail(CURRENT_PROFILE_ID);
+  if(typeof CURRENT_PROFILE_ID !== "undefined" && CURRENT_PROFILE_ID && typeof openProfileDetail === "function") openProfileDetail(CURRENT_PROFILE_ID);
   if(typeof asstRenderSuggestions === "function") asstRenderSuggestions();
-  if(typeof ASST_HISTORY !== "undefined" && ASST_HISTORY.length === 1 && ASST_HISTORY[0].role === "assistant"){
+  if(typeof ASST_HISTORY !== "undefined" && ASST_HISTORY && ASST_HISTORY.length === 1 && ASST_HISTORY[0].role === "assistant"){
     ASST_HISTORY[0] = {role:"assistant", html:`<div>${t('asst_welcome')}</div>`};
-    asstRenderMessages();
+    if(typeof asstRenderMessages === "function") asstRenderMessages();
   }
 }
 document.querySelectorAll(".lang-btn").forEach(btn=>{
   btn.addEventListener("click", ()=> applyLanguage(btn.dataset.lang));
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const initLang = urlParams.get("lang");
+    if(initLang && (initLang === "hi" || initLang === "mr" || initLang === "en")){
+      applyLanguage(initLang);
+    }
+  } catch(e) {
+    console.warn("Init language error:", e);
+  }
 });
 
 /* ---------------- LANDING <-> APP WITH FUTURISTIC LOADER ---------------- */
@@ -2419,6 +2513,606 @@ if(brandBtn) brandBtn.addEventListener("click", exitToLanding);
 
   // Start popping alerts after 2.4 seconds so user experiences the clean arrival first
   setTimeout(showNextToast, 2400);
+})();
+
+/* ================= 3D REVOLVING REALISTIC HALF EARTH & SEQUENTIAL POPPING INTEL ================= */
+(function initHalfEarthAndPoppingMessages(){
+  const canvas = document.getElementById("globe-canvas");
+  const popContainer = document.getElementById("globe-popping-container");
+  const streamStatusEl = document.getElementById("globe-stream-status");
+  const prevBtn = document.getElementById("btn-prev-intel");
+  const nextBtn = document.getElementById("btn-next-intel");
+  const pauseBtn = document.getElementById("btn-pause-intel");
+
+  if(!canvas || !popContainer) return;
+
+  /* ---------------- INTELLIGENCE MESSAGES DATABASE ---------------- */
+  const INTEL_STREAM = [
+    {
+      id: "intel-1",
+      tag_en: "INTERPOL RED NOTICE",
+      tag_hi: "इंटरपोल रेड नोटिस",
+      tag_mr: "इंटरपोल रेड नोटीस",
+      cls: "critical",
+      coords: "25.2°N, 55.3°E • DUBAI",
+      title_en: "Suspect #804 Hawala financial trail flagged across 3 jurisdictions (Dubai ➔ Mumbai)",
+      title_hi: "संदिग्ध #804 का हवाला वित्तीय लेन-देन 3 क्षेत्राधिकारों में चिह्नित (दुबई ➔ मुंबई)",
+      title_mr: "संशयित #804 चा हवाला व्यवहार 3 कार्यक्षेत्रांमध्ये आढळला (दुबई ➔ मुंबई)",
+      targetPage: "datalab",
+      action_en: "Inspect Hawala Trail →",
+      action_hi: "हवाला ट्रेल की जाँच करें →",
+      action_mr: "हवाला ट्रेल तपासा →",
+      top: "14%", left: "6%",
+      anchorTop: "38%", anchorLeft: "24%"
+    },
+    {
+      id: "intel-2",
+      tag_en: "SŪTRA RESOLUTION AI",
+      tag_hi: "सूत्र संकल्प एआई",
+      tag_mr: "सूत्र संकल्प एआय",
+      cls: "success",
+      coords: "28.6°N, 77.2°E • NEW DELHI",
+      title_en: "4 Shell Companies merged into single syndicate node with 99.4% confidence rating",
+      title_hi: "4 मुखौटा कंपनियाँ एक सिंडिकेट नोड में विलीन (99.4% विश्वास सूचकांक)",
+      title_mr: "4 शेल कंपन्या एका सिंडिकेट नोडमध्ये विलीन (99.4% विश्वासार्हता)",
+      targetPage: "graph",
+      action_en: "Explore Entity Graph →",
+      action_hi: "इकाई ग्राफ देखें →",
+      action_mr: "घटक आलेख उघडा →",
+      top: "10%", right: "8%",
+      anchorTop: "32%", anchorRight: "26%"
+    },
+    {
+      id: "intel-3",
+      tag_en: "CDR SIGNAL CLUSTER",
+      tag_hi: "सीडीआर सिग्नल क्लस्टर",
+      tag_mr: "सीडीआर सिग्नल क्लस्टर",
+      cls: "warning",
+      coords: "19.3°N, 73.0°E • BHIWANDI",
+      title_en: "Encrypted VoIP CDR burst intercepted near Bhiwandi warehouse logistics corridor",
+      title_hi: "भिवंडी गोदाम गलियारे के पास एन्क्रिप्टेड वीओआईपी सीडीआर बर्स्ट इंटरसेप्ट किया गया",
+      title_mr: "भिवंडी गोदाम कॉरिडॉरजवळ एन्क्रिप्टेड व्हीओआयपी सीडीआर बर्स्ट इंटरसेप्ट",
+      targetPage: "command",
+      action_en: "Open Command Center →",
+      action_hi: "कमांड सेंटर खोलें →",
+      action_mr: "कमांड सेंटर उघडा →",
+      top: "42%", left: "5%",
+      anchorTop: "54%", anchorLeft: "22%"
+    },
+    {
+      id: "intel-4",
+      tag_en: "FINANCIAL INTELLIGENCE",
+      tag_hi: "वित्तीय खुफिया चेतावनी",
+      tag_mr: "आर्थिक गुप्तवार्ता",
+      cls: "critical",
+      coords: "18.9°N, 72.8°E • MUMBAI",
+      title_en: "₹14.8 Cr split-transfer pattern detected across 12 layered mule bank accounts",
+      title_hi: "12 म्यूल बैंक खातों में ₹14.8 करोड़ का संदिग्ध विभाजन-हस्तांतरण पैटर्न मिला",
+      title_mr: "12 म्यूल बँक खात्यांमध्ये ₹14.8 कोटींचे संशयास्पद हस्तांतरण आढळले",
+      targetPage: "profiles",
+      action_en: "View Risk Dossiers →",
+      action_hi: "जोखिम प्रोफ़ाइल देखें →",
+      action_mr: "जोखीम प्रोफाइल पहा →",
+      top: "46%", right: "6%",
+      anchorTop: "56%", anchorRight: "24%"
+    },
+    {
+      id: "intel-5",
+      tag_en: "MARITIME BORDER INTEL",
+      tag_hi: "समुद्री सीमा खुफिया",
+      tag_mr: "सागरी सीमा गुप्तचर",
+      cls: "warning",
+      coords: "1.3°N, 103.8°E • SINGAPORE",
+      title_en: "East Maritime cargo vessel flagged entering territorial waters under alias manifest",
+      title_hi: "ईस्ट मैरीटाइम कार्गो पोत फर्जी घोषणा पत्र के साथ जलसीमा में प्रवेश करते पकड़ा गया",
+      title_mr: "ईस्ट मेरीटाइम मालवाहू जहाज बनावट जाहीरनाम्यासह जलसीमेत दाखल",
+      targetPage: "datalab",
+      action_en: "Inspect Manifest Docs →",
+      action_hi: "दस्तावेज़ की जाँच करें →",
+      action_mr: "कागदपत्रे तपासा →",
+      top: "22%", left: "20%",
+      anchorTop: "42%", anchorLeft: "36%"
+    },
+    {
+      id: "intel-6",
+      tag_en: "IMMUTABLE AUDIT TRAIL",
+      tag_hi: "अपरिवर्तनीय ऑडिट ट्रेल",
+      tag_mr: "अपरिवर्तनीय ऑडिट नोंद",
+      cls: "success",
+      coords: "28.6°N, 77.2°E • INI CLEARANCE",
+      title_en: "Evidentiary graph state cryptographically sealed with SHA-256 HMAC token",
+      title_hi: "साक्ष्य ग्राफ स्थिति एसएचए-256 एचएमएसी टोकन से सुरक्षित रूप से सील की गई",
+      title_mr: "पुरावा ग्राफ स्थिती SHA-256 HMAC टोकनने सुरक्षितपणे सील केली",
+      targetPage: "report",
+      action_en: "Audit Report Ledger →",
+      action_hi: "ऑडिट रिपोर्ट देखें →",
+      action_mr: "ऑडिट अहवाल पहा →",
+      top: "22%", right: "18%",
+      anchorTop: "44%", anchorRight: "34%"
+    }
+  ];
+
+  let currentIntelIdx = 0;
+  let isStreamPaused = false;
+  let streamTimer = null;
+
+  function getLocalizedField(item, prefix){
+    const lang = (typeof CURRENT_LANG !== "undefined") ? CURRENT_LANG : "en";
+    if(lang === "hi" && item[prefix + "_hi"]) return item[prefix + "_hi"];
+    if(lang === "mr" && item[prefix + "_mr"]) return item[prefix + "_mr"];
+    return item[prefix + "_en"] || "";
+  }
+
+  function popMessage(index){
+    const item = INTEL_STREAM[index % INTEL_STREAM.length];
+    currentIntelIdx = index % INTEL_STREAM.length;
+
+    // Remove any previous card so cards NEVER overlap
+    popContainer.innerHTML = "";
+
+    // Alternate positions: Even index -> Left flank, Odd index -> Right flank
+    const isLeft = (currentIntelIdx % 2 === 0);
+
+    // Anchor pin on the earth
+    const anchor = document.createElement("div");
+    anchor.className = `pop-anchor-dot ${item.cls}`;
+    anchor.style.top = isLeft ? "44%" : "42%";
+    if(isLeft){
+      anchor.style.left = "24%";
+      anchor.style.right = "auto";
+    } else {
+      anchor.style.right = "24%";
+      anchor.style.left = "auto";
+    }
+    popContainer.appendChild(anchor);
+
+    // Popping card
+    const card = document.createElement("div");
+    card.className = `globe-pop-card ${item.cls}`;
+    card.dataset.idx = currentIntelIdx;
+    card.style.top = "16%";
+    if(isLeft){
+      card.style.left = "6%";
+      card.style.right = "auto";
+    } else {
+      card.style.right = "6%";
+      card.style.left = "auto";
+    }
+
+    renderCardContent(card, item);
+
+    // Pause stream on card hover, resume on mouseleave
+    card.addEventListener("mouseenter", () => { isStreamPaused = true; updateControlUI(); });
+    card.addEventListener("mouseleave", () => { isStreamPaused = false; updateControlUI(); scheduleNextPop(); });
+
+    // Click routes to specific dashboard module
+    card.addEventListener("click", (e) => {
+      e.preventDefault();
+      enterAppToPage(item.targetPage);
+    });
+
+    popContainer.appendChild(card);
+
+    // Trigger smooth entrance animation
+    requestAnimationFrame(() => {
+      card.classList.add("show");
+    });
+
+    // Update status bar
+    if(streamStatusEl){
+      const lang = (typeof CURRENT_LANG !== "undefined") ? CURRENT_LANG : "en";
+      const statusText = lang === "hi" ? `स्ट्रीम सक्रिय (${currentIntelIdx + 1} / ${INTEL_STREAM.length})` :
+                         lang === "mr" ? `प्रवाह सक्रिय (${currentIntelIdx + 1} / ${INTEL_STREAM.length})` :
+                         `STREAM ACTIVE (${currentIntelIdx + 1} / ${INTEL_STREAM.length})`;
+      streamStatusEl.textContent = statusText;
+    }
+
+    scheduleNextPop();
+  }
+
+  function renderCardContent(card, item){
+    const tag = getLocalizedField(item, "tag");
+    const title = getLocalizedField(item, "title");
+    const action = getLocalizedField(item, "action");
+
+    card.innerHTML = `
+      <div class="pop-card-top">
+        <span class="pop-card-badge">${tag}</span>
+        <span class="pop-card-coords">${item.coords}</span>
+      </div>
+      <div class="pop-card-title">${title}</div>
+      <div class="pop-card-footer">
+        <span>${action}</span>
+        <span>↗</span>
+      </div>
+    `;
+  }
+
+  function scheduleNextPop(){
+    clearTimeout(streamTimer);
+    if(isStreamPaused) return;
+    streamTimer = setTimeout(() => {
+      popMessage(currentIntelIdx + 1);
+    }, 4200);
+  }
+
+  function updateControlUI(){
+    if(pauseBtn){
+      pauseBtn.textContent = isStreamPaused ? "▶" : "❚❚";
+      pauseBtn.title = isStreamPaused ? "Resume Stream" : "Pause Stream";
+    }
+  }
+
+  // Hook controls
+  if(prevBtn){
+    prevBtn.addEventListener("click", () => {
+      popMessage(currentIntelIdx - 1 < 0 ? INTEL_STREAM.length - 1 : currentIntelIdx - 1);
+    });
+  }
+  if(nextBtn){
+    nextBtn.addEventListener("click", () => {
+      popMessage(currentIntelIdx + 1);
+    });
+  }
+  if(pauseBtn){
+    pauseBtn.addEventListener("click", () => {
+      isStreamPaused = !isStreamPaused;
+      updateControlUI();
+      if(!isStreamPaused) scheduleNextPop();
+    });
+  }
+
+  // Global helper to refresh text when language switches
+  window.updateGlobePoppingLanguage = function(lang){
+    popContainer.querySelectorAll(".globe-pop-card").forEach(card => {
+      const idx = parseInt(card.dataset.idx, 10);
+      if(!isNaN(idx) && INTEL_STREAM[idx]){
+        renderCardContent(card, INTEL_STREAM[idx]);
+      }
+    });
+    if(streamStatusEl){
+      const statusText = lang === "hi" ? `स्ट्रीम सक्रिय (${currentIntelIdx + 1} / ${INTEL_STREAM.length})` :
+                         lang === "mr" ? `प्रवाह सक्रिय (${currentIntelIdx + 1} / ${INTEL_STREAM.length})` :
+                         `STREAM ACTIVE (${currentIntelIdx + 1} / ${INTEL_STREAM.length})`;
+      streamStatusEl.textContent = statusText;
+    }
+  };
+
+  // Start sequential popping after 1.5 seconds
+  setTimeout(() => { popMessage(0); }, 1500);
+
+  /* ---------------- THREE.JS REALISTIC 3D BIG HALF EARTH ENGINE ---------------- */
+  let renderer, scene, camera, earthMesh, atmosphereMesh, arcGroup, cloudMesh;
+  let isDragging = false, prevMouseX = 0, rotVelocity = 0.0012;
+
+  function initThreeGlobe(){
+    if(typeof THREE === "undefined"){
+      initCanvas2DFallback();
+      return;
+    }
+
+    try {
+      const wrap = document.getElementById("hero-globe-wrap");
+      const width = wrap ? wrap.clientWidth : 1180;
+      const height = wrap ? wrap.clientHeight : 530;
+
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(34, width / height, 0.1, 1000);
+      camera.position.set(0, 0.95, 4.8);
+      camera.lookAt(0, 0.05, 0);
+
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      if(typeof THREE.ACESFilmicToneMapping !== "undefined"){
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.08;
+      }
+
+      // Studio Sunlight & Space Ambient - Balanced for ultra-realistic NASA Blue Marble
+      const sunLight = new THREE.DirectionalLight(0xfff8ee, 2.1);
+      sunLight.position.set(4.8, 2.6, 3.2);
+      scene.add(sunLight);
+
+      const ambientLight = new THREE.AmbientLight(0xd0e2f7, 0.38);
+      scene.add(ambientLight);
+
+      const rimLight = new THREE.DirectionalLight(0x0284c7, 0.48);
+      rimLight.position.set(-6.0, 1.8, -2.5);
+      scene.add(rimLight);
+
+      // Multi-layer Photorealistic 3D Earth
+      const radius = 2.80;
+      const earthGeo = new THREE.SphereGeometry(radius, 64, 64);
+
+      const textureLoader = new THREE.TextureLoader();
+      const dayMap = textureLoader.load("textures/earth_day.jpg", () => {
+        if(renderer) renderer.render(scene, camera);
+      });
+      const nightMap = textureLoader.load("textures/earth_night.jpg");
+      const normalMap = textureLoader.load("textures/earth_normal.jpg");
+      const roughnessMap = textureLoader.load("textures/earth_roughness.jpg");
+      const cloudMap = textureLoader.load("textures/earth_clouds.png");
+
+      dayMap.anisotropy = 8;
+      nightMap.anisotropy = 8;
+      normalMap.anisotropy = 4;
+
+      // 1. Base Daylight Surface with 3D Relief Normal and Specular Ocean Gloss
+      const earthMat = new THREE.MeshStandardMaterial({
+        map: dayMap,
+        normalMap: normalMap,
+        normalScale: new THREE.Vector2(1.1, 1.1),
+        roughnessMap: roughnessMap,
+        roughness: 0.52,
+        metalness: 0.08
+      });
+
+      earthMesh = new THREE.Mesh(earthGeo, earthMat);
+      earthMesh.position.set(0, -1.86, 0);
+      earthMesh.rotation.y = 5.42;
+      earthMesh.rotation.x = 0.26;
+      scene.add(earthMesh);
+
+      // 2. NASA Black Marble Night City Lights Layer (Glowing dynamically on shadow hemisphere)
+      const nightMat = new THREE.ShaderMaterial({
+        uniforms: {
+          uNightTexture: { value: nightMap },
+          uSunDir: { value: new THREE.Vector3(4.8, 2.6, 3.2).normalize() }
+        },
+        vertexShader: `
+          varying vec2 vUv;
+          varying vec3 vWorldNormal;
+          void main() {
+            vUv = uv;
+            vWorldNormal = normalize(mat3(modelMatrix) * normal);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform sampler2D uNightTexture;
+          uniform vec3 uSunDir;
+          varying vec2 vUv;
+          varying vec3 vWorldNormal;
+          void main() {
+            float sunDot = dot(vWorldNormal, normalize(uSunDir));
+            float nightFactor = smoothstep(0.12, -0.22, sunDot);
+            vec4 nightCol = texture2D(uNightTexture, vUv);
+            vec3 cityGlow = nightCol.rgb * vec3(2.4, 2.0, 1.4);
+            gl_FragColor = vec4(cityGlow, nightCol.r * nightFactor * 0.95);
+          }
+        `,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      });
+      const nightMesh = new THREE.Mesh(earthGeo, nightMat);
+      earthMesh.add(nightMesh);
+
+      // 3. Dynamic 3D Translucent Atmospheric Cloud Layer
+      const cloudGeo = new THREE.SphereGeometry(radius * 1.007, 64, 64);
+      const cloudMat = new THREE.MeshStandardMaterial({
+        map: cloudMap,
+        transparent: true,
+        opacity: 0.62,
+        blending: THREE.NormalBlending,
+        depthWrite: false,
+        roughness: 0.9,
+        metalness: 0.0
+      });
+      cloudMesh = new THREE.Mesh(cloudGeo, cloudMat);
+      earthMesh.add(cloudMesh);
+
+      // 4. Authentic Rayleigh Atmospheric Corona Limb Glow (Smooth Soft Blue Halo)
+      const atmosGeo = new THREE.SphereGeometry(radius * 1.020, 64, 64);
+      const atmosMat = new THREE.ShaderMaterial({
+        vertexShader: `
+          varying vec3 vNormal;
+          varying vec3 vPosition;
+          void main() {
+            vNormal = normalize(normalMatrix * normal);
+            vPosition = (modelViewMatrix * vec4(position, 1.0)).xyz;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          varying vec3 vNormal;
+          varying vec3 vPosition;
+          void main() {
+            vec3 viewDir = normalize(-vPosition);
+            float rim = 1.0 - max(0.0, dot(vNormal, viewDir));
+            float alpha = pow(rim, 3.2) * 0.92;
+            vec3 atmosphereColor = vec3(0.08, 0.62, 1.0);
+            gl_FragColor = vec4(atmosphereColor, alpha);
+          }
+        `,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.NormalBlending,
+        side: THREE.FrontSide
+      });
+      atmosphereMesh = new THREE.Mesh(atmosGeo, atmosMat);
+      atmosphereMesh.position.copy(earthMesh.position);
+      scene.add(atmosphereMesh);
+
+      // 5. 3D Connecting Intelligence Flight Arcs & Hubs
+      arcGroup = new THREE.Group();
+      earthMesh.add(arcGroup);
+
+      const hubs = [
+        { name: "Delhi", lat: 28.61, lon: 77.21 },
+        { name: "Mumbai", lat: 19.07, lon: 72.88 },
+        { name: "Dubai", lat: 25.20, lon: 55.27 },
+        { name: "Singapore", lat: 1.35, lon: 103.82 },
+        { name: "London", lat: 51.51, lon: -0.13 },
+        { name: "New York", lat: 40.71, lon: -74.00 }
+      ];
+
+      function toVector3(lat, lon, r){
+        const phi = (90 - lat) * (Math.PI / 180);
+        const theta = (lon + 180) * (Math.PI / 180);
+        const x = -(r * Math.sin(phi) * Math.cos(theta));
+        const z = (r * Math.sin(phi) * Math.sin(theta));
+        const y = (r * Math.cos(phi));
+        return new THREE.Vector3(x, y, z);
+      }
+
+      // Add glowing surface hub markers
+      hubs.forEach(hub => {
+        const pos = toVector3(hub.lat, hub.lon, radius * 1.002);
+        const pinGeo = new THREE.SphereGeometry(0.032, 12, 12);
+        const pinMat = new THREE.MeshBasicMaterial({ color: 0x0284c7 });
+        const pinMesh = new THREE.Mesh(pinGeo, pinMat);
+        pinMesh.position.copy(pos);
+        arcGroup.add(pinMesh);
+
+        // Concentric radar beacon ring
+        const ringGeo = new THREE.RingGeometry(0.035, 0.055, 24);
+        const ringMat = new THREE.MeshBasicMaterial({ color: 0x0ea5e9, side: THREE.DoubleSide, transparent: true, opacity: 0.85 });
+        const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+        ringMesh.position.copy(pos.clone().multiplyScalar(1.001));
+        ringMesh.lookAt(pos.clone().multiplyScalar(2));
+        arcGroup.add(ringMesh);
+      });
+
+      const arcPairs = [
+        [0, 1], [0, 2], [1, 2], [0, 3], [2, 4], [4, 5]
+      ];
+
+      const photonBeacons = [];
+
+      arcPairs.forEach(([i1, i2], idx) => {
+        const v1 = toVector3(hubs[i1].lat, hubs[i1].lon, radius);
+        const v2 = toVector3(hubs[i2].lat, hubs[i2].lon, radius);
+        const mid = v1.clone().add(v2).multiplyScalar(0.5);
+        const dist = v1.distanceTo(v2);
+        mid.normalize().multiplyScalar(radius + dist * 0.16);
+
+        const curve = new THREE.QuadraticBezierCurve3(v1, mid, v2);
+        const points = curve.getPoints(40);
+        const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+
+        const arcColor = idx % 2 === 0 ? 0xd97706 : 0x0284c7;
+        const lineMat = new THREE.LineBasicMaterial({
+          color: arcColor,
+          transparent: true,
+          opacity: 0.75,
+          linewidth: 1.5
+        });
+        const arcLine = new THREE.Line(lineGeo, lineMat);
+        arcGroup.add(arcLine);
+
+        // Traveling photon pulse along arc
+        const photonGeo = new THREE.SphereGeometry(0.03, 12, 12);
+        const photonMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        const photonMesh = new THREE.Mesh(photonGeo, photonMat);
+        arcGroup.add(photonMesh);
+
+        photonBeacons.push({
+          mesh: photonMesh,
+          curve: curve,
+          progress: (idx * 0.22) % 1,
+          speed: 0.0032 + (idx * 0.0006)
+        });
+      });
+
+      // Mouse drag controls for interactive globe spinning
+      canvas.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        prevMouseX = e.clientX;
+      });
+      window.addEventListener("mouseup", () => { isDragging = false; });
+      window.addEventListener("mousemove", (e) => {
+        if(!isDragging) return;
+        const deltaX = e.clientX - prevMouseX;
+        prevMouseX = e.clientX;
+        earthMesh.rotation.y += deltaX * 0.0045;
+        rotVelocity = deltaX * 0.0008;
+      });
+
+      // Touch drag
+      canvas.addEventListener("touchstart", (e) => {
+        if(e.touches.length === 1){
+          isDragging = true;
+          prevMouseX = e.touches[0].clientX;
+        }
+      });
+      window.addEventListener("touchend", () => { isDragging = false; });
+      window.addEventListener("touchmove", (e) => {
+        if(!isDragging || e.touches.length !== 1) return;
+        const deltaX = e.touches[0].clientX - prevMouseX;
+        prevMouseX = e.touches[0].clientX;
+        earthMesh.rotation.y += deltaX * 0.0045;
+        rotVelocity = deltaX * 0.0008;
+      });
+
+      // Window resize
+      window.addEventListener("resize", () => {
+        if(!wrap || !renderer || !camera) return;
+        const w = wrap.clientWidth;
+        const h = wrap.clientHeight || 530;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      });
+
+      // Dynamic Animation Loop
+      function renderLoop(){
+        const landingEl = document.getElementById("landing");
+        if(landingEl && !landingEl.classList.contains("hide")){
+          if(!isDragging){
+            earthMesh.rotation.y += 0.0010;
+            rotVelocity *= 0.95;
+            earthMesh.rotation.y += rotVelocity;
+          }
+          if(cloudMesh){
+            cloudMesh.rotation.y += 0.00035;
+          }
+
+          // Animate arc photons
+          photonBeacons.forEach(p => {
+            p.progress = (p.progress + p.speed) % 1;
+            const pt = p.curve.getPoint(p.progress);
+            p.mesh.position.copy(pt);
+          });
+
+          renderer.render(scene, camera);
+        }
+        requestAnimationFrame(renderLoop);
+      }
+      renderLoop();
+
+    } catch(err){
+      console.warn("Three.js init fallback:", err);
+      initCanvas2DFallback();
+    }
+  }
+
+  // Graceful 2D canvas fallback if WebGL unavailable
+  function initCanvas2DFallback(){
+    const ctx = canvas.getContext("2d");
+    if(!ctx) return;
+    const img = new Image();
+    img.src = "earth-map.jpg";
+    img.onload = () => {
+      function drawFallback(){
+        const landingEl = document.getElementById("landing");
+        if(landingEl && !landingEl.classList.contains("hide")){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+        requestAnimationFrame(drawFallback);
+      }
+      drawFallback();
+    };
+  }
+
+  // Initialize Three.js globe
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", initThreeGlobe);
+  } else {
+    initThreeGlobe();
+  }
 })();
 
 /* ---- Animate sidebar brand name SUTRA <-> सूत्र in sync with CSS ---- */
