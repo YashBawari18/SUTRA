@@ -1327,12 +1327,16 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
         </div>
         <div class="dl-doc-area">
           <div class="dl-input-toggle">
-            <button class="active" id="btn-mode-sample" data-i18n="mode_sample">Sample Documents</button>
+            <button class="active" id="btn-mode-vault" data-i18n="mode_vault">Evidence Vault</button>
+            <button id="btn-mode-sample" data-i18n="mode_sample">Sample Documents</button>
             <button id="btn-mode-custom" data-i18n="mode_custom">Paste Your Own Text</button>
             <button id="btn-mode-upload" data-i18n="mode_upload">Upload Source File</button>
           </div>
-          <div id="sample-doc-mode"></div>
-          <div class="dl-textarea-wrap" id="custom-mode">
+          <div id="vault-mode" style="display:block;">
+            <div id="vault-list" style="margin-top:16px;"></div>
+          </div>
+          <div id="sample-doc-mode" style="display:none;"></div>
+          <div class="dl-textarea-wrap" id="custom-mode" style="display:none;">
             <textarea id="live-input" data-i18n="textarea_placeholder" data-i18n-attr="placeholder" placeholder="Type or paste an FIR excerpt, surveillance note, or informant report…"></textarea>
             <div style="display:flex; gap:8px; flex-wrap:wrap;">
               <button class="dl-run-btn" id="btn-run-extraction" data-i18n="btn_run_extraction">Run Extraction</button>
@@ -2885,24 +2889,6 @@ function renderMiniRadarGraph(){
 function renderThreatRankingBars(){
   const container = document.getElementById("cc-threat-bars");
   if(!container) return;
-  const sortedRisk = [...(DATA.risk || [])].sort((a,b) => b.risk_indicator_score - a.risk_indicator_score).slice(0, 5);
-
-  container.innerHTML = sortedRisk.map(r => {
-    const score = r.risk_indicator_score || 0;
-    const cls = score >= 50 ? "crit" : (score >= 30 ? "warn" : "low");
-    const name = r.name || r.person_id;
-    const role = (r.role || 'Associate').split(' ').map(w=>w[0].toUpperCase()+w.slice(1).toLowerCase()).join(' ');
-    const comm = Math.round((r.breakdown?.communication_anomaly||0)*100);
-    const fin  = Math.round((r.breakdown?.financial_anomaly||0)*100);
-    const net  = Math.round((r.breakdown?.network_centrality||0)*100);
-    return `
-      <div class="cc-bar-item" title="Comm: ${comm}% · Financial: ${fin}% · Centrality: ${net}%">
-        <div class="cc-bar-header">
-          <span>${name}</span>
-          <span class="cc-bar-score ${cls}">${score.toFixed(1)}</span>
-        </div>
-        <div class="cc-bar-role">${role}</div>
-        <div class="cc-bar-track">
           <div class="cc-bar-fill ${cls}" style="width:${Math.min(100, Math.max(8, score))}%;"></div>
         </div>
       </div>
@@ -3078,31 +3064,45 @@ function renderPrioritySuspectsRoster(){
 }
 
 function renderInvestigationFeed(){
-  const suspiciousEdges = DATA.edges.filter(e=>e.suspicious);
-  const topPersonEdge = suspiciousEdges.find(e=>{
-    const s = DATA.nodes.find(n=>n.id===(e.source.id||e.source));
-    return s && s.type==="phone";
-  }) || suspiciousEdges[0];
-  const srcLabel = topPersonEdge ? DATA.id_to_label[topPersonEdge.source.id||topPersonEdge.source] : "—";
-  const tgtLabel = topPersonEdge ? DATA.id_to_label[topPersonEdge.target.id||topPersonEdge.target] : "—";
-  const reviewCount = DATA.resolution.filter(r=>r.confidence<0.6 && r.confidence>=0.4).length;
+  let feedItems = [];
+  
+  if (DATA.timeline && DATA.timeline.length > 0) {
+    // Live Backend Data
+    feedItems = DATA.timeline.map(e => ({
+      sev: e.event === 'FLAGGED' ? 'critical' : 'info',
+      text: e.entities.join(", "),
+      time: e.date.substring(0, 10), // Trim ISO date
+      src: e.evidence_ref || "System"
+    }));
+  } else {
+    // Fallback Mock Data
+    const suspiciousEdges = DATA.edges.filter(e=>e.suspicious);
+    const topPersonEdge = suspiciousEdges.find(e=>{
+      const s = DATA.nodes.find(n=>n.id===(e.source.id||e.source));
+      return s && s.type==="phone";
+    }) || suspiciousEdges[0];
+    const srcLabel = topPersonEdge ? DATA.id_to_label[topPersonEdge.source.id||topPersonEdge.source] : "-";
+    const tgtLabel = topPersonEdge ? DATA.id_to_label[topPersonEdge.target.id||topPersonEdge.target] : "-";
+    const reviewCount = DATA.resolution.filter(r=>r.confidence<0.6 && r.confidence>=0.4).length;
 
-  const feedItems = [
-    {sev:"critical", text:t('feed_msg_1', srcLabel, tgtLabel), time:t('feed_time_1'), src:t('feed_src_1')},
-    {sev:"warning",  text:t('feed_msg_2', reviewCount),         time:t('feed_time_2'), src:t('feed_src_2')},
-    {sev:"info",     text:t('feed_msg_3', DATA.nodes.length, DATA.edges.length), time:t('feed_time_3'), src:t('feed_src_3')},
-    {sev:"critical", text:t('feed_msg_4'),                      time:t('feed_time_4'), src:t('feed_src_4')},
-  ];
+    feedItems = [
+      {sev:"critical", text:t('feed_msg_1', srcLabel, tgtLabel), time:t('feed_time_1'), src:t('feed_src_1')},
+      {sev:"warning",  text:t('feed_msg_2', reviewCount),         time:t('feed_time_2'), src:t('feed_src_2')},
+      {sev:"info",     text:t('feed_msg_3', DATA.nodes.length, DATA.edges.length), time:t('feed_time_3'), src:t('feed_src_3')},
+      {sev:"critical", text:t('feed_msg_4'),                      time:t('feed_time_4'), src:t('feed_src_4')},
+    ];
+  }
+
   document.getElementById("live-feed-list").innerHTML = feedItems.map(f=>`
     <div class="feed-item">
       <div class="feed-accent ${f.sev}"></div>
       <div class="feed-body">
         <div class="feed-head">
-          <span class="feed-sev ${f.sev}">${t('feed_sev_'+f.sev)}</span>
+          <span class="feed-sev ${f.sev}">${f.sev.toUpperCase()}</span>
           <span class="feed-time">${f.time}</span>
         </div>
         <div class="feed-text">${f.text}</div>
-        <div class="feed-src">${t('source_prefix')} ${f.src}</div>
+        <div class="feed-src">Source: ${f.src}</div>
       </div>
     </div>`).join("");
 }
@@ -3723,17 +3723,44 @@ document.getElementById("btn-run-extraction").addEventListener("click", ()=> ren
 document.getElementById("btn-example-1").addEventListener("click", ()=>{ document.getElementById("live-input").value = DATA.example_texts[0]; renderLiveResult(DATA.example_texts[0]); });
 document.getElementById("btn-example-2").addEventListener("click", ()=>{ document.getElementById("live-input").value = DATA.example_texts[1]; renderLiveResult(DATA.example_texts[1]); });
 
-const MODE_BUTTONS = ["btn-mode-sample","btn-mode-custom","btn-mode-upload"];
-const MODE_PANELS = {"btn-mode-sample":"sample-doc-mode", "btn-mode-custom":"custom-mode", "btn-mode-upload":"upload-mode"};
+const MODE_BUTTONS = ["btn-mode-vault","btn-mode-sample","btn-mode-custom","btn-mode-upload"];
+const MODE_PANELS = {"btn-mode-vault":"vault-mode", "btn-mode-sample":"sample-doc-mode", "btn-mode-custom":"custom-mode", "btn-mode-upload":"upload-mode"};
 function switchMode(activeBtnId){
   MODE_BUTTONS.forEach(id=>{
-    document.getElementById(id).classList.toggle("active", id===activeBtnId);
+    const btn = document.getElementById(id);
+    if(btn) btn.classList.toggle("active", id===activeBtnId);
+    
     const panelId = MODE_PANELS[id];
     const panel = document.getElementById(panelId);
-    if(panelId === "sample-doc-mode"){ panel.style.display = (id===activeBtnId) ? "" : "none"; }
-    else{ panel.classList.toggle("show", id===activeBtnId); }
+    if(panel) {
+      if(panelId === "sample-doc-mode" || panelId === "vault-mode"){ panel.style.display = (id===activeBtnId) ? "block" : "none"; }
+      else{ panel.classList.toggle("show", id===activeBtnId); }
+    }
   });
+  
+  if(activeBtnId === "btn-mode-vault") renderEvidenceVault();
 }
+
+function renderEvidenceVault() {
+  const container = document.getElementById("vault-list");
+  if(!container) return;
+  if (DATA.evidence && DATA.evidence.length > 0) {
+    container.innerHTML = DATA.evidence.map(ev => `
+      <div style="background:var(--panel-2); padding:16px; border-radius:8px; border:1px solid var(--border); margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:600; font-size:15px; color:var(--ink);">${ev.filename}</div>
+          <div style="font-size:12px; color:var(--ink-dim); margin-top:4px;">Date: ${ev.date} • Type: ${ev.type}</div>
+          <div style="font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); margin-top:8px;">SHA-256: ${ev.hash}</div>
+        </div>
+        <div><span class="badge-secure">VERIFIED</span></div>
+      </div>
+    `).join("");
+  } else {
+    container.innerHTML = `<div style="padding:20px; text-align:center; color:var(--ink-faint);">No evidence files found in vault.</div>`;
+  }
+}
+
+document.getElementById("btn-mode-vault").addEventListener("click", ()=> switchMode("btn-mode-vault"));
 document.getElementById("btn-mode-sample").addEventListener("click", ()=> switchMode("btn-mode-sample"));
 document.getElementById("btn-mode-custom").addEventListener("click", ()=> switchMode("btn-mode-custom"));
 document.getElementById("btn-mode-upload").addEventListener("click", ()=> switchMode("btn-mode-upload"));
