@@ -1,8 +1,24 @@
 import io
-import pandas as pd
-import fitz  # PyMuPDF
-import pytesseract
-from PIL import Image
+import io
+try:
+    import pandas as pd
+except ImportError:
+    pd = None
+
+try:
+    import fitz  # PyMuPDF
+except ImportError:
+    fitz = None
+
+try:
+    import pytesseract
+except ImportError:
+    pytesseract = None
+
+try:
+    from PIL import Image
+except ImportError:
+    Image = None
 
 def parse_pdf(file_bytes: bytes) -> str:
     """Extracts text from PDF."""
