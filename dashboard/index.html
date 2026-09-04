@@ -2529,10 +2529,15 @@ function goToPage(name){
 }
 
 /* ---------------- UPGRADED COMMAND CENTER (GRAPHS & CHARTS) ---------------- */
+// Dynamic getters so ALL functions share the same live-computed arrays
+function getPersonNodes(){ return (DATA.nodes||[]).filter(n=>n.type==="person"); }
+function getSuspiciousEdges(){ return (DATA.edges||[]).filter(e=>e.suspicious); }
+function getHighRiskCount(){ return (DATA.risk||[]).filter(r=>r.risk_indicator_score>=45).length; }
+
 function renderCommandCenter(){
-  const personNodes = (DATA.nodes||[]).filter(n=>n.type==="person");
-  const suspiciousEdges = (DATA.edges||[]).filter(e=>e.suspicious);
-  const highRiskCount = (DATA.risk||[]).filter(r=>r.risk_indicator_score>=45).length;
+  const personNodes = getPersonNodes();
+  const suspiciousEdges = getSuspiciousEdges();
+  const highRiskCount = getHighRiskCount();
 
   const sparkline = (data, color) => {
     const W = 80, H = 26;
@@ -2932,6 +2937,7 @@ function renderPrioritySuspectsRoster(){
 }
 
 function renderInvestigationFeed(){
+  const suspiciousEdges = getSuspiciousEdges();
   const topPersonEdge = suspiciousEdges.find(e=>{
     const s = DATA.nodes.find(n=>n.id===(e.source.id||e.source));
     return s && s.type==="phone";
@@ -2976,6 +2982,7 @@ function riskLevelLabel(level){
   return {HIGH:t('risk_high'), MEDIUM:t('risk_medium'), LOW:t('risk_low')}[level] || t('risk_unrated');
 }
 function renderEpGrid(){
+  const personNodes = getPersonNodes();
   document.querySelector('[data-page="profiles"] h2').textContent = t('tb_profiles');
   document.querySelector('[data-page="profiles"] .badge-secure').textContent = personNodes.length + " " + t('persons_of_interest');
   document.getElementById("ep-grid").innerHTML = personNodes.map(n=>{
