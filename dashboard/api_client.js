@@ -11,18 +11,32 @@ async function fetchLiveCaseData(caseId) {
         console.log(`[SUTRA API] Attempting to connect to live backend for case ${caseId}...`);
         
         // Example endpoints configured in Phase 1
-        const graphResponse = await fetch(`${API_BASE}/graph/${caseId}`);
-        const caseResponse = await fetch(`${API_BASE}/cases/${caseId}`);
+        // Fetch all data in parallel to save time
+        const [
+            graphResponse, caseResponse, timelineResponse, 
+            anomaliesResponse, auditResponse, evidenceResponse, correlationResponse
+        ] = await Promise.all([
+            fetch(`${API_BASE}/graph/${caseId}`),
+            fetch(`${API_BASE}/cases/${caseId}`),
+            fetch(`${API_BASE}/timeline?case_id=${caseId}`),
+            fetch(`${API_BASE}/anomalies?case_id=${caseId}`),
+            fetch(`${API_BASE}/audit-logs?case_id=${caseId}`),
+            fetch(`${API_BASE}/evidence/${caseId}`),
+            fetch(`${API_BASE}/correlation?case_id=${caseId}`)
+        ]);
         
-        if (graphResponse.ok && caseResponse.ok) {
+        if (graphResponse.ok) {
             const graphData = await graphResponse.json();
-            const caseInfo = await caseResponse.json();
+            const caseInfo = caseResponse.ok ? await caseResponse.json() : null;
+            const timelineData = timelineResponse.ok ? await timelineResponse.json() : null;
+            const anomaliesData = anomaliesResponse.ok ? await anomaliesResponse.json() : null;
+            const auditData = auditResponse.ok ? await auditResponse.json() : null;
+            const evidenceData = evidenceResponse.ok ? await evidenceResponse.json() : null;
+            const correlationData = correlationResponse.ok ? await correlationResponse.json() : null;
             
             console.log("[SUTRA API] Successfully connected to live backend.");
             
             // If the live graph has data, we overwrite the local DATA
-            // For now, if the graph is completely empty (no nodes), we preserve the demo data
-            // to avoid breaking the demonstration flow before Phase 8 (Data Generation) is done.
             if (graphData.nodes && graphData.nodes.length > 0) {
                 if (typeof DATA !== 'undefined') {
                     // Map backend Neo4j format to frontend expected format
@@ -50,6 +64,40 @@ async function fetchLiveCaseData(caseId) {
                     }));
                     
                     console.log("[SUTRA API] Live graph data injected and transformed.");
+                    
+                    if (timelineData && timelineData.events) {
+                        DATA.timeline = timelineData.events.map(e => ({
+                            date: e.timestamp,
+                            event: e.event_type,
+                            entities: [e.description],
+                            evidence_ref: e.evidence_id
+                        }));
+                    }
+                    if (anomaliesData && anomaliesData.anomalies) {
+                        DATA.risk_signals = anomaliesData.anomalies.map(a => ({
+                            entity: a.entity_name,
+                            signal: "Automated multi-source anomaly detection",
+                            score: a.risk_profile.hybrid_risk_score,
+                            details: JSON.stringify(a.risk_profile)
+                        }));
+                    }
+                    if (evidenceData && evidenceData.evidence_vault) {
+                        DATA.evidence = evidenceData.evidence_vault.map(ev => ({
+                            id: ev.id,
+                            filename: ev.filename,
+                            type: ev.mime_type,
+                            date: ev.upload_date,
+                            hash: ev.sha256_hash
+                        }));
+                    }
+                    if (correlationData && correlationData.correlations) {
+                        DATA.correlations = correlationData.correlations.map(c => ({
+                            entities: [c.entity],
+                            description: `Overlap detected across multiple distinct evidence documents`,
+                            confidence: "High",
+                            sources: c.sources
+                        }));
+                    }
                 }
             } else {
                 console.warn("[SUTRA API] Live graph is currently empty. Falling back to default demo synthetic data.");
