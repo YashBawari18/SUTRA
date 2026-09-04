@@ -776,6 +776,83 @@ HTML = """<!DOCTYPE html>
     .page-pad{ padding:16px; }
     .cap-tag{ display:none; }
   }
+
+  /* ================= EVIDENCE VAULT ================= */
+  .evid-filter-bar{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:18px; }
+  .evid-tab-btn{ background:var(--panel); border:1px solid var(--border); color:var(--ink-dim); padding:6px 14px; border-radius:5px; font-family:var(--font-mono); font-size:11px; cursor:pointer; font-weight:600; }
+  .evid-tab-btn.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+  .evid-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:16px; }
+  .evid-card{ background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:18px; display:flex; flex-direction:column; gap:12px; transition:border-color 0.2s; }
+  .evid-card:hover{ border-color:var(--ink-faint); }
+  .evid-header{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+  .evid-id-tag{ font-family:var(--font-mono); font-size:10px; font-weight:700; background:rgba(31,70,204,0.1); color:var(--blue); padding:3px 8px; border-radius:4px; border:1px solid rgba(31,70,204,0.3); }
+  .evid-badge{ font-family:var(--font-mono); font-size:9px; font-weight:700; padding:3px 8px; border-radius:4px; text-transform:uppercase; letter-spacing:0.04em; }
+  .evid-badge.verified{ background:rgba(19,122,53,0.12); color:var(--green); border:1px solid var(--green); }
+  .evid-badge.pending{ background:rgba(224,138,0,0.12); color:var(--amber); border:1px solid var(--amber); }
+  .evid-badge.tampered{ background:rgba(220,38,38,0.12); color:var(--red); border:1px solid var(--red); }
+  .evid-title{ font-family:var(--font-serif); font-size:15px; font-weight:700; color:var(--ink); line-height:1.3; }
+  .evid-meta-line{ font-size:11.5px; color:var(--ink-dim); display:flex; gap:10px; flex-wrap:wrap; }
+  .evid-hash-box{ background:var(--bg); border:1px solid var(--border); border-radius:5px; padding:8px 10px; font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); display:flex; justify-content:space-between; align-items:center; word-break:break-all; }
+  .evid-content-box{ background:var(--bg); border:1px solid var(--border); border-radius:5px; padding:10px; font-size:11.5px; line-height:1.5; color:var(--ink); max-height:110px; overflow-y:auto; white-space:pre-line; }
+  .btn-verify-hash{ background:var(--bg-2); border:1px solid var(--border); color:var(--ink); padding:6px 12px; border-radius:5px; font-family:var(--font-mono); font-size:10.5px; font-weight:700; display:flex; align-items:center; gap:6px; cursor:pointer; transition:all 0.15s; }
+  .btn-verify-hash:hover{ background:var(--green); color:#fff; border-color:var(--green); }
+
+  /* ================= ANOMALY & RISK ================= */
+  .formula-banner{ background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:16px 20px; margin-bottom:18px; display:flex; gap:16px; align-items:center; flex-wrap:wrap; justify-content:space-between; }
+  .formula-chips{ display:flex; gap:8px; flex-wrap:wrap; }
+  .formula-chip{ font-family:var(--font-mono); font-size:10px; padding:4px 9px; border-radius:4px; background:var(--bg); border:1px solid var(--border); font-weight:600; color:var(--ink-dim); }
+  .anom-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:16px; }
+  .anom-card{ background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:18px; display:flex; flex-direction:column; gap:12px; }
+  .anom-top{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .anom-score-pill{ font-family:var(--font-mono); font-size:14px; font-weight:800; padding:4px 10px; border-radius:6px; }
+  .anom-score-pill.crit{ background:rgba(220,38,38,0.12); color:var(--red); border:1px solid var(--red); }
+  .anom-score-pill.warn{ background:rgba(224,138,0,0.12); color:var(--amber); border:1px solid var(--amber); }
+  .anom-score-pill.low{ background:rgba(19,122,53,0.12); color:var(--green); border:1px solid var(--green); }
+  .decomp-row{ display:flex; flex-direction:column; gap:6px; margin-top:4px; }
+  .decomp-metric{ display:flex; justify-content:space-between; font-size:11px; font-family:var(--font-mono); color:var(--ink-dim); }
+  .decomp-bar{ height:5px; background:var(--border); border-radius:3px; overflow:hidden; }
+  .decomp-bar-fill{ height:100%; border-radius:3px; }
+  .spikes-list{ display:flex; flex-direction:column; gap:6px; margin-top:8px; border-top:1px solid var(--border); padding-top:10px; }
+  .spike-item{ background:var(--bg); border-left:3px solid var(--red); padding:6px 10px; border-radius:4px; font-size:11px; display:flex; justify-content:space-between; align-items:center; }
+
+  /* ================= INVESTIGATION TIMELINE ================= */
+  .tl-stream{ display:flex; flex-direction:column; gap:12px; position:relative; margin-top:16px; padding-left:24px; border-left:2px dashed var(--border); }
+  .tl-card{ background:var(--panel); border:1px solid var(--border); border-radius:7px; padding:14px 18px; position:relative; transition:all 0.15s; }
+  .tl-card:hover{ border-color:var(--ink-faint); transform:translateX(3px); }
+  .tl-card::before{ content:''; position:absolute; left:-31px; top:18px; width:12px; height:12px; border-radius:50%; background:var(--bg-2); border:2px solid var(--ink-faint); }
+  .tl-card.crit::before{ border-color:var(--red); background:var(--red); }
+  .tl-card.warn::before{ border-color:var(--amber); background:var(--amber); }
+  .tl-card.info::before{ border-color:var(--cyan); background:var(--cyan); }
+  .tl-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:8px; }
+  .tl-date{ font-family:var(--font-mono); font-size:10.5px; font-weight:700; color:var(--ink-dim); }
+  .tl-badge{ font-family:var(--font-mono); font-size:9px; font-weight:700; padding:2px 7px; border-radius:3px; }
+  .tl-badge.crit{ background:rgba(220,38,38,0.12); color:var(--red); border:1px solid var(--red); }
+  .tl-badge.warn{ background:rgba(224,138,0,0.12); color:var(--amber); border:1px solid var(--amber); }
+  .tl-badge.info{ background:rgba(14,165,164,0.12); color:var(--cyan); border:1px solid var(--cyan); }
+  .tl-entities{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+  .tl-chip{ font-family:var(--font-mono); font-size:10px; background:var(--bg); border:1px solid var(--border); padding:2px 7px; border-radius:4px; }
+
+  /* ================= 6-STAGE INGESTION ================= */
+  .stepper-container{ display:flex; justify-content:space-between; margin-bottom:24px; position:relative; padding:14px 20px; background:var(--panel); border:1px solid var(--border); border-radius:8px; overflow-x:auto; }
+  .step-node{ display:flex; flex-direction:column; align-items:center; gap:6px; font-size:10.5px; font-family:var(--font-mono); color:var(--ink-faint); z-index:2; min-width:110px; text-align:center; }
+  .step-circle{ width:32px; height:32px; border-radius:50%; background:var(--bg); border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-weight:700; color:var(--ink-faint); transition:all 0.2s; }
+  .step-node.active .step-circle{ border-color:var(--blue); background:rgba(31,70,204,0.15); color:var(--blue); }
+  .step-node.completed .step-circle{ border-color:var(--green); background:var(--green); color:#fff; }
+  .step-node.completed{ color:var(--green); font-weight:700; }
+  .step-node.active{ color:var(--blue); font-weight:700; }
+
+  /* ================= AUDIT & VERIFICATION ================= */
+  .audit-layout{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width: 900px){ .audit-layout{ grid-template-columns:1fr; } }
+  .cand-card{ background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:16px; margin-bottom:12px; }
+  .cand-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+  .cand-actions{ display:flex; gap:8px; margin-top:12px; }
+  .btn-approve{ background:var(--green); color:#fff; border:none; padding:6px 14px; border-radius:5px; font-family:var(--font-mono); font-size:11px; font-weight:700; cursor:pointer; }
+  .btn-reject{ background:var(--panel-2); color:var(--red); border:1px solid var(--red); padding:6px 14px; border-radius:5px; font-family:var(--font-mono); font-size:11px; font-weight:700; cursor:pointer; }
+  .audit-table{ width:100%; border-collapse:collapse; font-size:11.5px; }
+  .audit-table th, .audit-table td{ padding:8px 12px; border-bottom:1px solid var(--border); text-align:left; }
+  .audit-table th{ font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); text-transform:uppercase; background:var(--bg); }
+  .audit-badge{ font-family:var(--font-mono); font-size:9px; font-weight:700; padding:2px 6px; border-radius:3px; }
 </style>
 </head>
 <body>
@@ -890,6 +967,11 @@ HTML = """<!DOCTYPE html>
     <div class="sb-nav" id="sb-nav">
       <div class="sb-item active" data-page="command"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span data-i18n="nav_command">Command Center</span></div>
       <div class="sb-item" data-page="graph"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><line x1="8.5" y1="7.5" x2="15.5" y2="16.5"/><line x1="15.5" y1="7.5" x2="8.5" y2="16.5"/></svg><span data-i18n="nav_graph">Network Explorer</span></div>
+      <div class="sb-item" data-page="evidence"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><span>Evidence Vault</span></div>
+      <div class="sb-item" data-page="anomalies"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Anomaly &amp; Risk</span></div>
+      <div class="sb-item" data-page="timeline"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Investigation Timeline</span></div>
+      <div class="sb-item" data-page="ingestion"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Ingestion Pipeline</span></div>
+      <div class="sb-item" data-page="audit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Audit &amp; Verification</span></div>
       <div class="sb-item" data-page="assistant"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="13" y2="13"/></svg><span data-i18n="nav_assistant">AI Assistant</span></div>
       <div class="sb-item" data-page="profiles"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span data-i18n="nav_profiles">Entity Profiles</span></div>
       <div class="sb-item" data-page="datalab"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span data-i18n="nav_datalab">Data Lab</span></div>
@@ -1122,6 +1204,231 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
             <div><b>Reviewed &amp; Countersigned By:</b></div>
             <div class="print-sig-line"></div>
             <div class="print-sig-title">Superintendent of Police (SP) / Dy. Commissioner of Police</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- EVIDENCE VAULT ---- -->
+    <div class="page" data-page="evidence">
+      <div class="topbar">
+        <div class="topbar-left">
+          <h2>Evidence Vault / Repository</h2>
+          <span class="badge-secure">SHA-256 INTEGRITY PROTECTED</span>
+          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);">Chain of Custody &amp; Provenance</span>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button class="btn-verify-hash" id="btn-verify-all-evidence">🛡️ Verify All Vault Hashes</button>
+        </div>
+      </div>
+      <div class="page-pad">
+        <div class="evid-filter-bar" id="evid-filter-bar">
+          <button class="evid-tab-btn active" data-source="ALL">All Vault Records</button>
+          <button class="evid-tab-btn" data-source="FIR">FIR Filings</button>
+          <button class="evid-tab-btn" data-source="BANK_RECORD">Bank Records</button>
+          <button class="evid-tab-btn" data-source="CDR">CDR Tower Dumps</button>
+          <button class="evid-tab-btn" data-source="SURVEILLANCE">Surveillance Logs</button>
+          <button class="evid-tab-btn" data-source="FIELD_REPORT">Field Intel</button>
+        </div>
+        <div class="evid-grid" id="evid-cards-grid">
+          <!-- Populated dynamically by dashboard_app.js -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- ANOMALY & RISK ---- -->
+    <div class="page" data-page="anomalies">
+      <div class="topbar">
+        <div class="topbar-left">
+          <h2>Dedicated Anomaly &amp; Risk Intelligence</h2>
+          <span class="badge-secure" style="border-color:var(--amber); color:var(--amber);">DECISION SUPPORT ONLY</span>
+          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);">Multi-Factor Anomaly Decomposition</span>
+        </div>
+      </div>
+      <div class="page-pad">
+        <div class="formula-banner">
+          <div>
+            <div style="font-family:var(--font-serif); font-size:15px; font-weight:700; color:var(--ink); margin-bottom:4px;">Explainable Mathematical Risk Formulation</div>
+            <div style="font-size:11.5px; color:var(--ink-dim);">Transparent weighted scoring combining statistical CDR outliers, Hawala volume velocities, graph centrality, and temporal-geospatial proximity.</div>
+          </div>
+          <div class="formula-chips">
+            <div class="formula-chip">Comm Bursts (35%)</div>
+            <div class="formula-chip">Fin Velocity (30%)</div>
+            <div class="formula-chip">Centrality (20%)</div>
+            <div class="formula-chip">Spatiotemporal (15%)</div>
+          </div>
+        </div>
+        <div class="anom-grid" id="anom-cards-grid">
+          <!-- Populated dynamically by dashboard_app.js -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- INVESTIGATION TIMELINE ---- -->
+    <div class="page" data-page="timeline">
+      <div class="topbar">
+        <div class="topbar-left">
+          <h2>Dedicated Investigation Timeline</h2>
+          <span class="badge-secure">TEMPORAL CORRELATION</span>
+          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);">Operation Case MH/CID/2026/0417</span>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <label style="font-family:var(--font-mono); font-size:11px; color:var(--ink-dim);">Entity:</label>
+          <select id="tl-filter-entity" class="pf-select" style="min-width:140px;">
+            <option value="">All Entities</option>
+            <option value="P01">Rajeev Malhotra</option>
+            <option value="P02">Anita Rao</option>
+            <option value="P03">Vikram Solanki</option>
+            <option value="P04">Feroz Sheikh</option>
+            <option value="P05">Sanjay Verma</option>
+          </select>
+          <label style="font-family:var(--font-mono); font-size:11px; color:var(--ink-dim);">Type:</label>
+          <select id="tl-filter-type" class="pf-select">
+            <option value="">All Event Types</option>
+            <option value="TRANSACTION">Bank Transfers</option>
+            <option value="CALL">CDR Calls</option>
+            <option value="SURVEILLANCE">Surveillance</option>
+            <option value="FIR">FIR Filings</option>
+          </select>
+        </div>
+      </div>
+      <div class="page-pad">
+        <div style="background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-bottom:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div>
+            <div style="font-family:var(--font-serif); font-size:14px; font-weight:700; color:var(--ink);">Relationship History Inspector</div>
+            <div style="font-size:11.5px; color:var(--ink-dim);">Select any two entities to analyze their chronological interaction evolution.</div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <select id="rel-ent-a" class="pf-select"></select>
+            <span style="font-family:var(--font-mono); color:var(--ink-faint);">↔</span>
+            <select id="rel-ent-b" class="pf-select"></select>
+            <button id="btn-inspect-rel" class="btn-pf-run">Trace History</button>
+          </div>
+        </div>
+        <div id="rel-history-summary" style="margin-bottom:16px;"></div>
+        <div class="tl-stream" id="tl-events-container">
+          <!-- Populated dynamically by dashboard_app.js -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- INGESTION PIPELINE ---- -->
+    <div class="page" data-page="ingestion">
+      <div class="topbar">
+        <div class="topbar-left">
+          <h2>Explicit 6-Stage Ingestion Pipeline &amp; Workflow</h2>
+          <span class="badge-secure">AUTOMATED EXTRACTION</span>
+        </div>
+      </div>
+      <div class="page-pad">
+        <!-- 6-Stage Stepper Animation Header -->
+        <div class="stepper-container" id="pipeline-stepper">
+          <div class="step-node completed" id="step-1"><div class="step-circle">1</div><div>Pre-processing</div></div>
+          <div class="step-node completed" id="step-2"><div class="step-circle">2</div><div>OCR Engine</div></div>
+          <div class="step-node completed" id="step-3"><div class="step-circle">3</div><div>NLP Extraction</div></div>
+          <div class="step-node completed" id="step-4"><div class="step-circle">4</div><div>Entity Resolution</div></div>
+          <div class="step-node completed" id="step-5"><div class="step-circle">5</div><div>Relationship Link</div></div>
+          <div class="step-node completed" id="step-6"><div class="step-circle">6</div><div>Graph Indexing</div></div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;">
+          <!-- Upload Form Box -->
+          <div style="background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:20px;">
+            <h3 style="font-family:var(--font-serif); font-size:16px; margin-bottom:12px;">Submit Document to Pipeline</h3>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div>
+                <label style="display:block; font-family:var(--font-mono); font-size:11px; color:var(--ink-dim); margin-bottom:4px;">Document Source Category</label>
+                <select id="ingest-source-type" class="pf-select" style="width:100%;">
+                  <option value="FIR">First Information Report (FIR)</option>
+                  <option value="CDR">Telecom CDR / Cell Dump (CSV)</option>
+                  <option value="BANK_RECORD">Bank Statement / STR (CSV/XML)</option>
+                  <option value="SURVEILLANCE">Physical Surveillance Observation Log</option>
+                  <option value="FIELD_REPORT">Confidential Informant Report</option>
+                </select>
+              </div>
+              <div>
+                <label style="display:block; font-family:var(--font-mono); font-size:11px; color:var(--ink-dim); margin-bottom:4px;">Submitting Officer</label>
+                <input id="ingest-officer" type="text" value="Insp. Vikramaditya Kadam" style="width:100%; padding:8px 10px; background:var(--bg); border:1px solid var(--border); border-radius:5px; font-family:inherit; font-size:12px;">
+              </div>
+              <div>
+                <label style="display:block; font-family:var(--font-mono); font-size:11px; color:var(--ink-dim); margin-bottom:4px;">Select File (PDF, CSV, TXT, Image)</label>
+                <input type="file" id="ingest-file-input" style="width:100%; font-size:12px;">
+              </div>
+              <button id="btn-run-ingestion" class="btn-pf-run" style="padding:10px; font-size:12px; margin-top:6px;">🚀 Execute 6-Stage Ingestion Pipeline</button>
+            </div>
+          </div>
+
+          <!-- Execution Logs Console -->
+          <div style="background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:20px; display:flex; flex-direction:column;">
+            <h3 style="font-family:var(--font-serif); font-size:16px; margin-bottom:12px;">Pipeline Execution Telemetry</h3>
+            <div id="ingest-console-output" style="flex:1; background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:12px; font-family:var(--font-mono); font-size:11px; color:var(--ink); overflow-y:auto; max-height:220px; white-space:pre-wrap; line-height:1.6;">Ready for document submission. Select a file and click execute to observe 6-stage pipeline stages.</div>
+          </div>
+        </div>
+
+        <!-- Ingestion History Table -->
+        <div style="background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:20px;">
+          <h3 style="font-family:var(--font-serif); font-size:16px; margin-bottom:14px;">Ingestion Audit History</h3>
+          <div style="overflow-x:auto;">
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Job ID</th>
+                  <th>Source File</th>
+                  <th>Size</th>
+                  <th>SHA-256 Checksum</th>
+                  <th>Extracted Findings</th>
+                  <th>Evidence Vault ID</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="ingest-history-table-body">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- AUDIT & VERIFICATION ---- -->
+    <div class="page" data-page="audit">
+      <div class="topbar">
+        <div class="topbar-left">
+          <h2>Audit &amp; Human Verification Workflow</h2>
+          <span class="badge-secure">INSTITUTIONAL ACCOUNTABILITY</span>
+          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);">No Silent AI Merges</span>
+        </div>
+      </div>
+      <div class="page-pad">
+        <div class="audit-layout">
+          <!-- Pending Candidate Merges (Human in the Loop) -->
+          <div>
+            <div style="font-family:var(--font-serif); font-size:16px; font-weight:700; margin-bottom:4px;">Pending Entity Resolution Candidates</div>
+            <div style="font-size:11.5px; color:var(--ink-dim); margin-bottom:14px;">AI-suggested identity merges requiring human investigator sign-off before committing to the knowledge graph.</div>
+            <div id="cand-merge-list">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Immutable Audit Trail Ledger -->
+          <div>
+            <div style="font-family:var(--font-serif); font-size:16px; font-weight:700; margin-bottom:4px;">Immutable Forensic Audit Ledger</div>
+            <div style="font-size:11.5px; color:var(--ink-dim); margin-bottom:14px;">Cryptographically verifiable record of all user queries, hash integrity checks, and merge decisions.</div>
+            <div style="background:var(--panel); border:1px solid var(--border); border-radius:8px; overflow-x:auto; max-height:550px; overflow-y:auto;">
+              <table class="audit-table">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>Investigator</th>
+                    <th>Action</th>
+                    <th>Target / Details</th>
+                  </tr>
+                </thead>
+                <tbody id="audit-trail-body">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

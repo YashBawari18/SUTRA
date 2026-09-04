@@ -1,9 +1,10 @@
-.PHONY: help dev pipeline build backend db-up db-down test clean
+.PHONY: help start dev pipeline build backend db-up db-down test clean
 
 help:
 	@echo "========================================================================"
 	@echo "  SŪTRA — Criminal Network Intelligence Platform"
 	@echo "========================================================================"
+	@echo "  make start      - Launch unified full-stack platform (backend + UI on 8000)"
 	@echo "  make dev        - Serve the interactive dashboard on port 8080"
 	@echo "  make pipeline   - Run all 7 engine data & intelligence analysis stages"
 	@echo "  make build      - Rebuild dashboard/index.html bundle from engine"
@@ -13,6 +14,9 @@ help:
 	@echo "  make test       - Run system and data integrity test suite"
 	@echo "  make clean      - Clean cache, bytecode, and temporary files"
 	@echo "========================================================================"
+
+start:
+	@bash scripts/start.sh
 
 dev:
 	@bash scripts/dev.sh

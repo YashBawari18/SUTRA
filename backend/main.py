@@ -18,8 +18,9 @@ than reimplementing it.
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import cases, upload, entities, graph, anomalies, timeline, assistant, reports, audit
+from routers import cases, upload, entities, graph, anomalies, timeline, assistant, reports, audit, evidence
 from auth import router as auth_router
+from database import init_db
 
 app = FastAPI(
     title="SUTRA — Criminal Network Intelligence API",
@@ -27,9 +28,13 @@ app = FastAPI(
     version="0.1.0",
 )
 
+@app.on_event("startup")
+def on_startup():
+    init_db()
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # restrict to the real frontend origin in production
+    allow_origins=["*"],  # Permits local dashboard file, 8080, 5173, and container origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -37,6 +42,7 @@ app.add_middleware(
 
 app.include_router(auth_router, prefix="/api/auth", tags=["auth"])
 app.include_router(cases.router, prefix="/api/cases", tags=["cases"])
+app.include_router(evidence.router, prefix="/api/evidence", tags=["evidence"])
 app.include_router(upload.router, prefix="/api/upload", tags=["upload"])
 app.include_router(entities.router, prefix="/api/entities", tags=["entities"])
 app.include_router(graph.router, prefix="/api/graph", tags=["graph"])
@@ -49,4 +55,26 @@ app.include_router(audit.router, prefix="/api/audit-logs", tags=["audit"])
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "notice": "SUTRA is a decision-support system. All outputs require human verification."}
+    return {
+        "status": "ok",
+        "service": "SUTRA Intelligence Core",
+        "notice": "SUTRA is a decision-support system. All outputs require human verification."
+    }
+
+
+from pathlib import Path
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+DASHBOARD_DIR = Path(__file__).resolve().parent.parent / "dashboard"
+if DASHBOARD_DIR.exists():
+    app.mount("/static", StaticFiles(directory=str(DASHBOARD_DIR)), name="static")
+
+    @app.get("/")
+    def index():
+        index_file = DASHBOARD_DIR / "index.html"
+        if index_file.exists():
+            return FileResponse(str(index_file))
+        return {"status": "ok", "message": "SUTRA Backend Online"}
+
+
