@@ -159,3 +159,88 @@ sutra/
 - **Audit Logging**: Structured trails recording every data upload, entity merge, and analysis execution.
 - **Air-Gapped Compliant**: Zero external CDN calls or unvetted third-party telemetry.
 - **Synthetic Data Demonstration**: Case files and identity records in this repository are synthetically generated for prototype demonstration.
+
+---
+
+## 🧰 Technologies & Frameworks
+
+> Every technology below was chosen with a specific purpose inside SŪTRA — not just because it is popular.
+
+---
+
+### 🖥️ Frontend — *How investigators see and interact with intelligence*
+
+| Technology | Used For in SŪTRA |
+|---|---|
+| **HTML5 / CSS3 / Vanilla JS** | Entire dashboard is a **single self-contained file** — no build step, no CDN, works completely offline in restricted government environments. |
+| **D3.js v7** *(embedded locally)* | Renders the **interactive force-directed knowledge graph** — nodes are persons, phones, orgs, locations; edges are real investigated links. |
+| **Three.js** *(embedded locally)* | Powers the **3D rotating globe** for spatial crime mapping across cities and districts. |
+| **Web Workers** *(browser-native)* | Runs heavy graph layout calculations **off the main thread** so the UI never freezes during large network expansions. |
+
+---
+
+### ⚙️ Backend — *The secure API layer that gates all data access*
+
+| Technology | Used For in SŪTRA |
+|---|---|
+| **Python 3.11+** | Core language for the entire backend and all 7 analytics pipeline stages. |
+| **FastAPI** `v0.115` | Exposes all intelligence endpoints (`/graph`, `/entities`, `/reports`, `/upload`) with **automatic OpenAPI docs** for team integration. |
+| **Uvicorn** `v0.30` | Production ASGI server — handles **concurrent investigator sessions** without blocking. |
+| **Pydantic** `v2.9` | Strictly **validates every API request and response** — malformed case data is rejected before it enters the pipeline. |
+| **SQLAlchemy** `v2.0` | ORM for all relational queries (people, calls, transactions, visits) against SQLite in dev or PostgreSQL in production. |
+| **python-jose + Passlib** | Issues **JWT tokens** and hashes passwords for the **Role-Based Access Control (RBAC)** system — analysts vs. supervisors vs. admins. |
+| **python-multipart** | Handles **FIR document and CDR file uploads** (PDF, CSV, images) from the dashboard. |
+
+---
+
+### 🗄️ Databases — *Where criminal network data lives*
+
+| Technology | Used For in SŪTRA |
+|---|---|
+| **SQLite** | Lightweight **local development store** — zero setup, ships inside the repo as `sutra.db`. |
+| **PostgreSQL** | **Production-grade relational backend** for persisting persons, calls, transactions, and full audit logs at scale. |
+| **Neo4j** | **Native graph database** that stores and queries the criminal network as a true graph — shortest paths, common contacts, and community clusters run natively in Cypher. |
+
+---
+
+### 🔬 AI / ML & Analytics — *The intelligence engine*
+
+| Technology | Used For in SŪTRA |
+|---|---|
+| **Anthropic Claude API** | The **evidence-grounded AI assistant** — answers investigator questions using only confirmed case facts, never hallucinated context. |
+| **spaCy** `v3.7` | **NLP entity extraction** from raw FIR text — automatically identifies named persons, locations, phone numbers, and organizations from unstructured police reports. |
+| **NetworkX** `v3.3` | Computes **graph centrality metrics** (Degree, Betweenness, PageRank) to rank who is the most connected and influential node in a network. |
+| **Louvain Algorithm** *(via NetworkX)* | **Community detection** — automatically groups tightly connected suspects into criminal clusters without any manual labelling. |
+| **Jaro-Winkler Distance** *(custom)* | **Entity disambiguation** — resolves aliases like "Ravi Kumar", "R. Kumar", and "Ravi K." to a single canonical identity with a confidence score. |
+| **scikit-learn** `v1.5` | Flags **statistical outliers** in communication and financial patterns — e.g., a sudden spike in calls before an incident. |
+| **NumPy + Pandas** | Powers the **multi-factor risk scoring formula** — ingests CDRs, bank transactions, and surveillance logs as structured arrays and computes weighted risk indicators. |
+
+---
+
+### 📄 Document Processing — *Turning paper FIRs into structured intelligence*
+
+| Technology | Used For in SŪTRA |
+|---|---|
+| **PyMuPDF (fitz)** `v1.24` | **Parses uploaded PDF FIR documents** — extracts raw text from digital police reports for the NLP pipeline. |
+| **pytesseract** `v0.3` | **OCR for scanned or handwritten FIRs** — converts image-based documents into machine-readable text before entity extraction. |
+
+---
+
+### 🐳 DevOps & Infrastructure — *How the system is deployed and run*
+
+| Technology | Used For in SŪTRA |
+|---|---|
+| **Docker** | Each service (backend, Neo4j, PostgreSQL) runs in its **own isolated container** — reproducible across any deployment environment. |
+| **Docker Compose** | **Single command orchestration** (`make db-up`) — spins up Neo4j + PostgreSQL + the FastAPI backend together in the correct startup order. |
+| **GNU Make** | Developer-friendly **shortcut commands** — `make dev`, `make pipeline`, `make build`, `make test` abstract away complex multi-step workflows. |
+| **Bash Scripts** | **Automated pipeline runner** (`pipeline.sh`) executes all 7 analytics stages in sequence; `test_system.sh` validates full system integrity before deployment. |
+
+---
+
+### 🌐 Multilingual Output — *Intelligence without language barriers*
+
+| Language | Used For in SŪTRA |
+|---|---|
+| **English** | Primary interface language and default investigative report format. |
+| **Hindi (हिंदी)** | Full intelligence report translation for Hindi-speaking investigators and senior officers. |
+| **Marathi (मराठी)** | Full intelligence report translation for Maharashtra state law enforcement deployments. |
