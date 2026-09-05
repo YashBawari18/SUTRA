@@ -816,7 +816,10 @@
   .formula-chips{ display:flex; gap:8px; flex-wrap:wrap; }
   .formula-chip{ font-family:var(--font-mono); font-size:10px; padding:4px 9px; border-radius:4px; background:var(--bg); border:1px solid var(--border); font-weight:600; color:var(--ink-dim); }
   .anom-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:16px; }
-  .anom-card{ background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:18px; display:flex; flex-direction:column; gap:12px; }
+    .anom-card{ background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:18px; display:flex; flex-direction:column; gap:12px; cursor:pointer; transition:border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+  .anom-card:hover{ border-color:var(--blue); transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,0.06); }
+  .anom-footer-btn{ margin-top:6px; padding:8px 12px; background:var(--bg-2); border:1px solid var(--border); border-radius:6px; font-family:var(--font-mono); font-size:11px; font-weight:600; color:var(--ink-dim); display:flex; align-items:center; justify-content:space-between; transition:all 0.15s; }
+  .anom-card:hover .anom-footer-btn{ background:var(--blue); border-color:var(--blue); color:#fff; }
   .anom-top{ display:flex; justify-content:space-between; align-items:flex-start; }
   .anom-score-pill{ font-family:var(--font-mono); font-size:14px; font-weight:800; padding:4px 10px; border-radius:6px; }
   .anom-score-pill.crit{ background:rgba(220,38,38,0.12); color:var(--red); border:1px solid var(--red); }
@@ -1054,14 +1057,13 @@
       <div class="sb-item active" data-page="command"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span data-i18n="nav_command">Command Center</span></div>
       <div class="sb-item" data-page="graph"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><line x1="8.5" y1="7.5" x2="15.5" y2="16.5"/><line x1="15.5" y1="7.5" x2="8.5" y2="16.5"/></svg><span data-i18n="nav_graph">Network Explorer</span></div>
       <div class="sb-item" data-page="assistant"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="13" y2="13"/></svg><span data-i18n="nav_assistant">AI Assistant</span></div>
-      <div class="sb-item" data-page="profiles"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span data-i18n="nav_profiles">Entity Profiles</span></div>
       <div class="sb-item" data-page="datalab"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span data-i18n="nav_datalab">Data Lab</span></div>
       <div class="sb-item" data-page="report"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg><span data-i18n="nav_report">Analytics Report</span></div>
-      <div class="sb-item" data-page="evidence"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><span>Evidence Vault</span></div>
-      <div class="sb-item" data-page="anomalies"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Anomaly &amp; Risk</span></div>
-      <div class="sb-item" data-page="timeline"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Investigation Timeline</span></div>
-      <div class="sb-item" data-page="ingestion"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Ingestion Pipeline</span></div>
-      <div class="sb-item" data-page="audit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Audit &amp; Verification</span></div>
+      <div class="sb-item" data-page="evidence"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><span data-i18n="nav_evidence">Evidence Vault</span></div>
+      <div class="sb-item" data-page="anomalies"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span data-i18n="nav_anomalies">Anomaly &amp; Risk</span></div>
+      <div class="sb-item" data-page="timeline"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n="nav_timeline">Investigation Timeline</span></div>
+      <div class="sb-item" data-page="ingestion"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span data-i18n="nav_ingestion">Ingestion Pipeline</span></div>
+      <div class="sb-item" data-page="audit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span data-i18n="nav_audit">Audit &amp; Verification</span></div>
     </div>
     <div class="sb-footer">
       <div class="sb-item" id="btn-back-landing" style="color:var(--gold); font-weight:600; cursor:pointer;" title="Return to Landing Page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg><span data-i18n="nav_landing">← Landing / Briefing</span></div>
@@ -1201,9 +1203,9 @@ SYNTHETIC DATA ONLY</div>
                   <div class="cc-panel-sub">High-centrality orchestrators &amp; brokers</div>
                 </div>
               </div>
-              <button class="cc-btn-sm" onclick="goToPage('profiles')">
+              <button class="cc-btn-sm" onclick="goToPage('anomalies')">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                All Dossiers
+                Anomaly & Risk Dossiers
               </button>
             </div>
             <div class="cc-suspects-list" id="cc-suspects-list"></div>
@@ -1485,41 +1487,36 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
     <div class="page" data-page="timeline">
       <div class="topbar">
         <div class="topbar-left">
-          <h2>Dedicated Investigation Timeline</h2>
-          <span class="badge-secure">TEMPORAL CORRELATION</span>
+          <h2 data-i18n="tb_timeline">Dedicated Investigation Timeline</h2>
+          <span class="badge-secure" data-i18n="badge_temporal">TEMPORAL CORRELATION</span>
           <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);">Operation Case MH/CID/2026/0417</span>
         </div>
         <div style="display:flex; gap:8px; align-items:center;">
-          <label style="font-family:var(--font-mono); font-size:11px; color:var(--ink-dim);">Entity:</label>
+          <label style="font-family:var(--font-mono); font-size:11px; color:var(--ink-dim);" data-i18n="tl_filter_entity">Entity:</label>
           <select id="tl-filter-entity" class="pf-select" style="min-width:140px;">
-            <option value="">All Entities</option>
-            <option value="P01">Rajeev Malhotra</option>
-            <option value="P02">Anita Rao</option>
-            <option value="P03">Vikram Solanki</option>
-            <option value="P04">Feroz Sheikh</option>
-            <option value="P05">Sanjay Verma</option>
+            <option value="" data-i18n="tl_all_entities">All Entities</option>
           </select>
-          <label style="font-family:var(--font-mono); font-size:11px; color:var(--ink-dim);">Type:</label>
+          <label style="font-family:var(--font-mono); font-size:11px; color:var(--ink-dim);" data-i18n="tl_filter_type">Type:</label>
           <select id="tl-filter-type" class="pf-select">
-            <option value="">All Event Types</option>
-            <option value="TRANSACTION">Bank Transfers</option>
-            <option value="CALL">CDR Calls</option>
-            <option value="SURVEILLANCE">Surveillance</option>
-            <option value="FIR">FIR Filings</option>
+            <option value="" data-i18n="tl_all_types">All Event Types</option>
+            <option value="FINANCIAL" data-i18n="tl_type_transfers">Bank Transfers</option>
+            <option value="COMMUNICATION" data-i18n="tl_type_calls">CDR Calls</option>
+            <option value="SURVEILLANCE" data-i18n="tl_type_surveillance">Surveillance</option>
+            <option value="FIR_RECORD" data-i18n="tl_type_firs">FIR Filings</option>
           </select>
         </div>
       </div>
       <div class="page-pad">
         <div style="background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-bottom:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
           <div>
-            <div style="font-family:var(--font-serif); font-size:14px; font-weight:700; color:var(--ink);">Relationship History Inspector</div>
-            <div style="font-size:11.5px; color:var(--ink-dim);">Select any two entities to analyze their chronological interaction evolution.</div>
+            <div style="font-family:var(--font-serif); font-size:14px; font-weight:700; color:var(--ink);" data-i18n="tl_rel_inspector_title">Relationship History Inspector</div>
+            <div style="font-size:11.5px; color:var(--ink-dim);" data-i18n="tl_rel_inspector_sub">Select any two entities to analyze their chronological interaction evolution.</div>
           </div>
           <div style="display:flex; gap:8px; align-items:center;">
             <select id="rel-ent-a" class="pf-select"></select>
             <span style="font-family:var(--font-mono); color:var(--ink-faint);">↔</span>
             <select id="rel-ent-b" class="pf-select"></select>
-            <button id="btn-inspect-rel" class="btn-pf-run">Trace History</button>
+            <button id="btn-inspect-rel" class="btn-pf-run" data-i18n="tl_btn_trace">Trace History</button>
           </div>
         </div>
         <div id="rel-history-summary" style="margin-bottom:16px;"></div>
@@ -1611,17 +1608,17 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
     <div class="page" data-page="audit">
       <div class="topbar">
         <div class="topbar-left">
-          <h2>Audit &amp; Human Verification Workflow</h2>
-          <span class="badge-secure">INSTITUTIONAL ACCOUNTABILITY</span>
-          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);">No Silent AI Merges</span>
+          <h2 data-i18n="tb_audit">Audit &amp; Human Verification Workflow</h2>
+          <span class="badge-secure" data-i18n="badge_accountability">INSTITUTIONAL ACCOUNTABILITY</span>
+          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);" data-i18n="badge_no_silent_merges">No Silent AI Merges</span>
         </div>
       </div>
       <div class="page-pad">
         <div class="audit-layout">
           <!-- Pending Candidate Merges (Human in the Loop) -->
           <div>
-            <div style="font-family:var(--font-serif); font-size:16px; font-weight:700; margin-bottom:4px;">Pending Entity Resolution Candidates</div>
-            <div style="font-size:11.5px; color:var(--ink-dim); margin-bottom:14px;">AI-suggested identity merges requiring human investigator sign-off before committing to the knowledge graph.</div>
+            <div style="font-family:var(--font-serif); font-size:16px; font-weight:700; margin-bottom:4px;" data-i18n="audit_cand_title">Pending Entity Resolution Candidates</div>
+            <div style="font-size:11.5px; color:var(--ink-dim); margin-bottom:14px;" data-i18n="audit_cand_sub">AI-suggested identity merges requiring human investigator sign-off before committing to the knowledge graph.</div>
             <div id="cand-merge-list">
               <!-- Populated dynamically -->
             </div>
@@ -1629,16 +1626,16 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
 
           <!-- Immutable Audit Trail Ledger -->
           <div>
-            <div style="font-family:var(--font-serif); font-size:16px; font-weight:700; margin-bottom:4px;">Immutable Forensic Audit Ledger</div>
-            <div style="font-size:11.5px; color:var(--ink-dim); margin-bottom:14px;">Cryptographically verifiable record of all user queries, hash integrity checks, and merge decisions.</div>
+            <div style="font-family:var(--font-serif); font-size:16px; font-weight:700; margin-bottom:4px;" data-i18n="audit_ledger_title">Immutable Forensic Audit Ledger</div>
+            <div style="font-size:11.5px; color:var(--ink-dim); margin-bottom:14px;" data-i18n="audit_ledger_sub">Cryptographically verifiable record of all user queries, hash integrity checks, and merge decisions.</div>
             <div style="background:var(--panel); border:1px solid var(--border); border-radius:8px; overflow-x:auto; max-height:550px; overflow-y:auto;">
               <table class="audit-table">
                 <thead>
                   <tr>
-                    <th>Timestamp</th>
-                    <th>Investigator</th>
-                    <th>Action</th>
-                    <th>Target / Details</th>
+                    <th data-i18n="audit_col_time">Timestamp</th>
+                    <th data-i18n="audit_col_officer">Investigator</th>
+                    <th data-i18n="audit_col_action">Action</th>
+                    <th data-i18n="audit_col_details">Target / Details</th>
                   </tr>
                 </thead>
                 <tbody id="audit-trail-body">
@@ -1688,8 +1685,22 @@ en: {
   stamp_demo: "DEMO \u00b7 SYNTHETIC DATA",
   brand_tagline: "INTELLIGENCE PLATFORM",
   nav_landing: "← Landing / Briefing",
-  nav_command: "Command Center", nav_graph: "Network Explorer", nav_profiles: "Entity Profiles",
+  nav_command: "Command Center", nav_graph: "Network Explorer", nav_profiles: "Entity Profiles", nav_anomalies: "Anomaly & Risk", breadcrumb_anomalies: "Anomaly & Risk",
   nav_datalab: "Data Lab", nav_report: "Analytics Report", nav_assistant: "AI Assistant", nav_settings: "Settings", nav_security: "Security",
+  nav_evidence: "Evidence Vault", nav_timeline: "Investigation Timeline", nav_ingestion: "Ingestion Pipeline", nav_audit: "Audit & Verification",
+  tb_timeline: "Dedicated Investigation Timeline", badge_temporal: "TEMPORAL CORRELATION",
+  tl_filter_entity: "Entity:", tl_all_entities: "All Entities", tl_filter_type: "Type:", tl_all_types: "All Event Types",
+  tl_type_transfers: "Bank Transfers", tl_type_calls: "CDR Calls", tl_type_surveillance: "Surveillance", tl_type_firs: "FIR Filings",
+  tl_rel_inspector_title: "Relationship History Inspector", tl_rel_inspector_sub: "Select any two entities to analyze their chronological interaction evolution.",
+  tl_btn_trace: "Trace History", tl_risk_spike: "⚡ RISK SPIKE",
+  tb_audit: "Audit & Human Verification Workflow", badge_accountability: "INSTITUTIONAL ACCOUNTABILITY", badge_no_silent_merges: "No Silent AI Merges",
+  audit_cand_title: "Pending Entity Resolution Candidates", audit_cand_sub: "AI-suggested identity merges requiring human investigator sign-off before committing to the knowledge graph.",
+  audit_ledger_title: "Immutable Forensic Audit Ledger", audit_ledger_sub: "Cryptographically verifiable record of all user queries, hash integrity checks, and merge decisions.",
+  audit_col_time: "Timestamp", audit_col_officer: "Investigator", audit_col_action: "Action", audit_col_details: "Target / Details",
+  audit_btn_approve: "✓ Approve Merge", audit_btn_reject: "✕ Reject",
+  audit_decision_signed: "Decision Signed by IO • Immutable Audit Logged", audit_shared_evidence: "Shared Evidence Corroboration:", audit_confidence_math: "Confidence: Math Match",
+  tb_evidence: "Forensic Evidence Vault & Chain of Custody", badge_tamper_evident: "TAMPER-EVIDENT REPOSITORY",
+  tb_ingestion: "Explicit 6-Stage Ingestion Pipeline & Workflow", badge_auto_extract: "AUTOMATED EXTRACTION",
   sidebar_gov_note: "GOVERNMENT PROTOTYPE\nSYNTHETIC DATA ONLY",
   meta_entities: "nodes", meta_links: "links",
   case_id_label: "Case ID", entities_resolved_label: "Entities Resolved", engine_status_label: "Engine Status", live_data: "LIVE DATA",
@@ -1830,8 +1841,22 @@ hi: {
   stamp_demo: "\u0921\u0947\u092e\u094b \u00b7 \u0938\u093f\u0902\u0925\u0947\u091f\u093f\u0915 \u0921\u0947\u091f\u093e",
   brand_tagline: "\u0907\u0902\u091f\u0947\u0932\u093f\u091c\u0947\u0902\u0938 \u092a\u094d\u0932\u0947\u091f\u092b़\u0949\u0930\u094d\u092e",
   nav_landing: "← मुख्यपृष्ठ / विवरण",
-  nav_command: "\u0915\u092e\u093e\u0902\u0921 \u0938\u0947\u0902\u091f\u0930", nav_graph: "\u0928\u0947\u091f\u0935\u0930\u094d\u0915 \u090f\u0915\u094d\u0938\u094d\u092a\u094d\u0932\u094b\u0930\u0930", nav_profiles: "\u0907\u0915\u093e\u0908 \u092a\u094d\u0930\u094b\u092b़\u093e\u0907\u0932",
+  nav_command: "\u0915\u092e\u093e\u0902\u0921 \u0938\u0947\u0902\u091f\u0930", nav_graph: "\u0928\u0947\u091f\u0935\u0930\u094d\u0915 \u090f\u0915\u094d\u0938\u094d\u092a\u094d\u0932\u094b\u0930\u0930", nav_profiles: "\u0907\u0915\u093e\u0908 \u092a\u094d\u0930\u094b\u092b़\u093e\u0907\u0932", nav_anomalies: "\u0935\u093f\u0938\u0902\u0917\u0924\u093f \u0914\u0930 \u091cो\u0916\u093f\u092e", breadcrumb_anomalies: "\u0935\u093f\u0938\u0902\u0917\u0924\u093f \u0914\u0930 \u091c\u094b\u0916\u093f\u092e",
   nav_datalab: "\u0921\u0947\u091f\u093e \u0932\u0948\u092c", nav_report: "\u090f\u0928\u093e\u0932\u093f\u091f\u093f\u0915\u094d\u0938 \u0930\u093f\u092a\u094b\u0930\u094d\u091f", nav_assistant: "\u090f\u0906\u0908 \u0938\u0939\u093e\u092f\u0915", nav_settings: "\u0938\u0947\u091f\u093f\u0902\u0917\u094d\u0938", nav_security: "\u0938\u0941\u0930\u0915\u094d\u0937\u093e",
+  nav_evidence: "साक्ष्य भंडार", nav_timeline: "जांच समयरेखा", nav_ingestion: "डेटा अंतर्ग्रहण पाइपलाइन", nav_audit: "ऑडिट और सत्यापन",
+  tb_timeline: "समर्पित जांच समयरेखा", badge_temporal: "कालिक सहसंबंध",
+  tl_filter_entity: "इकाई:", tl_all_entities: "सभी इकाइयाँ", tl_filter_type: "प्रकार:", tl_all_types: "सभी घटना प्रकार",
+  tl_type_transfers: "बैंक अंतरण", tl_type_calls: "सीडीआर कॉल्स", tl_type_surveillance: "निगरानी", tl_type_firs: "प्राथमिकी (FIR)",
+  tl_rel_inspector_title: "संबंध इतिहास निरीक्षक", tl_rel_inspector_sub: "दो इकाइयों के बीच कालानुक्रमिक बातचीत के विकास का विश्लेषण करने के लिए चुनें।",
+  tl_btn_trace: "इतिहास खोजें", tl_risk_spike: "⚡ जोखिम वृद्धि",
+  tb_audit: "ऑडिट और मानव सत्यापन कार्यप्रवाह", badge_accountability: "संस्थागत जवाबदेही", badge_no_silent_merges: "कोई गुप्त एआई विलय नहीं",
+  audit_cand_title: "लंबित इकाई समाधान उम्मीदवार", audit_cand_sub: "नॉलेज ग्राफ में जोड़ने से पहले मानव जांचकर्ता की स्वीकृति की आवश्यकता वाले एआई-सुझावित विलय।",
+  audit_ledger_title: "अपरिवर्तनीय फोरेंसिक ऑडिट लेज़र", audit_ledger_sub: "सभी उपयोगकर्ता प्रश्नों, हैश अखंडता जांच और विलय निर्णयों का क्रिप्टोग्राफ़िक रूप से सत्यापन योग्य रिकॉर्ड।",
+  audit_col_time: "समय", audit_col_officer: "जांचकर्ता", audit_col_action: "कार्रवाई", audit_col_details: "लक्ष्य / विवरण",
+  audit_btn_approve: "✓ विलय स्वीकृत करें", audit_btn_reject: "✕ अस्वीकार करें",
+  audit_decision_signed: "आईओ द्वारा हस्ताक्षरित निर्णय • अपरिवर्तनीय ऑडिट दर्ज", audit_shared_evidence: "साझा साक्ष्य संपुष्टि:", audit_confidence_math: "विश्वसनीयता: गणितीय मिलान",
+  tb_evidence: "फोरेंसिक साक्ष्य भंडार और हिरासत श्रृंखला", badge_tamper_evident: "छेड़छाड़-रोधी भंडार",
+  tb_ingestion: "स्पष्ट 6-चरणीय अंतर्ग्रहण पाइपलाइन कार्यप्रवाह", badge_auto_extract: "स्वचालित निष्कर्षण",
   sidebar_gov_note: "\u0938\u0930\u0915\u093e\u0930\u0940 \u092a\u094d\u0930\u094b\u091f\u094b\u091f\u093e\u0907\u092a\n\u0915\u0947\u0935\u0932 \u0938\u093f\u0902\u0925\u0947\u091f\u093f\u0915 \u0921\u0947\u091f\u093e",
   meta_entities: "\u0928\u094b\u0921\u094d\u0938", meta_links: "\u0932\u093f\u0902\u0915",
   case_id_label: "\u092e\u093e\u092e\u0932\u093e \u0906\u0908\u0921\u0940", entities_resolved_label: "\u0939\u0932 \u0915\u0940 \u0917\u0908 \u0907\u0915\u093e\u0907\u092f\u093e\u0902", engine_status_label: "\u0907\u0902\u091c\u0928 \u0938\u094d\u0925\u093f\u0924\u093f", live_data: "\u0932\u093e\u0907\u0935 \u0921\u0947\u091f\u093e",
@@ -1978,8 +2003,22 @@ mr: {
   stamp_demo: "\u0921\u0947\u092e\u094b \u00b7 \u0915\u0943\u0924\u094d\u0930\u093f\u092e \u0921\u0947\u091f\u093e",
   brand_tagline: "\u0907\u0902\u091f\u0947\u0932\u093f\u091c\u0928\u094d\u0938 \u092a\u094d\u0932\u0945\u091f\u092b\u0949\u0930\u094d\u092e",
   nav_landing: "← मुख्यपृष्ठ / माहिती",
-  nav_command: "\u0915\u092e\u093e\u0902\u0921 \u0938\u0947\u0902\u091f\u0930", nav_graph: "\u0928\u0947\u091f\u0935\u0930\u094d\u0915 \u090f\u0915\u094d\u0938\u094d\u092a\u094d\u0932\u094b\u0930\u0930", nav_profiles: "\u0918\u091f\u0915 \u092a\u094d\u0930\u094b\u092b\u093e\u0907\u0932",
+  nav_command: "\u0915\u092e\u093e\u0902\u0921 \u0938\u0947\u0902\u091f\u0930", nav_graph: "\u0928\u0947\u091f\u0935\u0930\u094d\u0915 \u090f\u0915\u094d\u0938\u094d\u092a\u094d\u0932\u094b\u0930\u0930", nav_profiles: "\u0918\u091f\u0915 \u092a\u094d\u0930\u094b\u092b\u093e\u0907\u0932", nav_anomalies: "\u0935\u093f\u0938\u0902\u0917\u0924\u0940 \u0906\u0923\u093f \u091c\u094b\u0916\u0940\u092e", breadcrumb_anomalies: "\u0935\u093f\u0938\u0902\u0917\u0924\u0940 \u0906\u0923\u093f \u091c\u094b\u0916\u0940\u092e",
   nav_datalab: "\u0921\u0947\u091f\u093e \u0932\u0945\u092c", nav_report: "\u0935\u093f\u0936\u094d\u0932\u0947\u0937\u0923 \u0905\u0939\u0935\u093e\u0932", nav_assistant: "\u090f\u0906\u092f \u0938\u0939\u093e\u092f\u094d\u092f\u0915", nav_settings: "\u0938\u0947\u091f\u093f\u0902\u0917\u094d\u091c", nav_security: "\u0938\u0941\u0930\u0915\u094d\u0937\u093e",
+  nav_evidence: "पुरावा दालन", nav_timeline: "तपास कालरेषा", nav_ingestion: "डेटा संकलन पाइपलाइन", nav_audit: "ऑडिट आणि पडताळणी",
+  tb_timeline: "समर्पित तपास कालरेषा", badge_temporal: "कालिक सहसंबंध",
+  tl_filter_entity: "घटक:", tl_all_entities: "सर्व घटक", tl_filter_type: "प्रकार:", tl_all_types: "सर्व घटना प्रकार",
+  tl_type_transfers: "बँक व्यवहार", tl_type_calls: "सीडीआर कॉल्स", tl_type_surveillance: "देखरेख / पाळत", tl_type_firs: "एफआयआर नोंदी",
+  tl_rel_inspector_title: "संबंध इतिहास निरीक्षक", tl_rel_inspector_sub: "दोन घटकांमधील कालक्रमानुसार घडामोडींचा मागोवा घेण्यासाठी निवडा.",
+  tl_btn_trace: "इतिहास शोधा", tl_risk_spike: "⚡ जोखीम वाढ",
+  tb_audit: "ऑडिट आणि मानवी पडताळणी कार्यप्रवाह", badge_accountability: "संस्थात्मक उत्तरदायित्व", badge_no_silent_merges: "कोणतेही गुप्त एआई विलीनीकरण नाही",
+  audit_cand_title: "प्रलंबित घटक निराकरण उमेदवार", audit_cand_sub: "नॉलेज ग्राफमध्ये जोडण्यापूर्वी मानवी तपास अधिकाऱ्याच्या स्वाक्षरीची आवश्यकता असलेली एआय-सुचवलेली विलीनीकरणे.",
+  audit_ledger_title: "अपरिवर्तनीय फॉरेन्सिक ऑडिट लेजर", audit_ledger_sub: "सर्व वापरकर्ता प्रश्न, हॅश अखंडता तपासणी आणि विलीनीकरण निर्णयांची सुरक्षित नोंद.",
+  audit_col_time: "वेळ", audit_col_officer: "तपास अधिकारी", audit_col_action: "कृती", audit_col_details: "लक्ष्य / तपशील",
+  audit_btn_approve: "✓ विलीनीकरण स्वीकारा", audit_btn_reject: "✕ नाकारा",
+  audit_decision_signed: "तपास अधिकाऱ्याने स्वाक्षरी केली • अपरिवर्तनीय ऑडिट नोंदवले", audit_shared_evidence: "सामायिक पुरावा पुष्टीकरण:", audit_confidence_math: "विश्वासार्हता: गणितीय जुळणी",
+  tb_evidence: "फॉरेन्सिक पुरावा दालन आणि ताबा साखळी", badge_tamper_evident: "अखंडता-सुरक्षित भंडार",
+  tb_ingestion: "स्पष्ट ६-टप्प्यांची संकलन पाइपलाइन", badge_auto_extract: "स्वयंचलित निष्कर्षण",
   sidebar_gov_note: "\u0936\u093e\u0938\u0915\u0940\u092f \u092a\u094d\u0930\u094b\u091f\u094b\u091f\u093e\u0907\u092a\n\u0915\u0947\u0935\u0933 \u0915\u0943\u0924\u094d\u0930\u093f\u092e \u0921\u0947\u091f\u093e",
   meta_entities: "\u0928\u094b\u0921\u094d\u0938", meta_links: "\u0926\u0941\u0935\u0947",
   case_id_label: "\u092a\u094d\u0930\u0915\u0930\u0923 \u0906\u092f\u0921\u0940", entities_resolved_label: "\u0928\u093f\u0930\u093e\u0915\u0930\u0923 \u0915\u0947\u0932\u0947\u0932\u0947 \u0918\u091f\u0915", engine_status_label: "\u0907\u0902\u091c\u093f\u0928 \u0938\u094d\u0925\u093f\u0924\u0940", live_data: "\u0932\u093e\u0907\u0935\u094d\u200d\u0939\u0947\u0930 \u0921\u0947\u091f\u093e",
@@ -2173,7 +2212,28 @@ function applyLanguage(lang){
   }
   if(typeof renderReportPage === "function") renderReportPage();
   if(window.__reselectCurrentNode) window.__reselectCurrentNode();
-  if(typeof CURRENT_PROFILE_ID !== "undefined" && CURRENT_PROFILE_ID && typeof openProfileDetail === "function") openProfileDetail(CURRENT_PROFILE_ID);
+
+  // In-place refresh of active page content without changing pages
+  const activePageEl = document.querySelector(".page.active");
+  const activePage = activePageEl ? activePageEl.dataset.page : null;
+  if(activePage === "profile-detail" && typeof CURRENT_PROFILE_ID !== "undefined" && CURRENT_PROFILE_ID && typeof renderProfileDetailContent === "function"){
+    renderProfileDetailContent(CURRENT_PROFILE_ID);
+  }
+  if(activePage === "anomalies" && typeof renderAnomalyPage === "function"){
+    renderAnomalyPage();
+  }
+  if(activePage === "evidence" && typeof renderEvidenceVault === "function"){
+    renderEvidenceVault();
+  }
+  if(activePage === "timeline" && typeof renderTimelinePage === "function"){
+    renderTimelinePage();
+  }
+  if(activePage === "audit" && typeof renderAuditPage === "function"){
+    renderAuditPage();
+  }
+  if(activePage === "ingestion" && typeof renderIngestionPage === "function"){
+    renderIngestionPage();
+  }
   if(typeof asstRenderSuggestions === "function") asstRenderSuggestions();
   if(typeof ASST_HISTORY !== "undefined" && ASST_HISTORY && ASST_HISTORY.length === 1 && ASST_HISTORY[0].role === "assistant"){
     ASST_HISTORY[0] = {role:"assistant", html:`<div>${t('asst_welcome')}</div>`};
@@ -2390,8 +2450,8 @@ if(brandBtn) brandBtn.addEventListener("click", exitToLanding);
       cls: "resolved",
       icon: "◈",
       text: "Entity Resolution merged: 4 phone burner lines mapped to #REC-02",
-      targetPage: "profiles",
-      linkText: "Open Entity Profile →"
+      targetPage: "anomalies",
+      linkText: "Open Anomaly & Risk Dossier →"
     },
     {
       badge: "CROSS-BORDER TRAFFIC",
@@ -2589,7 +2649,7 @@ if(brandBtn) brandBtn.addEventListener("click", exitToLanding);
       title_en: "₹14.8 Cr split-transfer pattern detected across 12 layered mule bank accounts",
       title_hi: "12 म्यूल बैंक खातों में ₹14.8 करोड़ का संदिग्ध विभाजन-हस्तांतरण पैटर्न मिला",
       title_mr: "12 म्यूल बँक खात्यांमध्ये ₹14.8 कोटींचे संशयास्पद हस्तांतरण आढळले",
-      targetPage: "profiles",
+      targetPage: "anomalies",
       action_en: "View Risk Dossiers →",
       action_hi: "जोखिम प्रोफ़ाइल देखें →",
       action_mr: "जोखीम प्रोफाइल पहा →",
@@ -3176,6 +3236,12 @@ if(btnToggleSb){
 
 function goToPage(name){
   if(!name) return;
+  if(name === "profiles") name = "anomalies";
+  try {
+    if(window.location.hash !== "#" + name){
+      history.replaceState(null, "", "#" + name);
+    }
+  } catch(e){}
   // Update sidebar active states
   document.querySelectorAll(".sb-item[data-page]").forEach(i => {
     i.classList.toggle("active", i.dataset.page === name);
@@ -3614,7 +3680,7 @@ function renderPrioritySuspectsRoster(){
     const rc = roleClass(s.role);
     const roleDisplay = (s.role || 'Network Associate').split(' ').slice(0,3).join(' ');
     return `
-      <div class="cc-suspect-card" onclick="goToPage('profiles'); if(window.openProfileDetail) window.openProfileDetail('${s.id}');">
+      <div class="cc-suspect-card" onclick="if(window.openProfileDetail) window.openProfileDetail('${s.id}', 'command');">
         <div class="cc-suspect-info">
           <div class="cc-suspect-avatar ${rc}">${initials}</div>
           <div>
@@ -3992,58 +4058,60 @@ function initTimelinePlayer(){
 
 /* ---------------- ENTITY PROFILE DETAIL (full page) ---------------- */
 let CURRENT_PROFILE_ID = null;
+let CURRENT_PROFILE_SOURCE = "anomalies";
+
 function riskColor(level){
   return {HIGH:"var(--red)", MEDIUM:"var(--amber)", LOW:"var(--green)"}[level] || "var(--ink-faint)";
 }
 
 function renderMiniConnectionMatrix(containerId, personId){
-  const container = document.getElementById(containerId);
-  container.innerHTML = "";
-  if(typeof d3 === "undefined"){ container.innerHTML = `<div class="pd-empty" style="padding:20px;">${t('pd_graph_unavailable')}</div>`; return; }
-  const neighborEdges = DATA.edges.filter(e=>{
-    const s = e.source.id || e.source, tt = e.target.id || e.target;
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const connectedEdges = DATA.edges.filter(e=>{
+    const s = e.source.id||e.source, tt = e.target.id||e.target;
     return s===personId || tt===personId;
   });
+  if(!connectedEdges.length){
+    el.innerHTML = `<div style="padding:10px; font-size:11px; color:var(--ink-faint);">${t('matrix_no_direct')}</div>`;
+    return;
+  }
   const neighborIds = new Set();
-  neighborEdges.forEach(e=>{
-    const s = e.source.id || e.source, tt = e.target.id || e.target;
-    neighborIds.add(s); neighborIds.add(tt);
+  connectedEdges.forEach(e=>{
+    const s = e.source.id||e.source, tt = e.target.id||e.target;
+    neighborIds.add(s===personId?tt:s);
   });
+  neighborIds.add(personId);
   const localNodes = DATA.nodes.filter(n=> neighborIds.has(n.id)).map(n=>Object.assign({}, n));
-  const localLinks = neighborEdges.map(e=> ({source: e.source.id||e.source, target: e.target.id||e.target, suspicious: e.suspicious}));
-
-  const w = container.clientWidth || 300, h = 220;
-  const svg = d3.select(container).append("svg").attr("viewBox", `0 0 ${w} ${h}`);
-  const g = svg.append("g");
+  const localEdges = connectedEdges.map(e=>Object.assign({}, e));
+  const w = el.clientWidth || 360, h = 180;
+  el.innerHTML = "";
+  const svg = d3.select(el).append("svg").attr("width", w).attr("height", h);
   const sim = d3.forceSimulation(localNodes)
-    .force("link", d3.forceLink(localLinks).id(d=>d.id).distance(60))
-    .force("charge", d3.forceManyBody().strength(-140))
-    .force("center", d3.forceCenter(w/2, h/2))
-    .force("collision", d3.forceCollide().radius(22));
-
-  const link = g.selectAll("line").data(localLinks).join("line")
-    .attr("stroke", d=> d.suspicious ? "var(--red)" : "var(--border)")
-    .attr("stroke-dasharray", d=> d.suspicious ? "3,3" : null)
-    .attr("stroke-width", 1.4);
-  const node = g.selectAll("g").data(localNodes).join("g");
-  node.append("circle").attr("r", d=> d.id===personId ? 14 : 9)
-    .attr("fill", d=> d.id===personId ? "var(--blue)" : "#fff")
-    .attr("stroke", d=> (TYPE_META[d.type]||TYPE_META.person).color).attr("stroke-width", 2);
-  node.append("text").attr("y", d=> (d.id===personId?14:9)+13).attr("text-anchor","middle")
-    .attr("font-family","var(--font-mono)").attr("font-size","8px").attr("fill","var(--ink-faint)")
-    .text(d=> d.label.length>14 ? d.label.slice(0,13)+"\u2026" : d.label);
+    .force("link", d3.forceLink(localEdges).id(d=>d.id).distance(45))
+    .force("charge", d3.forceManyBody().strength(-80))
+    .force("center", d3.forceCenter(w/2, h/2));
+  const l = svg.append("g").selectAll("line").data(localEdges).enter().append("line")
+    .attr("stroke", "var(--border)").attr("stroke-width", 1.2);
+  const node = svg.append("g").selectAll("g").data(localNodes).enter().append("g");
+  node.append("circle")
+    .attr("r", d=> d.id===personId ? 11 : 6)
+    .attr("fill", d=> d.id===personId ? "var(--red)" : ((TYPE_META[d.type]||{}).color || "#888"))
+    .attr("stroke", "#fff").attr("stroke-width", 1.5);
+  node.append("text")
+    .text(d=>d.label.split(" ")[0])
+    .attr("font-size", 9).attr("font-family", "var(--font-mono)")
+    .attr("fill", "var(--ink)").attr("dx", 10).attr("dy", 3);
   sim.on("tick", ()=>{
-    link.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);
+    l.attr("x1", d=>d.source.x).attr("y1", d=>d.source.y)
+     .attr("x2", d=>d.target.x).attr("y2", d=>d.target.y);
     node.attr("transform", d=>`translate(${d.x},${d.y})`);
   });
 }
 
-function openProfileDetail(personId){
+/* Renders profile content in-place without triggering navigation */
+function renderProfileDetailContent(personId){
   const d = DATA.nodes.find(n=>n.id===personId);
   if(!d) return;
-  CURRENT_PROFILE_ID = personId;
-  document.getElementById("pd-breadcrumb-name").textContent = d.label;
-  document.querySelector(".breadcrumb a#pd-back-link").textContent = t('breadcrumb_profiles');
   const riskLevel = d.risk_level || "UNRATED";
   const connected = DATA.edges.filter(e=>{
     const s = e.source.id||e.source, tt = e.target.id||e.target;
@@ -4059,7 +4127,7 @@ function openProfileDetail(personId){
     briefingHtml = `<div class="pd-briefing-text">${t('pd_briefing_auto', d.label, reasonsText)}</div>`;
     const b = d.risk.breakdown;
     const aliasCorrob = (d.aliases && d.aliases.length) ? t('pd_alias_corrob', d.aliases.length) : t('pd_no_alias_corrob');
-    assessmentHtml = `<div class="pd-assessment"><b>${t('pd_risk_score_label')}: ${d.risk.risk_indicator_score}/100.</b> ${t('pd_source_mult_label')}: \u00d7${b.source_reliability_multiplier}. ${t('pd_confidence_label')}: ${aliasCorrob}.</div>`;
+    assessmentHtml = `<div class="pd-assessment"><b>${t('pd_risk_score_label')}: ${d.risk.risk_indicator_score}/100.</b> ${t('pd_source_mult_label')}: ×${b.source_reliability_multiplier}. ${t('pd_confidence_label')}: ${aliasCorrob}.</div>`;
     tagsHtml = `<div class="pd-tag-row">
         <span class="pd-tag">${t('pd_degree_centrality')}: ${Math.round(d.degree*100)}%</span>
         <span class="pd-tag">${t('pd_betweenness')}: ${Math.round(d.betweenness*100)}%</span>
@@ -4089,7 +4157,7 @@ function openProfileDetail(personId){
         <h1>${d.label}</h1>
         <div class="pd-hero-meta">
           <span>${t('pd_alias_label')} ${(d.aliases && d.aliases.length) ? d.aliases.join(", ") : t('none_on_record')}</span>
-          <span>\u00b7</span>
+          <span>·</span>
           <span>${t('pd_last_known_label')} ${d.last_known ? d.last_known.location : t('unrecorded')}</span>
         </div>
         <div style="display:flex; gap:8px; align-items:center; margin-top:8px; flex-wrap:wrap;">
@@ -4141,9 +4209,35 @@ function openProfileDetail(personId){
   document.getElementById("pd-expand-graph").addEventListener("click", (e)=>{
     e.preventDefault(); goToPage("graph"); setTimeout(()=>{ if(window.__selectNode) window.__selectNode(personId); }, 80);
   });
+  
+  // Dynamic back link text based on source
+  const backLink = document.getElementById("pd-back-link");
+  if(backLink){
+    if(CURRENT_PROFILE_SOURCE === "anomalies"){
+      backLink.textContent = "← " + (t('nav_anomalies') || "Anomaly & Risk");
+    } else if(CURRENT_PROFILE_SOURCE === "command"){
+      backLink.textContent = "← " + (t('tb_command') || "Command Center");
+    } else {
+      backLink.textContent = "← " + (t('nav_anomalies') || "Anomaly & Risk");
+    }
+  }
+}
+
+function openProfileDetail(personId, source){
+  CURRENT_PROFILE_ID = personId;
+  CURRENT_PROFILE_SOURCE = source || "anomalies";
+  const _d = DATA.nodes.find(n=>n.id===personId);
+  if(_d) document.getElementById("pd-breadcrumb-name").textContent = _d.label;
+  renderProfileDetailContent(personId);
   goToPage("profile-detail");
 }
-document.getElementById("pd-back-link").addEventListener("click", (e)=>{ e.preventDefault(); CURRENT_PROFILE_ID=null; goToPage("profiles"); });
+window.openProfileDetail = openProfileDetail;
+
+document.getElementById("pd-back-link").addEventListener("click", (e)=>{
+  e.preventDefault();
+  CURRENT_PROFILE_ID = null;
+  goToPage(CURRENT_PROFILE_SOURCE || "anomalies");
+});
 
 /* ---------------- DATA LAB ---------------- */
 const dlActiveTypes = new Set(["PERSON","LOCATION","PHONE","VEHICLE","ORGANIZATION","MONEY","DATE"]);
@@ -4979,11 +5073,11 @@ async function renderAnomalyPage(){
     indicators = (DATA.risk || []).map(r => {
       const b = r.breakdown || {};
       return {
-        entity_id: r.person_id,
+        entity_id: r.person_id || r.entity_id,
         name: r.name,
         role: r.role || "Key Subject",
-        risk_indicator_score: r.risk_indicator_score,
-        tier: r.risk_indicator_score >= 50 ? "CRITICAL_ATTENTION" : (r.risk_indicator_score >= 30 ? "ELEVATED_RISK" : "LOW_MONITORED"),
+        risk_indicator_score: r.risk_indicator_score || r.risk_score || 0,
+        tier: (r.risk_indicator_score || r.risk_score || 0) >= 50 ? "CRITICAL_ATTENTION" : ((r.risk_indicator_score || r.risk_score || 0) >= 30 ? "ELEVATED_RISK" : "LOW_MONITORED"),
         decomposition: {
           communication_burst_anomaly: Math.round((b.communication_anomaly || 0.68) * 100),
           financial_velocity_anomaly: Math.round((b.financial_anomaly || 0.42) * 100),
@@ -5006,7 +5100,7 @@ async function renderAnomalyPage(){
     const spikes = ind.timeline_spikes || [];
 
     return `
-      <div class="anom-card">
+      <div class="anom-card" data-entity-id="${ind.entity_id}" title="Click to view full dossier for ${ind.name}">
         <div class="anom-top">
           <div>
             <div style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:var(--ink);">${ind.name}</div>
@@ -5038,9 +5132,26 @@ async function renderAnomalyPage(){
             </div>
           `).join('') : '<div style="font-size:10.5px; color:var(--ink-faint);">No acute anomalous spikes recorded</div>'}
         </div>
+
+        <div class="anom-footer-btn">
+          <span style="display:flex; align-items:center; gap:6px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>
+            <span>View Entity Profile</span>
+          </span>
+          <span>&rarr;</span>
+        </div>
       </div>
     `;
   }).join('');
+
+  grid.querySelectorAll(".anom-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const eid = card.dataset.entityId;
+      if(eid && window.openProfileDetail){
+        window.openProfileDetail(eid, "anomalies");
+      }
+    });
+  });
 }
 
 /* ---------------- 3. INVESTIGATION TIMELINE ---------------- */
@@ -5051,22 +5162,28 @@ async function renderTimelinePage(){
   const container = document.getElementById("tl-events-container");
   if(!container) return;
 
+  const personNodes = (DATA.nodes || []).filter(n => n.type === "person");
+
   const selA = document.getElementById("rel-ent-a");
   const selB = document.getElementById("rel-ent-b");
-  if(selA && selA.children.length === 0){
-    const options = (DATA.nodes || []).filter(n => n.type === "person").map(n => `<option value="${n.id}">${n.label} (${n.id})</option>`).join('') || `
-      <option value="P01">Rajeev Malhotra (P01)</option>
-      <option value="P02">Anita Rao (P02)</option>
-      <option value="P03">Vikram Solanki (P03)</option>
-      <option value="P04">Feroz Sheikh (P04)</option>
-      <option value="P05">Sanjay Verma (P05)</option>
-    `;
+  if(selA && (selA.children.length === 0 || selA.dataset.loaded !== "true")){
+    const options = personNodes.map(n => `<option value="${n.id}">${n.label} (${n.id})</option>`).join('');
     selA.innerHTML = options;
     selB.innerHTML = options;
+    selA.dataset.loaded = "true";
+    selB.dataset.loaded = "true";
     if(selB.children.length > 1) selB.selectedIndex = 1;
   }
 
-  container.innerHTML = `<div style="padding:20px; color:var(--ink-faint); font-family:var(--font-mono);">Loading chronological events from backend...</div>`;
+  const filterEnt = document.getElementById("tl-filter-entity");
+  if(filterEnt && (filterEnt.children.length <= 1 || filterEnt.dataset.loaded !== "true")){
+    const entOptions = personNodes.map(n => `<option value="${n.id}">${n.label} (${n.id})</option>`).join('');
+    filterEnt.innerHTML = `<option value="" data-i18n="tl_all_entities">${t('tl_all_entities')}</option>` + entOptions;
+    filterEnt.dataset.loaded = "true";
+    if(currentTlEntity) filterEnt.value = currentTlEntity;
+  } else if(filterEnt && filterEnt.children.length > 0){
+    filterEnt.children[0].textContent = t('tl_all_entities');
+  }
 
   let events = [];
   try {
@@ -5085,32 +5202,53 @@ async function renderTimelinePage(){
   }
 
   if(currentTlEntity){
-    events = events.filter(e => (e.entities||[]).includes(currentTlEntity) || (e.entity_ids||[]).includes(currentTlEntity));
+    events = events.filter(e => {
+      const nList = e.nodes || e.entities || e.entity_ids || [];
+      return nList.includes(currentTlEntity);
+    });
   }
   if(currentTlType){
-    events = events.filter(e => e.type === currentTlType || e.event_type === currentTlType);
+    events = events.filter(e => {
+      const tVal = e.type || e.event_type;
+      if (tVal === currentTlType) return true;
+      if (currentTlType === "FINANCIAL" && (tVal === "TRANSACTION" || tVal === "FINANCIAL")) return true;
+      if (currentTlType === "COMMUNICATION" && (tVal === "CALL" || tVal === "COMMUNICATION")) return true;
+      if (currentTlType === "FIR_RECORD" && (tVal === "FIR" || tVal === "FIR_RECORD")) return true;
+      if (currentTlType === "SURVEILLANCE" && tVal === "SURVEILLANCE") return true;
+      return false;
+    });
+  }
+
+  if(!events || events.length === 0){
+    container.innerHTML = `<div style="padding:28px; text-align:center; color:var(--ink-faint); font-family:var(--font-mono); font-size:12px;">No timeline events match the selected criteria.</div>`;
+    return;
   }
 
   container.innerHTML = events.map(ev => {
     const sev = ev.severity || "info";
     const badge = ev.badge || ev.type || ev.event_type || "EVENT";
-    const dateStr = ev.date_formatted || ev.timestamp || "";
+    const dateStr = ev.date_formatted || (ev.timestamp ? ev.timestamp.replace('T', ' ') : ev.date || "");
     const evidTag = ev.evidence_id ? `<span class="evid-id-tag" style="cursor:pointer;" onclick="goToPage('evidence');" title="Inspect in Evidence Vault">${ev.evidence_id}</span>` : "";
+    const nodeIds = ev.nodes || ev.entities || ev.entity_ids || [];
+    const chips = nodeIds.map(nid => {
+      const lbl = (DATA.id_to_label && DATA.id_to_label[nid]) || nid;
+      return `<span class="tl-chip" style="cursor:pointer;" onclick="if(window.openProfileDetail && '${nid}'.startsWith('P')){ window.openProfileDetail('${nid}','timeline'); }">👤 ${lbl}</span>`;
+    }).join('');
 
     return `
       <div class="tl-card ${sev}">
         <div class="tl-header">
-          <div class="tl-date">📅 ${dateStr} ${ev.time_formatted ? '• ' + ev.time_formatted : ''}</div>
+          <div class="tl-date">📅 ${dateStr} ${ev.time ? '• ' + ev.time : ''}</div>
           <div style="display:flex; gap:6px; align-items:center;">
-            ${ev.is_risk_spike ? '<span class="tl-badge crit">⚡ RISK SPIKE</span>' : ''}
+            ${(ev.is_risk_spike || sev === 'critical') ? `<span class="tl-badge crit">${t('tl_risk_spike')}</span>` : ''}
             <span class="tl-badge ${sev}">${badge}</span>
             ${evidTag}
           </div>
         </div>
         <div style="font-family:var(--font-serif); font-size:14px; font-weight:700; color:var(--ink); margin-bottom:4px;">${ev.title}</div>
         <div style="font-size:12px; color:var(--ink-dim); line-height:1.5;">${ev.description}</div>
-        <div class="tl-entities">
-          ${(ev.entity_labels || ev.entities || []).map(lbl => `<span class="tl-chip">👤 ${lbl}</span>`).join('')}
+        <div class="tl-entities" style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
+          ${chips}
         </div>
       </div>
     `;
@@ -5125,7 +5263,10 @@ if(btnInspectRel){
     const summaryBox = document.getElementById("rel-history-summary");
     if(!summaryBox) return;
 
-    summaryBox.innerHTML = `<div style="background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:12px; font-family:var(--font-mono); font-size:11px;">Tracing chronological interaction progression between ${entA} and ${entB}...</div>`;
+    const nameA = (DATA.id_to_label && DATA.id_to_label[entA]) || entA;
+    const nameB = (DATA.id_to_label && DATA.id_to_label[entB]) || entB;
+
+    summaryBox.innerHTML = `<div style="background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:12px; font-family:var(--font-mono); font-size:11px;">Tracing chronological interaction progression between ${nameA} and ${nameB}...</div>`;
 
     try {
       const res = await fetch(`${API_BASE}/timeline/relationship-history?entity_a=${entA}&entity_b=${entB}`);
@@ -5148,9 +5289,36 @@ if(btnInspectRel){
       }
     } catch(e){}
 
+    // Standalone / Offline Relationship Tracing
+    const directEdges = (DATA.edges || []).filter(e => {
+      const s = e.source.id || e.source;
+      const tgt = e.target.id || e.target;
+      return (s === entA && tgt === entB) || (s === entB && tgt === entA);
+    });
+
+    const sharedEvents = (DATA.timeline_events || []).filter(ev => {
+      const nList = ev.nodes || ev.entities || [];
+      return nList.includes(entA) && nList.includes(entB);
+    });
+    const eitherEvents = (DATA.timeline_events || []).filter(ev => {
+      const nList = ev.nodes || ev.entities || [];
+      return nList.includes(entA) || nList.includes(entB);
+    });
+
+    const interactionCount = sharedEvents.length || (directEdges.length ? directEdges.length * 5 : (entA === entB ? 0 : 2));
+    const edgeTypes = directEdges.map(e => e.display_label ? `${e.type} (${e.display_label})` : e.type).join(', ') || (entA === entB ? 'Self Entity' : 'Indirect Network Correlation');
+
     summaryBox.innerHTML = `
-      <div style="background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:14px; font-size:12px;">
-        <b>Relationship History:</b> 3 documented interactions detected across Call Detail Records and Bank Transactions between ${entA} and ${entB}.
+      <div style="background:var(--panel); border:1px solid var(--blue); border-radius:8px; padding:16px; display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <b style="font-family:var(--font-serif); font-size:14px; color:var(--blue);">Relationship Evolution: ${nameA} ↔ ${nameB}</b>
+          <span class="evid-badge verified">${interactionCount} Corroborated Milestone(s)</span>
+        </div>
+        <div style="font-size:12px; color:var(--ink-dim); line-height:1.6;">
+          <b>Direct Connection Status:</b> ${edgeTypes}<br>
+          <b>Temporal History:</b> ${eitherEvents.length} recorded events across surveillance, telecom CDR, and financial transactions.<br>
+          <b>Chain of Custody:</b> Indexed under Operation Case MH/CID/2026/0417.
+        </div>
       </div>
     `;
   });
@@ -5261,42 +5429,49 @@ if(btnRunIngest){
 }
 
 /* ---------------- 5. AUDIT & HUMAN VERIFICATION ---------------- */
+let FALLBACK_CANDIDATES = [
+  {
+    id: 1,
+    source_mention: "R. Malhotra (FIR-031)",
+    target_mention: "Rajeev Malhotra (P01)",
+    similarity_score: 0.88,
+    confidence: 0.91,
+    shared_attributes: ["Shared Phone: +91 98201 11422", "Location: Andheri East"],
+    status: "pending"
+  },
+  {
+    id: 2,
+    source_mention: "Anita R. (HDFC Bank STR)",
+    target_mention: "Anita Rao (P02)",
+    similarity_score: 0.84,
+    confidence: 0.89,
+    shared_attributes: ["Shared Account A02", "Beneficiary of INR 18.4L transfer"],
+    status: "pending"
+  }
+];
+
+let AUDIT_LOG_TRAIL = [
+  {timestamp: "2026-02-15 10:30:00", username: "Insp. V. Kadam (IO)", action_type: "EVIDENCE_INTEGRITY_VERIFIED", target_id: "EVID-2026-001", details: {status: "MATCH_CONFIRMED"}},
+  {timestamp: "2026-02-13 18:30:00", username: "Insp. V. Kadam (IO)", action_type: "EVIDENCE_INTEGRITY_VERIFIED", target_id: "EVID-2026-003", details: {status: "MATCH_CONFIRMED"}},
+  {timestamp: "2026-02-10 08:30:00", username: "Insp. V. Kadam (IO)", action_type: "CASE_INITIATED", target_id: "MH/CID/2026/0417", details: {status: "COURT_MANDATE"}}
+];
+
 async function renderAuditPage(){
   const candList = document.getElementById("cand-merge-list");
   const auditBody = document.getElementById("audit-trail-body");
 
   if(candList){
-    candList.innerHTML = `<div style="color:var(--ink-faint); font-family:var(--font-mono); font-size:11px;">Checking pending verification candidates...</div>`;
     let candidates = [];
     try {
       const res = await fetch(`${API_BASE}/entities/resolution-candidates?case_id=MH/CID/2026/0417`);
       if(res.ok){
         const data = await res.json();
-        candidates = data.candidates || [];
+        if(data.candidates && data.candidates.length > 0) candidates = data.candidates;
       }
     } catch(e){}
 
     if(candidates.length === 0){
-      candidates = [
-        {
-          id: 1,
-          source_mention: "R. Malhotra (FIR-031)",
-          target_mention: "Rajeev Malhotra (P01)",
-          similarity_score: 0.88,
-          confidence: 0.91,
-          shared_attributes: ["Shared Phone: +91 98201 11422", "Location: Andheri East"],
-          status: "pending"
-        },
-        {
-          id: 2,
-          source_mention: "Anita R. (HDFC Bank STR)",
-          target_mention: "Anita Rao (P02)",
-          similarity_score: 0.84,
-          confidence: 0.89,
-          shared_attributes: ["Shared Account A02", "Beneficiary of INR 18.4L transfer"],
-          status: "pending"
-        }
-      ];
+      candidates = FALLBACK_CANDIDATES;
     }
 
     candList.innerHTML = candidates.map(c => `
@@ -5304,45 +5479,40 @@ async function renderAuditPage(){
         <div class="cand-top">
           <div>
             <div style="font-family:var(--font-serif); font-size:14px; font-weight:700;">${c.source_mention} → ${c.target_mention}</div>
-            <div style="font-family:var(--font-mono); font-size:10px; color:var(--ink-faint);">Confidence: Math Match ${Math.round(c.confidence*100)}%</div>
+            <div style="font-family:var(--font-mono); font-size:10px; color:var(--ink-faint);">${t('audit_confidence_math')}: ${Math.round(c.confidence*100)}%</div>
           </div>
-          <span class="audit-badge" style="background:${c.status === 'approved' ? 'rgba(19,122,53,0.12)' : 'rgba(224,138,0,0.12)'}; color:${c.status === 'approved' ? 'var(--green)' : 'var(--amber)'};">
+          <span class="audit-badge" style="background:${c.status === 'approved' ? 'rgba(19,122,53,0.12)' : (c.status === 'rejected' ? 'rgba(219,39,119,0.12)' : 'rgba(224,138,0,0.12)')}; color:${c.status === 'approved' ? 'var(--green)' : (c.status === 'rejected' ? 'var(--red)' : 'var(--amber)')};">
             ${c.status.toUpperCase()}
           </span>
         </div>
-        <div style="font-size:11.5px; color:var(--ink-dim);">
-          <b>Shared Evidence Corroboration:</b>
+        <div style="font-size:11.5px; color:var(--ink-dim); margin-top:8px;">
+          <b>${t('audit_shared_evidence')}</b>
           <div style="display:flex; gap:6px; margin-top:4px; flex-wrap:wrap;">
             ${(c.shared_attributes || []).map(a => `<span class="tl-chip">${a}</span>`).join('')}
           </div>
         </div>
         ${c.status === 'pending' ? `
           <div class="cand-actions" id="cand-act-${c.id}">
-            <button class="btn-approve" onclick="resolveCandidateLive(${c.id}, true)">✓ Approve Merge</button>
-            <button class="btn-reject" onclick="resolveCandidateLive(${c.id}, false)">✕ Reject</button>
+            <button class="btn-approve" onclick="resolveCandidateLive(${c.id}, true)">${t('audit_btn_approve')}</button>
+            <button class="btn-reject" onclick="resolveCandidateLive(${c.id}, false)">${t('audit_btn_reject')}</button>
           </div>
-        ` : `<div style="font-family:var(--font-mono); font-size:10.5px; color:var(--green); margin-top:10px;">Decision Signed by IO • Immutable Audit Logged</div>`}
+        ` : `<div style="font-family:var(--font-mono); font-size:10.5px; color:${c.status==='approved'?'var(--green)':'var(--red)'}; margin-top:10px;">${t('audit_decision_signed')} (${c.status.toUpperCase()})</div>`}
       </div>
     `).join('');
   }
 
   if(auditBody){
-    auditBody.innerHTML = `<tr><td colspan="4" style="color:var(--ink-faint); font-family:var(--font-mono); font-size:11px;">Loading forensic audit ledger...</td></tr>`;
     let logs = [];
     try {
       const res = await fetch(`${API_BASE}/audit-logs`);
       if(res.ok){
         const data = await res.json();
-        logs = data.audit_trail || [];
+        if(data.audit_trail && data.audit_trail.length > 0) logs = data.audit_trail;
       }
     } catch(e){}
 
     if(logs.length === 0){
-      logs = [
-        {timestamp: "2026-02-15 10:30:00", username: "Insp. V. Kadam", action_type: "EVIDENCE_INTEGRITY_VERIFIED", target_id: "EVID-2026-001", details: {status: "MATCH_CONFIRMED"}},
-        {timestamp: "2026-02-13 18:30:00", username: "Insp. V. Kadam", action_type: "EVIDENCE_INTEGRITY_VERIFIED", target_id: "EVID-2026-003", details: {status: "MATCH_CONFIRMED"}},
-        {timestamp: "2026-02-10 08:30:00", username: "Insp. V. Kadam", action_type: "CASE_INITIATED", target_id: "MH/CID/2026/0417", details: {status: "COURT_MANDATE"}}
-      ];
+      logs = AUDIT_LOG_TRAIL;
     }
 
     auditBody.innerHTML = logs.map(l => `
@@ -5360,11 +5530,26 @@ async function resolveCandidateLive(candId, approve){
   try {
     await fetch(`${API_BASE}/entities/resolution-candidates/${candId}/confirm?approve=${approve}`, {method: "POST"});
   } catch(e){}
+
+  const cand = FALLBACK_CANDIDATES.find(c => c.id === candId);
+  if(cand){
+    cand.status = approve ? "approved" : "rejected";
+    const now = new Date();
+    const nowStr = now.getFullYear() + "-" + String(now.getMonth()+1).padStart(2,'0') + "-" + String(now.getDate()).padStart(2,'0') + " " + String(now.getHours()).padStart(2,'0') + ":" + String(now.getMinutes()).padStart(2,'0') + ":" + String(now.getSeconds()).padStart(2,'0');
+    AUDIT_LOG_TRAIL.unshift({
+      timestamp: nowStr,
+      username: "Insp. V. Kadam (IO)",
+      action_type: approve ? "ENTITY_MERGE_APPROVED" : "ENTITY_MERGE_REJECTED",
+      target_id: `${cand.source_mention} → ${cand.target_mention}`,
+      details: {confidence: cand.confidence, similarity: cand.similarity_score, human_decision: approve ? "CONFIRMED" : "OVERRULED"}
+    });
+  }
+
   const actDiv = document.getElementById(`cand-act-${candId}`);
   if(actDiv){
     actDiv.innerHTML = `<span style="font-family:var(--font-mono); font-size:11px; color:${approve ? 'var(--green)' : 'var(--red)'}; font-weight:700;">${approve ? '✓ Merge Approved & Logged' : '✕ Merge Rejected & Logged'}</span>`;
   }
-  setTimeout(renderAuditPage, 500);
+  setTimeout(renderAuditPage, 350);
 }
 
 // Global function bindings
