@@ -698,9 +698,21 @@ let CURRENT_SELECTED_NODE = null;
   try {
     if (typeof d3 === "undefined") throw new Error("d3 failed to load");
     const svg = d3.select("#graph");
+    const defs = svg.append("defs");
+    defs.html(`
+      <filter id="flow-glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    `);
     const gRoot = svg.append("g");
-    const gLinks = gRoot.append("g");
-    const gNodes = gRoot.append("g");
+    const gLinks = gRoot.append("g").attr("class", "g-links");
+    const gFlow = gRoot.append("g").attr("class", "g-flow-overlay");
+    const gNodes = gRoot.append("g").attr("class", "g-nodes");
     function sizeSvg(){ const wrap = document.getElementById("graph-wrap"); return {w: wrap.clientWidth||900, h: wrap.clientHeight||600}; }
     let {w,h} = sizeSvg();
     svg.attr("viewBox", `0 0 ${w} ${h}`);
@@ -760,13 +772,63 @@ let CURRENT_SELECTED_NODE = null;
     nodeG.on("click", (ev,d)=> { ev.stopPropagation(); selectNode(d.id); });
     nodeG.append("title").text(d=> `${d.label} \u2014 degree ${d.degree}, betweenness ${d.betweenness}`);
 
+    // Neighborhood inspection on hover
+    nodeG.on("mouseenter", (ev, d)=>{
+      if(window.__ACTIVE_PATH_TRACE) return;
+      const nbrs = new Set([d.id]);
+      links.forEach(l => {
+        const u = l.source.id || l.source;
+        const v = l.target.id || l.target;
+        if(u === d.id) nbrs.add(v);
+        if(v === d.id) nbrs.add(u);
+      });
+      nodeG.classed("dim", n => !nbrs.has(n.id));
+      link.classed("dim", l => {
+        const u = l.source.id || l.source;
+        const v = l.target.id || l.target;
+        return !(u === d.id || v === d.id);
+      });
+      link.classed("highlighted", l => {
+        const u = l.source.id || l.source;
+        const v = l.target.id || l.target;
+        return (u === d.id || v === d.id);
+      });
+    });
+    nodeG.on("mouseleave", ()=>{
+      if(window.__ACTIVE_PATH_TRACE) return;
+      nodeG.classed("dim", d=> !activeTypes.has(d.type));
+      link.classed("dim", d=> !activeTypes.has(d.source.type) || !activeTypes.has(d.target.type));
+      link.classed("highlighted", false);
+    });
+
     simulation.on("tick", ()=>{
       link.attr("d", curvedPath);
       linkLabel.attr("x",d=>(d.source.x+d.target.x)/2).attr("y",d=>(d.source.y+d.target.y)/2 - 6);
       nodeG.attr("transform", d=> `translate(${d.x},${d.y})`);
     });
     window.addEventListener("resize", ()=>{ const s=sizeSvg(); w=s.w; h=s.h; svg.attr("viewBox", `0 0 ${w} ${h}`); simulation.force("center", d3.forceCenter(w/2,h/2)); simulation.alpha(0.3).restart(); });
-    document.getElementById("btn-reset").addEventListener("click", ()=> svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity));
+    document.getElementById("btn-reset")?.addEventListener("click", ()=> svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity));
+    document.getElementById("btn-zoom-in")?.addEventListener("click", ()=> svg.transition().duration(250).call(zoom.scaleBy, 1.3));
+    document.getElementById("btn-zoom-out")?.addEventListener("click", ()=> svg.transition().duration(250).call(zoom.scaleBy, 0.77));
+    let isPhysicsPaused = false;
+    const physBtn = document.getElementById("btn-physics-toggle");
+    if(physBtn){
+      physBtn.addEventListener("click", ()=>{
+        isPhysicsPaused = !isPhysicsPaused;
+        if(isPhysicsPaused){
+          simulation.stop();
+          physBtn.textContent = "▶";
+          physBtn.title = "Resume Layout Physics";
+          physBtn.classList.add("paused");
+        } else {
+          simulation.alphaTarget(0.15).restart();
+          setTimeout(() => simulation.alphaTarget(0), 800);
+          physBtn.textContent = "⏸";
+          physBtn.title = "Pause Layout Physics";
+          physBtn.classList.remove("paused");
+        }
+      });
+    }
     window.__updateVisibility = function(){ nodeG.classed("dim", d=> !activeTypes.has(d.type)); link.classed("dim", d=> !activeTypes.has(d.source.type) || !activeTypes.has(d.target.type)); };
 
     function selectNode(id){
@@ -835,7 +897,7 @@ let CURRENT_SELECTED_NODE = null;
       nodeG.classed("dim", d=> !d.label.toLowerCase().includes(q));
     });
 
-    initPathFinder();
+    initPathFinder({ svg, zoom, simulation, nodes, links, nodeG, link, linkLabel, gFlow, selectNode });
     initTimelinePlayer();
   } catch (err) {
     console.error("Graph init failed:", err);
@@ -843,48 +905,332 @@ let CURRENT_SELECTED_NODE = null;
   }
 })();
 
-/* ---------------- PATH FINDER INTERACTION ---------------- */
-function initPathFinder(){
+/* ---------------- PATH FINDER & FLOWING ARROWS ENGINE ---------------- */
+window.__ACTIVE_PATH_TRACE = null;
+function initPathFinder(ctx){
+  const { svg, zoom, simulation, nodes, links, nodeG, link, linkLabel, gFlow, selectNode } = ctx || {};
   const srcSelect = document.getElementById("pf-source");
   const tgtSelect = document.getElementById("pf-target");
   if(!srcSelect || !tgtSelect) return;
 
-  const personNodes = DATA.nodes.filter(n=>n.type==="person");
+  const personNodes = (nodes || DATA.nodes).filter(n=>n.type==="person");
   const opts = personNodes.map(p=>`<option value="${p.id}">${p.label}</option>`).join("");
   srcSelect.innerHTML = opts;
   tgtSelect.innerHTML = opts;
   if(personNodes.length > 1) tgtSelect.selectedIndex = 1;
 
-  document.getElementById("btn-find-path").addEventListener("click", ()=>{
+  document.getElementById("btn-pf-swap")?.addEventListener("click", ()=>{
+    const tmp = srcSelect.value;
+    srcSelect.value = tgtSelect.value;
+    tgtSelect.value = tmp;
+    if(window.__ACTIVE_PATH_TRACE) runTrace();
+  });
+
+  let flowTimer = null;
+
+  function stopFlowAnimation(){
+    if(flowTimer){ flowTimer.stop(); flowTimer = null; }
+    if(gFlow) gFlow.selectAll("*").remove();
+    if(nodeG) nodeG.selectAll("circle.beacon-ring").remove();
+  }
+
+  function clearPathTrace(){
+    stopFlowAnimation();
+    window.__ACTIVE_PATH_TRACE = null;
+    if(nodeG){
+      nodeG.classed("dim", d => !activeTypes.has(d.type));
+      nodeG.classed("path-origin", false);
+      nodeG.classed("path-target", false);
+      nodeG.classed("path-waypoint", false);
+    }
+    if(link){
+      link.classed("dim", d => !activeTypes.has(d.source.type) || !activeTypes.has(d.target.type));
+      link.classed("traced", false);
+    }
+    if(linkLabel){
+      linkLabel.classed("dim", false);
+      linkLabel.classed("traced-label", false);
+    }
+    const badge = document.getElementById("path-info-badge");
+    if(badge) badge.style.display = "none";
+  }
+
+  function findPathSequence(sId, tId){
+    const k1 = `${sId}_${tId}`;
+    const k2 = `${tId}_${sId}`;
+    if(DATA.all_paths && DATA.all_paths[k1] && DATA.all_paths[k1].path){
+      return DATA.all_paths[k1].path;
+    }
+    if(DATA.all_paths && DATA.all_paths[k2] && DATA.all_paths[k2].path){
+      return [...DATA.all_paths[k2].path].reverse();
+    }
+    // Dynamic BFS shortest path traversal across all nodes and edges
+    const allNodes = nodes || DATA.nodes;
+    const allLinks = links || DATA.edges;
+    const adj = new Map();
+    allNodes.forEach(n => adj.set(n.id, []));
+    allLinks.forEach(l => {
+      const u = l.source.id || l.source;
+      const v = l.target.id || l.target;
+      if(adj.has(u) && adj.has(v)){
+        adj.get(u).push(v);
+        adj.get(v).push(u);
+      }
+    });
+    const queue = [[sId]];
+    const visited = new Set([sId]);
+    while(queue.length > 0){
+      const curPath = queue.shift();
+      const curr = curPath[curPath.length - 1];
+      if(curr === tId) return curPath;
+      const neighbors = adj.get(curr) || [];
+      for(const nbr of neighbors){
+        if(!visited.has(nbr)){
+          visited.add(nbr);
+          queue.push([...curPath, nbr]);
+        }
+      }
+    }
+    return null;
+  }
+
+  function framePath(pathNodeIds){
+    if(!zoom || !svg) return;
+    const allNodes = nodes || DATA.nodes;
+    const matched = allNodes.filter(n => pathNodeIds.has(n.id) && Number.isFinite(n.x) && Number.isFinite(n.y));
+    if(!matched.length) return;
+    const xs = matched.map(n => n.x);
+    const ys = matched.map(n => n.y);
+    const minX = Math.min(...xs), maxX = Math.max(...xs);
+    const minY = Math.min(...ys), maxY = Math.max(...ys);
+    const wrap = document.getElementById("graph-wrap");
+    const vw = wrap ? (wrap.clientWidth || 900) : 900;
+    const vh = wrap ? (wrap.clientHeight || 600) : 600;
+    const pad = 120;
+    const boxW = Math.max(maxX - minX, 90);
+    const boxH = Math.max(maxY - minY, 90);
+    const scale = Math.min(2.0, Math.max(0.65, Math.min((vw - pad * 2) / boxW, (vh - pad * 2) / boxH)));
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+    const tx = vw / 2 - cx * scale;
+    const ty = vh / 2 - cy * scale;
+    svg.transition().duration(850).ease(d3.easeCubicOut).call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+  }
+
+  function renderPathBadge(pathIds, sId, tId){
+    const badge = document.getElementById("path-info-badge");
+    if(!badge) return;
+    const allNodes = nodes || DATA.nodes;
+    const allLinks = links || DATA.edges;
+    const hops = pathIds.length - 1;
+    let chainHtml = "";
+    pathIds.forEach((id, idx) => {
+      const node = allNodes.find(n => n.id === id);
+      const label = node ? node.label : id;
+      const isOrigin = idx === 0;
+      const isTarget = idx === pathIds.length - 1;
+      const chipClass = isOrigin ? "origin" : (isTarget ? "target" : "");
+      const meta = node ? (TYPE_META[node.type]||TYPE_META.person) : TYPE_META.person;
+      const iconHtml = ICONS[meta.icon] || "●";
+      chainHtml += `<span class="pib-node-chip ${chipClass}" data-node-id="${id}" title="Click to inspect ${label}"><span>${iconHtml}</span><span>${label}</span></span>`;
+      if(idx < pathIds.length - 1){
+        const nextId = pathIds[idx + 1];
+        const edge = allLinks.find(l => {
+          const su = l.source.id || l.source;
+          const tu = l.target.id || l.target;
+          return (su === id && tu === nextId) || (su === nextId && tu === id);
+        });
+        const edgeLabel = edge ? (edge.display_label || (edge.type || "").replace(/_/g, " ").toLowerCase()) : "";
+        chainHtml += `<span class="pib-arrow-chip">➔ <span class="pib-rel-text">${edgeLabel}</span></span>`;
+      }
+    });
+
+    badge.innerHTML = `
+      <div class="pib-header">
+        <div class="pib-title-wrap">
+          <span class="pib-status-tag">⚡ TRACE ACTIVE</span>
+          <span class="pib-title">Connection Path (${hops} ${hops === 1 ? 'Hop' : 'Hops'})</span>
+        </div>
+        <button class="pib-close" id="btn-pib-close" title="Clear Trace">✕</button>
+      </div>
+      <div class="pib-chain">${chainHtml}</div>
+      <div class="pib-footer">
+        <span>Continuous flowing arrows indicate connection route</span>
+        <button class="btn-pib-focus" id="btn-pib-refocus">⤢ Focus Path</button>
+      </div>
+    `;
+    badge.style.display = "block";
+    document.getElementById("btn-pib-close")?.addEventListener("click", clearPathTrace);
+    document.getElementById("btn-pib-refocus")?.addEventListener("click", () => framePath(new Set(pathIds)));
+    badge.querySelectorAll(".pib-node-chip").forEach(chip => {
+      chip.addEventListener("click", () => {
+        const nId = chip.dataset.nodeId;
+        if(selectNode) selectNode(nId);
+      });
+    });
+  }
+
+  function runTrace(){
     const sId = srcSelect.value;
     const tId = tgtSelect.value;
     if(sId === tId){
       alert("Please select two different entities to trace a connection.");
       return;
     }
-    const pathKey = `${sId}_${tId}`;
-    const pathKeyRev = `${tId}_${sId}`;
-    const pathData = (DATA.all_paths && (DATA.all_paths[pathKey] || DATA.all_paths[pathKeyRev]));
 
+    const pathSequence = findPathSequence(sId, tId);
     const badge = document.getElementById("path-info-badge");
-    if(pathData && pathData.path){
-      const pathNodeIds = new Set(pathData.path);
-      d3.selectAll("g.node").classed("dim", d => !pathNodeIds.has(d.id));
-      d3.selectAll("path.link").classed("dim", l => !(pathNodeIds.has(l.source.id||l.source) && pathNodeIds.has(l.target.id||l.target)));
-      
-      badge.style.display = "block";
-      badge.innerHTML = `<b>Traced Connection Path (${pathData.hops} hops):</b> ${pathData.labels.join(" \u2192 ")}`;
-    } else {
-      badge.style.display = "block";
-      badge.innerHTML = `<b>No Direct Connection:</b> No direct record between ${DATA.id_to_label[sId]} and ${DATA.id_to_label[tId]} in current graph.`;
-    }
-  });
 
-  document.getElementById("btn-clear-path").addEventListener("click", ()=>{
-    d3.selectAll("g.node").classed("dim", false);
-    d3.selectAll("path.link").classed("dim", false);
-    document.getElementById("path-info-badge").style.display = "none";
-  });
+    if(!pathSequence || pathSequence.length < 2){
+      clearPathTrace();
+      if(badge){
+        badge.style.display = "block";
+        const sLabel = (DATA.id_to_label && DATA.id_to_label[sId]) || sId;
+        const tLabel = (DATA.id_to_label && DATA.id_to_label[tId]) || tId;
+        badge.innerHTML = `
+          <div class="pib-header">
+            <div class="pib-title-wrap">
+              <span class="pib-status-tag" style="background:rgba(220,38,38,0.18); color:var(--red); border-color:rgba(220,38,38,0.4);">NO PATH FOUND</span>
+              <span class="pib-title">No Direct or Intermediary Record</span>
+            </div>
+            <button class="pib-close" id="btn-pib-close">✕</button>
+          </div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.8); margin:8px 0;">No connection link identified between <b>${sLabel}</b> and <b>${tLabel}</b> in the current graph.</div>
+        `;
+        document.getElementById("btn-pib-close")?.addEventListener("click", clearPathTrace);
+      }
+      return;
+    }
+
+    stopFlowAnimation();
+    window.__ACTIVE_PATH_TRACE = new Set(pathSequence);
+
+    // Dims outside nodes & links
+    const pathNodeIds = window.__ACTIVE_PATH_TRACE;
+    const pathEdgeKeys = new Set();
+    for(let i = 0; i < pathSequence.length - 1; i++){
+      pathEdgeKeys.add(`${pathSequence[i]}__${pathSequence[i+1]}`);
+      pathEdgeKeys.add(`${pathSequence[i+1]}__${pathSequence[i]}`);
+    }
+
+    if(nodeG){
+      nodeG.classed("dim", d => !pathNodeIds.has(d.id));
+      nodeG.classed("path-origin", d => d.id === sId);
+      nodeG.classed("path-target", d => d.id === tId);
+      nodeG.classed("path-waypoint", d => pathNodeIds.has(d.id) && d.id !== sId && d.id !== tId);
+
+      // Attach glowing beacon rings around origin and target
+      nodeG.filter(d => d.id === sId)
+        .append("circle")
+        .attr("class", "beacon-ring beacon-origin")
+        .attr("r", d => ((d.type==="person"?30:26)/2 + 10));
+
+      nodeG.filter(d => d.id === tId)
+        .append("circle")
+        .attr("class", "beacon-ring beacon-target")
+        .attr("r", d => ((d.type==="person"?30:26)/2 + 10));
+    }
+
+    const allLinks = links || DATA.edges;
+    if(link){
+      link.classed("dim", l => {
+        const u = l.source.id || l.source;
+        const v = l.target.id || l.target;
+        return !pathEdgeKeys.has(`${u}__${v}`);
+      });
+      link.classed("traced", l => {
+        const u = l.source.id || l.source;
+        const v = l.target.id || l.target;
+        return pathEdgeKeys.has(`${u}__${v}`);
+      });
+    }
+
+    if(linkLabel){
+      linkLabel.classed("dim", l => {
+        const u = l.source.id || l.source;
+        const v = l.target.id || l.target;
+        return !pathEdgeKeys.has(`${u}__${v}`);
+      });
+      linkLabel.classed("traced-label", l => {
+        const u = l.source.id || l.source;
+        const v = l.target.id || l.target;
+        return pathEdgeKeys.has(`${u}__${v}`);
+      });
+    }
+
+    // Prepare segments for flowing arrows
+    const segments = [];
+    for(let i = 0; i < pathSequence.length - 1; i++){
+      const u = pathSequence[i];
+      const v = pathSequence[i + 1];
+      const lDatum = allLinks.find(l => {
+        const su = l.source.id || l.source;
+        const tu = l.target.id || l.target;
+        return (su === u && tu === v) || (su === v && tu === u);
+      });
+      if(lDatum && link){
+        const linkPathSel = link.filter(l => l === lDatum);
+        const linkPathEl = linkPathSel.node();
+        const isForward = (lDatum.source.id || lDatum.source) === u;
+        segments.push({ u, v, lDatum, linkPathEl, isForward });
+      }
+    }
+
+    // Spawn flowing arrows in gFlow
+    if(gFlow && segments.length > 0){
+      const ARROWS_PER_SEGMENT = 3;
+      const flowingArrows = [];
+      segments.forEach(seg => {
+        for(let k = 0; k < ARROWS_PER_SEGMENT; k++){
+          const gArrow = gFlow.append("g").attr("class", "flow-arrow-marker");
+          gArrow.append("polygon")
+            .attr("points", "-10,-6 4,0 -10,6 -6,0")
+            .attr("fill", "#00f0ff")
+            .attr("filter", "url(#flow-glow)");
+          gArrow.append("circle")
+            .attr("cx", 3)
+            .attr("cy", 0)
+            .attr("r", 2.2)
+            .attr("fill", "#ffffff");
+          flowingArrows.push({
+            seg,
+            el: gArrow,
+            offset: k / ARROWS_PER_SEGMENT
+          });
+        }
+      });
+
+      // Flowing animation timer
+      flowTimer = d3.timer((elapsed) => {
+        const speedMs = 1700;
+        const progress = (elapsed % speedMs) / speedMs;
+        flowingArrows.forEach(item => {
+          const seg = item.seg;
+          if(!seg.linkPathEl) return;
+          try {
+            const L = seg.linkPathEl.getTotalLength();
+            if(!L || L < 2) return;
+            const s = (progress + item.offset) % 1;
+            const dist = seg.isForward ? (s * L) : ((1 - s) * L);
+            const p = seg.linkPathEl.getPointAtLength(dist);
+            const aheadDist = seg.isForward ? Math.min(L, dist + 2) : Math.max(0, dist - 2);
+            const pAhead = seg.linkPathEl.getPointAtLength(aheadDist);
+            const angle = Math.atan2(pAhead.y - p.y, pAhead.x - p.x) * 180 / Math.PI;
+            item.el.attr("transform", `translate(${p.x},${p.y}) rotate(${angle})`);
+          } catch(e) {}
+        });
+      });
+    }
+
+    // Auto-frame path smoothly
+    framePath(pathNodeIds);
+
+    // Render interactive HUD card
+    renderPathBadge(pathSequence, sId, tId);
+  }
+
+  document.getElementById("btn-find-path")?.addEventListener("click", runTrace);
+  document.getElementById("btn-clear-path")?.addEventListener("click", clearPathTrace);
 }
 
 /* ---------------- TIMELINE SEQUENCE PLAYER ---------------- */

@@ -414,34 +414,95 @@ HTML = """<!DOCTYPE html>
     background-size:22px 22px; pointer-events:none; }
   svg#graph{ width:100%; height:100%; display:block; cursor:grab; position:relative; z-index:1; }
   svg#graph:active{ cursor:grabbing; }
-  .link{ stroke:var(--ink-faint); stroke-opacity:0.45; fill:none; }
+  .link{ stroke:var(--ink-faint); stroke-opacity:0.45; fill:none; transition:stroke 0.25s ease, stroke-opacity 0.25s ease, stroke-width 0.25s ease; }
   .link.suspicious{ stroke:var(--red); stroke-opacity:0.85; stroke-dasharray:3,3; }
-  .link-label{ font-family:var(--font-mono); font-size:8.5px; fill:var(--ink-faint); pointer-events:none; }
-  .node{ cursor:pointer; }
-  .node-box{ fill:var(--panel); stroke-width:1.4px; }
+  .link.highlighted{ stroke:var(--gold) !important; stroke-width:2.2px !important; stroke-opacity:1 !important; filter:drop-shadow(0 0 5px rgba(212,146,10,0.6)); }
+  .link.traced{ stroke:#00e5ff !important; stroke-width:2.8px !important; stroke-opacity:0.95 !important; stroke-dasharray:8,5; animation:flowDash 0.9s linear infinite; filter:drop-shadow(0 0 6px rgba(0,229,255,0.85)); }
+  .link-label{ font-family:var(--font-mono); font-size:8.5px; fill:var(--ink-faint); pointer-events:none; transition:fill 0.2s ease; }
+  .link.traced + .link-label, .link-label.traced-label{ fill:#00e5ff !important; font-weight:700; font-size:9.5px; }
+
+  @keyframes flowDash {
+    to { stroke-dashoffset: -26px; }
+  }
+  @keyframes beaconPulseCyan {
+    0% { transform:scale(1); opacity:0.9; }
+    50% { transform:scale(1.45); opacity:0.25; }
+    100% { transform:scale(1); opacity:0.9; }
+  }
+  @keyframes beaconPulseGold {
+    0% { transform:scale(1); opacity:0.9; }
+    50% { transform:scale(1.45); opacity:0.25; }
+    100% { transform:scale(1); opacity:0.9; }
+  }
+  @keyframes badgeSlideDown {
+    from { opacity:0; transform:translateY(-10px) scale(0.98); }
+    to { opacity:1; transform:translateY(0) scale(1); }
+  }
+
+  .node{ cursor:pointer; transition:opacity 0.25s ease; }
+  .node-box{ fill:var(--panel); stroke-width:1.4px; transition:stroke 0.2s ease, filter 0.2s ease, stroke-width 0.2s ease; }
   .node-icon{ pointer-events:none; }
-  .node-label{ font-family:var(--font-mono); font-size:9px; fill:var(--ink-dim); pointer-events:none; }
+  .node-label{ font-family:var(--font-mono); font-size:9px; fill:var(--ink-dim); pointer-events:none; transition:fill 0.2s ease; }
   .node-sublabel{ font-family:var(--font-mono); font-size:7.5px; fill:var(--ink-faint); pointer-events:none; }
-  .node.dim{ opacity:0.15; }
-  .node.selected .node-box{ filter:drop-shadow(0 0 6px currentColor); }
+  .node.dim{ opacity:0.12; }
+  .link.dim{ stroke-opacity:0.06 !important; }
+  .link-label.dim{ opacity:0.1; }
+  .node.selected .node-box{ filter:drop-shadow(0 0 8px currentColor); stroke-width:2px; }
   .node.key .node-box{ stroke:var(--gold) !important; }
-  #graph-toolbar-left{ position:absolute; top:14px; left:14px; z-index:4; display:flex; gap:8px; }
+
+  /* Node Traced Highlights */
+  .node.path-origin .node-box{ stroke:#00e5ff !important; stroke-width:2.5px !important; filter:drop-shadow(0 0 10px #00e5ff) !important; }
+  .node.path-target .node-box{ stroke:var(--gold) !important; stroke-width:2.5px !important; filter:drop-shadow(0 0 10px var(--gold)) !important; }
+  .node.path-waypoint .node-box{ stroke:#00e5ff !important; stroke-width:2px !important; filter:drop-shadow(0 0 6px rgba(0,229,255,0.6)) !important; }
+  .beacon-ring{ pointer-events:none; transform-box:fill-box; transform-origin:center; }
+  .beacon-origin{ animation:beaconPulseCyan 1.8s ease-in-out infinite; stroke:#00e5ff; stroke-width:2px; fill:rgba(0,229,255,0.12); }
+  .beacon-target{ animation:beaconPulseGold 1.8s ease-in-out infinite; stroke:var(--gold); stroke-width:2px; fill:rgba(212,146,10,0.12); }
+
+  /* Flowing Arrow Overlay */
+  .g-flow-overlay{ pointer-events:none; }
+  .flow-arrow-marker{ pointer-events:none; filter:drop-shadow(0 0 5px #00e5ff); }
+
+  #graph-toolbar-left{ position:absolute; top:14px; left:14px; z-index:4; display:flex; flex-direction:column; gap:6px; }
   #graph-hint{ position:absolute; bottom:12px; left:14px; z-index:4; font-family:var(--font-mono); font-size:9.5px; color:var(--ink-faint); }
-  .tool-icon{ width:32px; height:32px; border-radius:5px; background:var(--panel); border:1px solid var(--border);
-    display:flex; align-items:center; justify-content:center; color:var(--ink-dim); }
-  .tool-icon:hover{ color:var(--ink); }
+  .tool-icon{ width:32px; height:32px; border-radius:6px; background:var(--panel); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center; color:var(--ink-dim); font-family:var(--font-mono); font-size:13px; font-weight:700; cursor:pointer; user-select:none; box-shadow:var(--shadow-sm); transition:all 0.15s ease; }
+  .tool-icon:hover{ color:var(--ink); border-color:var(--ink-faint); background:var(--panel-2); transform:scale(1.05); }
+  .tool-icon.active, .tool-icon.paused{ color:var(--gold); border-color:var(--gold); background:rgba(212,146,10,0.08); }
   #graph-error{ position:absolute; inset:0; display:none; align-items:center; justify-content:center; flex-direction:column;
     gap:10px; text-align:center; padding:30px; font-family:var(--font-mono); color:var(--red); font-size:12px; z-index:5; background:var(--bg); }
 
   /* Path Finder Bar */
   .path-finder-bar{ display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--border);
-    border-radius:6px; padding:6px 12px; }
-  .pf-label{ font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.05em; font-weight:700; }
-  .pf-select{ background:var(--bg); border:1px solid var(--border); color:var(--ink); font-family:var(--font-mono); font-size:11px; padding:4px 8px; border-radius:4px; outline:none; }
+    border-radius:8px; padding:6px 14px; box-shadow:var(--shadow-sm); }
+  .pf-label{ font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.06em; font-weight:700; display:flex; align-items:center; gap:4px; }
+  .pf-select{ background:var(--bg); border:1px solid var(--border); color:var(--ink); font-family:var(--font-mono); font-size:11px; padding:5px 8px; border-radius:5px; outline:none; transition:border-color 0.15s; max-width:180px; text-overflow:ellipsis; }
+  .pf-select:focus{ border-color:var(--gold); }
+  .pf-swap-btn{ background:var(--panel-2); border:1px solid var(--border); color:var(--gold); border-radius:5px; padding:4px 8px; font-size:13px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; transition:all 0.2s ease; line-height:1; }
+  .pf-swap-btn:hover{ background:var(--border); color:var(--ink); transform:rotate(180deg); }
   .pf-arrow{ font-family:var(--font-mono); color:var(--gold); font-weight:700; font-size:12px; }
-  .btn-pf-run{ background:var(--gold); color:#fff; border:none; padding:5px 12px; border-radius:4px; font-family:var(--font-mono); font-size:11px; font-weight:700; cursor:pointer; }
-  .btn-pf-clear{ background:none; border:1px solid var(--border); color:var(--ink-dim); padding:5px 10px; border-radius:4px; font-family:var(--font-mono); font-size:11px; cursor:pointer; }
-  .path-info-badge{ position:absolute; top:58px; left:14px; z-index:4; background:var(--panel); border:1px solid var(--gold); border-radius:6px; padding:8px 12px; font-family:var(--font-mono); font-size:11px; color:var(--ink); display:none; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+  .btn-pf-run{ background:linear-gradient(135deg, #d4920a, #e5a519); color:#fff; border:none; padding:6px 14px; border-radius:5px; font-family:var(--font-mono); font-size:11px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px; box-shadow:0 2px 6px rgba(212,146,10,0.3); transition:all 0.2s ease; }
+  .btn-pf-run:hover{ box-shadow:0 4px 12px rgba(212,146,10,0.45); transform:translateY(-1px); }
+  .btn-pf-clear{ background:none; border:1px solid var(--border); color:var(--ink-dim); padding:6px 12px; border-radius:5px; font-family:var(--font-mono); font-size:11px; cursor:pointer; transition:all 0.2s ease; }
+  .btn-pf-clear:hover{ border-color:var(--ink-faint); color:var(--ink); }
+
+  /* Interactive Path HUD Badge */
+  .path-info-badge{ position:absolute; top:14px; left:58px; z-index:10; max-width:620px; background:rgba(15,22,38,0.94); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(0,229,255,0.45); border-radius:10px; padding:12px 16px; color:#fff; display:none; box-shadow:0 12px 36px rgba(0,0,0,0.35), 0 0 20px rgba(0,229,255,0.15); animation:badgeSlideDown 0.3s cubic-bezier(0.16,1,0.3,1); }
+  .pib-header{ display:flex; align-items:center; justify-content:space-between; gap:12px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:8px; margin-bottom:8px; }
+  .pib-title-wrap{ display:flex; align-items:center; gap:8px; }
+  .pib-status-tag{ font-family:var(--font-mono); font-size:9px; font-weight:800; letter-spacing:0.06em; padding:2px 6px; border-radius:3px; background:rgba(0,229,255,0.18); color:#00e5ff; border:1px solid rgba(0,229,255,0.4); text-transform:uppercase; }
+  .pib-title{ font-family:var(--font-mono); font-size:11.5px; font-weight:700; color:#fff; }
+  .pib-close{ background:none; border:none; color:rgba(255,255,255,0.5); font-size:14px; cursor:pointer; padding:2px 6px; line-height:1; border-radius:4px; transition:color 0.15s; }
+  .pib-close:hover{ color:#fff; background:rgba(255,255,255,0.1); }
+  .pib-chain{ display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin:8px 0; font-family:var(--font-mono); font-size:11px; }
+  .pib-node-chip{ display:inline-flex; align-items:center; gap:5px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:5px; padding:3px 8px; color:#f0f2f7; font-weight:600; cursor:pointer; transition:all 0.15s; }
+  .pib-node-chip:hover{ background:rgba(0,229,255,0.2); border-color:#00e5ff; color:#fff; }
+  .pib-node-chip.origin{ border-color:#00e5ff; color:#00e5ff; background:rgba(0,229,255,0.12); }
+  .pib-node-chip.target{ border-color:var(--gold); color:var(--gold); background:rgba(212,146,10,0.15); }
+  .pib-arrow-chip{ display:inline-flex; align-items:center; gap:4px; font-size:10px; color:#00e5ff; font-weight:700; padding:2px 4px; }
+  .pib-arrow-chip .pib-rel-text{ font-size:9.5px; opacity:0.85; font-weight:500; }
+  .pib-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:8px; padding-top:6px; font-family:var(--font-mono); font-size:10px; color:rgba(255,255,255,0.6); }
+  .btn-pib-focus{ background:rgba(0,229,255,0.15); border:1px solid rgba(0,229,255,0.4); color:#00e5ff; border-radius:4px; padding:3px 8px; font-size:10px; font-family:var(--font-mono); font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:4px; transition:all 0.15s; }
+  .btn-pib-focus:hover{ background:#00e5ff; color:#0f1626; }
 
   /* Timeline Player Bar */
   .timeline-player-bar{ position:absolute; bottom:14px; left:14px; right:14px; z-index:4; background:var(--panel);
@@ -1023,20 +1084,25 @@ SYNTHETIC DATA ONLY</div>
         <div class="topbar-left"><h2 data-i18n="tb_graph">Network Explorer</h2><span class="badge-secure" data-i18n="badge_secure_short">SECURE</span>
           <span class="active-graph-label" data-i18n="active_graph" style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);">Active Graph: Operation Case MH/CID/2026/0417</span></div>
         <div class="path-finder-bar" id="path-finder-bar">
-          <span class="pf-label">Trace Path:</span>
-          <select id="pf-source" class="pf-select"></select>
-          <span class="pf-arrow">\u2192</span>
-          <select id="pf-target" class="pf-select"></select>
-          <button id="btn-find-path" class="btn-pf-run">Trace Path</button>
+          <span class="pf-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M12 19h4.5a3.5 3.5 0 0 0 0-7h-9a3.5 3.5 0 0 1 0-7H12"/></svg>Trace Path:</span>
+          <select id="pf-source" class="pf-select" title="Origin entity"></select>
+          <button id="btn-pf-swap" class="pf-swap-btn" title="Swap Origin and Target">⇄</button>
+          <select id="pf-target" class="pf-select" title="Target entity"></select>
+          <button id="btn-find-path" class="btn-pf-run">⚡ Trace Path</button>
           <button id="btn-clear-path" class="btn-pf-clear">Reset</button>
         </div>
         <div class="topbar-search"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input id="search-input" data-i18n="search_placeholder" data-i18n-attr="placeholder" placeholder="Query entity, phone, location\u2026"></div>
+          <input id="search-input" data-i18n="search_placeholder" data-i18n-attr="placeholder" placeholder="Query entity, phone, location…"></div>
       </div>
       <div style="display:flex; flex:1; min-height:0;">
         <div id="graph-wrap">
           <div class="graph-dotgrid"></div>
-          <div id="graph-toolbar-left"><div class="tool-icon" id="btn-reset" title="Reset Camera">\u2922</div></div>
+          <div id="graph-toolbar-left">
+            <div class="tool-icon" id="btn-zoom-in" title="Zoom In">+</div>
+            <div class="tool-icon" id="btn-zoom-out" title="Zoom Out">−</div>
+            <div class="tool-icon" id="btn-reset" title="Reset Camera / Fit to View">⤢</div>
+            <div class="tool-icon" id="btn-physics-toggle" title="Pause / Resume Layout Physics">⏸</div>
+          </div>
           <div class="path-info-badge" id="path-info-badge"></div>
           <svg id="graph"></svg>
           <div id="graph-error"><div data-i18n="graph_error_title">Graph rendering failed to initialize.</div><div data-i18n="graph_error_sub" style="color:var(--ink-faint); font-size:11px;">Other pages are unaffected.</div></div>
