@@ -77,24 +77,18 @@ if DASHBOARD_DIR.exists():
             return FileResponse(str(index_file))
         return {"status": "ok", "message": "SUTRA Backend Online"}
 
-    from fastapi import Request
+    @app.get("/{file_path:path}", include_in_schema=False)
+    def static_proxy(file_path: str):
+        target = (DASHBOARD_DIR / file_path).resolve()
+        try:
+            if target.is_relative_to(DASHBOARD_DIR.resolve()) and target.is_file():
+                return FileResponse(str(target))
+        except Exception:
+            pass
+        if not file_path:
+            return FileResponse(str(DASHBOARD_DIR / "index.html"))
+        from fastapi import HTTPException
+        raise HTTPException(status_code=404, detail="Not Found")
 
-    @app.get("/favicon.ico", include_in_schema=False)
-    def favicon():
-        fav = DASHBOARD_DIR / "favicon.ico"
-        if fav.exists():
-            return FileResponse(str(fav))
-        return FileResponse(str(DASHBOARD_DIR / "favicon.png"))
-
-    @app.get("/favicon-32x32.png", include_in_schema=False)
-    @app.get("/favicon-16x16.png", include_in_schema=False)
-    @app.get("/apple-touch-icon.png", include_in_schema=False)
-    @app.get("/favicon.png", include_in_schema=False)
-    def favicon_png(request: Request):
-        filename = request.url.path.lstrip("/")
-        fav = DASHBOARD_DIR / filename
-        if fav.exists():
-            return FileResponse(str(fav))
-        return FileResponse(str(DASHBOARD_DIR / "favicon.png"))
 
 

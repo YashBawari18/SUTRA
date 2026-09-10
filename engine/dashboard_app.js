@@ -144,6 +144,101 @@ en: {
   chip_summarize: "Summarize this case",
   chip_suspicious: "Show suspicious links",
   chip_financial: "Show flagged financial transfers",
+
+  anom_chip_1: "Comm Bursts (35%)",
+  anom_chip_2: "Fin Velocity (30%)",
+  anom_chip_3: "Centrality (20%)",
+  anom_chip_4: "Spatiotemporal (15%)",
+  anom_decision_only: "DECISION SUPPORT ONLY",
+  anom_decomposition_sub: "Transparent weighted scoring combining statistical CDR outliers, Hawala volume velocities, graph centrality, and temporal-geospatial proximity.",
+  anom_decomposition_title: "Explainable Mathematical Risk Formulation",
+  anom_sub: "Multi-Factor Anomaly Decomposition",
+  anom_title: "Dedicated Anomaly & Risk Intelligence",
+  audit_badge: "INSTITUTIONAL ACCOUNTABILITY",
+  audit_pending_sub: "AI-suggested identity merges requiring human investigator sign-off before committing to the knowledge graph.",
+  audit_pending_title: "Pending Entity Resolution Candidates",
+  audit_sub: "No Silent AI Merges",
+  audit_title: "Audit & Human Verification Workflow",
+  audit_trail_sub: "Cryptographically verifiable record of all user queries, hash integrity checks, and merge decisions.",
+  audit_trail_title: "Immutable Forensic Audit Ledger",
+  btn_clear_path: "Reset",
+  btn_run_ingest: "🚀 Execute 6-Stage Ingestion Pipeline",
+  btn_trace_history: "Trace History",
+  btn_trace_path: "⚡ Trace Path",
+  btn_verify_all_hashes: "🛡️ Verify All Vault Hashes",
+  evid_chain: "Chain of Custody & Provenance",
+  evid_integrity: "SHA-256 INTEGRITY PROTECTED",
+  evid_tab_all: "All Vault Records",
+  evid_tab_bank: "Bank Records",
+  evid_tab_cdr: "CDR Tower Dumps",
+  evid_tab_field: "Field Intel",
+  evid_tab_fir: "FIR Filings",
+  evid_tab_surv: "Surveillance Logs",
+  evid_title: "Evidence Vault / Repository",
+  globe_indicator_text: "LIVE GLOBAL INTELLIGENCE MESH • ACTIVE INTERCEPT STREAM",
+  ingest_badge: "AUTOMATED EXTRACTION",
+  ingest_cat_label: "Document Source Category",
+  ingest_file_label: "Select File (PDF, CSV, TXT, Image)",
+  ingest_history_title: "Ingestion Audit History",
+  ingest_officer_label: "Submitting Officer",
+  ingest_opt_bank: "Bank Statement / STR (CSV/XML)",
+  ingest_opt_cdr: "Telecom CDR / Cell Dump (CSV)",
+  ingest_opt_field: "Confidential Informant Report",
+  ingest_opt_fir: "First Information Report (FIR)",
+  ingest_opt_surv: "Physical Surveillance Observation Log",
+  ingest_ready_msg: "Ready for document submission. Select a file and click execute to observe 6-stage pipeline stages.",
+  ingest_submit_title: "Submit Document to Pipeline",
+  ingest_telemetry_title: "Pipeline Execution Telemetry",
+  ingest_title: "Explicit 6-Stage Ingestion Pipeline & Workflow",
+  nav_anomalies: "Anomaly & Risk",
+  nav_audit: "Audit & Verification",
+  nav_evidence: "Evidence Vault",
+  nav_ingestion: "Ingestion Pipeline",
+  nav_timeline: "Investigation Timeline",
+  pf_origin_title: "Origin entity",
+  pf_target_title: "Target entity",
+  report_btn_export: "Export Full Briefing (PDF)",
+  report_filter_all: "All Statements",
+  report_filter_fact: "FACT",
+  report_filter_inf: "INFERENCE",
+  report_filter_lead: "LEAD",
+  role_associate: "NETWORK ASSOCIATE",
+  role_broker: "STRATEGIC BROKER",
+  role_communicator: "KEY COMMUNICATOR",
+  role_mule: "FINANCIAL CONDUIT",
+  role_orchestrator: "ORCHESTRATOR",
+  step_1_title: "Pre-processing",
+  step_2_title: "OCR Engine",
+  step_3_title: "NLP Extraction",
+  step_4_title: "Entity Resolution",
+  step_5_title: "Relationship Link",
+  step_6_title: "Graph Indexing",
+  swap_tooltip: "⇄",
+  th_evid_id: "Evidence Vault ID",
+  th_findings: "Extracted Findings",
+  th_job_id: "Job ID",
+  th_sha256: "SHA-256 Checksum",
+  th_size: "Size",
+  th_source_file: "Source File",
+  th_status: "Status",
+  tl_filter_all_ents: "All Entities",
+  tl_filter_all_types: "All Event Types",
+  tl_forensic: "TEMPORAL CORRELATION",
+  tl_label_entity: "Entity:",
+  tl_label_type: "Type:",
+  tl_opt_call: "CDR Calls",
+  tl_opt_fir: "FIR Filings",
+  tl_opt_surv: "Surveillance",
+  tl_opt_tx: "Bank Transfers",
+  tl_rel_inspector: "Relationship History Inspector",
+  tl_rel_inspector_sub: "Select any two entities to analyze their chronological interaction evolution.",
+  tl_sub: "Operation Case MH/CID/2026/0417",
+  tl_title: "Dedicated Investigation Timeline",
+  tooltip_physics_toggle: "⏸",
+  tooltip_reset_camera: "⤢",
+  tooltip_zoom_in: "+",
+  tooltip_zoom_out: "−",
+  trace_path_label: "Trace Path:",
 },
 hi: {
   gov_strip: "\u0938\u0930\u0915\u093e\u0930\u0940 \u0915\u093e\u0928\u0942\u0928-\u092a\u094d\u0930\u0935\u0930\u094d\u0924\u0928 \u0928\u093f\u0930\u094d\u0923\u092f-\u0938\u0939\u093e\u092f\u0924\u093e \u092a\u094d\u0930\u094b\u091f\u094b\u091f\u093e\u0907\u092a",
@@ -291,6 +386,101 @@ hi: {
   chip_summarize: "\u0907\u0938 \u092e\u093e\u092e\u0932\u0947 \u0915\u093e \u0938\u093e\u0930\u093e\u0902\u0936 \u0926\u0947\u0902",
   chip_suspicious: "\u0938\u0902\u0926\u093f\u0917\u094d\u0927 \u0932\u093f\u0902\u0915 \u0926\u093f\u0916\u093e\u090f\u0902",
   chip_financial: "\u091a\u093f\u0928\u094d\u0939\u093f\u0924 \u0935\u093f\u0924\u094d\u0924\u0940\u092f \u0939\u0938\u094d\u0924\u093e\u0902\u0924\u0930\u0923 \u0926\u093f\u0916\u093e\u090f\u0902",
+
+  anom_chip_1: "दूरसंचार विस्फोट (35%)",
+  anom_chip_2: "वित्तीय गति (30%)",
+  anom_chip_3: "केंद्रीयता (20%)",
+  anom_chip_4: "स्थानिक-कालिक (15%)",
+  anom_decision_only: "केवल निर्णय समर्थन",
+  anom_decomposition_sub: "सांख्यिकीय सीडीआर बाह्य मान, हवाला राशि गति, ग्राफ केंद्रीयता और स्थानिक-कालिक समीपता का पारदर्शी भारित मूल्यांकन।",
+  anom_decomposition_title: "स्पष्टीकरणीय गणितीय जोखिम सूत्रण",
+  anom_sub: "बहु-घटक विसंगति पृथक्करण",
+  anom_title: "समर्पित विसंगति एवं जोखिम विश्लेषण",
+  audit_badge: "संस्थागत जवाबदेही",
+  audit_pending_sub: "नॉलेज ग्राफ में जोड़ने से पहले मानव अन्वेषक की स्वीकृति की आवश्यकता वाले एआई-सुझावित पहचान विलय।",
+  audit_pending_title: "लंबित निकाय समाधान उम्मीदवार",
+  audit_sub: "कोई मूक एआई विलय नहीं",
+  audit_title: "लेखापरीक्षा एवं मानव सत्यापन कार्यप्रवाह",
+  audit_trail_sub: "सभी उपयोगकर्ता प्रश्नों, हैश अखंडता जांच और विलय निर्णयों का क्रिप्टोग्राफ़िक रूप से सत्यापन योग्य रिकॉर्ड।",
+  audit_trail_title: "अपरिवर्तनीय फोरेंसिक लेखापरीक्षा खाता",
+  btn_clear_path: "रीसेट",
+  btn_run_ingest: "🚀 6-चरणीय अंतर्ग्रहण निष्पादित करें",
+  btn_trace_history: "इतिहास खोजें",
+  btn_trace_path: "⚡ पथ खोजें",
+  btn_verify_all_hashes: "🛡️ सभी वॉल्ट हैश सत्यापित करें",
+  evid_chain: "अभिरक्षा शृंखला एवं स्रोत",
+  evid_integrity: "SHA-256 अखंडता सुरक्षित",
+  evid_tab_all: "सभी वॉल्ट रिकॉर्ड",
+  evid_tab_bank: "बैंक रिकॉर्ड",
+  evid_tab_cdr: "सीडीआर टॉवर डेटा",
+  evid_tab_field: "फील्ड खुफिया",
+  evid_tab_fir: "एफआईआर प्रविष्टियां",
+  evid_tab_surv: "निगरानी लॉग",
+  evid_title: "साक्ष्य कक्ष / भंडार",
+  globe_indicator_text: "लाइव वैश्विक खुफिया मेश • सक्रिय इंटरसेप्ट स्ट्रीम",
+  ingest_badge: "स्वचालित निष्कर्षण",
+  ingest_cat_label: "दस्तावेज़ स्रोत श्रेणी",
+  ingest_file_label: "फ़ाइल चुनें (PDF, CSV, TXT, छवि)",
+  ingest_history_title: "अंतर्ग्रहण लेखापरीक्षा इतिहास",
+  ingest_officer_label: "प्रस्तुतकर्ता अधिकारी",
+  ingest_opt_bank: "बैंक विवरण / एसटीआर (CSV/XML)",
+  ingest_opt_cdr: "टेलीकॉम सीडीआर / सेल डंप (CSV)",
+  ingest_opt_field: "गोपनीय मुखबिर रिपोर्ट",
+  ingest_opt_fir: "प्रथम सूचना रिपोर्ट (FIR)",
+  ingest_opt_surv: "भौतिक निगरानी अवलोकन लॉग",
+  ingest_ready_msg: "दस्तावेज़ प्रस्तुत करने हेतु तैयार। फ़ाइल चुनें और 6-चरणीय पाइपलाइन देखने के लिए निष्पादित करें।",
+  ingest_submit_title: "दस्तावेज़ पाइपलाइन में जमा करें",
+  ingest_telemetry_title: "पाइपलाइन निष्पादन टेलीमेट्री",
+  ingest_title: "स्पष्ट 6-चरणीय अंतर्ग्रहण पाइपलाइन और कार्यप्रवाह",
+  nav_anomalies: "विसंगति एवं जोखिम",
+  nav_audit: "लेखापरीक्षा एवं सत्यापन",
+  nav_evidence: "साक्ष्य भंडार",
+  nav_ingestion: "अंतर्ग्रहण पाइपलाइन",
+  nav_timeline: "जांच समयरेखा",
+  pf_origin_title: "मूल निकाय",
+  pf_target_title: "लक्षित निकाय",
+  report_btn_export: "पूर्ण विवरण निर्यात करें (PDF)",
+  report_filter_all: "सभी कथन",
+  report_filter_fact: "तथ्य",
+  report_filter_inf: "अनुमान",
+  report_filter_lead: "सुराग",
+  role_associate: "नेटवर्क सहयोगी",
+  role_broker: "रणनीतिक दलाल",
+  role_communicator: "प्रमुख संचारक",
+  role_mule: "वित्तीय संवाहक",
+  role_orchestrator: "संचालक",
+  step_1_title: "पूर्व-प्रसंस्करण",
+  step_2_title: "ओसीआर इंजन",
+  step_3_title: "एनएलपी निष्कर्षण",
+  step_4_title: "निकाय समाधान",
+  step_5_title: "संबंध कड़ियाँ",
+  step_6_title: "ग्राफ अनुक्रमण",
+  swap_tooltip: "⇄",
+  th_evid_id: "साक्ष्य वॉल्ट आईडी",
+  th_findings: "निष्कर्षित निष्कर्ष",
+  th_job_id: "कार्य आईडी",
+  th_sha256: "SHA-256 चेकसम",
+  th_size: "आकार",
+  th_source_file: "स्रोत फ़ाइल",
+  th_status: "स्थिति",
+  tl_filter_all_ents: "सभी निकाय",
+  tl_filter_all_types: "सभी घटना प्रकार",
+  tl_forensic: "कालिक सहसंबंध",
+  tl_label_entity: "निकाय:",
+  tl_label_type: "प्रकार:",
+  tl_opt_call: "सीडीआर कॉल",
+  tl_opt_fir: "एफआईआर प्रविष्टियां",
+  tl_opt_surv: "निगरानी",
+  tl_opt_tx: "बैंक लेनदेन",
+  tl_rel_inspector: "संबंध इतिहास निरीक्षक",
+  tl_rel_inspector_sub: "कालानुक्रमिक संपर्क विकास का विश्लेषण करने के लिए किन्हीं दो निकायों का चयन करें।",
+  tl_sub: "ऑपरेशन केस MH/CID/2026/0417",
+  tl_title: "समर्पित जांच समयरेखा",
+  tooltip_physics_toggle: "⏸",
+  tooltip_reset_camera: "⤢",
+  tooltip_zoom_in: "+",
+  tooltip_zoom_out: "−",
+  trace_path_label: "पथ खोजें:",
 },
 mr: {
   gov_strip: "\u0936\u093e\u0938\u0915\u0940\u092f \u0915\u093e\u092f\u062f\u0947\u0936\u0940\u0930-\u0905\u0902\u092e\u0932\u092c\u091c\u093e\u0935\u0923\u0940 \u0928\u093f\u0930\u094d\u0923\u092f-\u0938\u0939\u093e\u092f\u094d\u092f \u092a\u094d\u0930\u094b\u091f\u094b\u091f\u093e\u0907\u092a",
@@ -438,7 +628,103 @@ mr: {
   chip_summarize: "\u092f\u093e \u092a\u094d\u0930\u0915\u0930\u0923\u093e\u091a\u093e \u0938\u093e\u0930\u093e\u0902\u0936 \u0926\u094d\u092f\u093e",
   chip_suspicious: "\u0938\u0902\u0936\u092f\u093f\u0924 \u0926\u0941\u0935\u0947 \u0926\u093e\u0916\u0935\u093e",
   chip_financial: "\u091a\u093f\u0928\u094d\u0939\u093e\u0902\u0915\u093f\u0924 \u0906\u0930\u094d\u0925\u093f\u0915 \u0939\u0938\u094d\u0924\u093e\u0902\u0924\u0930\u0923\u0947 \u0926\u093e\u0916\u0935\u093e",
+
+  anom_chip_1: "दूरसंचार उद्रेक (35%)",
+  anom_chip_2: "वित्तीय गती (30%)",
+  anom_chip_3: "केंद्रीयता (20%)",
+  anom_chip_4: "स्थानिक-कालिक (15%)",
+  anom_decision_only: "केवळ निर्णय समर्थन",
+  anom_decomposition_sub: "सांख्यिकीय सीडीआर बाह्य मूल्य, हवाला रक्कम गती, आलेख केंद्रीयता आणि स्थानिक-कालिक समीपता यांचे पारदर्शक भारित मूल्यमापन.",
+  anom_decomposition_title: "स्पष्टीकरणात्मक गणितीय जोखीम सूत्रण",
+  anom_sub: "बहु-घटक विसंगती पृथक्करण",
+  anom_title: "समर्पित विसंगती आणि जोखीम विश्लेषण",
+  audit_badge: "संस्थात्मक उत्तरदायित्व",
+  audit_pending_sub: "नॉलेज ग्राफमध्ये जोडण्यापूर्वी मानवी अन्वेषकाच्या मंजुरीची आवश्यकता असलेले एआय-सुचवलेले ओळख विलीनीकरण.",
+  audit_pending_title: "प्रलंबित संस्था निराकरण उमेदवार",
+  audit_sub: "कोणतेही शांत एआय विलीनीकरण नाही",
+  audit_title: "लेखापरीक्षण आणि मानवी पडताळणी कार्यप्रवाह",
+  audit_trail_sub: "सर्व वापरकर्ता प्रश्न, हॅश अखंडता तपासणी आणि विलीनीकरण निर्णयांची क्रिप्टोग्राफिकरित्या पडताळणी करण्यायोग्य नोंद.",
+  audit_trail_title: "अपरिवर्तनीय न्यायवैद्यक लेखापरीक्षण खातेवही",
+  btn_clear_path: "रीसेट",
+  btn_run_ingest: "🚀 6-टप्प्यांची अंतर्ग्रहण प्रक्रिया चालवा",
+  btn_trace_history: "इतिहास शोधा",
+  btn_trace_path: "⚡ मार्ग शोधा",
+  btn_verify_all_hashes: "🛡️ सर्व वॉल्ट हॅश पडताळा",
+  evid_chain: "ताब्यातील साखळी आणि उगम",
+  evid_integrity: "SHA-256 अखंडता संरक्षित",
+  evid_tab_all: "सर्व वॉल्ट नोंदी",
+  evid_tab_bank: "बँक नोंदी",
+  evid_tab_cdr: "सीडीआर टॉवर डेटा",
+  evid_tab_field: "क्षेत्रीय गुप्तवार्ता",
+  evid_tab_fir: "एफआयआर नोंदी",
+  evid_tab_surv: "पाळत ठेवण्याच्या नोंदी",
+  evid_title: "पुरावा कक्ष / भांडार",
+  globe_indicator_text: "थेट जागतिक गुप्तवार्ता मेश • सक्रिय इंटरसेप्ट प्रवाह",
+  ingest_badge: "स्वयंचलित निष्कर्षण",
+  ingest_cat_label: "कागदपत्र स्रोत श्रेणी",
+  ingest_file_label: "फाइल निवडा (PDF, CSV, TXT, प्रतिमा)",
+  ingest_history_title: "अंतर्ग्रहण लेखापरीक्षण इतिहास",
+  ingest_officer_label: "सादरकर्ता अधिकारी",
+  ingest_opt_bank: "बँक विवरण / एसटीआर (CSV/XML)",
+  ingest_opt_cdr: "दूरसंचार सीडीआर / सेल डंप (CSV)",
+  ingest_opt_field: "गोपनीय खबऱ्या अहवाल",
+  ingest_opt_fir: "प्रथम माहिती अहवाल (FIR)",
+  ingest_opt_surv: "भौतिक पाळत ठेवणे निरीक्षण नोंद",
+  ingest_ready_msg: "कागदपत्र सादरीकरणासाठी तयार. फाइल निवडा आणि 6-टप्प्यांची पाइपलाइन पाहण्यासाठी सुरू करा.",
+  ingest_submit_title: "कागदपत्र पाइपलाइनमध्ये सादर करा",
+  ingest_telemetry_title: "पाइपलाइन अंमलबजावणी टेलिमेट्री",
+  ingest_title: "स्पष्ट 6-टप्प्यांची अंतर्ग्रहण पाइपलाइन आणि कार्यप्रवाह",
+  nav_anomalies: "विसंगती आणि जोखीम",
+  nav_audit: "लेखापरीक्षण आणि पडताळणी",
+  nav_evidence: "पुरावा भांडार",
+  nav_ingestion: "अंतर्ग्रहण पाइपलाइन",
+  nav_timeline: "तपास कालरेषा",
+  pf_origin_title: "मूळ घटक",
+  pf_target_title: "लक्ष्य घटक",
+  report_btn_export: "संपूर्ण माहिती निर्यात करा (PDF)",
+  report_filter_all: "सर्व विधाने",
+  report_filter_fact: "वस्तुस्थिती",
+  report_filter_inf: "अनुमान",
+  report_filter_lead: "मागोवा",
+  role_associate: "नेटवर्क सहयोगी",
+  role_broker: "धोरणात्मक मध्यस्थ",
+  role_communicator: "प्रमुख संपर्ककर्ता",
+  role_mule: "वित्तीय वाहक",
+  role_orchestrator: "सूत्रधार",
+  step_1_title: "पूर्व-प्रक्रिया",
+  step_2_title: "ओसीआर इंजिन",
+  step_3_title: "एनएलपी निष्कर्षण",
+  step_4_title: "घटक निराकरण",
+  step_5_title: "संबंध दुवे",
+  step_6_title: "आलेख अनुक्रमण",
+  swap_tooltip: "⇄",
+  th_evid_id: "पुरावा वॉल्ट आयडी",
+  th_findings: "निष्कर्ष",
+  th_job_id: "कार्य आयडी",
+  th_sha256: "SHA-256 चेकसम",
+  th_size: "आकार",
+  th_source_file: "स्रोत फाईल",
+  th_status: "स्थिती",
+  tl_filter_all_ents: "सर्व घटक",
+  tl_filter_all_types: "सर्व घटना प्रकार",
+  tl_forensic: "कालिक सहसंबंध",
+  tl_label_entity: "घटक:",
+  tl_label_type: "प्रकार:",
+  tl_opt_call: "सीडीआर कॉल",
+  tl_opt_fir: "एफआयआर नोंदी",
+  tl_opt_surv: "पाळत",
+  tl_opt_tx: "बँक व्यवहार",
+  tl_rel_inspector: "संबंध इतिहास निरीक्षक",
+  tl_rel_inspector_sub: "कालक्रमानुसार परस्पर संवादाचे विश्लेषण करण्यासाठी कोणत्याही दोन घटकांची निवड करा.",
+  tl_sub: "ऑपरेशन केस MH/CID/2026/0417",
+  tl_title: "समर्पित तपास कालरेषा",
+  tooltip_physics_toggle: "⏸",
+  tooltip_reset_camera: "⤢",
+  tooltip_zoom_in: "+",
+  tooltip_zoom_out: "−",
+  trace_path_label: "मार्ग शोधा:",
 },
+
 };
 
 let CURRENT_LANG = "en";
@@ -478,31 +764,113 @@ const ICONS = {
 function applyLanguage(lang){
   CURRENT_LANG = lang;
   document.querySelectorAll(".lang-btn").forEach(b=> b.classList.toggle("active", b.dataset.lang===lang));
-  applyStaticI18n();
-  renderLegend();
-  renderCommandCenter();
-  renderEpGrid();
-  renderChips();
-  renderSampleDocs();
-  renderConflicts(parseInt(document.getElementById("thresh-slider").value,10)/100);
-  renderReportPage();
+
+  // Cleanly switch the landing page logo without overlapping
+  const heroEn = document.querySelector(".hero-logo-en");
+  const heroHi = document.querySelector(".hero-logo-hi");
+  if(heroEn && heroHi){
+    if(lang === "en"){
+      heroEn.classList.add("active");
+      heroHi.classList.remove("active");
+    } else {
+      heroEn.classList.remove("active");
+      heroHi.classList.add("active");
+    }
+  }
+  window.__userPickedLanguage = true;
+  if(typeof window.updateGlobePoppingLanguage === "function"){
+    window.updateGlobePoppingLanguage(lang);
+  }
+
+  initThemeEngine();
+applyStaticI18n();
+  if(typeof renderLegend === "function") renderLegend();
+  if(typeof renderCommandCenter === "function") renderCommandCenter();
+  if(typeof renderEpGrid === "function") renderEpGrid();
+  if(typeof renderChips === "function") renderChips();
+  if(typeof renderSampleDocs === "function") renderSampleDocs();
+  if(typeof renderConflicts === "function"){
+    const sl = document.getElementById("thresh-slider");
+    renderConflicts(sl ? parseInt(sl.value,10)/100 : 0.6);
+  }
+  if(typeof renderReportPage === "function") renderReportPage();
+  if(typeof renderEvidenceVault === "function") renderEvidenceVault();
+  if(typeof renderAnomalyPage === "function") renderAnomalyPage();
+  if(typeof renderIngestionPage === "function") renderIngestionPage();
+  if(typeof renderAuditPage === "function") renderAuditPage();
+  if(typeof renderTimelinePage === "function") renderTimelinePage();
   if(window.__reselectCurrentNode) window.__reselectCurrentNode();
-  if(CURRENT_PROFILE_ID) openProfileDetail(CURRENT_PROFILE_ID);
+  if(typeof CURRENT_PROFILE_ID !== "undefined" && CURRENT_PROFILE_ID && typeof openProfileDetail === "function") openProfileDetail(CURRENT_PROFILE_ID);
   if(typeof asstRenderSuggestions === "function") asstRenderSuggestions();
-  if(typeof ASST_HISTORY !== "undefined" && ASST_HISTORY.length === 1 && ASST_HISTORY[0].role === "assistant"){
+  if(typeof ASST_HISTORY !== "undefined" && ASST_HISTORY && ASST_HISTORY.length === 1 && ASST_HISTORY[0].role === "assistant"){
     ASST_HISTORY[0] = {role:"assistant", html:`<div>${t('asst_welcome')}</div>`};
-    asstRenderMessages();
+    if(typeof asstRenderMessages === "function") asstRenderMessages();
   }
 }
 document.querySelectorAll(".lang-btn").forEach(btn=>{
   btn.addEventListener("click", ()=> applyLanguage(btn.dataset.lang));
 });
 
-/* ---------------- LANDING <-> APP ---------------- */
+/* ---------------- LANDING <-> APP WITH FUTURISTIC LOADER ---------------- */
+let isEnteringApp = false;
 function enterApp(){
-  document.getElementById("landing").classList.remove("hide"); // reset display if any
-  document.getElementById("landing").classList.add("hide");
-  document.getElementById("app").classList.add("show");
+  if(isEnteringApp) return;
+  isEnteringApp = true;
+  
+  const modal = document.getElementById("auth-modal");
+  const fill = document.getElementById("auth-progress-bar");
+  const statusTxt = document.getElementById("auth-status-txt");
+  const termBox = document.getElementById("auth-terminal-box");
+
+  if(!modal){
+    document.getElementById("landing").classList.add("hide");
+    document.getElementById("app").classList.add("show");
+    isEnteringApp = false;
+    return;
+  }
+
+  // Open high-tech clearance modal
+  modal.classList.add("active");
+  fill.style.width = "0%";
+  
+  const steps = [
+    { pct: "25%", status: "VERIFYING CRYPTOGRAPHIC TOKEN...", log: "[AUTH] Signature validated against SHA-256 state ledger." },
+    { pct: "55%", status: "QUERYING SECURE GRAPH TOPOLOGY...", log: "[NEO4J] 1,420 nodes loaded • Community Louvain converged." },
+    { pct: "85%", status: "DE-ANONYMIZING INVESTIGATIVE STREAM...", log: "[DEEP-LINK] Entity resolution pipeline primed (0.94 conf)." },
+    { pct: "100%", status: "CLEARANCE GRANTED. ENTERING COMMAND CENTER...", log: "[SYSTEM] Access authorized. Launching SŪTRA v2.4 shell..." }
+  ];
+
+  let stepIdx = 0;
+  function nextStep(){
+    if(stepIdx < steps.length){
+      const s = steps[stepIdx];
+      fill.style.width = s.pct;
+      statusTxt.textContent = s.status;
+      
+      const line = document.createElement("div");
+      line.className = "auth-terminal-line active";
+      line.textContent = s.log;
+      termBox.appendChild(line);
+      termBox.scrollTop = termBox.scrollHeight;
+      
+      stepIdx++;
+      setTimeout(nextStep, 240);
+    } else {
+      setTimeout(()=>{
+        modal.classList.remove("active");
+        document.getElementById("landing").classList.add("hide");
+        document.getElementById("app").classList.add("show");
+        isEnteringApp = false;
+        
+        // Ensure command center page is explicitly marked active and initialized
+        goToPage("command");
+        if(typeof renderCommandCenter === "function") renderCommandCenter();
+        if(window.__reselectCurrentNode) window.__reselectCurrentNode();
+      }, 350);
+    }
+  }
+
+  setTimeout(nextStep, 150);
 }
 
 function exitToLanding(){
@@ -519,8 +887,847 @@ document.getElementById("btn-view-briefing").addEventListener("click", ()=>{
 });
 document.getElementById("btn-view-docs").addEventListener("click", enterApp);
 
+const navProto = document.getElementById("nav-protocol-btn");
+if(navProto) navProto.addEventListener("click", (e)=>{ e.preventDefault(); enterApp(); });
+const navDisc = document.getElementById("nav-disclaimer-btn");
+if(navDisc) navDisc.addEventListener("click", (e)=>{ e.preventDefault(); document.querySelector('.land-footer').scrollIntoView({behavior:'smooth'}); });
+
 const brandBtn = document.getElementById("sb-brand-btn");
 if(brandBtn) brandBtn.addEventListener("click", exitToLanding);
+
+/* ---- Interactive Glowing Particle Constellation Background for Landing ---- */
+(function initLandingCanvas(){
+  const canvas = document.getElementById("landing-canvas");
+  if(!canvas) return;
+  const ctx = canvas.getContext("2d");
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+
+  window.addEventListener("resize", ()=>{
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  });
+
+  const numParticles = Math.min(65, Math.floor((w * h) / 18000));
+  const particles = [];
+
+  for(let i = 0; i < numParticles; i++){
+    particles.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.45,
+      vy: (Math.random() - 0.5) * 0.45,
+      radius: Math.random() * 2 + 1,
+      color: Math.random() > 0.4 ? "rgba(37, 84, 232, " : "rgba(212, 146, 10, "
+    });
+  }
+
+  let mouse = { x: -1000, y: -1000 };
+  window.addEventListener("mousemove", (e)=>{
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  function animate(){
+    const landingEl = document.getElementById("landing");
+    if(landingEl && !landingEl.classList.contains("hide")){
+      ctx.clearRect(0, 0, w, h);
+
+      for(let i = 0; i < particles.length; i++){
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if(p.x < 0 || p.x > w) p.vx *= -1;
+        if(p.y < 0 || p.y > h) p.vy *= -1;
+
+        // Draw particle node
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + "0.35)";
+        ctx.fill();
+
+        // Connect nearby nodes (Intelligence Graph aesthetic)
+        for(let j = i + 1; j < particles.length; j++){
+          const p2 = particles[j];
+          const dx = p.x - p2.x;
+          const dy = p.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if(dist < 130){
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            const alpha = (1 - dist / 130) * 0.12;
+            ctx.strokeStyle = `rgba(37, 84, 232, ${alpha})`;
+            ctx.lineWidth = 0.75;
+            ctx.stroke();
+          }
+        }
+
+        // Mouse link effect
+        const mdx = p.x - mouse.x;
+        const mdy = p.y - mouse.y;
+        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if(mdist < 150){
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(212, 146, 10, ${(1 - mdist / 150) * 0.28})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+/* ================= LIVE POPPING INTELLIGENCE MESSAGES & DIRECT LINKS ================= */
+(function initPoppingIntelFeeds(){
+  const toaster = document.getElementById("live-feed-toaster");
+  if(!toaster) return;
+
+  // Real-time popping alert feed queue
+  const alertsQueue = [
+    {
+      badge: "CRITICAL INTERCEPT",
+      cls: "critical",
+      icon: "🚨",
+      text: "Suspicious Hawala wire detected: ₹4.80 Cr across 3 shell accounts",
+      targetPage: "graph",
+      linkText: "Investigate Financial Link →"
+    },
+    {
+      badge: "NODE RESOLVED",
+      cls: "resolved",
+      icon: "◈",
+      text: "Entity Resolution merged: 4 phone burner lines mapped to #REC-02",
+      targetPage: "profiles",
+      linkText: "Open Entity Profile →"
+    },
+    {
+      badge: "CROSS-BORDER TRAFFIC",
+      cls: "warning",
+      icon: "⚡",
+      text: "Maritime cargo manifest mismatch flagged at Nhava Sheva port",
+      targetPage: "datalab",
+      linkText: "Review Data Lab Records →"
+    },
+    {
+      badge: "GRAPH ALERT",
+      cls: "critical",
+      icon: "✵",
+      text: "High Centrality node detected connecting 2 syndicate clusters",
+      targetPage: "command",
+      linkText: "Launch Command Center Lead →"
+    },
+    {
+      badge: "AI ADVISORY",
+      cls: "resolved",
+      icon: "🤖",
+      text: "SŪTRA Assistant generated explainable risk lead for Case #2026-B",
+      targetPage: "assistant",
+      linkText: "Consult AI Assistant →"
+    }
+  ];
+
+  let alertIdx = 0;
+
+  function showNextToast(){
+    const landingEl = document.getElementById("landing");
+    if(!landingEl || landingEl.classList.contains("hide")) return;
+
+    const alertData = alertsQueue[alertIdx % alertsQueue.length];
+    alertIdx++;
+
+    const toast = document.createElement("div");
+    toast.className = `pop-toast ${alertData.cls}`;
+    toast.innerHTML = `
+      <div class="toast-icon">${alertData.icon}</div>
+      <div class="toast-body">
+        <div class="toast-header">
+          <span class="toast-badge">${alertData.badge}</span>
+          <span class="toast-time">JUST NOW</span>
+        </div>
+        <div class="toast-text">${alertData.text}</div>
+        <div class="toast-sublink">${alertData.linkText}</div>
+      </div>
+      <button class="toast-close" title="Dismiss">×</button>
+    `;
+
+    // Clicking toast opens the app and navigates directly to that module
+    toast.addEventListener("click", (e) => {
+      if(e.target.classList.contains("toast-close")){
+        e.stopPropagation();
+        dismissToast(toast);
+        return;
+      }
+      enterAppToPage(alertData.targetPage);
+    });
+
+    // Close button
+    const closeBtn = toast.querySelector(".toast-close");
+    if(closeBtn){
+      closeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dismissToast(toast);
+      });
+    }
+
+    toaster.appendChild(toast);
+
+    // Dynamic popping slide-in animation
+    setTimeout(() => {
+      toast.classList.add("show");
+    }, 40);
+
+    // Keep maximum 2 toasts visible at once so it never clutters
+    if(toaster.children.length > 2){
+      dismissToast(toaster.children[0]);
+    }
+
+    // Auto dismiss after 6.5s
+    setTimeout(() => {
+      dismissToast(toast);
+    }, 6500);
+
+    // Schedule next pop (between 3.5 to 5.5 seconds)
+    const nextInterval = Math.floor(Math.random() * 2000) + 3500;
+    setTimeout(showNextToast, nextInterval);
+  }
+
+  function dismissToast(el){
+    if(!el || !el.parentElement) return;
+    el.classList.remove("show");
+    setTimeout(() => {
+      if(el && el.parentElement) el.remove();
+    }, 350);
+  }
+
+  // Direct page navigation helper from landing
+  function enterAppToPage(pageKey){
+    enterApp();
+    if(pageKey){
+      setTimeout(() => {
+        if(typeof goToPage === "function") goToPage(pageKey);
+      }, 450);
+    }
+  }
+
+  // Bind all globe hotspot links to direct navigation
+  document.querySelectorAll(".globe-hotspot").forEach(spot => {
+    spot.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetPage = spot.getAttribute("data-target-page") || "command";
+      enterAppToPage(targetPage);
+    });
+  });
+
+  // Start popping alerts after 2.4 seconds so user experiences the clean arrival first
+  setTimeout(showNextToast, 2400);
+})();
+
+/* ================= 3D REVOLVING REALISTIC HALF EARTH & SEQUENTIAL POPPING INTEL ================= */
+(function initHalfEarthAndPoppingMessages(){
+  const canvas = document.getElementById("globe-canvas");
+  const popContainer = document.getElementById("globe-popping-container");
+  const streamStatusEl = document.getElementById("globe-stream-status");
+  const prevBtn = document.getElementById("btn-prev-intel");
+  const nextBtn = document.getElementById("btn-next-intel");
+  const pauseBtn = document.getElementById("btn-pause-intel");
+
+  if(!canvas || !popContainer) return;
+
+  /* ---------------- INTELLIGENCE MESSAGES DATABASE ---------------- */
+  const INTEL_STREAM = [
+    {
+      id: "intel-1",
+      tag_en: "INTERPOL RED NOTICE",
+      tag_hi: "इंटरपोल रेड नोटिस",
+      tag_mr: "इंटरपोल रेड नोटीस",
+      cls: "critical",
+      coords: "25.2°N, 55.3°E • DUBAI",
+      title_en: "Suspect #804 Hawala financial trail flagged across 3 jurisdictions (Dubai ➔ Mumbai)",
+      title_hi: "संदिग्ध #804 का हवाला वित्तीय लेन-देन 3 क्षेत्राधिकारों में चिह्नित (दुबई ➔ मुंबई)",
+      title_mr: "संशयित #804 चा हवाला व्यवहार 3 कार्यक्षेत्रांमध्ये आढळला (दुबई ➔ मुंबई)",
+      targetPage: "datalab",
+      action_en: "Inspect Hawala Trail →",
+      action_hi: "हवाला ट्रेल की जाँच करें →",
+      action_mr: "हवाला ट्रेल तपासा →",
+      top: "14%", left: "6%",
+      anchorTop: "38%", anchorLeft: "24%"
+    },
+    {
+      id: "intel-2",
+      tag_en: "SŪTRA RESOLUTION AI",
+      tag_hi: "सूत्र संकल्प एआई",
+      tag_mr: "सूत्र संकल्प एआय",
+      cls: "success",
+      coords: "28.6°N, 77.2°E • NEW DELHI",
+      title_en: "4 Shell Companies merged into single syndicate node with 99.4% confidence rating",
+      title_hi: "4 मुखौटा कंपनियाँ एक सिंडिकेट नोड में विलीन (99.4% विश्वास सूचकांक)",
+      title_mr: "4 शेल कंपन्या एका सिंडिकेट नोडमध्ये विलीन (99.4% विश्वासार्हता)",
+      targetPage: "graph",
+      action_en: "Explore Entity Graph →",
+      action_hi: "इकाई ग्राफ देखें →",
+      action_mr: "घटक आलेख उघडा →",
+      top: "10%", right: "8%",
+      anchorTop: "32%", anchorRight: "26%"
+    },
+    {
+      id: "intel-3",
+      tag_en: "CDR SIGNAL CLUSTER",
+      tag_hi: "सीडीआर सिग्नल क्लस्टर",
+      tag_mr: "सीडीआर सिग्नल क्लस्टर",
+      cls: "warning",
+      coords: "19.3°N, 73.0°E • BHIWANDI",
+      title_en: "Encrypted VoIP CDR burst intercepted near Bhiwandi warehouse logistics corridor",
+      title_hi: "भिवंडी गोदाम गलियारे के पास एन्क्रिप्टेड वीओआईपी सीडीआर बर्स्ट इंटरसेप्ट किया गया",
+      title_mr: "भिवंडी गोदाम कॉरिडॉरजवळ एन्क्रिप्टेड व्हीओआयपी सीडीआर बर्स्ट इंटरसेप्ट",
+      targetPage: "command",
+      action_en: "Open Command Center →",
+      action_hi: "कमांड सेंटर खोलें →",
+      action_mr: "कमांड सेंटर उघडा →",
+      top: "42%", left: "5%",
+      anchorTop: "54%", anchorLeft: "22%"
+    },
+    {
+      id: "intel-4",
+      tag_en: "FINANCIAL INTELLIGENCE",
+      tag_hi: "वित्तीय खुफिया चेतावनी",
+      tag_mr: "आर्थिक गुप्तवार्ता",
+      cls: "critical",
+      coords: "18.9°N, 72.8°E • MUMBAI",
+      title_en: "₹14.8 Cr split-transfer pattern detected across 12 layered mule bank accounts",
+      title_hi: "12 म्यूल बैंक खातों में ₹14.8 करोड़ का संदिग्ध विभाजन-हस्तांतरण पैटर्न मिला",
+      title_mr: "12 म्यूल बँक खात्यांमध्ये ₹14.8 कोटींचे संशयास्पद हस्तांतरण आढळले",
+      targetPage: "profiles",
+      action_en: "View Risk Dossiers →",
+      action_hi: "जोखिम प्रोफ़ाइल देखें →",
+      action_mr: "जोखीम प्रोफाइल पहा →",
+      top: "46%", right: "6%",
+      anchorTop: "56%", anchorRight: "24%"
+    },
+    {
+      id: "intel-5",
+      tag_en: "MARITIME BORDER INTEL",
+      tag_hi: "समुद्री सीमा खुफिया",
+      tag_mr: "सागरी सीमा गुप्तचर",
+      cls: "warning",
+      coords: "1.3°N, 103.8°E • SINGAPORE",
+      title_en: "East Maritime cargo vessel flagged entering territorial waters under alias manifest",
+      title_hi: "ईस्ट मैरीटाइम कार्गो पोत फर्जी घोषणा पत्र के साथ जलसीमा में प्रवेश करते पकड़ा गया",
+      title_mr: "ईस्ट मेरीटाइम मालवाहू जहाज बनावट जाहीरनाम्यासह जलसीमेत दाखल",
+      targetPage: "datalab",
+      action_en: "Inspect Manifest Docs →",
+      action_hi: "दस्तावेज़ की जाँच करें →",
+      action_mr: "कागदपत्रे तपासा →",
+      top: "22%", left: "20%",
+      anchorTop: "42%", anchorLeft: "36%"
+    },
+    {
+      id: "intel-6",
+      tag_en: "IMMUTABLE AUDIT TRAIL",
+      tag_hi: "अपरिवर्तनीय ऑडिट ट्रेल",
+      tag_mr: "अपरिवर्तनीय ऑडिट नोंद",
+      cls: "success",
+      coords: "28.6°N, 77.2°E • INI CLEARANCE",
+      title_en: "Evidentiary graph state cryptographically sealed with SHA-256 HMAC token",
+      title_hi: "साक्ष्य ग्राफ स्थिति एसएचए-256 एचएमएसी टोकन से सुरक्षित रूप से सील की गई",
+      title_mr: "पुरावा ग्राफ स्थिती SHA-256 HMAC टोकनने सुरक्षितपणे सील केली",
+      targetPage: "report",
+      action_en: "Audit Report Ledger →",
+      action_hi: "ऑडिट रिपोर्ट देखें →",
+      action_mr: "ऑडिट अहवाल पहा →",
+      top: "22%", right: "18%",
+      anchorTop: "44%", anchorRight: "34%"
+    }
+  ];
+
+  let currentIntelIdx = 0;
+  let isStreamPaused = false;
+  let streamTimer = null;
+
+  function getLocalizedField(item, prefix){
+    const lang = (typeof CURRENT_LANG !== "undefined") ? CURRENT_LANG : "en";
+    if(lang === "hi" && item[prefix + "_hi"]) return item[prefix + "_hi"];
+    if(lang === "mr" && item[prefix + "_mr"]) return item[prefix + "_mr"];
+    return item[prefix + "_en"] || "";
+  }
+
+  function popMessage(index){
+    const item = INTEL_STREAM[index % INTEL_STREAM.length];
+    currentIntelIdx = index % INTEL_STREAM.length;
+
+    // Remove any previous card so cards NEVER overlap
+    popContainer.innerHTML = "";
+
+    // Alternate positions: Even index -> Left flank, Odd index -> Right flank
+    const isLeft = (currentIntelIdx % 2 === 0);
+
+    // Anchor pin on the earth
+    const anchor = document.createElement("div");
+    anchor.className = `pop-anchor-dot ${item.cls}`;
+    anchor.style.top = isLeft ? "44%" : "42%";
+    if(isLeft){
+      anchor.style.left = "24%";
+      anchor.style.right = "auto";
+    } else {
+      anchor.style.right = "24%";
+      anchor.style.left = "auto";
+    }
+    popContainer.appendChild(anchor);
+
+    // Popping card
+    const card = document.createElement("div");
+    card.className = `globe-pop-card ${item.cls}`;
+    card.dataset.idx = currentIntelIdx;
+    card.style.top = "16%";
+    if(isLeft){
+      card.style.left = "6%";
+      card.style.right = "auto";
+    } else {
+      card.style.right = "6%";
+      card.style.left = "auto";
+    }
+
+    renderCardContent(card, item);
+
+    // Pause stream on card hover, resume on mouseleave
+    card.addEventListener("mouseenter", () => { isStreamPaused = true; updateControlUI(); });
+    card.addEventListener("mouseleave", () => { isStreamPaused = false; updateControlUI(); scheduleNextPop(); });
+
+    // Click routes to specific dashboard module
+    card.addEventListener("click", (e) => {
+      e.preventDefault();
+      enterAppToPage(item.targetPage);
+    });
+
+    popContainer.appendChild(card);
+
+    // Trigger smooth entrance animation
+    requestAnimationFrame(() => {
+      card.classList.add("show");
+    });
+
+    // Update status bar
+    if(streamStatusEl){
+      const lang = (typeof CURRENT_LANG !== "undefined") ? CURRENT_LANG : "en";
+      const statusText = lang === "hi" ? `स्ट्रीम सक्रिय (${currentIntelIdx + 1} / ${INTEL_STREAM.length})` :
+                         lang === "mr" ? `प्रवाह सक्रिय (${currentIntelIdx + 1} / ${INTEL_STREAM.length})` :
+                         `STREAM ACTIVE (${currentIntelIdx + 1} / ${INTEL_STREAM.length})`;
+      streamStatusEl.textContent = statusText;
+    }
+
+    scheduleNextPop();
+  }
+
+  function renderCardContent(card, item){
+    const tag = getLocalizedField(item, "tag");
+    const title = getLocalizedField(item, "title");
+    const action = getLocalizedField(item, "action");
+
+    card.innerHTML = `
+      <div class="pop-card-top">
+        <span class="pop-card-badge">${tag}</span>
+        <span class="pop-card-coords">${item.coords}</span>
+      </div>
+      <div class="pop-card-title">${title}</div>
+      <div class="pop-card-footer">
+        <span>${action}</span>
+        <span>↗</span>
+      </div>
+    `;
+  }
+
+  function scheduleNextPop(){
+    clearTimeout(streamTimer);
+    if(isStreamPaused) return;
+    streamTimer = setTimeout(() => {
+      popMessage(currentIntelIdx + 1);
+    }, 4200);
+  }
+
+  function updateControlUI(){
+    if(pauseBtn){
+      pauseBtn.textContent = isStreamPaused ? "▶" : "❚❚";
+      pauseBtn.title = isStreamPaused ? "Resume Stream" : "Pause Stream";
+    }
+  }
+
+  // Hook controls
+  if(prevBtn){
+    prevBtn.addEventListener("click", () => {
+      popMessage(currentIntelIdx - 1 < 0 ? INTEL_STREAM.length - 1 : currentIntelIdx - 1);
+    });
+  }
+  if(nextBtn){
+    nextBtn.addEventListener("click", () => {
+      popMessage(currentIntelIdx + 1);
+    });
+  }
+  if(pauseBtn){
+    pauseBtn.addEventListener("click", () => {
+      isStreamPaused = !isStreamPaused;
+      updateControlUI();
+      if(!isStreamPaused) scheduleNextPop();
+    });
+  }
+
+  // Global helper to refresh text when language switches
+  window.updateGlobePoppingLanguage = function(lang){
+    popContainer.querySelectorAll(".globe-pop-card").forEach(card => {
+      const idx = parseInt(card.dataset.idx, 10);
+      if(!isNaN(idx) && INTEL_STREAM[idx]){
+        renderCardContent(card, INTEL_STREAM[idx]);
+      }
+    });
+    if(streamStatusEl){
+      const statusText = lang === "hi" ? `स्ट्रीम सक्रिय (${currentIntelIdx + 1} / ${INTEL_STREAM.length})` :
+                         lang === "mr" ? `प्रवाह सक्रिय (${currentIntelIdx + 1} / ${INTEL_STREAM.length})` :
+                         `STREAM ACTIVE (${currentIntelIdx + 1} / ${INTEL_STREAM.length})`;
+      streamStatusEl.textContent = statusText;
+    }
+  };
+
+  // Start sequential popping after 1.5 seconds
+  setTimeout(() => { popMessage(0); }, 1500);
+
+  /* ---------------- THREE.JS REALISTIC 3D BIG HALF EARTH ENGINE ---------------- */
+  let renderer, scene, camera, earthMesh, atmosphereMesh, arcGroup, cloudMesh;
+  let isDragging = false, prevMouseX = 0, rotVelocity = 0.0012;
+
+  function initThreeGlobe(){
+    if(typeof THREE === "undefined"){
+      initCanvas2DFallback();
+      return;
+    }
+
+    try {
+      const wrap = document.getElementById("hero-globe-wrap");
+      const width = wrap ? wrap.clientWidth : 1180;
+      const height = wrap ? wrap.clientHeight : 530;
+
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(34, width / height, 0.1, 1000);
+      camera.position.set(0, 0.95, 4.8);
+      camera.lookAt(0, 0.05, 0);
+
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      if(typeof THREE.ACESFilmicToneMapping !== "undefined"){
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.08;
+      }
+
+      // Studio Sunlight & Space Ambient - Balanced for ultra-realistic NASA Blue Marble
+      const sunLight = new THREE.DirectionalLight(0xfff8ee, 2.1);
+      sunLight.position.set(4.8, 2.6, 3.2);
+      scene.add(sunLight);
+
+      const ambientLight = new THREE.AmbientLight(0xd0e2f7, 0.38);
+      scene.add(ambientLight);
+
+      const rimLight = new THREE.DirectionalLight(0x0284c7, 0.48);
+      rimLight.position.set(-6.0, 1.8, -2.5);
+      scene.add(rimLight);
+
+      // Multi-layer Photorealistic 3D Earth
+      const radius = 2.80;
+      const earthGeo = new THREE.SphereGeometry(radius, 64, 64);
+
+      const textureLoader = new THREE.TextureLoader();
+      const dayMap = textureLoader.load("textures/earth_day.jpg", () => {
+        if(renderer) renderer.render(scene, camera);
+      });
+      const nightMap = textureLoader.load("textures/earth_night.jpg");
+      const normalMap = textureLoader.load("textures/earth_normal.jpg");
+      const roughnessMap = textureLoader.load("textures/earth_roughness.jpg");
+      const cloudMap = textureLoader.load("textures/earth_clouds.png");
+
+      dayMap.anisotropy = 8;
+      nightMap.anisotropy = 8;
+      normalMap.anisotropy = 4;
+
+      // 1. Base Daylight Surface with 3D Relief Normal and Specular Ocean Gloss
+      const earthMat = new THREE.MeshStandardMaterial({
+        map: dayMap,
+        normalMap: normalMap,
+        normalScale: new THREE.Vector2(1.1, 1.1),
+        roughnessMap: roughnessMap,
+        roughness: 0.52,
+        metalness: 0.08
+      });
+
+      earthMesh = new THREE.Mesh(earthGeo, earthMat);
+      earthMesh.position.set(0, -1.86, 0);
+      earthMesh.rotation.y = 5.42;
+      earthMesh.rotation.x = 0.26;
+      scene.add(earthMesh);
+
+      // 2. NASA Black Marble Night City Lights Layer (Glowing dynamically on shadow hemisphere)
+      const nightMat = new THREE.ShaderMaterial({
+        uniforms: {
+          uNightTexture: { value: nightMap },
+          uSunDir: { value: new THREE.Vector3(4.8, 2.6, 3.2).normalize() }
+        },
+        vertexShader: `
+          varying vec2 vUv;
+          varying vec3 vWorldNormal;
+          void main() {
+            vUv = uv;
+            vWorldNormal = normalize(mat3(modelMatrix) * normal);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform sampler2D uNightTexture;
+          uniform vec3 uSunDir;
+          varying vec2 vUv;
+          varying vec3 vWorldNormal;
+          void main() {
+            float sunDot = dot(vWorldNormal, normalize(uSunDir));
+            float nightFactor = smoothstep(0.12, -0.22, sunDot);
+            vec4 nightCol = texture2D(uNightTexture, vUv);
+            vec3 cityGlow = nightCol.rgb * vec3(2.4, 2.0, 1.4);
+            gl_FragColor = vec4(cityGlow, nightCol.r * nightFactor * 0.95);
+          }
+        `,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      });
+      const nightMesh = new THREE.Mesh(earthGeo, nightMat);
+      earthMesh.add(nightMesh);
+
+      // 3. Dynamic 3D Translucent Atmospheric Cloud Layer
+      const cloudGeo = new THREE.SphereGeometry(radius * 1.007, 64, 64);
+      const cloudMat = new THREE.MeshStandardMaterial({
+        map: cloudMap,
+        transparent: true,
+        opacity: 0.62,
+        blending: THREE.NormalBlending,
+        depthWrite: false,
+        roughness: 0.9,
+        metalness: 0.0
+      });
+      cloudMesh = new THREE.Mesh(cloudGeo, cloudMat);
+      earthMesh.add(cloudMesh);
+
+      // 4. Authentic Rayleigh Atmospheric Corona Limb Glow (Smooth Soft Blue Halo)
+      const atmosGeo = new THREE.SphereGeometry(radius * 1.020, 64, 64);
+      const atmosMat = new THREE.ShaderMaterial({
+        vertexShader: `
+          varying vec3 vNormal;
+          varying vec3 vPosition;
+          void main() {
+            vNormal = normalize(normalMatrix * normal);
+            vPosition = (modelViewMatrix * vec4(position, 1.0)).xyz;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          varying vec3 vNormal;
+          varying vec3 vPosition;
+          void main() {
+            vec3 viewDir = normalize(-vPosition);
+            float rim = 1.0 - max(0.0, dot(vNormal, viewDir));
+            float alpha = pow(rim, 3.2) * 0.92;
+            vec3 atmosphereColor = vec3(0.08, 0.62, 1.0);
+            gl_FragColor = vec4(atmosphereColor, alpha);
+          }
+        `,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.NormalBlending,
+        side: THREE.FrontSide
+      });
+      atmosphereMesh = new THREE.Mesh(atmosGeo, atmosMat);
+      atmosphereMesh.position.copy(earthMesh.position);
+      scene.add(atmosphereMesh);
+
+      // 5. 3D Connecting Intelligence Flight Arcs & Hubs
+      arcGroup = new THREE.Group();
+      earthMesh.add(arcGroup);
+
+      const hubs = [
+        { name: "Delhi", lat: 28.61, lon: 77.21 },
+        { name: "Mumbai", lat: 19.07, lon: 72.88 },
+        { name: "Dubai", lat: 25.20, lon: 55.27 },
+        { name: "Singapore", lat: 1.35, lon: 103.82 },
+        { name: "London", lat: 51.51, lon: -0.13 },
+        { name: "New York", lat: 40.71, lon: -74.00 }
+      ];
+
+      function toVector3(lat, lon, r){
+        const phi = (90 - lat) * (Math.PI / 180);
+        const theta = (lon + 180) * (Math.PI / 180);
+        const x = -(r * Math.sin(phi) * Math.cos(theta));
+        const z = (r * Math.sin(phi) * Math.sin(theta));
+        const y = (r * Math.cos(phi));
+        return new THREE.Vector3(x, y, z);
+      }
+
+      // Add glowing surface hub markers
+      hubs.forEach(hub => {
+        const pos = toVector3(hub.lat, hub.lon, radius * 1.002);
+        const pinGeo = new THREE.SphereGeometry(0.032, 12, 12);
+        const pinMat = new THREE.MeshBasicMaterial({ color: 0x0284c7 });
+        const pinMesh = new THREE.Mesh(pinGeo, pinMat);
+        pinMesh.position.copy(pos);
+        arcGroup.add(pinMesh);
+
+        // Concentric radar beacon ring
+        const ringGeo = new THREE.RingGeometry(0.035, 0.055, 24);
+        const ringMat = new THREE.MeshBasicMaterial({ color: 0x0ea5e9, side: THREE.DoubleSide, transparent: true, opacity: 0.85 });
+        const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+        ringMesh.position.copy(pos.clone().multiplyScalar(1.001));
+        ringMesh.lookAt(pos.clone().multiplyScalar(2));
+        arcGroup.add(ringMesh);
+      });
+
+      const arcPairs = [
+        [0, 1], [0, 2], [1, 2], [0, 3], [2, 4], [4, 5]
+      ];
+
+      const photonBeacons = [];
+
+      arcPairs.forEach(([i1, i2], idx) => {
+        const v1 = toVector3(hubs[i1].lat, hubs[i1].lon, radius);
+        const v2 = toVector3(hubs[i2].lat, hubs[i2].lon, radius);
+        const mid = v1.clone().add(v2).multiplyScalar(0.5);
+        const dist = v1.distanceTo(v2);
+        mid.normalize().multiplyScalar(radius + dist * 0.16);
+
+        const curve = new THREE.QuadraticBezierCurve3(v1, mid, v2);
+        const points = curve.getPoints(40);
+        const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+
+        const arcColor = idx % 2 === 0 ? 0xd97706 : 0x0284c7;
+        const lineMat = new THREE.LineBasicMaterial({
+          color: arcColor,
+          transparent: true,
+          opacity: 0.75,
+          linewidth: 1.5
+        });
+        const arcLine = new THREE.Line(lineGeo, lineMat);
+        arcGroup.add(arcLine);
+
+        // Traveling photon pulse along arc
+        const photonGeo = new THREE.SphereGeometry(0.03, 12, 12);
+        const photonMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        const photonMesh = new THREE.Mesh(photonGeo, photonMat);
+        arcGroup.add(photonMesh);
+
+        photonBeacons.push({
+          mesh: photonMesh,
+          curve: curve,
+          progress: (idx * 0.22) % 1,
+          speed: 0.0032 + (idx * 0.0006)
+        });
+      });
+
+      // Mouse drag controls for interactive globe spinning
+      canvas.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        prevMouseX = e.clientX;
+      });
+      window.addEventListener("mouseup", () => { isDragging = false; });
+      window.addEventListener("mousemove", (e) => {
+        if(!isDragging) return;
+        const deltaX = e.clientX - prevMouseX;
+        prevMouseX = e.clientX;
+        earthMesh.rotation.y += deltaX * 0.0045;
+        rotVelocity = deltaX * 0.0008;
+      });
+
+      // Touch drag
+      canvas.addEventListener("touchstart", (e) => {
+        if(e.touches.length === 1){
+          isDragging = true;
+          prevMouseX = e.touches[0].clientX;
+        }
+      });
+      window.addEventListener("touchend", () => { isDragging = false; });
+      window.addEventListener("touchmove", (e) => {
+        if(!isDragging || e.touches.length !== 1) return;
+        const deltaX = e.touches[0].clientX - prevMouseX;
+        prevMouseX = e.touches[0].clientX;
+        earthMesh.rotation.y += deltaX * 0.0045;
+        rotVelocity = deltaX * 0.0008;
+      });
+
+      // Window resize
+      window.addEventListener("resize", () => {
+        if(!wrap || !renderer || !camera) return;
+        const w = wrap.clientWidth;
+        const h = wrap.clientHeight || 530;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      });
+
+      // Dynamic Animation Loop
+      function renderLoop(){
+        const landingEl = document.getElementById("landing");
+        if(landingEl && !landingEl.classList.contains("hide")){
+          if(!isDragging){
+            earthMesh.rotation.y += 0.0010;
+            rotVelocity *= 0.95;
+            earthMesh.rotation.y += rotVelocity;
+          }
+          if(cloudMesh){
+            cloudMesh.rotation.y += 0.00035;
+          }
+
+          // Animate arc photons
+          photonBeacons.forEach(p => {
+            p.progress = (p.progress + p.speed) % 1;
+            const pt = p.curve.getPoint(p.progress);
+            p.mesh.position.copy(pt);
+          });
+
+          renderer.render(scene, camera);
+        }
+        requestAnimationFrame(renderLoop);
+      }
+      renderLoop();
+
+    } catch(err){
+      console.warn("Three.js init fallback:", err);
+      initCanvas2DFallback();
+    }
+  }
+
+  // Graceful 2D canvas fallback if WebGL unavailable
+  function initCanvas2DFallback(){
+    const ctx = canvas.getContext("2d");
+    if(!ctx) return;
+    const img = new Image();
+    img.src = "earth-map.jpg";
+    img.onload = () => {
+      function drawFallback(){
+        const landingEl = document.getElementById("landing");
+        if(landingEl && !landingEl.classList.contains("hide")){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+        requestAnimationFrame(drawFallback);
+      }
+      drawFallback();
+    };
+  }
+
+  // Initialize Three.js globe
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", initThreeGlobe);
+  } else {
+    initThreeGlobe();
+  }
+})();
 
 /* ---- Animate sidebar brand name SUTRA <-> सूत्र in sync with CSS ---- */
 (function(){
@@ -567,78 +1774,511 @@ if(mobBrandBtn) mobBrandBtn.addEventListener("click", exitToLanding);
 const topbarLandingBtn = document.getElementById("topbar-landing-btn");
 if(topbarLandingBtn) topbarLandingBtn.addEventListener("click", exitToLanding);
 
-/* ---------------- SIDEBAR NAV ---------------- */
-document.querySelectorAll(".sb-item[data-page]").forEach(item=>{
-  item.addEventListener("click", ()=>{
-    document.querySelectorAll(".sb-item[data-page]").forEach(i=>i.classList.remove("active"));
-    item.classList.add("active");
-    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-    document.querySelector(`.page[data-page="${item.dataset.page}"]`).classList.add("active");
-    document.getElementById("sidebar").classList.remove("open");
-  });
-});
-document.getElementById("btn-toggle-sidebar").addEventListener("click", ()=> document.getElementById("sidebar").classList.toggle("open"));
+/* ---------------- ROBUST APPLICATION NAVIGATION ROUTER ---------------- */
 function goToPage(name){
-  document.querySelectorAll(".sb-item[data-page]").forEach(i=>i.classList.toggle("active", i.dataset.page===name));
-  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active", p.dataset.page===name));
+  if(!name) return;
+  // Update sidebar active states
+  document.querySelectorAll(".sb-item[data-page]").forEach(i => {
+    i.classList.toggle("active", i.dataset.page === name);
+  });
+  // Update page visibility
+  document.querySelectorAll(".page").forEach(p => {
+    p.classList.toggle("active", p.dataset.page === name);
+  });
+  // Auto-close mobile drawer
+  const sb = document.getElementById("sidebar");
+  if(sb) sb.classList.remove("open");
+
+  // Seamless dispatch to active module renderers
+  try {
+    if(name === "command"){
+      if(typeof renderCommandCenter === "function") renderCommandCenter();
+      setTimeout(()=>{ if(typeof renderMiniRadarGraph === "function") renderMiniRadarGraph(); }, 60);
+    } else if(name === "graph"){
+      if(window.__reselectCurrentNode) window.__reselectCurrentNode();
+    } else if(name === "assistant"){
+      if(typeof initAssistant === "function") initAssistant();
+    } else if(name === "profiles"){
+      if(typeof renderEpGrid === "function") renderEpGrid();
+    } else if(name === "datalab"){
+      if(typeof renderSampleDocs === "function") renderSampleDocs();
+      if(typeof renderChips === "function") renderChips();
+      const slider = document.getElementById("thresh-slider");
+      if(typeof renderConflicts === "function") renderConflicts(slider ? slider.value/100 : 0.6);
+    } else if(name === "report"){
+      if(typeof renderReportPage === "function") renderReportPage();
+    } else if(name === "evidence"){
+      if(typeof renderEvidenceVault === "function") renderEvidenceVault();
+    } else if(name === "anomalies"){
+      if(typeof renderAnomalyPage === "function") renderAnomalyPage();
+    } else if(name === "timeline"){
+      if(typeof renderTimelinePage === "function") renderTimelinePage();
+    } else if(name === "ingestion"){
+      if(typeof renderIngestionPage === "function") renderIngestionPage();
+    } else if(name === "audit"){
+      if(typeof renderAuditPage === "function") renderAuditPage();
+    }
+  } catch(err) {
+    console.error("Navigation error on page " + name + ":", err);
+  }
 }
 
-/* ---------------- COMMAND CENTER ---------------- */
-const personNodes = DATA.nodes.filter(n=>n.type==="person");
-const suspiciousEdges = DATA.edges.filter(e=>e.suspicious);
-const highRiskCount = (DATA.risk||[]).filter(r=>r.risk_indicator_score>=45).length;
+document.querySelectorAll(".sb-item[data-page]").forEach(item=>{
+  item.addEventListener("click", ()=>{
+    goToPage(item.dataset.page);
+  });
+});
+const toggleSbBtn = document.getElementById("btn-toggle-sidebar");
+if(toggleSbBtn) toggleSbBtn.addEventListener("click", ()=> document.getElementById("sidebar").classList.toggle("open"));
+
+
+/* ---------------- UPGRADED COMMAND CENTER (GRAPHS & CHARTS) ---------------- */
+// Dynamic getters so ALL functions share the same live-computed arrays
+function getPersonNodes(){ return (DATA.nodes||[]).filter(n=>n.type==="person"); }
+function getSuspiciousEdges(){ return (DATA.edges||[]).filter(e=>e.suspicious); }
+function getHighRiskCount(){ return (DATA.risk||[]).filter(r=>r.risk_indicator_score>=45).length; }
 
 function renderCommandCenter(){
+  const personNodes = getPersonNodes();
+  const suspiciousEdges = getSuspiciousEdges();
+  const highRiskCount = getHighRiskCount();
+
+  const sparkline = (data, color) => {
+    const W = 80, H = 26;
+    const mx = Math.max(...data), mn = Math.min(...data);
+    const range = (mx - mn) || 1;
+    const pts = data.map((v, i) => [
+      (i / (data.length - 1)) * W,
+      H - ((v - mn) / range) * (H - 4) - 2
+    ]);
+    const pathD = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ');
+    const areaD = `${pathD} L${W},${H} L0,${H} Z`;
+    return `<svg class="stat-sparkline" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" fill="none">
+      <defs><linearGradient id="spkG${color.replace('#','')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${color}" stop-opacity="0.2"/><stop offset="100%" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
+      <path d="${areaD}" fill="url(#spkG${color.replace('#','')})" />
+      <path d="${pathD}" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+  };
+
   document.getElementById("stat-grid").innerHTML = `
-    <div class="stat-card"><div class="tag up">${t('stat_live')}</div><div class="l">${t('stat_entities_resolved')}</div><div class="v">${DATA.nodes.length}</div></div>
-    <div class="stat-card"><div class="tag">${t('stat_flagged')}</div><div class="l">${t('stat_high_priority')}</div><div class="v">${highRiskCount}</div></div>
-    <div class="stat-card"><div class="tag">${t('stat_detected')}</div><div class="l">${t('stat_communities')}</div><div class="v">${DATA.communities.length}</div></div>
-    <div class="stat-card"><div class="tag">${t('stat_monitored')}</div><div class="l">${t('stat_suspicious_links')}</div><div class="v">${suspiciousEdges.length}</div></div>
+    <div class="stat-card live">
+      <div class="stat-card-top">
+        <div class="stat-card-icon live">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <span class="tag up">LIVE</span>
+      </div>
+      <div class="l">${t('stat_entities_resolved')}</div>
+      <div class="v">${DATA.nodes.length}</div>
+      ${sparkline([12,18,15,22,19,24,DATA.nodes.length], "#16a34a")}
+      <div class="stat-sub">99.4% graph density &middot; 4 clusters</div>
+    </div>
+    <div class="stat-card flagged">
+      <div class="stat-card-top">
+        <div class="stat-card-icon flagged">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <span class="tag warn">FLAGGED</span>
+      </div>
+      <div class="l">${t('stat_high_priority')}</div>
+      <div class="v">${highRiskCount}</div>
+      ${sparkline([2,3,2,4,3,5,highRiskCount], "#dc2626")}
+      <div class="stat-sub">Max anomaly score: ${(DATA.risk && DATA.risk[0] ? DATA.risk[0].risk_indicator_score : 63.8).toFixed(1)}</div>
+    </div>
+    <div class="stat-card detected">
+      <div class="stat-card-top">
+        <div class="stat-card-icon detected">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <span class="tag">AUTO-DETECTED</span>
+      </div>
+      <div class="l">${t('stat_communities')}</div>
+      <div class="v">${DATA.communities.length}</div>
+      ${sparkline([1,2,2,3,3,DATA.communities.length,DATA.communities.length], "#1d4ed8")}
+      <div class="stat-sub">Louvain modularity: 0.74</div>
+    </div>
+    <div class="stat-card monitored">
+      <div class="stat-card-top">
+        <div class="stat-card-icon monitored">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <span class="tag warn">MONITORED</span>
+      </div>
+      <div class="l">${t('stat_suspicious_links')}</div>
+      <div class="v">${suspiciousEdges.length}</div>
+      ${sparkline([3,5,4,6,8,7,suspiciousEdges.length], "#d97706")}
+      <div class="stat-sub">&#8377;18.4L hawala outlier flagged</div>
+    </div>
   `;
   document.querySelector('[data-page="command"] h2').textContent = t('tb_command');
-  document.querySelector('[data-page="command"] .badge-secure').textContent = t('badge_secure');
 
-  const topPersonEdge = suspiciousEdges.find(e=> {
+  renderMiniRadarGraph();
+  renderThreatRankingBars();
+  renderEntityDonutChart();
+  renderVelocityHistogram();
+  renderPrioritySuspectsRoster();
+  renderInvestigationFeed();
+}
+
+function renderMiniRadarGraph(){
+  const svgEl = document.getElementById("cc-mini-graph");
+  if(!svgEl || typeof d3 === "undefined") return;
+  const container = document.getElementById("cc-radar-container");
+  const width = (container ? container.clientWidth : 540) || 540;
+  const height = 270;
+
+  const svg = d3.select(svgEl).attr("viewBox", [0, 0, width, height]).html("");
+
+  // Background radar grid (rings & crosshairs)
+  const gGrid = svg.append("g").attr("class", "radar-grid");
+  const cx = width / 2;
+  const cy = height / 2;
+  [45, 90, 130].forEach((r, idx) => {
+    gGrid.append("circle")
+      .attr("cx", cx).attr("cy", cy).attr("r", r)
+      .attr("fill", "none")
+      .attr("stroke", "#e2e8f0")
+      .attr("stroke-dasharray", idx === 2 ? "3,3" : "none")
+      .attr("stroke-width", 1);
+  });
+  gGrid.append("line").attr("x1", cx).attr("y1", 10).attr("x2", cx).attr("y2", height - 10).attr("stroke", "#f1f5f9").attr("stroke-width", 1);
+  gGrid.append("line").attr("x1", 10).attr("y1", cy).attr("x2", width - 10).attr("y2", cy).attr("stroke", "#f1f5f9").attr("stroke-width", 1);
+
+  // Take top priority nodes and edges
+  const priorityIds = new Set(DATA.priority_ranking.slice(0, 14));
+  const subNodes = DATA.nodes.filter(n => priorityIds.has(n.id)).map(d => ({ ...d }));
+  const subNodeIds = new Set(subNodes.map(n => n.id));
+  const subEdges = DATA.edges.filter(e => {
+    const s = e.source.id || e.source;
+    const tg = e.target.id || e.target;
+    return subNodeIds.has(s) && subNodeIds.has(tg);
+  }).map(e => ({
+    source: e.source.id || e.source,
+    target: e.target.id || e.target,
+    suspicious: e.suspicious,
+    type: e.type
+  }));
+
+  const sim = d3.forceSimulation(subNodes)
+    .force("link", d3.forceLink(subEdges).id(d => d.id).distance(60))
+    .force("charge", d3.forceManyBody().strength(-140))
+    .force("center", d3.forceCenter(cx, cy))
+    .force("collision", d3.forceCollide().radius(18));
+
+  const link = svg.append("g")
+    .selectAll("line")
+    .data(subEdges)
+    .join("line")
+    .attr("stroke", d => d.suspicious ? "#dc2626" : "#cbd5e1")
+    .attr("stroke-width", d => d.suspicious ? 1.8 : 1)
+    .attr("stroke-dasharray", d => d.suspicious ? "3,2" : "none")
+    .attr("opacity", 0.7);
+
+  const nodeColor = (d) => {
+    if(d.type === "person"){
+      const r = (d.role||"").toLowerCase();
+      if(r.includes("orchestrator")) return "#d4920a";
+      if(r.includes("broker")) return "#e08a00";
+      return "#2563eb";
+    }
+    if(d.type === "phone") return "#16a34a";
+    if(d.type === "account") return "#1a56db";
+    return "#0b9494";
+  };
+
+  const node = svg.append("g")
+    .selectAll("g")
+    .data(subNodes)
+    .join("g")
+    .attr("cursor", "pointer")
+    .call(d3.drag()
+      .on("start", (event, d) => {
+        if (!event.active) sim.alphaTarget(0.3).restart();
+        d.fx = d.x; d.fy = d.y;
+      })
+      .on("drag", (event, d) => {
+        d.fx = event.x; d.fy = event.y;
+      })
+      .on("end", (event, d) => {
+        if (!event.active) sim.alphaTarget(0);
+        d.fx = null; d.fy = null;
+      })
+    )
+    .on("click", (event, d) => {
+      goToPage("graph");
+      if(window.selectNodeById) window.selectNodeById(d.id);
+    });
+
+  // Pulse aura for high risk
+  node.filter(d => (d.risk?.risk_indicator_score || 0) > 40)
+    .append("circle")
+    .attr("r", 12)
+    .attr("fill", "none")
+    .attr("stroke", "#ef4444")
+    .attr("stroke-width", 1.2)
+    .attr("opacity", 0.6);
+
+  node.append("circle")
+    .attr("r", d => d.type === "person" ? 7 : 5.5)
+    .attr("fill", nodeColor)
+    .attr("stroke", "#ffffff")
+    .attr("stroke-width", 1.5);
+
+  node.append("text")
+    .text(d => d.label.length > 12 ? d.label.substring(0, 11) + "…" : d.label)
+    .attr("x", 9)
+    .attr("y", 3.5)
+    .attr("font-family", "var(--font-mono)")
+    .attr("font-size", "8.5px")
+    .attr("fill", "#1e293b")
+    .attr("font-weight", 600)
+    .attr("pointer-events", "none");
+
+  sim.on("tick", () => {
+    link
+      .attr("x1", d => d.source.x)
+      .attr("y1", d => d.source.y)
+      .attr("x2", d => d.target.x)
+      .attr("y2", d => d.target.y);
+
+    node.attr("transform", d => `translate(${Math.max(14, Math.min(width - 14, d.x))},${Math.max(14, Math.min(height - 14, d.y))})`);
+  });
+}
+
+function renderThreatRankingBars(){
+  const container = document.getElementById("cc-threat-bars");
+  if(!container) return;
+  const sortedRisk = [...(DATA.risk || [])].sort((a,b) => b.risk_indicator_score - a.risk_indicator_score).slice(0, 5);
+
+  container.innerHTML = sortedRisk.map(r => {
+    const score = r.risk_indicator_score || 0;
+    const cls = score >= 50 ? "crit" : (score >= 30 ? "warn" : "low");
+    const name = r.name || r.person_id;
+    const role = (r.role || 'Associate').split(' ').map(w=>w[0].toUpperCase()+w.slice(1).toLowerCase()).join(' ');
+    const comm = Math.round((r.breakdown?.communication_anomaly||0)*100);
+    const fin  = Math.round((r.breakdown?.financial_anomaly||0)*100);
+    const net  = Math.round((r.breakdown?.network_centrality||0)*100);
+    return `
+      <div class="cc-bar-item" title="Comm: ${comm}% · Financial: ${fin}% · Centrality: ${net}%">
+        <div class="cc-bar-header">
+          <span>${name}</span>
+          <span class="cc-bar-score ${cls}">${score.toFixed(1)}</span>
+        </div>
+        <div class="cc-bar-role">${role}</div>
+        <div class="cc-bar-track">
+          <div class="cc-bar-fill ${cls}" style="width:${Math.min(100, Math.max(8, score))}%;"></div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderEntityDonutChart(){
+  const svgEl = document.getElementById("cc-donut-svg");
+  const legendEl = document.getElementById("cc-donut-legend");
+  if(!svgEl || !legendEl) return;
+
+  const counts = {
+    person: DATA.nodes.filter(n => n.type === "person").length,
+    phone: DATA.nodes.filter(n => n.type === "phone").length,
+    account: DATA.nodes.filter(n => n.type === "account").length,
+    other: DATA.nodes.filter(n => !["person", "phone", "account"].includes(n.type)).length
+  };
+  const total = DATA.nodes.length || 1;
+
+  const items = [
+    { label: "Persons", count: counts.person, color: "#2563eb" },
+    { label: "Phones / CDR", count: counts.phone, color: "#16a34a" },
+    { label: "Bank Accounts", count: counts.account, color: "#d4920a" },
+    { label: "Locations / Shells", count: counts.other, color: "#0b9494" }
+  ];
+
+  const radius = 56;
+  const strokeWidth = 14;
+  const circumference = 2 * Math.PI * radius;
+  let offset = 0;
+
+  let pathsHtml = `<circle cx="80" cy="80" r="${radius}" fill="none" stroke="#f1f5f9" stroke-width="${strokeWidth}"/>`;
+
+  items.forEach(item => {
+    const fraction = item.count / total;
+    const strokeDash = fraction * circumference;
+    pathsHtml += `
+      <circle cx="80" cy="80" r="${radius}" fill="none" stroke="${item.color}" stroke-width="${strokeWidth}"
+        stroke-dasharray="${strokeDash} ${circumference - strokeDash}"
+        stroke-dashoffset="${-offset}"
+        transform="rotate(-90 80 80)" />
+    `;
+    offset += strokeDash;
+  });
+
+  pathsHtml += `
+    <text x="80" y="77" text-anchor="middle" font-family="var(--font-serif)" font-size="16" font-weight="700" fill="#0f172a">${total}</text>
+    <text x="80" y="91" text-anchor="middle" font-family="var(--font-mono)" font-size="7.5" fill="#64748b" letter-spacing="0.05em">ENTITIES</text>
+  `;
+
+  svgEl.innerHTML = pathsHtml;
+
+  legendEl.innerHTML = items.map(item => `
+    <div class="item">
+      <span class="dot" style="background:${item.color};"></span>
+      <span>${item.label}: <b>${item.count}</b> (${Math.round((item.count/total)*100)}%)</span>
+    </div>
+  `).join("");
+}
+
+function renderVelocityHistogram(){
+  const container = document.getElementById("cc-velocity-chart");
+  if(!container) return;
+
+  const dataPoints = [
+    { date: "12 Jan", amt: "2.5L", v: 25, spike: false },
+    { date: "22 Jan", amt: "12K", v: 12, spike: false },
+    { date: "1 Feb", amt: "60K", v: 24, spike: false },
+    { date: "12 Feb", amt: "18.4L", v: 88, spike: true },
+    { date: "15 Feb", amt: "48L", v: 100, spike: true },
+    { date: "18 Feb", amt: "9.5L", v: 52, spike: false }
+  ];
+
+  const W = 340, H = 130, pad = { t: 12, r: 14, b: 28, l: 40 };
+  const iW = W - pad.l - pad.r;
+  const iH = H - pad.t - pad.b;
+  const xStep = iW / (dataPoints.length - 1);
+  const yMax = 105;
+  const pts = dataPoints.map((d, i) => [pad.l + i * xStep, pad.t + iH - (d.v / yMax) * iH]);
+
+  const linePath = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ');
+  const areaPath = `${linePath} L${pts[pts.length-1][0]},${pad.t + iH} L${pts[0][0]},${pad.t + iH} Z`;
+
+  // Y-axis ticks
+  const yTicks = [0, 25, 50, 75, 100];
+  const yTicksSvg = yTicks.map(v => {
+    const y = (pad.t + iH - (v / yMax) * iH).toFixed(1);
+    return `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#e8edf5" stroke-width="1"/>
+      <text x="${pad.l - 4}" y="${parseFloat(y) + 3}" text-anchor="end" font-family="var(--font-mono)" font-size="7" fill="#94a3b8">${v}</text>`;
+  }).join('');
+
+  // X-axis labels
+  const xLabelsSvg = dataPoints.map((d, i) => {
+    const x = (pad.l + i * xStep).toFixed(1);
+    return `<text x="${x}" y="${H - 4}" text-anchor="middle" font-family="var(--font-mono)" font-size="7.5" fill="#94a3b8">${d.date}</text>`;
+  }).join('');
+
+  // Spike markers
+  const markersSvg = dataPoints.map((d, i) => {
+    if (!d.spike) return '';
+    const x = pts[i][0].toFixed(1), y = pts[i][1].toFixed(1);
+    return `
+      <circle cx="${x}" cy="${y}" r="5" fill="#dc2626" opacity="0.15"/>
+      <circle cx="${x}" cy="${y}" r="3" fill="#dc2626"/>
+      <text x="${x}" y="${parseFloat(y) - 7}" text-anchor="middle" font-family="var(--font-mono)" font-size="7" fill="#dc2626" font-weight="700">&#8377;${d.amt}</text>`;
+  }).join('');
+
+  // Normal point markers
+  const normalMarkers = dataPoints.map((d, i) => {
+    if (d.spike) return '';
+    const x = pts[i][0].toFixed(1), y = pts[i][1].toFixed(1);
+    return `<circle cx="${x}" cy="${y}" r="2.5" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.2"/>`;
+  }).join('');
+
+  container.innerHTML = `<svg width="100%" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" style="display:block;">
+    <defs>
+      <linearGradient id="velGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="velGradSpike" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#dc2626" stop-opacity="0.12"/>
+        <stop offset="100%" stop-color="#dc2626" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    ${yTicksSvg}
+    <path d="${areaPath}" fill="url(#velGrad)"/>
+    <path d="${linePath}" fill="none" stroke="#1d4ed8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    ${normalMarkers}
+    ${markersSvg}
+    ${xLabelsSvg}
+    <text x="${pad.l - 4}" y="${pad.t - 2}" font-family="var(--font-mono)" font-size="7" fill="#94a3b8">&#8377;K</text>
+  </svg>`;
+}
+
+function renderPrioritySuspectsRoster(){
+  const container = document.getElementById("cc-suspects-list");
+  if(!container) return;
+  const topSuspectIds = DATA.priority_ranking.slice(0, 5);
+  const suspects = topSuspectIds.map(id => DATA.nodes.find(n => n.id === id)).filter(Boolean);
+
+  const roleClass = (role) => {
+    if (!role) return 'associate';
+    const r = role.toLowerCase();
+    if (r.includes('orchestrator')) return 'orchestrator';
+    if (r.includes('broker') || r.includes('intermediary')) return 'broker';
+    if (r.includes('conduit') || r.includes('mule') || r.includes('financial')) return 'conduit';
+    return 'associate';
+  };
+
+  container.innerHTML = suspects.map(s => {
+    const riskScore = s.risk?.risk_indicator_score || 0;
+    const isHigh = riskScore >= 45;
+    const initials = s.label.split(" ").map(w=>w[0]).slice(0,2).join("");
+    const rc = roleClass(s.role);
+    const roleDisplay = (s.role || 'Network Associate').split(' ').slice(0,3).join(' ');
+    return `
+      <div class="cc-suspect-card" onclick="goToPage('profiles'); if(window.openProfileDetail) window.openProfileDetail('${s.id}');">
+        <div class="cc-suspect-info">
+          <div class="cc-suspect-avatar ${rc}">${initials}</div>
+          <div>
+            <div class="cc-suspect-name">${s.label}</div>
+            <div class="cc-suspect-role">${roleDisplay}</div>
+          </div>
+        </div>
+        <div class="cc-suspect-risk ${isHigh ? 'high' : 'med'}">
+          ${isHigh ? 'CRITICAL' : 'ELEVATED'} &middot; ${riskScore > 0 ? riskScore.toFixed(0) : '—'}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderInvestigationFeed(){
+  const suspiciousEdges = getSuspiciousEdges();
+  const topPersonEdge = suspiciousEdges.find(e=>{
     const s = DATA.nodes.find(n=>n.id===(e.source.id||e.source));
     return s && s.type==="phone";
   }) || suspiciousEdges[0];
-  const srcLabel = topPersonEdge ? DATA.id_to_label[topPersonEdge.source.id||topPersonEdge.source] : "\u2014";
-  const tgtLabel = topPersonEdge ? DATA.id_to_label[topPersonEdge.target.id||topPersonEdge.target] : "\u2014";
+  const srcLabel = topPersonEdge ? DATA.id_to_label[topPersonEdge.source.id||topPersonEdge.source] : "—";
+  const tgtLabel = topPersonEdge ? DATA.id_to_label[topPersonEdge.target.id||topPersonEdge.target] : "—";
   const reviewCount = DATA.resolution.filter(r=>r.confidence<0.6 && r.confidence>=0.4).length;
 
   const feedItems = [
     {sev:"critical", text:t('feed_msg_1', srcLabel, tgtLabel), time:t('feed_time_1'), src:t('feed_src_1')},
-    {sev:"warning", text:t('feed_msg_2', reviewCount), time:t('feed_time_2'), src:t('feed_src_2')},
-    {sev:"info", text:t('feed_msg_3', DATA.nodes.length, DATA.edges.length), time:t('feed_time_3'), src:t('feed_src_3')},
-    {sev:"critical", text:t('feed_msg_4'), time:t('feed_time_4'), src:t('feed_src_4')},
+    {sev:"warning",  text:t('feed_msg_2', reviewCount),         time:t('feed_time_2'), src:t('feed_src_2')},
+    {sev:"info",     text:t('feed_msg_3', DATA.nodes.length, DATA.edges.length), time:t('feed_time_3'), src:t('feed_src_3')},
+    {sev:"critical", text:t('feed_msg_4'),                      time:t('feed_time_4'), src:t('feed_src_4')},
   ];
   document.getElementById("live-feed-list").innerHTML = feedItems.map(f=>`
     <div class="feed-item">
-      <div class="feed-head"><span class="feed-sev ${f.sev}">${t('feed_sev_'+f.sev)}</span><span class="feed-time">${f.time}</span></div>
-      <div class="feed-text">${f.text}</div>
-      <div class="feed-src">${t('source_prefix')} ${f.src}</div>
+      <div class="feed-accent ${f.sev}"></div>
+      <div class="feed-body">
+        <div class="feed-head">
+          <span class="feed-sev ${f.sev}">${t('feed_sev_'+f.sev)}</span>
+          <span class="feed-time">${f.time}</span>
+        </div>
+        <div class="feed-text">${f.text}</div>
+        <div class="feed-src">${t('source_prefix')} ${f.src}</div>
+      </div>
     </div>`).join("");
-
-  const commColors = ["#2554e8","#e08a00","#7c3aed","#16a34a","#dc2626","#0e9aa7","#db2777"];
-  document.getElementById("community-list").innerHTML = DATA.priority_ranking.slice(0,6).map((id,i)=>{
-    const n = DATA.nodes.find(x=>x.id===id);
-    if(!n) return "";
-    return `<div class="community-row"><div class="community-dot" style="background:${commColors[i%commColors.length]}"></div>
-      <div class="name">${n.label}</div><div class="n">${t((TYPE_META[n.type]||TYPE_META.person).labelKey)}</div></div>`;
-  }).join("");
-  document.getElementById("feed-title-el").textContent = t('feed_title');
-  document.getElementById("communities-title-el").textContent = t('communities_title');
 }
 
 /* ---------------- ROLE CLASSIFICATION BADGES ---------------- */
 function getRoleBadge(role){
   if(!role) return "";
   const r = role.toLowerCase();
-  if(r.includes("orchestrator")) return `<span class="role-badge role-orchestrator">ORCHESTRATOR</span>`;
-  if(r.includes("broker") || r.includes("intermediary")) return `<span class="role-badge role-broker">STRATEGIC BROKER</span>`;
-  if(r.includes("mule") || r.includes("financial")) return `<span class="role-badge role-mule">FINANCIAL CONDUIT</span>`;
-  if(r.includes("communicator") || r.includes("caller")) return `<span class="role-badge role-communicator">KEY COMMUNICATOR</span>`;
-  return `<span class="role-badge role-associate">NETWORK ASSOCIATE</span>`;
+  if(r.includes("orchestrator")) return `<span class="role-badge role-orchestrator">${t('role_orchestrator')}</span>`;
+  if(r.includes("broker") || r.includes("intermediary")) return `<span class="role-badge role-broker">${t('role_broker')}</span>`;
+  if(r.includes("mule") || r.includes("financial")) return `<span class="role-badge role-mule">${t('role_mule')}</span>`;
+  if(r.includes("communicator") || r.includes("caller")) return `<span class="role-badge role-communicator">${t('role_communicator')}</span>`;
+  return `<span class="role-badge role-associate">${t('role_associate')}</span>`;
 }
 
 /* ---------------- ENTITY PROFILES GRID ---------------- */
@@ -1738,14 +3378,42 @@ document.querySelectorAll(".rf-btn").forEach(btn=>{
   });
 });
 
+
+/* ---------------- DAY / NIGHT THEME ENGINE ---------------- */
+function initThemeEngine(){
+  const savedTheme = localStorage.getItem("sutra-theme") || "light";
+  applyTheme(savedTheme);
+
+  document.querySelectorAll(".theme-toggle-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "dark" ? "light" : "dark";
+      applyTheme(next);
+    });
+  });
+}
+
+function applyTheme(theme){
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("sutra-theme", theme);
+  document.querySelectorAll(".theme-icon").forEach(el => {
+    el.textContent = theme === "dark" ? "☀️" : "🌙";
+  });
+  if(typeof window.__updateGlobeTheme === "function"){
+    window.__updateGlobeTheme(theme);
+  }
+}
+
 /* ---------------- INITIAL RENDER (page load) ---------------- */
+initThemeEngine();
 applyStaticI18n();
 renderLegend();
 renderCommandCenter();
 renderEpGrid();
 renderChips();
 renderSampleDocs();
-renderConflicts(parseInt(document.getElementById("thresh-slider").value,10)/100);
+const __initSlider = document.getElementById("thresh-slider");
+renderConflicts(__initSlider ? parseInt(__initSlider.value,10)/100 : 0.6);
 renderReportPage();
 
 /* ============================================================

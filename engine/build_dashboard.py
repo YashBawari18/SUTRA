@@ -215,6 +215,7 @@ HTML = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;700;900&display=swap" rel="stylesheet">
 <title>S\u016aTRA \u2014 Criminal Network Intelligence System</title>
+<script src="three.min.js"></script>
 <style>
   :root{
     --bg:#f0f2f7; --bg-2:#ffffff; --panel:#ffffff; --panel-2:#edf0fb; --border:#dde2ef;
@@ -227,6 +228,95 @@ HTML = """<!DOCTYPE html>
     --shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
     --shadow:0 4px 12px rgba(0,0,0,0.08),0 2px 4px rgba(0,0,0,0.04);
   }
+  [data-theme="dark"]{
+    --bg:#080c16; --bg-2:#0f172a; --panel:#131c31; --panel-2:#1e293b; --border:#1e2e4a;
+    --ink:#f8fafc; --ink-dim:#94a3b8; --ink-faint:#64748b;
+    --gold:#f59e0b; --amber:#fbbf24; --cyan:#22d3ee; --red:#f87171; --blue:#3b82f6; --green:#10b981;
+    --shadow-sm:0 1px 3px rgba(0,0,0,0.4),0 1px 2px rgba(0,0,0,0.25);
+    --shadow:0 4px 14px rgba(0,0,0,0.5),0 2px 5px rgba(0,0,0,0.3);
+  }
+
+  /* --- Day / Night Toggle Button --- */
+  .theme-toggle-btn{ background:transparent; border:1px solid var(--border); border-radius:var(--radius-sm); padding:4px 8px; font-size:12px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; color:var(--ink); transition:all 0.18s ease; line-height:1; }
+  .theme-toggle-btn:hover{ background:var(--panel-2); border-color:var(--ink-faint); transform:scale(1.06); }
+  .land-nav .theme-toggle-btn{ margin-left:14px; padding:4px 9px; }
+
+  /* --- Dark Theme Specialized Overrides --- */
+  [data-theme="dark"] .land-header{ background:rgba(15,23,42,0.92); border-bottom-color:#1e2e4a; box-shadow:0 1px 4px rgba(0,0,0,0.3); }
+  [data-theme="dark"] .land-brand-name{ color:#f8fafc; }
+  [data-theme="dark"] .land-brand-badge{ background:rgba(30,58,138,0.35); color:#60a5fa; border-color:#1e40af; }
+  [data-theme="dark"] .land-nav a{ color:#94a3b8; }
+  [data-theme="dark"] .land-nav a:hover{ color:#f8fafc; }
+  [data-theme="dark"] .hero h1{ color:#f8fafc; }
+  [data-theme="dark"] .hero p{ color:#94a3b8; }
+  [data-theme="dark"] .btn-hero-secondary{ border-color:#334155; color:#cbd5e1; }
+  [data-theme="dark"] .btn-hero-secondary:hover{ border-color:#64748b; color:#ffffff; }
+  [data-theme="dark"] .globe-indicator{ background:rgba(19,28,49,0.94); border-color:#1e3a8a; color:#38bdf8; box-shadow:0 4px 16px rgba(0,0,0,0.4); }
+  [data-theme="dark"] .globe-pop-card{ background:rgba(19,28,49,0.96); border-color:#1e2e4a; color:#f8fafc; box-shadow:0 16px 36px rgba(0,0,0,0.4); }
+  [data-theme="dark"] .pop-card-title{ color:#f8fafc; }
+  [data-theme="dark"] .pop-card-coords{ color:#64748b; }
+  [data-theme="dark"] .globe-controls-pill{ background:rgba(19,28,49,0.94); border-color:#1e2e4a; box-shadow:0 4px 16px rgba(0,0,0,0.4); }
+  [data-theme="dark"] .stream-lbl{ color:#94a3b8; }
+  [data-theme="dark"] .stream-btn{ color:#94a3b8; }
+  [data-theme="dark"] .stream-btn:hover{ color:#ffffff; background:rgba(56,189,248,0.15); }
+  [data-theme="dark"] .hero-hud-bar{ background:rgba(19,28,49,0.96); border-color:#1e2e4a; box-shadow:0 12px 36px rgba(0,0,0,0.5); }
+  [data-theme="dark"] .hud-stat{ border-right-color:#1e2e4a; }
+  [data-theme="dark"] .hud-stat .hud-lbl{ color:#94a3b8; }
+  [data-theme="dark"] .hud-stat .hud-val{ color:#f8fafc; }
+  [data-theme="dark"] .caps-section h2{ color:#f8fafc; }
+  [data-theme="dark"] .caps-section > p{ color:#94a3b8; }
+  [data-theme="dark"] .cap-card{ background:var(--panel); border-color:var(--border); }
+  [data-theme="dark"] .cap-card h3{ color:#f8fafc; }
+  [data-theme="dark"] .cap-card p{ color:#94a3b8; }
+  [data-theme="dark"] .cap-icon{ background:var(--bg-2); border-color:var(--border); }
+  [data-theme="dark"] .cap-wide-card{ background:var(--panel); border-color:var(--border); }
+  [data-theme="dark"] .cap-wide-card h3{ color:#f8fafc; }
+  [data-theme="dark"] .cap-wide-card p{ color:#94a3b8; }
+  [data-theme="dark"] .btn-doc{ border-color:var(--border); color:var(--ink-dim); }
+  [data-theme="dark"] .btn-doc:hover{ border-color:var(--ink); color:var(--ink); }
+  [data-theme="dark"] .land-footer{ border-top-color:#1e2e4a; color:#64748b; }
+  [data-theme="dark"] .land-footer a{ color:#64748b; }
+  [data-theme="dark"] .land-footer a:hover{ color:#94a3b8; }
+  [data-theme="dark"] .pop-toast{ background:#131c31; border-color:#1e2e4a; color:#f8fafc; box-shadow:0 12px 28px rgba(0,0,0,0.4); }
+  [data-theme="dark"] .toast-text{ color:#cbd5e1; }
+  [data-theme="dark"] .toast-icon{ background:#0b0f19; }
+  [data-theme="dark"] .auth-box{ background:#131c31; border-color:#1e2e4a; color:#f8fafc; }
+  [data-theme="dark"] .auth-title{ color:#f8fafc; }
+  [data-theme="dark"] .auth-status{ color:#94a3b8; }
+  [data-theme="dark"] .auth-terminal{ background:#080c16; border-color:#1e2e4a; }
+  [data-theme="dark"] .auth-progress-track{ background:#1e293b; }
+  [data-theme="dark"] .auth-terminal-line{ color:#64748b; }
+  [data-theme="dark"] .auth-terminal-line.active{ color:#38bdf8; }
+
+  /* Inside Dashboard Dark Theme */
+  [data-theme="dark"] .btn-cc-action{ background:#1e293b; border-color:#334155; color:#60a5fa; }
+  [data-theme="dark"] .btn-cc-action:hover{ background:#26354f; border-color:#475569; color:#93c5fd; }
+  [data-theme="dark"] .cc-radar-container{ background:linear-gradient(135deg,#0a0f1d 0%,#0f172a 100%); border-color:#1e2e4a; }
+  [data-theme="dark"] .cc-radar-legend{ background:rgba(15,23,42,0.95); border-color:#1e2e4a; color:#94a3b8; }
+  [data-theme="dark"] .cc-chart-box{ background:#0f172a; border-color:#1e2e4a; }
+  [data-theme="dark"] .cc-chart-title{ color:#cbd5e1; }
+  [data-theme="dark"] .cc-bar-header{ color:#f1f5f9; }
+  [data-theme="dark"] .cc-bar-track{ background:#1e293b; }
+  [data-theme="dark"] .cc-donut-legend{ color:#94a3b8; }
+  [data-theme="dark"] .cc-donut-legend b{ color:#f8fafc; }
+  [data-theme="dark"] .cc-velocity-chart{ background:#0f172a; border-color:#1e2e4a; }
+  [data-theme="dark"] .cc-velocity-wrap{ background:#0f172a; border-color:#1e2e4a; }
+  [data-theme="dark"] .cc-suspect-card{ background:#0f172a; border-color:#1e2e4a; }
+  [data-theme="dark"] .cc-suspect-card:hover{ background:#151f38; border-color:#334155; }
+  [data-theme="dark"] .cc-suspect-name{ color:#f8fafc; }
+  [data-theme="dark"] .stat-card{ background:var(--panel); border-color:var(--border); }
+  [data-theme="dark"] .stat-card.live{ background:linear-gradient(135deg,#131c31,#0b192c); }
+  [data-theme="dark"] .stat-card.flagged{ background:linear-gradient(135deg,#131c31,#281318); }
+  [data-theme="dark"] .stat-card.detected{ background:linear-gradient(135deg,#131c31,#0c1c38); }
+  [data-theme="dark"] .stat-card.monitored{ background:linear-gradient(135deg,#131c31,#241a0e); }
+  [data-theme="dark"] .audit-table th{ background:#0b0f19; color:var(--ink-faint); }
+  [data-theme="dark"] #graph-wrap{ background:#070a12; }
+  [data-theme="dark"] .graph-dotgrid{ opacity:0.12; }
+  [data-theme="dark"] .dl-panel, [data-theme="dark"] .dl-doc-area{ background:var(--panel); border-color:var(--border); }
+  [data-theme="dark"] .pd-card{ background:var(--panel); border-color:var(--border); }
+  [data-theme="dark"] .asst-msg-text{ background:#1e293b; color:#f8fafc; border-color:#334155; }
+  [data-theme="dark"] .asst-user .asst-msg-text{ background:linear-gradient(135deg,#1e3a8a,#2563eb); color:#ffffff; }
+
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{ background:var(--bg); color:var(--ink); font-family:var(--font-body); font-size:14px; line-height:1.55; height:100%; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
   body{ overflow:hidden; }
@@ -238,96 +328,189 @@ HTML = """<!DOCTYPE html>
   button{ font-family:inherit; cursor:pointer; }
 
   /* ================= LANDING / BRIEFING SPLASH ================= */
-  #landing{ position:fixed; inset:0; background:var(--bg); z-index:100; overflow-y:auto; }
+  #landing{ position:fixed; inset:0; background:var(--bg); z-index:100; overflow-y:auto; color:var(--ink); font-family:var(--font-body); scroll-behavior:smooth; }
   #landing.hide{ display:none; }
-  .land-header{ display:flex; align-items:center; justify-content:space-between; padding:16px 40px;
-    border-bottom:1px solid var(--border); }
-  .land-brand{ display:flex; align-items:center; gap:12px; }
-  .land-devanagari{ font-family:var(--font-serif); font-size:20px; color:var(--gold); }
-  .land-brand-name{ font-family:var(--font-serif); font-size:17px; letter-spacing:0.06em; font-weight:700; color:var(--ink); }
-  .land-nav{ display:flex; gap:24px; font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); letter-spacing:0.06em; font-weight:500; }
+  #landing-canvas{ position:fixed; inset:0; pointer-events:none; z-index:0; width:100%; height:100%; opacity:0.35; }
 
-  .hero{ max-width:860px; margin:0 auto; text-align:center; padding:90px 30px 60px; }
-  /* ================= ANIMATED SUTRA LOGO ================= */
-  .sutra-logo-wrap{ position:relative; display:inline-block; }
-  .sutra-logo-en,
-  .sutra-logo-hi{ position:absolute; top:0; left:0; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; }
-  .sutra-logo-en{ animation: sutra-en 5s ease-in-out infinite; }
-  .sutra-logo-hi{ animation: sutra-hi 5s ease-in-out infinite; }
-  @keyframes sutra-en{
-    0%   { opacity:1; transform:translateY(0); }
-    35%  { opacity:1; transform:translateY(0); }
-    45%  { opacity:0; transform:translateY(-6px); }
-    80%  { opacity:0; transform:translateY(6px); }
-    90%  { opacity:1; transform:translateY(0); }
-    100% { opacity:1; transform:translateY(0); }
-  }
-  @keyframes sutra-hi{
-    0%   { opacity:0; transform:translateY(6px); }
-    35%  { opacity:0; transform:translateY(6px); }
-    45%  { opacity:1; transform:translateY(0); }
-    80%  { opacity:1; transform:translateY(0); }
-    90%  { opacity:0; transform:translateY(-6px); }
-    100% { opacity:0; transform:translateY(-6px); }
-  }
-  /* Sidebar compact logo */
-  .sb-logo-wrap{ position:relative; width:36px; height:32px; flex-shrink:0; }
-  .sb-logo-en,
-  .sb-logo-hi{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    font-family:var(--font-serif); font-size:20px; font-weight:700; color:var(--ink); line-height:1; }
-  .sb-logo-en{ animation: sutra-en 5s ease-in-out infinite; }
-  .sb-logo-hi{ animation: sutra-hi 5s ease-in-out infinite; }
-  /* Hero big logo */
-  .hero-logo-wrap{ position:relative; height:88px; margin-bottom:18px; display:flex; align-items:center; justify-content:center; }
+  /* Official Gov Ribbon (Tricolor) */
+  .gov-tricolor-bar{ height:4px; width:100%; background:linear-gradient(90deg, #FF9933 0%, #FF9933 33.3%, #ffffff 33.3%, #ffffff 66.6%, #138808 66.6%, #138808 100%); position:sticky; top:0; z-index:60; }
+
+  .land-header{ position:sticky; top:4px; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:14px 44px;
+    background:rgba(255, 255, 255, 0.94); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid #dde3ea; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+  .land-brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .land-devanagari{ font-family:var(--font-serif); font-size:22px; color:var(--gold); font-weight:700; }
+  .land-brand-name{ font-family:var(--font-serif); font-size:17px; letter-spacing:0.08em; font-weight:700; color:#0f172a; }
+  .land-brand-badge{ font-family:var(--font-mono); font-size:9px; letter-spacing:0.06em; background:#e8f0fe; color:#1a56db; border:1px solid #bfdbfe; padding:2px 8px; border-radius:4px; font-weight:600; }
+  .land-nav{ display:flex; align-items:center; gap:26px; font-family:var(--font-mono); font-size:11px; color:#475569; letter-spacing:0.04em; font-weight:600; }
+  .land-nav a{ color:#475569; text-decoration:none; transition:color 0.15s; }
+  .land-nav a:hover{ color:#0f172a; }
+
+
+  .hero{ max-width:1240px; margin:0 auto; text-align:center; padding:45px 24px 20px; position:relative; z-index:1; }
+  /* ================= SUTRA BRAND LOGO (OFFICIAL DESIGN) ================= */
+  .hero-logo-wrap{ position:relative; min-height:86px; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; max-width:440px; }
   .hero-logo-en,
-  .hero-logo-hi{ position:absolute; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; }
-  .hero-logo-en{ animation: sutra-en 5s ease-in-out infinite; }
-  .hero-logo-hi{ animation: sutra-hi 5s ease-in-out infinite; }
-  .hero-logo-text-en{ font-family:var(--font-serif); font-size:72px; font-weight:700; color:#1a2d6b; line-height:1; letter-spacing:0.02em; position:relative; }
-  .hero-logo-text-hi{ font-family:'Noto Sans Devanagari','Mangal',var(--font-serif),sans-serif; font-size:62px; font-weight:700; color:#1a2d6b; line-height:1; position:relative; }
-  .hero-logo-wave{ display:block; margin-top:2px; }
-  .hero-mark{ font-family:var(--font-serif); font-size:68px; color:var(--gold); line-height:1; margin-bottom:16px; opacity:0.88; }
-  .hero h1{ font-family:var(--font-serif); font-size:40px; font-weight:700; color:var(--ink); margin-bottom:16px; letter-spacing:0.01em; line-height:1.2; }
-  .hero p{ font-family:var(--font-body); font-size:14.5px; color:var(--ink-dim); max-width:560px; margin:0 auto 32px; line-height:1.75; font-weight:400; }
-  .hero-btns{ display:flex; gap:12px; justify-content:center; }
-  .btn-hero-primary{ background:var(--gold); color:#ffffff; border:none; padding:12px 28px; border-radius:var(--radius-sm);
-    font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.07em; font-weight:700; transition:opacity 0.15s; }
-  .btn-hero-primary:hover{ opacity:0.88; }
-  .btn-hero-secondary{ background:none; color:var(--ink); border:1px solid var(--border); padding:12px 28px; border-radius:var(--radius-sm);
-    font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.07em; transition:border-color 0.15s; }
-  .btn-hero-secondary:hover{ border-color:var(--ink-dim); }
+  .hero-logo-hi{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; transition:opacity 0.25s cubic-bezier(0.16,1,0.3,1), transform 0.25s cubic-bezier(0.16,1,0.3,1); }
+  .hero-logo-en.active{ display:flex; opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+  .hero-logo-en:not(.active){ display:none !important; opacity:0; pointer-events:none; }
+  .hero-logo-hi.active{ display:flex; opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+  .hero-logo-hi:not(.active){ display:none !important; opacity:0; pointer-events:none; }
+  .hero-logo-img{ max-height:82px; width:auto; max-width:100%; object-fit:contain; filter:drop-shadow(0 4px 14px rgba(26,45,107,0.15)); transition:transform 0.25s ease; }
+  .hero-logo-img:hover{ transform:scale(1.03); filter:drop-shadow(0 6px 20px rgba(26,45,107,0.22)); }
 
-  .caps-section{ max-width:1100px; margin:0 auto; padding:50px 30px 28px; text-align:center; }
-  .caps-section h2{ font-family:var(--font-serif); font-size:24px; margin-bottom:10px; font-weight:700; }
-  .caps-section > p{ color:var(--ink-faint); font-size:13px; margin-bottom:8px; line-height:1.6; }
-  .caps-divider{ width:44px; height:2px; background:var(--gold); margin:16px auto 36px; }
-  .caps-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; max-width:1100px; margin:0 auto; padding:0 30px; }
-  .cap-card{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; text-align:left; position:relative; transition:box-shadow 0.2s; }
-  .cap-card:hover{ box-shadow:var(--shadow-sm); }
-  .cap-tag{ position:absolute; top:14px; right:14px; font-family:var(--font-mono); font-size:8px; color:var(--ink-faint); letter-spacing:0.07em; }
-  .cap-tag.core{ color:var(--gold); border:1px solid var(--gold); padding:2px 6px; border-radius:2px; font-weight:700; }
-  .cap-icon{ width:36px; height:36px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius);
-    display:flex; align-items:center; justify-content:center; margin-bottom:14px; color:var(--gold); }
-  .cap-card h3{ font-family:var(--font-body); font-size:14px; font-weight:600; margin-bottom:7px; color:var(--ink); }
-  .cap-card p{ font-size:12.5px; color:var(--ink-faint); line-height:1.65; }
-  .cap-visual{ margin-top:14px; height:64px; border:1px dashed var(--border); border-radius:var(--radius-sm); display:flex;
-    align-items:center; justify-content:center; font-family:var(--font-mono); font-size:9px; color:var(--ink-faint); letter-spacing:0.04em; }
+  .hero h1{ font-family:var(--font-serif); font-size:40px; font-weight:700; color:#0f172a; margin:0 auto 16px; letter-spacing:0.01em; line-height:1.2; max-width:860px; }
+  .hero p{ font-family:var(--font-body); font-size:14.5px; color:#475569; max-width:640px; margin:0 auto 28px; line-height:1.75; font-weight:400; }
 
-  .cap-wide{ max-width:1100px; margin:16px auto 0; padding:0 30px; }
-  .cap-wide-card{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:20px 24px;
-    display:flex; align-items:center; gap:20px; position:relative; }
-  .cap-wide-card .cap-icon{ margin-bottom:0; flex-shrink:0; }
+  .hero-btns{ display:flex; gap:12px; justify-content:center; margin-bottom:12px; }
+  .btn-hero-primary{ background:var(--gold); color:#ffffff; border:none; padding:12px 28px; border-radius:var(--radius);
+    font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.07em; font-weight:700; cursor:pointer; transition:all 0.15s ease; box-shadow:0 3px 10px rgba(212,146,10,0.25); }
+  .btn-hero-primary:hover{ opacity:0.92; transform:translateY(-1px); box-shadow:0 6px 14px rgba(212,146,10,0.35); }
+  .btn-hero-primary:active{ transform:translateY(1px); }
+
+  .btn-hero-secondary{ background:#ffffff; color:#334155; border:1px solid #cbd5e1; padding:12px 28px; border-radius:var(--radius);
+    font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.07em; cursor:pointer; font-weight:600; box-shadow:0 1px 2px rgba(0,0,0,0.04); transition:border-color 0.15s; }
+  .btn-hero-secondary:hover{ border-color:#94a3b8; color:#0f172a; }
+
+  /* ================= 3D REVOLVING ULTRA-REALISTIC BIG HALF EARTH ================= */
+  .hero-globe-wrap{ position:relative; width:100%; max-width:1180px; height:530px; margin:16px auto 0; overflow:hidden; display:flex; align-items:flex-start; justify-content:center; flex-shrink:0; background:transparent; border:none; box-shadow:none; border-radius:0; }
+  #globe-canvas{ width:100%; height:530px; display:block; cursor:grab; }
+  #globe-canvas:active{ cursor:grabbing; }
+
+  .globe-indicator{ position:absolute; top:12px; left:50%; transform:translateX(-50%); font-family:var(--font-mono); font-size:10px; color:#0284c7; background:rgba(255,255,255,0.92); border:1px solid #bae6fd; padding:5px 16px; border-radius:20px; backdrop-filter:blur(12px); display:flex; align-items:center; gap:8px; box-shadow:0 4px 16px rgba(14,165,233,0.12); z-index:6; pointer-events:none; font-weight:600; letter-spacing:0.06em; }
+  .globe-indicator .pulse-beacon{ width:7px; height:7px; border-radius:50%; background:#10b981; box-shadow:0 0 10px #10b981; position:relative; }
+  .globe-indicator .pulse-beacon::after{ content:''; position:absolute; inset:-4px; border-radius:50%; border:1.5px solid #10b981; animation:sonarPing 2s infinite; }
+
+  /* Sequential Popping Intelligence Messages - Sleek Crystal Glass HUD */
+  #globe-popping-container{ position:absolute; inset:0; pointer-events:none; z-index:7; }
+  .globe-pop-card{ position:absolute; pointer-events:auto; display:flex; flex-direction:column; gap:5px; padding:13px 17px; background:rgba(255,255,255,0.96); border:1px solid #cbd5e1; border-left:4px solid #0284c7; border-radius:12px; font-family:var(--font-body); box-shadow:0 16px 36px rgba(15,23,42,0.12), 0 2px 6px rgba(0,0,0,0.04); backdrop-filter:blur(16px); cursor:pointer; text-decoration:none; color:inherit; max-width:330px; opacity:0; transform:translateY(14px) scale(0.94); transition:opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.2s, box-shadow 0.2s; }
+  .globe-pop-card.show{ opacity:1; transform:translateY(0) scale(1); }
+  .globe-pop-card:hover{ transform:translateY(-3px) scale(1.02); border-color:#0284c7; box-shadow:0 22px 48px rgba(15,23,42,0.16); }
+  .globe-pop-card.critical{ border-left-color:#ef4444; border-color:rgba(239,68,68,0.35); }
+  .globe-pop-card.warning{ border-left-color:#f59e0b; border-color:rgba(245,158,11,0.35); }
+  .globe-pop-card.success{ border-left-color:#10b981; border-color:rgba(16,185,129,0.35); }
+
+  .pop-card-top{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .pop-card-badge{ font-family:var(--font-mono); font-size:9px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#0284c7; }
+  .globe-pop-card.critical .pop-card-badge{ color:#dc2626; }
+  .globe-pop-card.warning .pop-card-badge{ color:#d97706; }
+  .globe-pop-card.success .pop-card-badge{ color:#059669; }
+  .pop-card-coords{ font-family:var(--font-mono); font-size:9px; color:#64748b; font-weight:600; }
+  .pop-card-title{ font-size:13px; font-weight:600; color:#0f172a; line-height:1.45; }
+  .pop-card-footer{ display:flex; align-items:center; justify-content:space-between; margin-top:2px; font-family:var(--font-mono); font-size:10px; color:#0284c7; font-weight:600; }
+  .globe-pop-card:hover .pop-card-footer{ color:#0369a1; }
+
+  /* Pin radar anchor pointing to earth */
+  .pop-anchor-dot{ position:absolute; width:10px; height:10px; border-radius:50%; background:#0284c7; box-shadow:0 0 14px #0284c7; pointer-events:none; transform:translate(-50%, -50%); z-index:6; }
+  .pop-anchor-dot::after{ content:''; position:absolute; inset:-5px; border-radius:50%; border:2px solid #0284c7; animation:sonarPing 2s infinite; }
+  .pop-anchor-dot.critical{ background:#ef4444; box-shadow:0 0 14px #ef4444; }
+  .pop-anchor-dot.critical::after{ border-color:#ef4444; }
+  .pop-anchor-dot.warning{ background:#f59e0b; box-shadow:0 0 14px #f59e0b; }
+  .pop-anchor-dot.warning::after{ border-color:#f59e0b; }
+  .pop-anchor-dot.success{ background:#10b981; box-shadow:0 0 14px #10b981; }
+  .pop-anchor-dot.success::after{ border-color:#10b981; }
+
+  /* Globe stream control bar */
+  .globe-controls-pill{ position:absolute; bottom:124px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:8px; z-index:8; background:rgba(255,255,255,0.94); border:1px solid #cbd5e1; border-radius:20px; padding:5px 15px; font-family:var(--font-mono); font-size:10px; backdrop-filter:blur(12px); box-shadow:0 4px 16px rgba(15,23,42,0.08); }
+  .stream-dot{ color:#10b981; font-size:9px; animation:blink 1.5s infinite; }
+  .stream-lbl{ color:#475569; font-weight:600; }
+  .stream-sep{ color:#cbd5e1; }
+  .stream-btn{ border:none; background:transparent; font-size:10px; color:#64748b; cursor:pointer; padding:2px 6px; border-radius:10px; font-family:inherit; font-weight:600; }
+  .stream-btn:hover{ color:#0f172a; background:rgba(2,132,199,0.1); }
+
+  /* Live Telemetry HUD Bar - Anchored Directly ON the Earth at the Bottom of Page */
+  .hero-hud-bar{ position:absolute; bottom:16px; left:50%; transform:translateX(-50%); display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; max-width:980px; width:calc(100% - 40px); padding:16px 24px; background:rgba(255,255,255,0.95); border:1px solid #cbd5e1; border-radius:12px; box-shadow:0 12px 36px rgba(15,23,42,0.1), 0 1px 3px rgba(0,0,0,0.04); backdrop-filter:blur(16px); z-index:10; text-align:left; }
+  .hud-stat{ display:flex; flex-direction:column; gap:3px; padding:0 10px; border-right:1px solid #e2e8f0; }
+  .hud-stat:last-child{ border-right:none; }
+  .hud-stat .hud-lbl{ font-family:var(--font-mono); font-size:9.5px; color:#64748b; text-transform:uppercase; letter-spacing:0.06em; font-weight:600; display:flex; align-items:center; gap:6px; }
+  .hud-stat .hud-lbl span{ color:#1a56db; }
+  .hud-stat .hud-val{ font-family:var(--font-serif); font-size:23px; font-weight:700; color:#0f172a; letter-spacing:-0.01em; margin:2px 0; }
+  .hud-stat .hud-val span{ color:var(--gold); font-size:13px; font-weight:600; margin-left:4px; }
+  .hud-stat .hud-sub{ font-size:10.5px; color:#16a34a; font-family:var(--font-mono); font-weight:500; }
+  @media(max-width:768px){
+    .hero-hud-bar{ grid-template-columns:repeat(2, 1fr); bottom:10px; padding:12px 14px; gap:10px; }
+    .globe-controls-pill{ bottom:138px; }
+  }
+
+  /* Popping Live Toast Notifications in Corner */
+  #live-feed-toaster{ position:fixed; bottom:24px; right:24px; z-index:150; display:flex; flex-direction:column-reverse; gap:10px; pointer-events:none; max-width:340px; width:calc(100vw - 48px); }
+  .pop-toast{ pointer-events:auto; background:#ffffff; border:1px solid #cbd5e1; border-left:4px solid #1a56db; border-radius:8px; padding:12px 14px; box-shadow:0 12px 28px rgba(15,23,42,0.14); display:flex; align-items:flex-start; gap:10px; cursor:pointer; text-decoration:none; color:inherit; transform:translateX(140%) scale(0.95); opacity:0; transition:transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease; }
+  .pop-toast.show{ transform:translateX(0) scale(1); opacity:1; }
+  .pop-toast:hover{ transform:translateY(-2px) scale(1.01); border-color:#1a56db; box-shadow:0 14px 32px rgba(26,86,219,0.18); }
+  .pop-toast.critical{ border-left-color:#c42020; }
+  .pop-toast.warning{ border-left-color:var(--amber); }
+  .pop-toast.resolved{ border-left-color:#16a34a; }
+  .toast-icon{ width:26px; height:26px; border-radius:6px; background:#f1f5f9; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:12px; margin-top:1px; }
+  .toast-body{ flex:1; min-width:0; }
+  .toast-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:3px; }
+  .toast-badge{ font-family:var(--font-mono); font-size:8.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#1a56db; }
+  .pop-toast.critical .toast-badge{ color:#c42020; }
+  .pop-toast.warning .toast-badge{ color:var(--amber); }
+  .pop-toast.resolved .toast-badge{ color:#16a34a; }
+  .toast-time{ font-family:var(--font-mono); font-size:8.5px; color:#94a3b8; }
+  .toast-text{ font-size:11.5px; color:#1e293b; font-weight:500; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .toast-sublink{ font-family:var(--font-mono); font-size:9.5px; color:#1a56db; margin-top:4px; display:inline-flex; align-items:center; gap:4px; font-weight:600; }
+  .toast-close{ border:none; background:none; color:#94a3b8; font-size:13px; cursor:pointer; padding:0 2px; line-height:1; }
+  .toast-close:hover{ color:#0f172a; }
+
+  /* Capabilities Section - Official Clean Card Design */
+  .caps-section{ position:relative; z-index:1; max-width:1080px; margin:36px auto 0; padding:45px 24px 20px; text-align:center; }
+  .caps-section h2{ font-family:var(--font-serif); font-size:28px; margin-bottom:10px; font-weight:700; color:#0f172a; }
+  .caps-section > p{ color:#64748b; font-size:14px; max-width:560px; margin:0 auto 14px; line-height:1.6; }
+  .caps-divider{ width:50px; height:3px; background:var(--gold); margin:14px auto 32px; border-radius:2px; }
+
+  .caps-grid{ position:relative; z-index:1; display:grid; grid-template-columns:repeat(3, 1fr); gap:18px; max-width:1080px; margin:0 auto; padding:0 24px; }
+  .cap-card{ background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:24px 22px; text-align:left; position:relative; transition:box-shadow 0.2s, transform 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.03); }
+  .cap-card:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,0.06); border-color:#cbd5e1; }
+  .cap-tag{ position:absolute; top:16px; right:16px; font-family:var(--font-mono); font-size:9px; color:#64748b; letter-spacing:0.06em; background:#f1f5f9; padding:2px 7px; border-radius:3px; }
+  .cap-tag.core{ color:var(--gold); border:1px solid rgba(212,146,10,0.4); background:#fffbeb; font-weight:700; }
+  .cap-icon{ width:40px; height:40px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px;
+    display:flex; align-items:center; justify-content:center; margin-bottom:16px; color:var(--gold); font-size:17px; }
+  .cap-card h3{ font-family:var(--font-body); font-size:15px; font-weight:600; margin-bottom:8px; color:#0f172a; }
+  .cap-card p{ font-size:13px; color:#64748b; line-height:1.65; }
+  
+  /* Clean Radar Graphic */
+  .cap-visual{ position:relative; margin-top:16px; height:74px; border:1px solid #bfdbfe; border-radius:6px; display:flex;
+    align-items:center; justify-content:center; font-family:var(--font-mono); font-size:10px; color:#1d4ed8; letter-spacing:0.05em; background:radial-gradient(circle at center, #eff6ff 0%, #ffffff 80%); overflow:hidden; font-weight:600; }
+  .radar-sweep{ position:absolute; inset:0; width:100%; height:100%; border-radius:50%; background:conic-gradient(from 0deg at 50% 50%, rgba(29,78,216,0) 0deg, rgba(29,78,216,0.18) 60deg, transparent 61deg); animation:sweep 4s linear infinite; pointer-events:none; }
+  @keyframes sweep{ 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
+
+  .cap-wide{ position:relative; z-index:1; max-width:1080px; margin:18px auto 0; padding:0 24px; }
+  .cap-wide-card{ background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:20px 24px;
+    display:flex; align-items:center; gap:20px; position:relative; box-shadow:0 1px 3px rgba(0,0,0,0.03); }
+  .cap-wide-card .cap-icon{ margin-bottom:0; flex-shrink:0; color:#16a34a; background:#f0fdf4; border-color:#bbf7d0; }
   .cap-wide-card .body{ flex:1; }
-  .cap-wide-card h3{ font-family:var(--font-body); font-size:14px; font-weight:600; margin-bottom:5px; color:var(--ink); }
-  .cap-wide-card p{ font-size:12.5px; color:var(--ink-faint); line-height:1.6; }
-  .btn-doc{ background:none; border:1px solid var(--border); color:var(--ink-dim); padding:8px 16px; border-radius:var(--radius);
-    font-family:var(--font-mono); font-size:10.5px; flex-shrink:0; letter-spacing:0.04em; transition:border-color 0.15s; }
-  .btn-doc:hover{ border-color:var(--ink-dim); }
+  .cap-wide-card h3{ font-family:var(--font-body); font-size:15px; font-weight:600; margin-bottom:5px; color:#0f172a; }
+  .cap-wide-card p{ font-size:13px; color:#64748b; line-height:1.6; }
+  .btn-doc{ background:#f8fafc; border:1px solid #cbd5e1; color:#334155; padding:9px 18px; border-radius:var(--radius);
+    font-family:var(--font-mono); font-size:11px; flex-shrink:0; letter-spacing:0.05em; cursor:pointer; font-weight:600; transition:all 0.15s; }
+  .btn-doc:hover{ background:#f1f5f9; border-color:#94a3b8; color:#0f172a; }
 
-  .land-footer{ max-width:1100px; margin:52px auto 0; padding:18px 30px; border-top:1px solid var(--border);
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-family:var(--font-mono); font-size:9.5px; color:var(--ink-faint); letter-spacing:0.04em; }
-  .land-footer a{ color:var(--ink-faint); text-decoration:none; margin-left:16px; }
-  .land-footer a:hover{ color:var(--ink-dim); }
+  /* Clean Official Clearance Authentication Modal */
+  #auth-modal{ position:fixed; inset:0; z-index:200; background:rgba(15,23,42,0.6); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; }
+  #auth-modal.active{ display:flex; animation:fadeInModal 0.2s ease-out; }
+  @keyframes fadeInModal{ from{opacity:0;} to{opacity:1;} }
+  .auth-box{ width:460px; max-width:92vw; background:#ffffff; border:1px solid #cbd5e1; border-radius:10px; padding:28px 26px; box-shadow:0 16px 36px rgba(0,0,0,0.18); text-align:center; position:relative; overflow:hidden; }
+  .auth-box::before{ content:''; position:absolute; top:0; left:0; width:100%; height:3px; background:linear-gradient(90deg, #FF9933 0%, #ffffff 50%, #138808 100%); }
+  
+  .auth-scanner{ width:68px; height:68px; margin:0 auto 16px; position:relative; display:flex; align-items:center; justify-content:center; }
+  .scanner-ring{ position:absolute; inset:0; border-radius:50%; border:2px dashed #cbd5e1; animation:spinRing 6s linear infinite; }
+  .scanner-ring-2{ position:absolute; inset:5px; border-radius:50%; border:2px solid transparent; border-top-color:#1a56db; border-right-color:#1a56db; animation:spinRingReverse 2s cubic-bezier(0.68,-0.55,0.27,1.55) infinite; }
+  .scanner-center{ width:38px; height:38px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#1d4ed8; font-size:16px; }
+  @keyframes spinRing{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+  @keyframes spinRingReverse{ from{transform:rotate(360deg);} to{transform:rotate(0deg);} }
+
+  .auth-title{ font-family:var(--font-serif); font-size:18px; font-weight:700; color:#0f172a; margin-bottom:4px; }
+  .auth-status{ font-family:var(--font-mono); font-size:11px; color:#1d4ed8; margin-bottom:14px; min-height:16px; letter-spacing:0.04em; font-weight:600; }
+  .auth-progress-track{ width:100%; height:5px; background:#e2e8f0; border-radius:3px; overflow:hidden; margin-bottom:12px; position:relative; }
+  .auth-progress-fill{ height:100%; width:0%; background:linear-gradient(90deg, #1a56db, var(--gold)); border-radius:3px; transition:width 0.2s ease-out; }
+  .auth-terminal{ background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:8px 12px; font-family:var(--font-mono); font-size:9.5px; color:#475569; text-align:left; height:68px; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end; gap:2px; }
+  .auth-terminal-line{ opacity:0.9; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; }
+  .auth-terminal-line.active{ color:#1d4ed8; font-weight:600; }
+
+  .land-footer{ position:relative; z-index:1; max-width:1080px; margin:48px auto 0; padding:20px 24px 32px; border-top:1px solid #e2e8f0;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-family:var(--font-mono); font-size:10px; color:#64748b; letter-spacing:0.03em; }
+  .land-footer a{ color:#64748b; text-decoration:none; margin-left:16px; transition:color 0.15s; }
+  .land-footer a:hover{ color:#0f172a; }
 
   /* ================= APP SHELL ================= */
   #app{ display:none; height:100vh; grid-template-columns:224px 1fr; }
@@ -379,34 +562,160 @@ HTML = """<!DOCTYPE html>
 
   .mobile-topbar{ display:none; }
 
-  /* ---- Command Center ---- */
-  .stat-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:18px; }
-  .stat-card{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; position:relative; }
-  .stat-card .tag{ position:absolute; top:12px; right:12px; font-family:var(--font-mono); font-size:8.5px; color:var(--ink-faint); letter-spacing:0.05em; }
-  .stat-card .tag.up{ color:var(--cyan); }
-  .stat-card .l{ font-family:var(--font-mono); font-size:9px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:10px; font-weight:600; }
-  .stat-card .v{ font-family:var(--font-serif); font-size:28px; color:var(--ink); letter-spacing:-0.01em; }
-  .stat-card .v small{ font-family:var(--font-mono); font-size:12px; color:var(--ink-faint); }
+  /* ---- Professional Command Center Overhaul ---- */
+  .cc-case-tag{ font-family:var(--font-mono); font-size:9.5px; color:var(--ink-faint); margin-left:8px; letter-spacing:0.05em; }
+  .topbar-right-actions{ display:flex; align-items:center; gap:6px; }
+  .btn-cc-action{ display:inline-flex; align-items:center; gap:5px; background:#ffffff; border:1px solid #d1d9e6; color:#1e40af; padding:5px 12px; border-radius:var(--radius); font-family:var(--font-body); font-size:12px; font-weight:600; cursor:pointer; transition:all 0.14s; letter-spacing:-0.01em; }
+  .btn-cc-action svg{ opacity:0.8; }
+  .btn-cc-action:hover{ background:#eff6ff; border-color:#93c5fd; color:#1d4ed8; box-shadow:0 1px 4px rgba(29,78,216,0.12); }
 
-  .cc-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:14px; }
-  .cc-panel{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; }
-  .cc-panel-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-  .cc-panel-head h3{ font-family:var(--font-body); font-size:13px; font-weight:600; color:var(--ink); letter-spacing:-0.01em; }
-  .feed-item{ padding:9px 0; border-bottom:1px solid var(--border); }
+  /* --- Stat Grid (KPI Row) --- */
+  .stat-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:16px; }
+  .stat-card{ background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:16px 18px 12px; position:relative;
+    box-shadow:0 1px 3px rgba(0,0,0,0.04); transition:transform 0.14s, box-shadow 0.14s; overflow:hidden; }
+  .stat-card::before{ content:''; position:absolute; top:0; left:0; width:3px; height:100%; border-radius:8px 0 0 8px; }
+  .stat-card.live::before{ background:#16a34a; }
+  .stat-card.flagged::before{ background:#dc2626; }
+  .stat-card.detected::before{ background:#1d4ed8; }
+  .stat-card.monitored::before{ background:#d97706; }
+  .stat-card:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,0.07); }
+  .stat-card-top{ display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:10px; }
+  .stat-card-icon{ width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .stat-card-icon.live{ background:#dcfce7; color:#16a34a; }
+  .stat-card-icon.flagged{ background:#fee2e2; color:#dc2626; }
+  .stat-card-icon.detected{ background:#dbeafe; color:#1d4ed8; }
+  .stat-card-icon.monitored{ background:#fef3c7; color:#d97706; }
+  .stat-card .tag{ font-family:var(--font-mono); font-size:8.5px; color:var(--ink-faint); letter-spacing:0.05em; padding:2px 7px; border-radius:20px; background:#f1f5f9; font-weight:600; }
+  .stat-card .tag.up{ color:#16a34a; background:#f0fdf4; border:1px solid #bbf7d0; }
+  .stat-card .tag.warn{ color:#c42020; background:#fef2f2; border:1px solid #fecaca; }
+  .stat-card .l{ font-family:var(--font-mono); font-size:9.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:4px; font-weight:600; }
+  .stat-card .v{ font-family:var(--font-body); font-size:28px; font-weight:700; color:var(--ink); letter-spacing:-0.03em; line-height:1; }
+  .stat-card .stat-sub{ font-family:var(--font-mono); font-size:9px; color:#64748b; margin-top:8px; display:flex; align-items:center; gap:5px; }
+  .stat-sparkline{ margin-top:8px; display:block; }
+
+  /* --- Main Visual Grid (Radar + Charts) --- */
+  .cc-main-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:14px; margin-bottom:14px; }
+  .cc-panel{ background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:18px 20px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.04); display:flex; flex-direction:column; }
+  .cc-panel-head{ display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:14px; gap:10px; }
+  .cc-panel-title-wrap{ display:flex; align-items:center; gap:8px; }
+  .cc-panel-icon{ width:28px; height:28px; border-radius:6px; background:#f1f5f9; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#475569; }
+  .cc-panel-head h3{ font-family:var(--font-body); font-size:13px; font-weight:700; color:var(--ink); letter-spacing:-0.015em; margin-bottom:2px; }
+  .cc-panel-sub{ font-family:var(--font-mono); font-size:9px; color:#94a3b8; letter-spacing:0.02em; }
+  .cc-panel-actions{ display:flex; align-items:center; gap:6px; flex-shrink:0; }
+  .cc-live-badge{ display:inline-flex; align-items:center; gap:5px; font-family:var(--font-mono); font-size:9px; color:#16a34a;
+    background:#f0fdf4; border:1px solid #bbf7d0; padding:3px 9px; border-radius:20px; font-weight:700; letter-spacing:0.03em; }
+  .cc-live-badge .pulse-dot{ width:6px; height:6px; border-radius:50%; background:#16a34a;
+    animation:pulseDot 1.6s ease-in-out infinite; box-shadow:0 0 0 0 rgba(22,163,74,0.5); }
+  @keyframes pulseDot{ 0%,100%{ box-shadow:0 0 0 0 rgba(22,163,74,0.5); } 50%{ box-shadow:0 0 0 5px rgba(22,163,74,0); } }
+  .cc-btn-sm{ display:inline-flex; align-items:center; gap:5px; background:#f8fafc; border:1px solid #dde4ef; color:#475569;
+    padding:4px 10px; border-radius:5px; font-family:var(--font-body); font-size:11.5px; cursor:pointer; font-weight:600;
+    transition:all 0.13s; letter-spacing:-0.01em; }
+  .cc-btn-sm:hover{ background:#f1f5f9; border-color:#94a3b8; color:#0f172a; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+  .cc-tag-formula{ font-family:var(--font-mono); font-size:9px; color:var(--gold); background:#fffbeb;
+    border:1px solid rgba(212,146,10,0.3); padding:3px 9px; border-radius:20px; font-weight:700; letter-spacing:0.03em; }
+  .cc-tag-amber{ font-family:var(--font-mono); font-size:9px; color:#d97706; background:#fffbeb;
+    border:1px solid #fde68a; padding:3px 9px; border-radius:20px; font-weight:700; letter-spacing:0.03em; }
+
+  /* --- Radar Map Container --- */
+  .cc-radar-container{ position:relative; width:100%; height:280px; background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);
+    border:1px solid #e8edf5; border-radius:6px; overflow:hidden; }
+  #cc-mini-graph{ width:100%; height:100%; display:block; cursor:grab; }
+  #cc-mini-graph:active{ cursor:grabbing; }
+  .cc-radar-legend{ position:absolute; bottom:10px; left:10px; display:flex; gap:12px;
+    font-family:var(--font-mono); font-size:9px; color:#64748b; background:rgba(255,255,255,0.95);
+    border:1px solid #e2e8f0; padding:5px 12px; border-radius:6px; pointer-events:none;
+    box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+  .cc-radar-legend span{ display:flex; align-items:center; gap:5px; font-weight:600; }
+  .cc-radar-legend .dot{ width:7px; height:7px; border-radius:2px; flex-shrink:0; }
+
+  /* --- Charts Container --- */
+  .cc-charts-wrap{ display:grid; grid-template-columns:1.15fr 1fr; gap:12px; flex:1; min-height:0; }
+  .cc-chart-box{ background:#f8fafc; border:1px solid #e8edf5; border-radius:6px; padding:14px 14px 10px;
+    display:flex; flex-direction:column; }
+  .cc-chart-title{ font-family:var(--font-body); font-size:11px; font-weight:700; color:#334155;
+    text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px; display:flex; align-items:center; gap:6px; }
+  .cc-chart-title svg{ color:#94a3b8; }
+
+  /* --- Threat Score Bars --- */
+  .cc-bars-list{ display:flex; flex-direction:column; gap:10px; flex:1; justify-content:space-around; }
+  .cc-bar-item{ display:flex; flex-direction:column; gap:4px; }
+  .cc-bar-header{ display:flex; justify-content:space-between; align-items:center;
+    font-size:12px; font-family:var(--font-body); font-weight:600; color:#1e293b; }
+  .cc-bar-score{ font-family:var(--font-mono); font-size:10.5px; font-weight:700; }
+  .cc-bar-score.crit{ color:#c42020; }
+  .cc-bar-score.warn{ color:#d97706; }
+  .cc-bar-score.low{ color:#16a34a; }
+  .cc-bar-track{ width:100%; height:6px; background:#e8edf5; border-radius:6px; overflow:hidden; }
+  .cc-bar-fill{ height:100%; border-radius:6px; transition:width 0.6s cubic-bezier(.4,0,.2,1); }
+  .cc-bar-fill.crit{ background:linear-gradient(90deg,#fca5a5,#dc2626); }
+  .cc-bar-fill.warn{ background:linear-gradient(90deg,#fcd34d,#d97706); }
+  .cc-bar-fill.low{ background:linear-gradient(90deg,#6ee7b7,#16a34a); }
+  .cc-bar-role{ font-family:var(--font-mono); font-size:8.5px; color:#94a3b8; font-weight:500; }
+
+  /* --- Donut SVG Chart --- */
+  .cc-donut-container{ display:flex; align-items:center; gap:14px; flex:1; justify-content:center; }
+  #cc-donut-svg{ width:96px; height:96px; flex-shrink:0; }
+  .cc-donut-legend{ display:flex; flex-direction:column; gap:6px; font-family:var(--font-body); font-size:11px; color:#475569; }
+  .cc-donut-legend .item{ display:flex; align-items:center; gap:7px; }
+  .cc-donut-legend .dot{ width:8px; height:8px; border-radius:2px; flex-shrink:0; }
+  .cc-donut-legend b{ color:#1e293b; }
+
+  /* --- Bottom Row 3-column Grid --- */
+  .cc-bottom-grid{ display:grid; grid-template-columns:1.2fr 1fr 1.1fr; gap:14px; }
+
+  /* --- Financial Velocity SVG Chart --- */
+  .cc-velocity-wrap{ height:170px; border:1px solid #e8edf5; border-radius:6px; background:#f8fafc; overflow:hidden; position:relative; }
+  #cc-velocity-svg{ width:100%; height:100%; display:block; }
+  .cc-velocity-labels{ display:flex; justify-content:space-around; padding:0 4px; margin-top:4px; }
+  .cc-velocity-lbl{ font-family:var(--font-mono); font-size:8.5px; color:#94a3b8; text-align:center; font-weight:600; }
+  /* legacy chart container - keep for compat */
+  .cc-velocity-chart{ height:190px; display:flex; align-items:flex-end; gap:8px; padding:12px 10px 6px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:4px; }
+  .cc-hist-col{ flex:1; display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end; gap:4px; }
+  .cc-hist-val{ font-family:var(--font-mono); font-size:8px; color:#64748b; font-weight:600; }
+  .cc-hist-bar-outer{ width:100%; max-width:28px; height:130px; background:rgba(0,0,0,0.03); border-radius:4px 4px 0 0; display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden; }
+  .cc-hist-bar{ width:100%; border-radius:4px 4px 0 0; transition:height 0.5s cubic-bezier(.4,0,.2,1); }
+  .cc-hist-bar.spike{ background:linear-gradient(to top,#dc2626,#f87171); box-shadow:0 0 8px rgba(220,38,38,0.3); }
+  .cc-hist-bar.norm{ background:linear-gradient(to top,#1d4ed8,#60a5fa); }
+  .cc-hist-lbl{ font-family:var(--font-mono); font-size:8px; color:#94a3b8; white-space:nowrap; margin-top:3px; font-weight:600; }
+
+  /* --- Key Suspects Roster --- */
+  .cc-suspects-list{ display:flex; flex-direction:column; gap:7px; overflow-y:auto; max-height:195px; }
+  .cc-suspect-card{ display:flex; align-items:center; justify-content:space-between; padding:9px 11px;
+    background:#f8fafc; border:1px solid #e8edf5; border-radius:6px;
+    transition:border-color 0.13s, box-shadow 0.13s; cursor:pointer; }
+  .cc-suspect-card:hover{ border-color:#94a3b8; background:#ffffff; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+  .cc-suspect-info{ display:flex; align-items:center; gap:9px; }
+  .cc-suspect-avatar{ width:30px; height:30px; border-radius:6px; display:flex; align-items:center;
+    justify-content:center; font-size:11px; font-weight:800; color:#ffffff; flex-shrink:0; }
+  .cc-suspect-avatar.orchestrator{ background:linear-gradient(135deg,#b45309,#d97706); }
+  .cc-suspect-avatar.broker{ background:linear-gradient(135deg,#1d4ed8,#3b82f6); }
+  .cc-suspect-avatar.conduit{ background:linear-gradient(135deg,#7c3aed,#a78bfa); }
+  .cc-suspect-avatar.associate{ background:linear-gradient(135deg,#475569,#94a3b8); }
+  .cc-suspect-name{ font-size:12px; font-weight:700; color:#0f172a; letter-spacing:-0.01em; }
+  .cc-suspect-role{ font-family:var(--font-mono); font-size:9px; color:#64748b; margin-top:1px; }
+  .cc-suspect-risk{ font-family:var(--font-body); font-size:10px; font-weight:700; padding:3px 8px; border-radius:20px; white-space:nowrap; }
+  .cc-suspect-risk.high{ color:#991b1b; background:#fee2e2; border:1px solid #fca5a5; }
+  .cc-suspect-risk.med{ color:#92400e; background:#fef3c7; border:1px solid #fcd34d; }
+
+  /* --- Live Feed Stream --- */
+  .cc-feed-scroll{ max-height:210px; overflow-y:auto; scrollbar-width:thin; }
+  .feed-item{ display:flex; gap:10px; padding:9px 0; border-bottom:1px solid var(--border); }
   .feed-item:last-child{ border-bottom:none; }
+  .feed-accent{ width:3px; border-radius:2px; flex-shrink:0; margin-top:2px; }
+  .feed-accent.critical{ background:#dc2626; }
+  .feed-accent.warning{ background:#d97706; }
+  .feed-accent.info{ background:#0b9494; }
+  .feed-body{ flex:1; min-width:0; }
   .feed-head{ display:flex; align-items:center; gap:7px; margin-bottom:3px; }
-  .feed-sev{ font-family:var(--font-mono); font-size:8.5px; letter-spacing:0.07em; padding:2px 6px; border-radius:2px; text-transform:uppercase; font-weight:700; }
-  .feed-sev.critical{ background:rgba(196,32,32,0.1); color:var(--red); }
-  .feed-sev.warning{ background:rgba(194,124,0,0.12); color:var(--amber); }
-  .feed-sev.info{ background:rgba(11,148,148,0.1); color:var(--cyan); }
-  .feed-time{ font-family:var(--font-mono); font-size:9px; color:var(--ink-faint); }
-  .feed-text{ font-size:12px; color:var(--ink-dim); line-height:1.55; }
-  .feed-src{ font-family:var(--font-mono); font-size:9px; color:var(--ink-faint); margin-top:2px; }
-  .community-row{ display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); }
-  .community-row:last-child{ border-bottom:none; }
-  .community-dot{ width:7px; height:7px; border-radius:50%; flex-shrink:0; }
-  .community-row .name{ font-size:12px; color:var(--ink-dim); flex:1; font-weight:400; }
-  .community-row .n{ font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); }
+  .feed-sev{ font-family:var(--font-mono); font-size:8.5px; letter-spacing:0.07em; padding:2px 6px;
+    border-radius:3px; text-transform:uppercase; font-weight:700; }
+  .feed-sev.critical{ background:rgba(220,38,38,0.1); color:#dc2626; }
+  .feed-sev.warning{ background:rgba(217,119,6,0.12); color:#d97706; }
+  .feed-sev.info{ background:rgba(11,148,148,0.1); color:#0b9494; }
+  .feed-time{ font-family:var(--font-mono); font-size:8.5px; color:var(--ink-faint); margin-left:auto; }
+  .feed-text{ font-size:12px; color:var(--ink-dim); line-height:1.5; font-weight:500; }
+  .feed-src{ font-family:var(--font-mono); font-size:8.5px; color:var(--ink-faint); margin-top:2px; }
 
   /* ---- Network Explorer ---- */
   #graph-wrap{ position:relative; overflow:hidden; background:var(--bg); flex:1; min-height:0; }
@@ -923,48 +1232,94 @@ HTML = """<!DOCTYPE html>
 <body>
 <!-- ================= LANDING ================= -->
 <div id="landing">
+  <div class="gov-tricolor-bar"></div>
+  <canvas id="landing-canvas"></canvas>
+  
   <div class="land-header">
     <div class="land-brand">
-      <div class="land-devanagari">\u0938\u0942\u0924\u094d\u0930</div>
-      <div class="land-brand-name">S\u016aTRA</div>
+      <div class="land-devanagari">सूत्र</div>
+      <div class="land-brand-name">SŪTRA</div>
+      <div class="land-brand-badge">GOVERNMENT OF INDIA • INI-CLEARANCE</div>
     </div>
     <div class="land-nav">
-      <span data-i18n="land_nav_1">ANALYTICAL CAPABILITIES</span><span data-i18n="land_nav_2">SECURE ACCESS PROTOCOL</span><span data-i18n="land_nav_3">GOVERNMENT DISCLAIMER</span>
+      <a href="#briefing-section" data-i18n="land_nav_1">ANALYTICAL CAPABILITIES</a>
+      <a href="#" id="nav-protocol-btn" data-i18n="land_nav_2">SECURE ACCESS PROTOCOL</a>
+      <a href="#" id="nav-disclaimer-btn" data-i18n="land_nav_3">GOVERNMENT DISCLAIMER</a>
       <div class="lang-switcher land-lang-switcher">
         <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="hi">\u0939\u093f\u0902</button>
-        <button class="lang-btn" data-lang="mr">\u092e\u0930\u093e</button>
+        <button class="lang-btn" data-lang="hi">हिं</button>
+        <button class="lang-btn" data-lang="mr">मरा</button>
       </div>
+      <button class="theme-toggle-btn" id="theme-toggle-landing" title="Toggle Day / Night Mode">
+        <span class="theme-icon">🌙</span>
+      </button>
     </div>
   </div>
+
   <div class="hero">
     <div class="hero-logo-wrap">
-      <!-- English: SUTRA with top-right wave -->
-      <div class="hero-logo-en">
-        <div class="hero-logo-text-en" style="position:relative;">
-          SUTRA
-          <svg class="hero-logo-wave" style="position:absolute;top:4px;right:-10px;" width="52" height="22" viewBox="0 0 52 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 16 Q13 4 26 10 Q39 16 50 6" stroke="#FF9933" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-            <path d="M2 19 Q13 8 26 13 Q39 19 50 9" stroke="#138808" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-          </svg>
-        </div>
+      <!-- English: Official SŪTRA Logo with Tricolor Ribbon -->
+      <div class="hero-logo-en active" id="hero-logo-en">
+        <img src="sutra-logo-en.png" alt="SŪTRA" class="hero-logo-img">
       </div>
-      <!-- Hindi: \u0938\u0942\u0924\u094d\u0930 with bottom wave -->
-      <div class="hero-logo-hi">
-        <div class="hero-logo-text-hi" style="position:relative;">
-          \u0938\u0942\u0924\u094d\u0930
-          <svg class="hero-logo-wave" style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);" width="72" height="24" viewBox="0 0 72 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 8 Q18 20 36 12 Q54 4 68 16" stroke="#FF9933" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-            <path d="M4 13 Q18 22 36 16 Q54 8 68 20" stroke="#138808" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-          </svg>
-        </div>
+      <!-- Hindi/Marathi: Official सूत्र Logo with Tricolor Ribbon -->
+      <div class="hero-logo-hi" id="hero-logo-hi">
+        <img src="sutra-logo-hi.png" alt="सूत्र" class="hero-logo-img">
       </div>
     </div>
     <h1 data-i18n="hero_title">The Connection Thread</h1>
-    <p data-i18n="hero_subtitle">Uncovering the invisible networks of crime. A unified investigative decision-support platform for entity resolution, knowledge-graph analysis, and evidence-backed leads \u2014 built for institutional accountability, not automated accusation.</p>
+    <p data-i18n="hero_subtitle">Uncovering the invisible networks of crime. A unified investigative decision-support platform for entity resolution, knowledge-graph analysis, and evidence-backed leads — built for institutional accountability, not automated accusation.</p>
     <div class="hero-btns">
-      <button class="btn-hero-primary" id="btn-enter-app" data-i18n="btn_request_access">Request Access \u2192 Command Center</button>
+      <button class="btn-hero-primary" id="btn-enter-app" data-i18n="btn_request_access">Request Access → Command Center</button>
       <button class="btn-hero-secondary" id="btn-view-briefing" data-i18n="btn_view_briefing">View Briefing</button>
+    </div>
+
+    <!-- 3D Revolving Ultra-Realistic Big Half Earth Section with Sequential Popping Messages -->
+    <div class="hero-globe-wrap" id="hero-globe-wrap">
+      <div class="globe-indicator">
+        <span class="pulse-beacon"></span>
+        <span data-i18n="globe_indicator_text">LIVE GLOBAL INTELLIGENCE MESH • ACTIVE INTERCEPT STREAM</span>
+      </div>
+
+      <!-- Messages Popping One By One over Globe -->
+      <div id="globe-popping-container"></div>
+
+      <!-- Globe 3D Canvas -->
+      <canvas id="globe-canvas"></canvas>
+
+      <!-- Globe Stream Control & Status Bar -->
+      <div class="globe-controls-pill">
+        <span class="stream-dot">●</span>
+        <span class="stream-lbl" id="globe-stream-status">STREAM ACTIVE (1 / 6)</span>
+        <span class="stream-sep">|</span>
+        <button class="stream-btn" id="btn-prev-intel" title="Previous Alert">◀</button>
+        <button class="stream-btn" id="btn-pause-intel" title="Pause / Resume Stream">❚❚</button>
+        <button class="stream-btn" id="btn-next-intel" title="Next Alert">▶</button>
+      </div>
+
+      <!-- Live Telemetry HUD Bar - Anchored Directly ON/OVER the Earth at the bottom of the page -->
+      <div class="hero-hud-bar">
+        <div class="hud-stat">
+          <div class="hud-lbl"><span>◈</span> Verified Nodes</div>
+          <div class="hud-val">1,420<span>pts</span></div>
+          <div class="hud-sub">● 99.4% Graph Density</div>
+        </div>
+        <div class="hud-stat">
+          <div class="hud-lbl"><span>◉</span> Active Networks</div>
+          <div class="hud-val">28<span>rings</span></div>
+          <div class="hud-sub">● 6 Cross-Border</div>
+        </div>
+        <div class="hud-stat">
+          <div class="hud-lbl"><span>✵</span> Entity Clusters</div>
+          <div class="hud-val">342<span>resolved</span></div>
+          <div class="hud-sub">● 0.94 Confidence</div>
+        </div>
+        <div class="hud-stat">
+          <div class="hud-lbl"><span>🔒</span> Security Protocol</div>
+          <div class="hud-val" style="font-size:18px;margin-top:4px;">AES-256<span>GCM</span></div>
+          <div class="hud-sub">● Zero-Knowledge</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -973,41 +1328,70 @@ HTML = """<!DOCTYPE html>
     <p data-i18n="caps_subtitle">Core modules for advanced investigative decision-support.</p>
     <div class="caps-divider"></div>
   </div>
+  
   <div class="caps-grid">
     <div class="cap-card">
       <div class="cap-tag">REC-01-33</div>
-      <div class="cap-icon">\u25c8</div>
+      <div class="cap-icon">◈</div>
       <h3 data-i18n="cap1_title">Data Integration</h3>
       <p data-i18n="cap1_desc">Harmonize FIRs, CDRs, financial records, and surveillance reports into one structured investigative namespace.</p>
     </div>
     <div class="cap-card">
       <div class="cap-tag">REC-02-15</div>
-      <div class="cap-icon">\u25c9</div>
+      <div class="cap-icon">◉</div>
       <h3 data-i18n="cap2_title">Entity Extraction &amp; Resolution</h3>
-      <p data-i18n="cap2_desc">Automated identification of persons, phones, vehicles, and organizations \u2014 with confidence-scored merging of duplicate mentions.</p>
+      <p data-i18n="cap2_desc">Automated identification of persons, phones, vehicles, and organizations — with confidence-scored merging of duplicate mentions.</p>
     </div>
     <div class="cap-card">
       <div class="cap-tag core" data-i18n="cap3_module">CORE MODULE</div>
-      <div class="cap-icon">\u2735</div>
+      <div class="cap-icon">✵</div>
       <h3 data-i18n="cap3_title">Relationship Mapping</h3>
       <p data-i18n="cap3_desc">Visualize covert networks. Trace financial flows, communication linkages, and hierarchical structures dynamically.</p>
-      <div class="cap-visual" data-i18n="cap3_visual">Network Graph Visualization</div>
+      <div class="cap-visual">
+        <div class="radar-sweep"></div>
+        <span style="position:relative;z-index:2;" data-i18n="cap3_visual">Active Network Radar Stream</span>
+      </div>
     </div>
   </div>
+
   <div class="cap-wide">
     <div class="cap-wide-card">
-      <div class="cap-icon">\u25e0</div>
+      <div class="cap-icon">◠</div>
       <div class="body">
         <h3 data-i18n="cap4_title">Explainable Risk Scoring</h3>
-        <p data-i18n="cap4_desc">Transparent, source-weighted risk indicators \u2014 every score fully traceable to evidence, always requiring human verification. No automated accusation, ever.</p>
+        <p data-i18n="cap4_desc">Transparent, source-weighted risk indicators — every score fully traceable to evidence, always requiring human verification. No automated accusation, ever.</p>
       </div>
-      <button class="btn-doc" id="btn-view-docs" data-i18n="btn_view_docs">View Documentation</button>
+      <button class="btn-doc" id="btn-view-docs" data-i18n="btn_view_docs">Launch Investigation</button>
     </div>
   </div>
 
   <div class="land-footer">
-    <div data-i18n="footer_copyright">\u00a9 2026 S\u016aTRA Investigative Intelligence Platform. Prototype \u2014 Restricted Demonstration Use Only.</div>
+    <div data-i18n="footer_copyright">© 2026 SŪTRA Investigative Intelligence Platform. Prototype — Restricted Demonstration Use Only.</div>
     <div><a href="#" data-i18n="footer_link1">Secure Access Protocol</a><a href="#" data-i18n="footer_link2">Privacy Policy</a><a href="#" data-i18n="footer_link3">Government Disclaimer</a><a href="#" data-i18n="footer_link4">Contact Administrator</a></div>
+  </div>
+
+  <!-- Live Intelligence Alert Pop-up Toaster -->
+  <div id="live-feed-toaster"></div>
+</div>
+
+<!-- ================= HIGH-TECH AUTHENTICATION LOADER MODAL ================= -->
+<div id="auth-modal">
+  <div class="auth-box">
+    <div class="auth-scanner">
+      <div class="scanner-ring"></div>
+      <div class="scanner-ring-2"></div>
+      <div class="scanner-center">⚡</div>
+    </div>
+    <div class="auth-title">SŪTRA CLEARANCE SYSTEM</div>
+    <div class="auth-status" id="auth-status-txt">INITIATING CRYPTOGRAPHIC HANDSHAKE...</div>
+    <div class="auth-progress-track">
+      <div class="auth-progress-fill" id="auth-progress-bar"></div>
+    </div>
+    <div class="auth-terminal" id="auth-terminal-box">
+      <div class="auth-terminal-line">[SYS] Initializing secure socket daemon...</div>
+      <div class="auth-terminal-line">[AUTH] Verifying biometrics and role-token...</div>
+      <div class="auth-terminal-line active">[GRAPH] Syncing localized Neo4j entity namespace...</div>
+    </div>
   </div>
 </div>
 
@@ -1028,15 +1412,18 @@ HTML = """<!DOCTYPE html>
       <button class="lang-btn active" data-lang="en">EN</button>
       <button class="lang-btn" data-lang="hi">\u0939\u093f\u0902</button>
       <button class="lang-btn" data-lang="mr">\u092e\u0930\u093e</button>
+      <button class="theme-toggle-btn" id="theme-toggle-app" title="Toggle Day / Night Mode" style="margin-left:auto;">
+        <span class="theme-icon">🌙</span>
+      </button>
     </div>
     <div class="sb-nav" id="sb-nav">
       <div class="sb-item active" data-page="command"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span data-i18n="nav_command">Command Center</span></div>
       <div class="sb-item" data-page="graph"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><line x1="8.5" y1="7.5" x2="15.5" y2="16.5"/><line x1="15.5" y1="7.5" x2="8.5" y2="16.5"/></svg><span data-i18n="nav_graph">Network Explorer</span></div>
-      <div class="sb-item" data-page="evidence"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><span>Evidence Vault</span></div>
-      <div class="sb-item" data-page="anomalies"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Anomaly &amp; Risk</span></div>
-      <div class="sb-item" data-page="timeline"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Investigation Timeline</span></div>
-      <div class="sb-item" data-page="ingestion"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Ingestion Pipeline</span></div>
-      <div class="sb-item" data-page="audit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Audit &amp; Verification</span></div>
+      <div class="sb-item" data-page="evidence"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><span data-i18n="nav_evidence">Evidence Vault</span></div>
+      <div class="sb-item" data-page="anomalies"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span data-i18n="nav_anomalies">Anomaly &amp; Risk</span></div>
+      <div class="sb-item" data-page="timeline"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n="nav_timeline">Investigation Timeline</span></div>
+      <div class="sb-item" data-page="ingestion"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span data-i18n="nav_ingestion">Ingestion Pipeline</span></div>
+      <div class="sb-item" data-page="audit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span data-i18n="nav_audit">Audit &amp; Verification</span></div>
       <div class="sb-item" data-page="assistant"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="13" y2="13"/></svg><span data-i18n="nav_assistant">AI Assistant</span></div>
       <div class="sb-item" data-page="profiles"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span data-i18n="nav_profiles">Entity Profiles</span></div>
       <div class="sb-item" data-page="datalab"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span data-i18n="nav_datalab">Data Lab</span></div>
@@ -1060,19 +1447,148 @@ SYNTHETIC DATA ONLY</div>
     <!-- ---- COMMAND CENTER ---- -->
     <div class="page active" data-page="command">
       <div class="topbar">
-        <div class="topbar-left"><h2>Command Center</h2><span class="badge-secure">CONNECTION SECURE</span></div>
-        <div class="topbar-icons"><div class="icon-btn">\u2699</div><div class="icon-btn">\u25c9</div></div>
+        <div class="topbar-left">
+          <h2>Command Center</h2>
+          <span class="badge-secure">CONNECTION SECURE</span>
+          <span class="cc-case-tag">CASE: MH/CID/2026/0417 · NATIONAL INTELLIGENCE GRID</span>
+        </div>
+        <div class="topbar-right-actions">
+          <button class="btn-cc-action" onclick="goToPage('graph')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><line x1="8.1" y1="7.4" x2="15.9" y2="16.6"/><line x1="15.9" y1="7.4" x2="8.1" y2="16.6"/></svg>
+            Network Explorer
+          </button>
+          <button class="btn-cc-action" onclick="goToPage('report')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
+            Evidence Briefing
+          </button>
+        </div>
       </div>
       <div class="page-pad">
+        <!-- Row 1: KPI Stat Cards -->
         <div class="stat-grid" id="stat-grid"></div>
-        <div class="cc-grid">
+
+        <!-- Row 2: Network Topology Radar + Threat Index & Entity Donut -->
+        <div class="cc-main-grid">
+          <!-- Network Topology Radar -->
           <div class="cc-panel">
-            <div class="cc-panel-head"><h3 id="feed-title-el">Live Investigation Feed</h3></div>
-            <div id="live-feed-list"></div>
+            <div class="cc-panel-head">
+              <div class="cc-panel-title-wrap">
+                <div class="cc-panel-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                </div>
+                <div>
+                  <h3>Network Topology Radar</h3>
+                  <div class="cc-panel-sub">Force-directed syndicate cluster · drag nodes to explore</div>
+                </div>
+              </div>
+              <div class="cc-panel-actions">
+                <span class="cc-live-badge"><span class="pulse-dot"></span>LIVE</span>
+                <button class="cc-btn-sm" onclick="goToPage('graph')">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  Full Graph
+                </button>
+              </div>
+            </div>
+            <div class="cc-radar-container" id="cc-radar-container">
+              <svg id="cc-mini-graph"></svg>
+              <div class="cc-radar-legend">
+                <span><span class="dot" style="background:#d4920a;border-radius:50%;"></span>Person</span>
+                <span><span class="dot" style="background:#16a34a;border-radius:50%;"></span>Phone</span>
+                <span><span class="dot" style="background:#1a56db;border-radius:50%;"></span>Account</span>
+                <span><span class="dot" style="background:#dc2626;border-radius:2px;"></span>Suspicious Link</span>
+              </div>
+            </div>
           </div>
+
+          <!-- Threat Index & Entity Distribution -->
           <div class="cc-panel">
-            <div class="cc-panel-head"><h3 id="communities-title-el">Detected Communities</h3></div>
-            <div id="community-list"></div>
+            <div class="cc-panel-head">
+              <div class="cc-panel-title-wrap">
+                <div class="cc-panel-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <div>
+                  <h3>Threat Index &amp; Entity Distribution</h3>
+                  <div class="cc-panel-sub">Explainable multi-signal decision-support ranking</div>
+                </div>
+              </div>
+              <span class="cc-tag-formula">MULTI-SIGNAL</span>
+            </div>
+            <div class="cc-charts-wrap">
+              <div class="cc-chart-box">
+                <div class="cc-chart-title">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                  Suspect Threat Ranking
+                </div>
+                <div class="cc-bars-list" id="cc-threat-bars"></div>
+              </div>
+              <div class="cc-chart-box">
+                <div class="cc-chart-title">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 3"/></svg>
+                  Node Classification
+                </div>
+                <div class="cc-donut-container">
+                  <svg id="cc-donut-svg" viewBox="0 0 160 160"></svg>
+                  <div class="cc-donut-legend" id="cc-donut-legend"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: Financial Flow + Suspects + Live Feed -->
+        <div class="cc-bottom-grid">
+          <!-- Financial Flow & Hawala Spikes -->
+          <div class="cc-panel">
+            <div class="cc-panel-head">
+              <div class="cc-panel-title-wrap">
+                <div class="cc-panel-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div>
+                  <h3>Financial Flow &amp; Hawala Spikes</h3>
+                  <div class="cc-panel-sub">Transaction outlier velocity · flagged wire anomalies</div>
+                </div>
+              </div>
+              <span class="cc-tag-amber">ANOMALY SPIKES</span>
+            </div>
+            <div id="cc-velocity-chart" class="cc-velocity-chart"></div>
+          </div>
+
+          <!-- Key Persons of Interest -->
+          <div class="cc-panel">
+            <div class="cc-panel-head">
+              <div class="cc-panel-title-wrap">
+                <div class="cc-panel-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <div>
+                  <h3 id="communities-title-el">Key Persons of Interest</h3>
+                  <div class="cc-panel-sub">High-centrality orchestrators &amp; brokers</div>
+                </div>
+              </div>
+              <button class="cc-btn-sm" onclick="goToPage('profiles')">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                All Dossiers
+              </button>
+            </div>
+            <div class="cc-suspects-list" id="cc-suspects-list"></div>
+          </div>
+
+          <!-- Live Investigation Stream -->
+          <div class="cc-panel">
+            <div class="cc-panel-head">
+              <div class="cc-panel-title-wrap">
+                <div class="cc-panel-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <div>
+                  <h3 id="feed-title-el">Live Investigation Stream</h3>
+                  <div class="cc-panel-sub">Automated multi-source anomaly detections</div>
+                </div>
+              </div>
+            </div>
+            <div id="live-feed-list" class="cc-feed-scroll"></div>
           </div>
         </div>
       </div>
@@ -1084,12 +1600,12 @@ SYNTHETIC DATA ONLY</div>
         <div class="topbar-left"><h2 data-i18n="tb_graph">Network Explorer</h2><span class="badge-secure" data-i18n="badge_secure_short">SECURE</span>
           <span class="active-graph-label" data-i18n="active_graph" style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);">Active Graph: Operation Case MH/CID/2026/0417</span></div>
         <div class="path-finder-bar" id="path-finder-bar">
-          <span class="pf-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M12 19h4.5a3.5 3.5 0 0 0 0-7h-9a3.5 3.5 0 0 1 0-7H12"/></svg>Trace Path:</span>
-          <select id="pf-source" class="pf-select" title="Origin entity"></select>
-          <button id="btn-pf-swap" class="pf-swap-btn" title="Swap Origin and Target">⇄</button>
-          <select id="pf-target" class="pf-select" title="Target entity"></select>
-          <button id="btn-find-path" class="btn-pf-run">⚡ Trace Path</button>
-          <button id="btn-clear-path" class="btn-pf-clear">Reset</button>
+          <span class="pf-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M12 19h4.5a3.5 3.5 0 0 0 0-7h-9a3.5 3.5 0 0 1 0-7H12"/></svg><span id="pf-label-text" data-i18n="trace_path_label">Trace Path:</span></span>
+          <select id="pf-source" class="pf-select" data-i18n-attr="title" data-i18n="pf_origin_title" title="Origin entity"></select>
+          <button id="btn-pf-swap" class="pf-swap-btn" data-i18n-attr="title" data-i18n="swap_tooltip" title="Swap Origin and Target">⇄</button>
+          <select id="pf-target" class="pf-select" data-i18n-attr="title" data-i18n="pf_target_title" title="Target entity"></select>
+          <button id="btn-find-path" class="btn-pf-run" data-i18n="btn_trace_path">⚡ Trace Path</button>
+          <button id="btn-clear-path" class="btn-pf-clear" data-i18n="btn_clear_path">Reset</button>
         </div>
         <div class="topbar-search"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input id="search-input" data-i18n="search_placeholder" data-i18n-attr="placeholder" placeholder="Query entity, phone, location…"></div>
@@ -1098,10 +1614,10 @@ SYNTHETIC DATA ONLY</div>
         <div id="graph-wrap">
           <div class="graph-dotgrid"></div>
           <div id="graph-toolbar-left">
-            <div class="tool-icon" id="btn-zoom-in" title="Zoom In">+</div>
-            <div class="tool-icon" id="btn-zoom-out" title="Zoom Out">−</div>
-            <div class="tool-icon" id="btn-reset" title="Reset Camera / Fit to View">⤢</div>
-            <div class="tool-icon" id="btn-physics-toggle" title="Pause / Resume Layout Physics">⏸</div>
+            <div class="tool-icon" id="btn-zoom-in" data-i18n-attr="title" data-i18n="tooltip_zoom_in" title="Zoom In">+</div>
+            <div class="tool-icon" id="btn-zoom-out" data-i18n-attr="title" data-i18n="tooltip_zoom_out" title="Zoom Out">−</div>
+            <div class="tool-icon" id="btn-reset" data-i18n-attr="title" data-i18n="tooltip_reset_camera" title="Reset Camera / Fit to View">⤢</div>
+            <div class="tool-icon" id="btn-physics-toggle" data-i18n-attr="title" data-i18n="tooltip_physics_toggle" title="Pause / Resume Layout Physics">⏸</div>
           </div>
           <div class="path-info-badge" id="path-info-badge"></div>
           <svg id="graph"></svg>
@@ -1219,17 +1735,17 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
     <div class="page" data-page="report">
       <div class="topbar">
         <div class="topbar-left">
-          <h2>Analytics Report</h2>
-          <span class="badge-secure">FACT / INFERENCE / LEAD TAGGED</span>
+          <h2 data-i18n="tb_report">Analytics Report</h2>
+          <span class="badge-secure" data-i18n="badge_tagged">FACT / INFERENCE / LEAD TAGGED</span>
         </div>
         <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
           <div class="report-filter-group" id="report-filter-group">
-            <button class="rf-btn active" data-filter="ALL">All Statements</button>
-            <button class="rf-btn fact" data-filter="FACT">FACT</button>
-            <button class="rf-btn inference" data-filter="AI_INFERENCE">INFERENCE</button>
-            <button class="rf-btn lead" data-filter="LEAD">LEAD</button>
+            <button class="rf-btn active" data-filter="ALL" data-i18n="report_filter_all">All Statements</button>
+            <button class="rf-btn fact" data-filter="FACT" data-i18n="report_filter_fact">FACT</button>
+            <button class="rf-btn inference" data-filter="AI_INFERENCE" data-i18n="report_filter_inf">INFERENCE</button>
+            <button class="rf-btn lead" data-filter="LEAD" data-i18n="report_filter_lead">LEAD</button>
           </div>
-          <button class="btn-export-dossier" onclick="window.print()">Export Full Briefing (PDF)</button>
+          <button class="btn-export-dossier" data-i18n="report_btn_export" onclick="window.print()">Export Full Briefing (PDF)</button>
         </div>
       </div>
       <div class="page-pad" style="max-width:1100px; margin:0 auto; width:100%;">
@@ -1283,22 +1799,22 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
     <div class="page" data-page="evidence">
       <div class="topbar">
         <div class="topbar-left">
-          <h2>Evidence Vault / Repository</h2>
-          <span class="badge-secure">SHA-256 INTEGRITY PROTECTED</span>
-          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);">Chain of Custody &amp; Provenance</span>
+          <h2 data-i18n="evid_title">Evidence Vault / Repository</h2>
+          <span class="badge-secure" data-i18n="evid_integrity">SHA-256 INTEGRITY PROTECTED</span>
+          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);" data-i18n="evid_chain">Chain of Custody &amp; Provenance</span>
         </div>
         <div style="display:flex; gap:10px;">
-          <button class="btn-verify-hash" id="btn-verify-all-evidence">🛡️ Verify All Vault Hashes</button>
+          <button class="btn-verify-hash" id="btn-verify-all-evidence" data-i18n="btn_verify_all_hashes">🛡️ Verify All Vault Hashes</button>
         </div>
       </div>
       <div class="page-pad">
         <div class="evid-filter-bar" id="evid-filter-bar">
-          <button class="evid-tab-btn active" data-source="ALL">All Vault Records</button>
-          <button class="evid-tab-btn" data-source="FIR">FIR Filings</button>
-          <button class="evid-tab-btn" data-source="BANK_RECORD">Bank Records</button>
-          <button class="evid-tab-btn" data-source="CDR">CDR Tower Dumps</button>
-          <button class="evid-tab-btn" data-source="SURVEILLANCE">Surveillance Logs</button>
-          <button class="evid-tab-btn" data-source="FIELD_REPORT">Field Intel</button>
+          <button class="evid-tab-btn active" data-source="ALL" data-i18n="evid_tab_all">All Vault Records</button>
+          <button class="evid-tab-btn" data-source="FIR" data-i18n="evid_tab_fir">FIR Filings</button>
+          <button class="evid-tab-btn" data-source="BANK_RECORD" data-i18n="evid_tab_bank">Bank Records</button>
+          <button class="evid-tab-btn" data-source="CDR" data-i18n="evid_tab_cdr">CDR Tower Dumps</button>
+          <button class="evid-tab-btn" data-source="SURVEILLANCE" data-i18n="evid_tab_surv">Surveillance Logs</button>
+          <button class="evid-tab-btn" data-source="FIELD_REPORT" data-i18n="evid_tab_field">Field Intel</button>
         </div>
         <div class="evid-grid" id="evid-cards-grid">
           <!-- Populated dynamically by dashboard_app.js -->
@@ -1310,22 +1826,22 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
     <div class="page" data-page="anomalies">
       <div class="topbar">
         <div class="topbar-left">
-          <h2>Dedicated Anomaly &amp; Risk Intelligence</h2>
-          <span class="badge-secure" style="border-color:var(--amber); color:var(--amber);">DECISION SUPPORT ONLY</span>
-          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);">Multi-Factor Anomaly Decomposition</span>
+          <h2 data-i18n="anom_title">Dedicated Anomaly &amp; Risk Intelligence</h2>
+          <span class="badge-secure" style="border-color:var(--amber); color:var(--amber);" data-i18n="anom_decision_only">DECISION SUPPORT ONLY</span>
+          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);" data-i18n="anom_sub">Multi-Factor Anomaly Decomposition</span>
         </div>
       </div>
       <div class="page-pad">
         <div class="formula-banner">
           <div>
-            <div style="font-family:var(--font-serif); font-size:15px; font-weight:700; color:var(--ink); margin-bottom:4px;">Explainable Mathematical Risk Formulation</div>
-            <div style="font-size:11.5px; color:var(--ink-dim);">Transparent weighted scoring combining statistical CDR outliers, Hawala volume velocities, graph centrality, and temporal-geospatial proximity.</div>
+            <div style="font-family:var(--font-serif); font-size:15px; font-weight:700; color:var(--ink); margin-bottom:4px;" data-i18n="anom_decomposition_title">Explainable Mathematical Risk Formulation</div>
+            <div style="font-size:11.5px; color:var(--ink-dim);" data-i18n="anom_decomposition_sub">Transparent weighted scoring combining statistical CDR outliers, Hawala volume velocities, graph centrality, and temporal-geospatial proximity.</div>
           </div>
           <div class="formula-chips">
-            <div class="formula-chip">Comm Bursts (35%)</div>
-            <div class="formula-chip">Fin Velocity (30%)</div>
-            <div class="formula-chip">Centrality (20%)</div>
-            <div class="formula-chip">Spatiotemporal (15%)</div>
+            <div class="formula-chip" data-i18n="anom_chip_1">Comm Bursts (35%)</div>
+            <div class="formula-chip" data-i18n="anom_chip_2">Fin Velocity (30%)</div>
+            <div class="formula-chip" data-i18n="anom_chip_3">Centrality (20%)</div>
+            <div class="formula-chip" data-i18n="anom_chip_4">Spatiotemporal (15%)</div>
           </div>
         </div>
         <div class="anom-grid" id="anom-cards-grid">
@@ -1338,41 +1854,41 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
     <div class="page" data-page="timeline">
       <div class="topbar">
         <div class="topbar-left">
-          <h2>Dedicated Investigation Timeline</h2>
-          <span class="badge-secure">TEMPORAL CORRELATION</span>
-          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);">Operation Case MH/CID/2026/0417</span>
+          <h2 data-i18n="tl_title">Dedicated Investigation Timeline</h2>
+          <span class="badge-secure" data-i18n="tl_forensic">TEMPORAL CORRELATION</span>
+          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);" data-i18n="tl_sub">Operation Case MH/CID/2026/0417</span>
         </div>
         <div style="display:flex; gap:8px; align-items:center;">
-          <label style="font-family:var(--font-mono); font-size:11px; color:var(--ink-dim);">Entity:</label>
+          <label style="font-family:var(--font-mono); font-size:11px; color:var(--ink-dim);" data-i18n="tl_label_entity">Entity:</label>
           <select id="tl-filter-entity" class="pf-select" style="min-width:140px;">
-            <option value="">All Entities</option>
+            <option value="" data-i18n="tl_filter_all_ents">All Entities</option>
             <option value="P01">Rajeev Malhotra</option>
             <option value="P02">Anita Rao</option>
             <option value="P03">Vikram Solanki</option>
             <option value="P04">Feroz Sheikh</option>
             <option value="P05">Sanjay Verma</option>
           </select>
-          <label style="font-family:var(--font-mono); font-size:11px; color:var(--ink-dim);">Type:</label>
+          <label style="font-family:var(--font-mono); font-size:11px; color:var(--ink-dim);" data-i18n="tl_label_type">Type:</label>
           <select id="tl-filter-type" class="pf-select">
-            <option value="">All Event Types</option>
-            <option value="TRANSACTION">Bank Transfers</option>
-            <option value="CALL">CDR Calls</option>
-            <option value="SURVEILLANCE">Surveillance</option>
-            <option value="FIR">FIR Filings</option>
+            <option value="" data-i18n="tl_filter_all_types">All Event Types</option>
+            <option value="TRANSACTION" data-i18n="tl_opt_tx">Bank Transfers</option>
+            <option value="CALL" data-i18n="tl_opt_call">CDR Calls</option>
+            <option value="SURVEILLANCE" data-i18n="tl_opt_surv">Surveillance</option>
+            <option value="FIR" data-i18n="tl_opt_fir">FIR Filings</option>
           </select>
         </div>
       </div>
       <div class="page-pad">
         <div style="background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-bottom:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
           <div>
-            <div style="font-family:var(--font-serif); font-size:14px; font-weight:700; color:var(--ink);">Relationship History Inspector</div>
-            <div style="font-size:11.5px; color:var(--ink-dim);">Select any two entities to analyze their chronological interaction evolution.</div>
+            <div style="font-family:var(--font-serif); font-size:14px; font-weight:700; color:var(--ink);" data-i18n="tl_rel_inspector">Relationship History Inspector</div>
+            <div style="font-size:11.5px; color:var(--ink-dim);" data-i18n="tl_rel_inspector_sub">Select any two entities to analyze their chronological interaction evolution.</div>
           </div>
           <div style="display:flex; gap:8px; align-items:center;">
             <select id="rel-ent-a" class="pf-select"></select>
             <span style="font-family:var(--font-mono); color:var(--ink-faint);">↔</span>
             <select id="rel-ent-b" class="pf-select"></select>
-            <button id="btn-inspect-rel" class="btn-pf-run">Trace History</button>
+            <button id="btn-inspect-rel" class="btn-pf-run" data-i18n="btn_trace_history">Trace History</button>
           </div>
         </div>
         <div id="rel-history-summary" style="margin-bottom:16px;"></div>
@@ -1386,69 +1902,69 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
     <div class="page" data-page="ingestion">
       <div class="topbar">
         <div class="topbar-left">
-          <h2>Explicit 6-Stage Ingestion Pipeline &amp; Workflow</h2>
-          <span class="badge-secure">AUTOMATED EXTRACTION</span>
+          <h2 data-i18n="ingest_title">Explicit 6-Stage Ingestion Pipeline &amp; Workflow</h2>
+          <span class="badge-secure" data-i18n="ingest_badge">AUTOMATED EXTRACTION</span>
         </div>
       </div>
       <div class="page-pad">
         <!-- 6-Stage Stepper Animation Header -->
         <div class="stepper-container" id="pipeline-stepper">
-          <div class="step-node completed" id="step-1"><div class="step-circle">1</div><div>Pre-processing</div></div>
-          <div class="step-node completed" id="step-2"><div class="step-circle">2</div><div>OCR Engine</div></div>
-          <div class="step-node completed" id="step-3"><div class="step-circle">3</div><div>NLP Extraction</div></div>
-          <div class="step-node completed" id="step-4"><div class="step-circle">4</div><div>Entity Resolution</div></div>
-          <div class="step-node completed" id="step-5"><div class="step-circle">5</div><div>Relationship Link</div></div>
-          <div class="step-node completed" id="step-6"><div class="step-circle">6</div><div>Graph Indexing</div></div>
+          <div class="step-node completed" id="step-1"><div class="step-circle">1</div><div data-i18n="step_1_title">Pre-processing</div></div>
+          <div class="step-node completed" id="step-2"><div class="step-circle">2</div><div data-i18n="step_2_title">OCR Engine</div></div>
+          <div class="step-node completed" id="step-3"><div class="step-circle">3</div><div data-i18n="step_3_title">NLP Extraction</div></div>
+          <div class="step-node completed" id="step-4"><div class="step-circle">4</div><div data-i18n="step_4_title">Entity Resolution</div></div>
+          <div class="step-node completed" id="step-5"><div class="step-circle">5</div><div data-i18n="step_5_title">Relationship Link</div></div>
+          <div class="step-node completed" id="step-6"><div class="step-circle">6</div><div data-i18n="step_6_title">Graph Indexing</div></div>
         </div>
 
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;">
           <!-- Upload Form Box -->
           <div style="background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:20px;">
-            <h3 style="font-family:var(--font-serif); font-size:16px; margin-bottom:12px;">Submit Document to Pipeline</h3>
+            <h3 style="font-family:var(--font-serif); font-size:16px; margin-bottom:12px;" data-i18n="ingest_submit_title">Submit Document to Pipeline</h3>
             <div style="display:flex; flex-direction:column; gap:12px;">
               <div>
-                <label style="display:block; font-family:var(--font-mono); font-size:11px; color:var(--ink-dim); margin-bottom:4px;">Document Source Category</label>
+                <label style="display:block; font-family:var(--font-mono); font-size:11px; color:var(--ink-dim); margin-bottom:4px;" data-i18n="ingest_cat_label">Document Source Category</label>
                 <select id="ingest-source-type" class="pf-select" style="width:100%;">
-                  <option value="FIR">First Information Report (FIR)</option>
-                  <option value="CDR">Telecom CDR / Cell Dump (CSV)</option>
-                  <option value="BANK_RECORD">Bank Statement / STR (CSV/XML)</option>
-                  <option value="SURVEILLANCE">Physical Surveillance Observation Log</option>
-                  <option value="FIELD_REPORT">Confidential Informant Report</option>
+                  <option value="FIR" data-i18n="ingest_opt_fir">First Information Report (FIR)</option>
+                  <option value="CDR" data-i18n="ingest_opt_cdr">Telecom CDR / Cell Dump (CSV)</option>
+                  <option value="BANK_RECORD" data-i18n="ingest_opt_bank">Bank Statement / STR (CSV/XML)</option>
+                  <option value="SURVEILLANCE" data-i18n="ingest_opt_surv">Physical Surveillance Observation Log</option>
+                  <option value="FIELD_REPORT" data-i18n="ingest_opt_field">Confidential Informant Report</option>
                 </select>
               </div>
               <div>
-                <label style="display:block; font-family:var(--font-mono); font-size:11px; color:var(--ink-dim); margin-bottom:4px;">Submitting Officer</label>
+                <label style="display:block; font-family:var(--font-mono); font-size:11px; color:var(--ink-dim); margin-bottom:4px;" data-i18n="ingest_officer_label">Submitting Officer</label>
                 <input id="ingest-officer" type="text" value="Insp. Vikramaditya Kadam" style="width:100%; padding:8px 10px; background:var(--bg); border:1px solid var(--border); border-radius:5px; font-family:inherit; font-size:12px;">
               </div>
               <div>
-                <label style="display:block; font-family:var(--font-mono); font-size:11px; color:var(--ink-dim); margin-bottom:4px;">Select File (PDF, CSV, TXT, Image)</label>
+                <label style="display:block; font-family:var(--font-mono); font-size:11px; color:var(--ink-dim); margin-bottom:4px;" data-i18n="ingest_file_label">Select File (PDF, CSV, TXT, Image)</label>
                 <input type="file" id="ingest-file-input" style="width:100%; font-size:12px;">
               </div>
-              <button id="btn-run-ingestion" class="btn-pf-run" style="padding:10px; font-size:12px; margin-top:6px;">🚀 Execute 6-Stage Ingestion Pipeline</button>
+              <button id="btn-run-ingestion" class="btn-pf-run" data-i18n="btn_run_ingest" style="padding:10px; font-size:12px; margin-top:6px;">🚀 Execute 6-Stage Ingestion Pipeline</button>
             </div>
           </div>
 
           <!-- Execution Logs Console -->
           <div style="background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:20px; display:flex; flex-direction:column;">
-            <h3 style="font-family:var(--font-serif); font-size:16px; margin-bottom:12px;">Pipeline Execution Telemetry</h3>
-            <div id="ingest-console-output" style="flex:1; background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:12px; font-family:var(--font-mono); font-size:11px; color:var(--ink); overflow-y:auto; max-height:220px; white-space:pre-wrap; line-height:1.6;">Ready for document submission. Select a file and click execute to observe 6-stage pipeline stages.</div>
+            <h3 style="font-family:var(--font-serif); font-size:16px; margin-bottom:12px;" data-i18n="ingest_telemetry_title">Pipeline Execution Telemetry</h3>
+            <div id="ingest-console-output" data-i18n="ingest_ready_msg" style="flex:1; background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:12px; font-family:var(--font-mono); font-size:11px; color:var(--ink); overflow-y:auto; max-height:220px; white-space:pre-wrap; line-height:1.6;">Ready for document submission. Select a file and click execute to observe 6-stage pipeline stages.</div>
           </div>
         </div>
 
         <!-- Ingestion History Table -->
         <div style="background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:20px;">
-          <h3 style="font-family:var(--font-serif); font-size:16px; margin-bottom:14px;">Ingestion Audit History</h3>
+          <h3 style="font-family:var(--font-serif); font-size:16px; margin-bottom:14px;" data-i18n="ingest_history_title">Ingestion Audit History</h3>
           <div style="overflow-x:auto;">
             <table class="audit-table">
               <thead>
                 <tr>
-                  <th>Job ID</th>
-                  <th>Source File</th>
-                  <th>Size</th>
-                  <th>SHA-256 Checksum</th>
-                  <th>Extracted Findings</th>
-                  <th>Evidence Vault ID</th>
-                  <th>Status</th>
+                  <th data-i18n="th_job_id">Job ID</th>
+                  <th data-i18n="th_source_file">Source File</th>
+                  <th data-i18n="th_size">Size</th>
+                  <th data-i18n="th_sha256">SHA-256 Checksum</th>
+                  <th data-i18n="th_findings">Extracted Findings</th>
+                  <th data-i18n="th_evid_id">Evidence Vault ID</th>
+                  <th data-i18n="th_status">Status</th>
                 </tr>
               </thead>
               <tbody id="ingest-history-table-body">
@@ -1464,17 +1980,17 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
     <div class="page" data-page="audit">
       <div class="topbar">
         <div class="topbar-left">
-          <h2>Audit &amp; Human Verification Workflow</h2>
-          <span class="badge-secure">INSTITUTIONAL ACCOUNTABILITY</span>
-          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);">No Silent AI Merges</span>
+          <h2 data-i18n="audit_title">Audit &amp; Human Verification Workflow</h2>
+          <span class="badge-secure" data-i18n="audit_badge">INSTITUTIONAL ACCOUNTABILITY</span>
+          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint);" data-i18n="audit_sub">No Silent AI Merges</span>
         </div>
       </div>
       <div class="page-pad">
         <div class="audit-layout">
           <!-- Pending Candidate Merges (Human in the Loop) -->
           <div>
-            <div style="font-family:var(--font-serif); font-size:16px; font-weight:700; margin-bottom:4px;">Pending Entity Resolution Candidates</div>
-            <div style="font-size:11.5px; color:var(--ink-dim); margin-bottom:14px;">AI-suggested identity merges requiring human investigator sign-off before committing to the knowledge graph.</div>
+            <div style="font-family:var(--font-serif); font-size:16px; font-weight:700; margin-bottom:4px;" data-i18n="audit_pending_title">Pending Entity Resolution Candidates</div>
+            <div style="font-size:11.5px; color:var(--ink-dim); margin-bottom:14px;" data-i18n="audit_pending_sub">AI-suggested identity merges requiring human investigator sign-off before committing to the knowledge graph.</div>
             <div id="cand-merge-list">
               <!-- Populated dynamically -->
             </div>
@@ -1482,8 +1998,8 @@ TO VIEW ITS INVESTIGATIVE PROFILE</div>
 
           <!-- Immutable Audit Trail Ledger -->
           <div>
-            <div style="font-family:var(--font-serif); font-size:16px; font-weight:700; margin-bottom:4px;">Immutable Forensic Audit Ledger</div>
-            <div style="font-size:11.5px; color:var(--ink-dim); margin-bottom:14px;">Cryptographically verifiable record of all user queries, hash integrity checks, and merge decisions.</div>
+            <div style="font-family:var(--font-serif); font-size:16px; font-weight:700; margin-bottom:4px;" data-i18n="audit_trail_title">Immutable Forensic Audit Ledger</div>
+            <div style="font-size:11.5px; color:var(--ink-dim); margin-bottom:14px;" data-i18n="audit_trail_sub">Cryptographically verifiable record of all user queries, hash integrity checks, and merge decisions.</div>
             <div style="background:var(--panel); border:1px solid var(--border); border-radius:8px; overflow-x:auto; max-height:550px; overflow-y:auto;">
               <table class="audit-table">
                 <thead>
