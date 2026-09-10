@@ -1,5 +1,95 @@
 const DATA = __DATA_JSON__;
 
+/* ==========================================================================
+   SUTRA LIVE BACKEND INTEGRATION — hoisted to top to avoid TDZ errors
+   Connects to FastAPI Core (http://localhost:8000/api) with resilient fallback
+   ========================================================================== */
+const API_BASE = "http://localhost:8000/api";
+
+// Fallback Evidence Vault items if running purely offline
+const FALLBACK_EVIDENCE = [
+  {
+    evidence_id: "EVID-2026-001",
+    title: "FIR No. 031/2026 — Andheri Warehouse Incident Report",
+    source_type: "FIR",
+    source_agency: "Maharashtra Police, Andheri PS",
+    officer_name: "Sub-Inspector S. Deshmukh",
+    sha256_hash: "a4f8e12b6940d99812e9b015f3d44199c43efb2512a819bbce7183e9b1d5420a",
+    reliability_score: 0.92,
+    verified_status: "verified",
+    content_text: "On 14/02/2026, surveillance team observed RAJEEV MALHOTRA (M/42) meeting FEROZ SHEIKH near the commercial warehouse at Andheri East. Vehicle bearing registration MH-04 GK 7729 was sighted departing at 22:45 hrs. Call records confirm SIM +91 98201 11422 made 18 calls to +91 77382 88341. Premises leased under SHREE TRADING CO.",
+    provenance_chain: [
+      {timestamp: "2026-02-14T23:30:00", actor: "SI Deshmukh", action: "FIR Registered", station: "Andheri PS"},
+      {timestamp: "2026-02-15T10:15:00", actor: "SUTRA Ingestion System", action: "Cryptographic Hash Registered"}
+    ]
+  },
+  {
+    evidence_id: "EVID-2026-002",
+    title: "Intelligence Report No. 014/2026 — Bhiwandi Warehouse Intel",
+    source_type: "FIELD_REPORT",
+    source_agency: "Thane Rural Special Branch",
+    officer_name: "Field Informant 'Badger'",
+    sha256_hash: "7c9d34e201bfa881902c3ef4190bda33241109bcfa441830219ffeb901844211",
+    reliability_score: 0.45,
+    verified_status: "pending",
+    content_text: "Local intelligence report suggests SANJAY VERMA leased godown #4 in Bhiwandi approx 3 months prior under cash deal. Associated commercial fleet MH-04 GK 7729 linked to Apex Logistics. Requires field corroboration.",
+    provenance_chain: [
+      {timestamp: "2026-01-26T14:00:00", actor: "SB Field Agent", action: "Informant Debrief Logged", station: "Bhiwandi"}
+    ]
+  },
+  {
+    evidence_id: "EVID-2026-003",
+    title: "Certified Bank Statement & Financial Transaction Ledger",
+    source_type: "BANK_RECORD",
+    source_agency: "State Bank of India & ICICI Special Compliance",
+    officer_name: "Chief Compliance Officer R. Mehta",
+    sha256_hash: "5d83f14418290bc93120ea99410cb2331908abf2014e823901bca88177203e01",
+    reliability_score: 0.98,
+    verified_status: "verified",
+    content_text: "TXN-001: 2026-02-12 15:20:00 | A01 (Rajeev Malhotra) -> A02 (Anita Rao) | NEFT | INR 18,40,000 | Flagged Structuring\nTXN-002: 2026-01-18 11:05:00 | A03 (Vikram Solanki) -> A01 (Rajeev Malhotra) | IMPS | INR 2,50,000",
+    provenance_chain: [
+      {timestamp: "2026-02-13T10:00:00", actor: "SBI Compliance", action: "STR (Suspicious Transaction Report) Filed", station: "Fort Branch"}
+    ]
+  },
+  {
+    evidence_id: "EVID-2026-004",
+    title: "Telecom Service Provider CDR & Tower Cell Dump",
+    source_type: "CDR",
+    source_agency: "Department of Telecom / Nodal Cell Mumbai",
+    officer_name: "Nodal Liaison Officer P. Sharma",
+    sha256_hash: "3184ea00bc918239410abcf99201384019284102938471029384719283746152",
+    reliability_score: 0.95,
+    verified_status: "verified",
+    content_text: "1. +91 98201 11422 (Rajeev Malhotra) <-> +91 77382 88341 (Feroz Sheikh): 34 calls, 412 mins, 14 late-night\n2. +91 98201 11422 (Rajeev Malhotra) <-> +91 98201 55910 (Anita Rao): 28 calls, 194 mins",
+    provenance_chain: [
+      {timestamp: "2026-02-15T08:00:00", actor: "Nodal Officer", action: "Lawful Interception Dump Extracted"}
+    ]
+  },
+  {
+    evidence_id: "EVID-2026-005",
+    title: "CID Physical Surveillance Observation Report (Delta-2)",
+    source_type: "SURVEILLANCE",
+    source_agency: "CID Special Surveillance Unit, Delta-2",
+    officer_name: "Insp. Vikramaditya Kadam",
+    sha256_hash: "e903bc1940182394019283746152431092837461524310928374615243109283",
+    reliability_score: 0.88,
+    verified_status: "verified",
+    content_text: "14/02/2026 21:15 - Subject Rajeev Malhotra arrived in silver Toyota Fortuner (MH-02 CR 1109).\n21:30 - Subject Feroz Sheikh arrived on foot from Western Express Highway side.\n21:35 - Handed over metallic briefcase inside warehouse gate 2.",
+    provenance_chain: [
+      {timestamp: "2026-02-14T23:45:00", actor: "Delta-2 Unit", action: "Physical Observation Log Submitted"}
+    ]
+  }
+];
+
+// Hoisted state variables to avoid TDZ errors across navigation and render cycles
+let currentEvidenceFilter = "ALL";
+let ASST_HISTORY = [];
+let CURRENT_PROFILE_ID = null;
+let CURRENT_SELECTED_NODE = null;
+let CURRENT_REPORT_FILTER = "ALL";
+let currentTlEntity = "";
+let currentTlType = "";
+
 /* ============================================================
    I18N — English / Hindi / Marathi
    ============================================================ */
@@ -783,29 +873,33 @@ function applyLanguage(lang){
   }
 
   initThemeEngine();
-applyStaticI18n();
-  if(typeof renderLegend === "function") renderLegend();
-  if(typeof renderCommandCenter === "function") renderCommandCenter();
-  if(typeof renderEpGrid === "function") renderEpGrid();
-  if(typeof renderChips === "function") renderChips();
-  if(typeof renderSampleDocs === "function") renderSampleDocs();
-  if(typeof renderConflicts === "function"){
-    const sl = document.getElementById("thresh-slider");
-    renderConflicts(sl ? parseInt(sl.value,10)/100 : 0.6);
-  }
-  if(typeof renderReportPage === "function") renderReportPage();
-  if(typeof renderEvidenceVault === "function") renderEvidenceVault();
-  if(typeof renderAnomalyPage === "function") renderAnomalyPage();
-  if(typeof renderIngestionPage === "function") renderIngestionPage();
-  if(typeof renderAuditPage === "function") renderAuditPage();
-  if(typeof renderTimelinePage === "function") renderTimelinePage();
-  if(window.__reselectCurrentNode) window.__reselectCurrentNode();
-  if(typeof CURRENT_PROFILE_ID !== "undefined" && CURRENT_PROFILE_ID && typeof openProfileDetail === "function") openProfileDetail(CURRENT_PROFILE_ID);
-  if(typeof asstRenderSuggestions === "function") asstRenderSuggestions();
-  if(typeof ASST_HISTORY !== "undefined" && ASST_HISTORY && ASST_HISTORY.length === 1 && ASST_HISTORY[0].role === "assistant"){
-    ASST_HISTORY[0] = {role:"assistant", html:`<div>${t('asst_welcome')}</div>`};
-    if(typeof asstRenderMessages === "function") asstRenderMessages();
-  }
+  applyStaticI18n();
+  try { if(typeof renderLegend === "function") renderLegend(); } catch(e){ console.error("renderLegend error:", e); }
+  try { if(typeof renderCommandCenter === "function") renderCommandCenter(); } catch(e){ console.error("renderCommandCenter error:", e); }
+  try { if(typeof renderEpGrid === "function") renderEpGrid(); } catch(e){ console.error("renderEpGrid error:", e); }
+  try { if(typeof renderChips === "function") renderChips(); } catch(e){ console.error("renderChips error:", e); }
+  try { if(typeof renderSampleDocs === "function") renderSampleDocs(); } catch(e){ console.error("renderSampleDocs error:", e); }
+  try {
+    if(typeof renderConflicts === "function"){
+      const sl = document.getElementById("thresh-slider");
+      renderConflicts(sl ? parseInt(sl.value,10)/100 : 0.6);
+    }
+  } catch(e){ console.error("renderConflicts error:", e); }
+  try { if(typeof renderReportPage === "function") renderReportPage(); } catch(e){ console.error("renderReportPage error:", e); }
+  try { if(typeof renderEvidenceVault === "function") renderEvidenceVault(); } catch(e){ console.error("renderEvidenceVault error:", e); }
+  try { if(typeof renderAnomalyPage === "function") renderAnomalyPage(); } catch(e){ console.error("renderAnomalyPage error:", e); }
+  try { if(typeof renderIngestionPage === "function") renderIngestionPage(); } catch(e){ console.error("renderIngestionPage error:", e); }
+  try { if(typeof renderAuditPage === "function") renderAuditPage(); } catch(e){ console.error("renderAuditPage error:", e); }
+  try { if(typeof renderTimelinePage === "function") renderTimelinePage(); } catch(e){ console.error("renderTimelinePage error:", e); }
+  try { if(window.__reselectCurrentNode) window.__reselectCurrentNode(); } catch(e){}
+  try { if(typeof CURRENT_PROFILE_ID !== "undefined" && CURRENT_PROFILE_ID && typeof openProfileDetail === "function") openProfileDetail(CURRENT_PROFILE_ID); } catch(e){}
+  try { if(typeof asstRenderSuggestions === "function") asstRenderSuggestions(); } catch(e){}
+  try {
+    if(typeof ASST_HISTORY !== "undefined" && ASST_HISTORY && ASST_HISTORY.length === 1 && ASST_HISTORY[0].role === "assistant"){
+      ASST_HISTORY[0] = {role:"assistant", html:`<div>${t('asst_welcome')}</div>`};
+      if(typeof asstRenderMessages === "function") asstRenderMessages();
+    }
+  } catch(e){}
 }
 document.querySelectorAll(".lang-btn").forEach(btn=>{
   btn.addEventListener("click", ()=> applyLanguage(btn.dataset.lang));
@@ -2286,9 +2380,12 @@ function riskLevelLabel(level){
   return {HIGH:t('risk_high'), MEDIUM:t('risk_medium'), LOW:t('risk_low')}[level] || t('risk_unrated');
 }
 function renderEpGrid(){
+  const personNodes = getPersonNodes();
   const profH2 = document.querySelector('[data-page="profiles"] h2'); if(profH2) profH2.textContent = t('tb_profiles');
   const profBadge = document.querySelector('[data-page="profiles"] .badge-secure'); if(profBadge) profBadge.textContent = personNodes.length + " " + t('persons_of_interest');
-  document.getElementById("ep-grid").innerHTML = personNodes.map(n=>{
+  const epGridEl = document.getElementById("ep-grid");
+  if(!epGridEl) return;
+  epGridEl.innerHTML = personNodes.map(n=>{
     const aliasStr = (n.aliases && n.aliases.length) ? `${t('aliases_prefix')} ${n.aliases.join(", ")}` : t('no_aliases');
     return `<div class="ep-card" data-id="${n.id}">
       <div class="ep-top"><div class="ep-avatar">${ICONS.person}</div><div><div class="name">${n.label}</div><div class="id">${n.id}</div></div></div>
@@ -2333,7 +2430,7 @@ function getRiskReasons(d){
   return reasons;
 }
 
-let CURRENT_SELECTED_NODE = null;
+CURRENT_SELECTED_NODE = null;
 (function initGraph(){
   try {
     if (typeof d3 === "undefined") throw new Error("d3 failed to load");
@@ -2553,11 +2650,11 @@ function initPathFinder(ctx){
   const tgtSelect = document.getElementById("pf-target");
   if(!srcSelect || !tgtSelect) return;
 
-  const personNodes = (nodes || DATA.nodes).filter(n=>n.type==="person");
-  const opts = personNodes.map(p=>`<option value="${p.id}">${p.label}</option>`).join("");
+  const personNodesSelect = (nodes || DATA.nodes).filter(n=>n.type==="person");
+  const opts = personNodesSelect.map(p=>`<option value="${p.id}">${p.label}</option>`).join("");
   srcSelect.innerHTML = opts;
   tgtSelect.innerHTML = opts;
-  if(personNodes.length > 1) tgtSelect.selectedIndex = 1;
+  if(personNodesSelect.length > 1) tgtSelect.selectedIndex = 1;
 
   document.getElementById("btn-pf-swap")?.addEventListener("click", ()=>{
     const tmp = srcSelect.value;
@@ -2946,7 +3043,7 @@ function initTimelinePlayer(){
 }
 
 /* ---------------- ENTITY PROFILE DETAIL (full page) ---------------- */
-let CURRENT_PROFILE_ID = null;
+CURRENT_PROFILE_ID = null;
 function riskColor(level){
   return {HIGH:"var(--red)", MEDIUM:"var(--amber)", LOW:"var(--green)"}[level] || "var(--ink-faint)";
 }
@@ -3300,7 +3397,7 @@ function renderConflicts(threshold){
 }
 
 /* ---------------- REPORT ---------------- */
-let CURRENT_REPORT_FILTER = "ALL";
+CURRENT_REPORT_FILTER = "ALL";
 
 function renderReportPage(){
   const reportH2 = document.querySelector('[data-page="report"] h2');
@@ -3407,14 +3504,14 @@ function applyTheme(theme){
 /* ---------------- INITIAL RENDER (page load) ---------------- */
 initThemeEngine();
 applyStaticI18n();
-renderLegend();
-renderCommandCenter();
-renderEpGrid();
-renderChips();
-renderSampleDocs();
+try { renderLegend(); } catch(e){ console.error("renderLegend error:", e); }
+try { renderCommandCenter(); } catch(e){ console.error("renderCommandCenter error:", e); }
+try { renderEpGrid(); } catch(e){ console.error("renderEpGrid error:", e); }
+try { renderChips(); } catch(e){ console.error("renderChips error:", e); }
+try { renderSampleDocs(); } catch(e){ console.error("renderSampleDocs error:", e); }
 const __initSlider = document.getElementById("thresh-slider");
-renderConflicts(__initSlider ? parseInt(__initSlider.value,10)/100 : 0.6);
-renderReportPage();
+try { renderConflicts(__initSlider ? parseInt(__initSlider.value,10)/100 : 0.6); } catch(e){ console.error("renderConflicts error:", e); }
+try { renderReportPage(); } catch(e){ console.error("renderReportPage error:", e); }
 
 /* ============================================================
    AI INVESTIGATION ASSISTANT
@@ -3629,7 +3726,7 @@ function asstAnswer(query){
 }
 
 /* ---- Assistant UI wiring ---- */
-let ASST_HISTORY = [];
+// ASST_HISTORY declared at top of file
 function asstRenderMessages(){
   const container = document.getElementById("asst-messages");
   if(!container) return;
@@ -3692,12 +3789,21 @@ function asstShowTypingThen(displayText, resolveHtml){
     <div class="asst-bubble"><div class="asst-typing"><span></span><span></span><span></span></div></div>
   </div>`);
   container.scrollTop = container.scrollHeight;
-  setTimeout(()=>{
+  setTimeout(async ()=>{
     const el = document.getElementById(typingId);
     if(el) el.remove();
-    const html = (typeof resolveHtml === "function") ? resolveHtml() : resolveHtml;
-    ASST_HISTORY.push({role:"assistant", html});
-    asstRenderMessages();
+    let html = (typeof resolveHtml === "function") ? resolveHtml() : resolveHtml;
+    if(html && typeof html.then === "function"){
+      try {
+        html = await html;
+      } catch(e){
+        html = `<div style="color:var(--red);">Error communicating with assistant service.</div>`;
+      }
+    }
+    if(html){
+      ASST_HISTORY.push({role:"assistant", html});
+      asstRenderMessages();
+    }
   }, 450);
 }
 
@@ -3734,86 +3840,12 @@ if(sbAsstSideItem) sbAsstSideItem.addEventListener("click", ()=> initAssistant()
 /* ==========================================================================
    SUTRA LIVE BACKEND INTEGRATION & FEATURE MODULES
    Connects to FastAPI Core (http://localhost:8000/api) with resilient fallback
+   (API_BASE and FALLBACK_EVIDENCE are declared at top of file to avoid TDZ)
    ========================================================================== */
-const API_BASE = "http://localhost:8000/api";
-
-// Fallback Evidence Vault items if running purely offline
-const FALLBACK_EVIDENCE = [
-  {
-    evidence_id: "EVID-2026-001",
-    title: "FIR No. 031/2026 — Andheri Warehouse Incident Report",
-    source_type: "FIR",
-    source_agency: "Maharashtra Police, Andheri PS",
-    officer_name: "Sub-Inspector S. Deshmukh",
-    sha256_hash: "a4f8e12b6940d99812e9b015f3d44199c43efb2512a819bbce7183e9b1d5420a",
-    reliability_score: 0.92,
-    verified_status: "verified",
-    content_text: "On 14/02/2026, surveillance team observed RAJEEV MALHOTRA (M/42) meeting FEROZ SHEIKH near the commercial warehouse at Andheri East. Vehicle bearing registration MH-04 GK 7729 was sighted departing at 22:45 hrs. Call records confirm SIM +91 98201 11422 made 18 calls to +91 77382 88341. Premises leased under SHREE TRADING CO.",
-    provenance_chain: [
-      {timestamp: "2026-02-14T23:30:00", actor: "SI Deshmukh", action: "FIR Registered", station: "Andheri PS"},
-      {timestamp: "2026-02-15T10:15:00", actor: "SUTRA Ingestion System", action: "Cryptographic Hash Registered"}
-    ]
-  },
-  {
-    evidence_id: "EVID-2026-002",
-    title: "Intelligence Report No. 014/2026 — Bhiwandi Warehouse Intel",
-    source_type: "FIELD_REPORT",
-    source_agency: "Thane Rural Special Branch",
-    officer_name: "Field Informant 'Badger'",
-    sha256_hash: "7c9d34e201bfa881902c3ef4190bda33241109bcfa441830219ffeb901844211",
-    reliability_score: 0.45,
-    verified_status: "pending",
-    content_text: "Local intelligence report suggests SANJAY VERMA leased godown #4 in Bhiwandi approx 3 months prior under cash deal. Associated commercial fleet MH-04 GK 7729 linked to Apex Logistics. Requires field corroboration.",
-    provenance_chain: [
-      {timestamp: "2026-01-26T14:00:00", actor: "SB Field Agent", action: "Informant Debrief Logged", station: "Bhiwandi"}
-    ]
-  },
-  {
-    evidence_id: "EVID-2026-003",
-    title: "Certified Bank Statement & Financial Transaction Ledger",
-    source_type: "BANK_RECORD",
-    source_agency: "State Bank of India & ICICI Special Compliance",
-    officer_name: "Chief Compliance Officer R. Mehta",
-    sha256_hash: "5d83f14418290bc93120ea99410cb2331908abf2014e823901bca88177203e01",
-    reliability_score: 0.98,
-    verified_status: "verified",
-    content_text: "TXN-001: 2026-02-12 15:20:00 | A01 (Rajeev Malhotra) -> A02 (Anita Rao) | NEFT | INR 18,40,000 | Flagged Structuring\nTXN-002: 2026-01-18 11:05:00 | A03 (Vikram Solanki) -> A01 (Rajeev Malhotra) | IMPS | INR 2,50,000",
-    provenance_chain: [
-      {timestamp: "2026-02-13T10:00:00", actor: "SBI Compliance", action: "STR (Suspicious Transaction Report) Filed", station: "Fort Branch"}
-    ]
-  },
-  {
-    evidence_id: "EVID-2026-004",
-    title: "Telecom Service Provider CDR & Tower Cell Dump",
-    source_type: "CDR",
-    source_agency: "Department of Telecom / Nodal Cell Mumbai",
-    officer_name: "Nodal Liaison Officer P. Sharma",
-    sha256_hash: "3184ea00bc918239410abcf99201384019284102938471029384719283746152",
-    reliability_score: 0.95,
-    verified_status: "verified",
-    content_text: "1. +91 98201 11422 (Rajeev Malhotra) <-> +91 77382 88341 (Feroz Sheikh): 34 calls, 412 mins, 14 late-night\n2. +91 98201 11422 (Rajeev Malhotra) <-> +91 98201 55910 (Anita Rao): 28 calls, 194 mins",
-    provenance_chain: [
-      {timestamp: "2026-02-15T08:00:00", actor: "Nodal Officer", action: "Lawful Interception Dump Extracted"}
-    ]
-  },
-  {
-    evidence_id: "EVID-2026-005",
-    title: "CID Physical Surveillance Observation Report (Delta-2)",
-    source_type: "SURVEILLANCE",
-    source_agency: "CID Special Surveillance Unit, Delta-2",
-    officer_name: "Insp. Vikramaditya Kadam",
-    sha256_hash: "e903bc1940182394019283746152431092837461524310928374615243109283",
-    reliability_score: 0.88,
-    verified_status: "verified",
-    content_text: "14/02/2026 21:15 - Subject Rajeev Malhotra arrived in silver Toyota Fortuner (MH-02 CR 1109).\n21:30 - Subject Feroz Sheikh arrived on foot from Western Express Highway side.\n21:35 - Handed over metallic briefcase inside warehouse gate 2.",
-    provenance_chain: [
-      {timestamp: "2026-02-14T23:45:00", actor: "Delta-2 Unit", action: "Physical Observation Log Submitted"}
-    ]
-  }
-];
+// NOTE: API_BASE and FALLBACK_EVIDENCE declared at top of file to prevent TDZ errors
 
 /* ---------------- 1. EVIDENCE VAULT MODULE ---------------- */
-let currentEvidenceFilter = "ALL";
+// currentEvidenceFilter declared at top of file
 
 async function renderEvidenceVault(){
   const grid = document.getElementById("evid-cards-grid");
@@ -3838,10 +3870,17 @@ async function renderEvidenceVault(){
     items = items.filter(it => it.source_type === currentEvidenceFilter);
   }
 
+  if(!items || items.length === 0){
+    grid.innerHTML = `<div style="grid-column:1/-1; padding:30px; text-align:center; color:var(--ink-faint); font-family:var(--font-mono); font-size:12px;">No evidence records found for category: ${currentEvidenceFilter}</div>`;
+    return;
+  }
+
   grid.innerHTML = items.map(it => {
     const statusCls = it.verified_status || "verified";
     const statusLabel = statusCls === "verified" ? "✓ AUTHENTIC" : (statusCls === "pending" ? "PENDING REVIEW" : "⚠ FLAGGED");
     const relScore = Math.round((it.reliability_score || 0.9) * 100);
+    const hash = it.sha256_hash || "";
+    const shortHash = hash.length >= 24 ? hash.substring(0, 24) + "..." : (hash || "N/A");
     return `
       <div class="evid-card" id="card-${it.evidence_id}">
         <div class="evid-header">
@@ -3857,8 +3896,8 @@ async function renderEvidenceVault(){
           <span><b>Reliability:</b> ${relScore}%</span>
         </div>
         <div class="evid-hash-box">
-          <span>SHA-256: <b style="color:var(--ink);">${it.sha256_hash.substring(0, 24)}...</b></span>
-          <button onclick="navigator.clipboard.writeText('${it.sha256_hash}'); alert('SHA-256 hash copied to clipboard');" style="background:none; border:none; color:var(--blue); font-family:inherit; font-size:10px; cursor:pointer;">Copy</button>
+          <span>SHA-256: <b style="color:var(--ink);">${shortHash}</b></span>
+          <button onclick="navigator.clipboard.writeText('${hash}'); alert('SHA-256 hash copied to clipboard');" style="background:none; border:none; color:var(--blue); font-family:inherit; font-size:10px; cursor:pointer;">Copy</button>
         </div>
         <div class="evid-content-box">${it.content_text || it.content_preview || ''}</div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:6px;">
@@ -4026,8 +4065,9 @@ if(sbAnomItem) sbAnomItem.addEventListener("click", () => renderAnomalyPage());
 
 
 /* ---------------- 3. INVESTIGATION TIMELINE MODULE ---------------- */
-let currentTlEntity = "";
-let currentTlType = "";
+// currentTlEntity & currentTlType declared at top of file
+currentTlEntity = "";
+currentTlType = "";
 
 async function renderTimelinePage(){
   const container = document.getElementById("tl-events-container");
@@ -4383,14 +4423,12 @@ asstAnswer = async function(query){
         <div style="line-height:1.6;">${data.answer.replace(/\n/g, '<br>')}</div>
         ${checksHtml ? `<div style="margin-top:14px; border-top:1px solid var(--border); padding-top:10px;"><b style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink);">SUGGESTED NEXT INVESTIGATIVE CHECKS:</b>${checksHtml}</div>` : ''}
       `;
-      ASST_HISTORY.push({role: "assistant", html: html});
-      asstRenderMessages();
-      return;
+      return html;
     }
   } catch(e){}
 
   // Fallback to internal keyword synthesizer
-  originalAsstAnswer(query);
+  return originalAsstAnswer(query);
 };
 
 // Initial boot
