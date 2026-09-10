@@ -1910,7 +1910,7 @@ function renderCommandCenter(){
       <div class="stat-sub">&#8377;18.4L hawala outlier flagged</div>
     </div>
   `;
-  document.querySelector('[data-page="command"] h2').textContent = t('tb_command');
+  const cmdH2 = document.querySelector('[data-page="command"] h2'); if(cmdH2) cmdH2.textContent = t('tb_command');
 
   renderMiniRadarGraph();
   renderThreatRankingBars();
@@ -2286,8 +2286,8 @@ function riskLevelLabel(level){
   return {HIGH:t('risk_high'), MEDIUM:t('risk_medium'), LOW:t('risk_low')}[level] || t('risk_unrated');
 }
 function renderEpGrid(){
-  document.querySelector('[data-page="profiles"] h2').textContent = t('tb_profiles');
-  document.querySelector('[data-page="profiles"] .badge-secure').textContent = personNodes.length + " " + t('persons_of_interest');
+  const profH2 = document.querySelector('[data-page="profiles"] h2'); if(profH2) profH2.textContent = t('tb_profiles');
+  const profBadge = document.querySelector('[data-page="profiles"] .badge-secure'); if(profBadge) profBadge.textContent = personNodes.length + " " + t('persons_of_interest');
   document.getElementById("ep-grid").innerHTML = personNodes.map(n=>{
     const aliasStr = (n.aliases && n.aliases.length) ? `${t('aliases_prefix')} ${n.aliases.join(", ")}` : t('no_aliases');
     return `<div class="ep-card" data-id="${n.id}">
@@ -2998,7 +2998,7 @@ function openProfileDetail(personId){
   if(!d) return;
   CURRENT_PROFILE_ID = personId;
   document.getElementById("pd-breadcrumb-name").textContent = d.label;
-  document.querySelector(".breadcrumb a#pd-back-link").textContent = t('breadcrumb_profiles');
+  const pdBackLink = document.querySelector(".breadcrumb a#pd-back-link"); if(pdBackLink) pdBackLink.textContent = t('breadcrumb_profiles');
   const riskLevel = d.risk_level || "UNRATED";
   const connected = DATA.edges.filter(e=>{
     const s = e.source.id||e.source, tt = e.target.id||e.target;
@@ -3728,7 +3728,8 @@ const asstInputEl = document.getElementById("asst-input");
 if(asstSendBtn){ asstSendBtn.addEventListener("click", ()=> asstSubmit()); }
 if(asstInputEl){ asstInputEl.addEventListener("keydown", (e)=>{ if(e.key === "Enter") asstSubmit(); }); }
 
-document.querySelector('.sb-item[data-page="assistant"]').addEventListener("click", ()=> initAssistant());
+const sbAsstSideItem = document.querySelector('.sb-item[data-page="assistant"]');
+if(sbAsstSideItem) sbAsstSideItem.addEventListener("click", ()=> initAssistant());
 
 /* ==========================================================================
    SUTRA LIVE BACKEND INTEGRATION & FEATURE MODULES
